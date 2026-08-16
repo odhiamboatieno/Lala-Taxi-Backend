@@ -43,6 +43,21 @@
         border-radius: 0 !important;
     }
 
+    /* Align action columns with the filter controls used above every data table. */
+    .admin-app form.row.align-items-end > [class*="col-"].d-flex {
+        align-items: stretch;
+        /* Match the 1.5 line-height label plus its .5rem bottom margin. */
+        padding-top: calc(1.5em + .5rem);
+    }
+
+    .admin-app form.row.align-items-end > [class*="col-"].d-flex > .btn {
+        align-items: center;
+        display: inline-flex;
+        height: calc(1.5em + .75rem + 2px);
+        justify-content: center;
+        white-space: nowrap;
+    }
+
     .dashboard-feedback-modal {
         position: fixed;
         inset: 0;
