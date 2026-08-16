@@ -942,3 +942,66 @@ body.admin-app [class*=" heading"], body.admin-app .font-heading {
 *::after {
   border-radius: 0 !important;
 }
+
+/* ==========================================================================
+   Restore round shapes that were circular before the sharp-corner pass:
+   profile pictures/avatars, status dots, radio inputs, switch handles,
+   spinners and circular indicators. Buttons/pills/cards stay sharp.
+   ========================================================================== */
+:root #admin-page-preloader .admin-preloader-spinner { border-radius: 999px !important; }
+:root .avatar-badge { border-radius: 50% !important; }
+:root .avatar-item { border-radius: 50% !important; }
+:root .avatar-item img { border-radius: 50% !important; }
+:root .avatar-online::before { border-radius: 50% !important; }
+:root .bx-wrapper .bx-pager.bx-default-pager a { border-radius: 50% !important; }
+:root .bx-wrapper .bx-pager.bx-default-pager a.active { border-radius: 50% !important; }
+:root .carousel .carousel-indicators-dots button { border-radius: 50% !important; }
+:root .carousel .carousel-indicators-dots button:after { border-radius: 100% !important; }
+:root .chat .item > img { border-radius: 50% !important; }
+:root .chat-wrapper .avatar-wrapper::before { border-radius: 100% !important; }
+:root .close_style { border-radius: 50% !important; }
+:root .contacts-list-img { border-radius: 50% !important; }
+:root .control-sidebar-menu .menu-icon { border-radius: 50% !important; }
+:root .day-item { border-radius: 100% !important; }
+:root .direct-chat-img { border-radius: 50% !important; }
+:root .fare-estimate__input-connector:after { border-radius: 50% !important; }
+:root .fare-estimate__input-connector:before { border-radius: 50% !important; }
+:root .feature-list li::before { border-radius: 50% !important; }
+:root .filter-accordion .range-input input[type=range]::-webkit-slider-thumb { border-radius: 50% !important; }
+:root .footer-icon-container { border-radius: 50% !important; }
+:root .form-check-input[type=radio] { border-radius: 50% !important; }
+:root .horizontal.timeline3 .steps .step { border-radius: 50% !important; }
+:root .horizontal.timeline3 .steps .step.current:before { border-radius: 50% !important; }
+:root .icon--inactive.icon1--circle { border-radius: 50% !important; }
+:root .icon_profile { border-radius: 50% !important; }
+:root .img--bordered { border-radius: 100% !important; }
+:root .img--circle { border-radius: 50% !important; }
+:root .img-circle { border-radius: 50% !important; }
+:root .lockscreen-image { border-radius: 50% !important; }
+:root .lockscreen-image > img { border-radius: 50% !important; }
+:root .navbar-nav > .user-menu .user-image { border-radius: 50% !important; }
+:root .noUi-horizontal .noUi-handle { border-radius: 100% !important; }
+:root .noUi-target.no-handle-rounded .noUi-handle { border-radius: 50% !important; }
+:root .notif-badge { border-radius: 50% !important; }
+:root .num-circle { border-radius: 50% !important; }
+:root .number-circle-after { border-radius: 50% !important; }
+:root .ops-board__thumb { border-radius: 50% !important; }
+:root .ops-feed__avatar { border-radius: 50% !important; }
+:root .ops-podium__avatar { border-radius: 50% !important; }
+:root .pe-app-sidebar .pe-app-sidebar-menu .pe-slide-sub-menu .pe-nav-link::before { border-radius: 50% !important; }
+:root .rounded-circle { border-radius: 50% !important; }
+:root .small-box .icon { border-radius: 100% !important; }
+:root .spinner-border { border-radius: 50% !important; }
+:root .stage-window-bar span { border-radius: 50% !important; }
+:root .stepper-outline .bs-stepper-circle { border-radius: 100% !important; }
+:root .switch-handle { border-radius: 50% !important; }
+:root .tagify__dropdown.users-list .tagify__dropdown__item__avatar-wrap { border-radius: 50% !important; }
+:root .tagify__tag .tagify__tag__avatar-wrap { border-radius: 50% !important; }
+:root .timeline > li > .ion { border-radius: 50% !important; }
+:root .timeline2 ul .box > span { border-radius: 100% !important; }
+:root .tns-nav [data-nav] { border-radius: 50% !important; }
+:root .tns-nav [data-nav]:after { border-radius: 50% !important; }
+:root .uploadremove { border-radius: 50% !important; }
+:root .users-list > li img { border-radius: 50% !important; }
+:root input[type='radio'] { border-radius: 50% !important; }
+:root input[type='radio']:before { border-radius: 50% !important; }
