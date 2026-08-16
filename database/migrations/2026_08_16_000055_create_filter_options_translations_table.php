@@ -13,8 +13,8 @@ return new class extends Migration
             $table->unsignedInteger('filter_option_id');
             $table->string('name', 255);
             $table->string('locale', 5);
-            $table->timestamp('created_at')->default('current_timestamp()');
-            $table->timestamp('updated_at')->default('current_timestamp()');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
             $table->index('filter_option_id', 'filter_options_translations_filter_option_id_foreign');
         });
     }

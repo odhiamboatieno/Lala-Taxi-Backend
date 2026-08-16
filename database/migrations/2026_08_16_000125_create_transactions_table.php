@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('transaction_id', 255)->nullable();
             $table->string('payment_desc', 255)->nullable();
             $table->enum('status', ['Pending', 'Paid', 'Failed'])->default('Pending');
-            $table->timestamp('created_at')->default('current_timestamp()');
-            $table->timestamp('updated_at')->nullable()->default('NULL ON UPDATE current_timestamp()');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 

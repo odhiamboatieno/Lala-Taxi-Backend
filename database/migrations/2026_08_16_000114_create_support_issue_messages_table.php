@@ -15,8 +15,8 @@ return new class extends Migration
             $table->enum('sender_type', ['rider', 'admin', 'system'])->default('rider');
             $table->text('message');
             $table->timestamp('read_at')->nullable();
-            $table->timestamp('created_at')->nullable()->default('current_timestamp()');
-            $table->timestamp('updated_at')->nullable()->default('current_timestamp() ON UPDATE current_timestamp()');
+            $table->timestamp('created_at')->nullable()->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrent()->useCurrentOnUpdate();
             $table->index(['support_issue_id', 'created_at'], 'idx_support_issue_messages_issue_created');
         });
     }

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->decimal('amount', 11, 2);
             $table->string('pay_for', 120);
             $table->enum('status', ['Pending', 'Paid'])->default('Pending');
-            $table->timestamp('created_at')->default('current_timestamp()');
-            $table->timestamp('updated_at')->nullable()->default('NULL ON UPDATE current_timestamp()');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 

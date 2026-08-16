@@ -13,8 +13,8 @@ return new class extends Migration
             $table->enum('type', ['vehicle', 'rider']);
             $table->integer('object_id');
             $table->unsignedInteger('filter_id');
-            $table->timestamp('created_at')->default('current_timestamp()');
-            $table->timestamp('updated_at')->default('current_timestamp()');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
             $table->index('filter_id', 'filter_objects_filter_id_foreign');
         });
     }

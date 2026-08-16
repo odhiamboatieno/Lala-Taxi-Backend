@@ -26,8 +26,10 @@ RUN composer install \
 # ============================================================================
 FROM php:8.5-fpm-alpine AS runtime
 
-# Minimal system packages required to compile the PHP extensions we need.
-RUN apk add --no-cache \
+# Build dependencies live in a virtual package so they can be removed without
+# taking the runtime shared libraries (libpng, libicu, libzip, ...) that the
+# compiled extensions need to load at runtime.
+RUN apk add --no-cache --virtual .build-deps \
         freetype-dev \
         icu-dev \
         jpeg-dev \
@@ -36,6 +38,14 @@ RUN apk add --no-cache \
         libzip-dev \
         oniguruma-dev \
         linux-headers \
+    && apk add --no-cache \
+        freetype \
+        icu-libs \
+        libjpeg-turbo \
+        libpng \
+        libwebp \
+        libzip \
+        oniguruma \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install \
         bcmath \
@@ -47,15 +57,7 @@ RUN apk add --no-cache \
         pdo_mysql \
         sockets \
         zip \
-    && apk del --no-cache \
-        freetype-dev \
-        icu-dev \
-        jpeg-dev \
-        libpng-dev \
-        libwebp-dev \
-        libzip-dev \
-        oniguruma-dev \
-        linux-headers \
+    && apk del .build-deps \
     && rm -rf /var/cache/apk/* /tmp/*
 
 # Copy the composer binary so we can regenerate the optimized autoloader.

@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('driver_online_sessions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('driver_id');
-            $table->timestamp('started_at')->default('current_timestamp() ON UPDATE current_timestamp()');
+            $table->timestamp('started_at')->useCurrent()->useCurrentOnUpdate();
             $table->timestamp('ended_at')->nullable();
             $table->unsignedInteger('total_seconds')->default('0');
             $table->enum('status', ['open', 'closed'])->default('open');

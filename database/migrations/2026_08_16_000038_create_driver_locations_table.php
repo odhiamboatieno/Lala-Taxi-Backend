@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('heading', 8, 2)->nullable();
             $table->decimal('speed', 8, 2)->nullable();
             $table->decimal('accuracy', 8, 2)->nullable();
-            $table->timestamp('recorded_at')->default('current_timestamp() ON UPDATE current_timestamp()');
+            $table->timestamp('recorded_at')->useCurrent()->useCurrentOnUpdate();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->index('trip_id', 'driver_locations_trip_id_foreign');

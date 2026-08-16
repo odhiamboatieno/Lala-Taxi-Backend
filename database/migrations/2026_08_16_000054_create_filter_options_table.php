@@ -11,8 +11,8 @@ return new class extends Migration
         Schema::create('filter_options', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 255);
-            $table->timestamp('created_at')->default('current_timestamp()');
-            $table->timestamp('updated_at')->default('current_timestamp()');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

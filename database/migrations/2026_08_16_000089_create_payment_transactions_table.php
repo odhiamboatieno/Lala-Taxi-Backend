@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('currency_code', 3);
             $table->text('description');
             $table->unsignedBigInteger('user_id');
-            $table->timestamp('created_at')->nullable()->default('current_timestamp()');
-            $table->timestamp('updated_at')->nullable()->default('\'0000-00-00 00:00:00\' ON UPDATE current_timestamp()');
+            $table->timestamp('created_at')->nullable()->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
             $table->unique('transaction_id', 'transaction_id');
         });
     }

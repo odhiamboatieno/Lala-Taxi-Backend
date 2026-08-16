@@ -21,8 +21,8 @@ return new class extends Migration
             $table->enum('status', ['open', 'in_progress', 'waiting_rider', 'resolved', 'closed'])->default('open');
             $table->timestamp('last_message_at')->nullable();
             $table->timestamp('resolved_at')->nullable();
-            $table->timestamp('created_at')->nullable()->default('current_timestamp()');
-            $table->timestamp('updated_at')->nullable()->default('current_timestamp() ON UPDATE current_timestamp()');
+            $table->timestamp('created_at')->nullable()->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrent()->useCurrentOnUpdate();
             $table->index(['user_id', 'status'], 'idx_support_issues_user_status');
             $table->index('trip_id', 'idx_support_issues_trip_id');
             $table->index(['status', 'last_message_at'], 'idx_support_issues_status_last_message');
