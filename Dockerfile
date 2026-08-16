@@ -42,12 +42,10 @@ RUN apk add --no-cache \
         gd \
         intl \
         mbstring \
-        opcache \
         pcntl \
         pdo_mysql \
         sockets \
         zip \
-    && docker-php-ext-enable opcache \
     && apk del --no-cache \
         freetype-dev \
         icu-dev \
