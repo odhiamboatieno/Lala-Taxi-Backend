@@ -92,7 +92,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url('css/landing-dispatch.css') }}?v={{ $version ?? filemtime(public_path('css/landing-dispatch.css')) }}">
+    <link rel="stylesheet" href="{{ url('css/landing-dispatch.css') }}?v={{ filemtime(public_path('css/landing-dispatch.css')) }}">
   <!-- lalatokens -->
   <link rel="stylesheet" href="{{ url('css/theme.css?v='.filemtime(public_path('css/theme.css'))) }}">
   <script src="{{ url('js/colors.js?v='.filemtime(public_path('js/colors.js'))) }}"></script>
