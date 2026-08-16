@@ -36,7 +36,7 @@ RUN apk add --no-cache \
         libzip-dev \
         oniguruma-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install -j"$(nproc)" \
+    && docker-php-ext-install \
         bcmath \
         exif \
         gd \
