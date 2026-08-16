@@ -7,7 +7,7 @@
     @endphp
     <div class="card">
         <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
                 <div>
                     <h4 class="mb-1">{{ __('messages.admin.manage_support.title') }}</h4>
                     <div class="text-muted">Manage support channels with the same responsive table layout used across the dashboard.</div>
@@ -64,7 +64,7 @@
                             <tr>
                                 <td>#{{ $support->id }}</td>
                                 <td>
-                                    <div class="d-flex align-items-center gap-3">
+                                    <div class="d-flex align-items-end gap-3">
                                         @if($support->image)
                                             <img src="{{ $support->image_src }}" alt="{{ $support->name }}" class="rounded" style="width:42px;height:42px;object-fit:cover;">
                                         @endif

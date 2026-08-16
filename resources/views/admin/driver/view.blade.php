@@ -38,7 +38,7 @@
             <div class="col-xl col-md-6">
                 <div class="card h-100">
                     <div class="card-body">
-                        <div class="rounded-circle bg-{{ $card['tone'] }}-subtle text-{{ $card['tone'] }} d-inline-flex align-items-center justify-content-center mb-3" style="width:56px;height:56px;">
+                        <div class="rounded-circle bg-{{ $card['tone'] }}-subtle text-{{ $card['tone'] }} d-inline-flex align-items-end justify-content-center mb-3" style="width:56px;height:56px;">
                             <i class="{{ $card['icon'] }} fs-3"></i>
                         </div>
                         <div class="display-6 fw-semibold mb-1">{{ $card['value'] }}</div>
@@ -51,7 +51,7 @@
 
     <div class="card mb-4">
         <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
                 <div>
                     <h4 class="mb-1">{{ __('messages.admin.manage_drivers_page.driver_list') }}</h4>
                     <div class="text-muted">{{ __('messages.admin.manage_drivers_page.driver_list_desc') }}</div>
@@ -116,7 +116,7 @@
                             <tr>
                                 <td>{{ $drivers->firstItem() + $index }}</td>
                                 <td>
-                                    <div class="d-flex align-items-center gap-3">
+                                    <div class="d-flex align-items-end gap-3">
                                         <img src="{{ optional($driver->profile_picture)->src ?: url('images/user.jpeg') }}" alt="{{ $driver->first_name }}" class="rounded-circle border" style="width:42px;height:42px;object-fit:cover;">
                                         <div>
                                             <div class="fw-semibold">{{ $driver->first_name }} {{ $driver->last_name }}</div>

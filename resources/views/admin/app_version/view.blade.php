@@ -4,7 +4,7 @@
 <div id="layout-wrapper">
     <div class="card">
         <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
                 <div>
                     <h4 class="mb-1">{{ __('messages.admin.manage_mobile_app_version.title') }}</h4>
                     <div class="text-muted">Track rider and driver app releases without the old DataTables dependency.</div>

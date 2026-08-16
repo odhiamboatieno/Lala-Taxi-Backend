@@ -3,7 +3,7 @@
 @section('main')
 <div id="layout-wrapper">
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="card-header d-flex justify-content-between align-items-end flex-wrap gap-3">
             <div>
                 <h4 class="mb-1">{{ __('messages.admin.manage_trips.manage_ride_requests') }}</h4>
                 <div class="text-muted">Monitor rider requests, dispatch state, and payment progress.</div>

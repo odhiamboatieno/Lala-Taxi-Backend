@@ -4,7 +4,7 @@
 <div id="layout-wrapper">
     <div class="card">
         <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
                 <div>
                     <h4 class="mb-1">{{ __('messages.admin.manage_help.help') }}</h4>
                     <div class="text-muted">Search and maintain FAQ content with the same custom responsive table used across admin.</div>

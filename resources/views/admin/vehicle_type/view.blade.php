@@ -29,7 +29,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header d-flex align-items-center flex-wrap gap-2">
+                <div class="card-header d-flex align-items-end flex-wrap gap-2">
                     <div class="flex-grow-1">
                         <h5 class="card-title mb-1">{{ __('messages.admin.manage_vehicle_type.title') }}</h5>
                         <div class="text-muted small">
@@ -83,7 +83,7 @@
                                     <tr>
                                         <td>{{ $vehicleTypes->firstItem() + $index }}</td>
                                         <td>
-                                            <div class="d-flex align-items-center gap-3">
+                                            <div class="d-flex align-items-end gap-3">
                                                 <img src="{{ $vehicleType->vehicle_image }}" alt="{{ $vehicleType->car_name }}" style="width:44px;height:44px;object-fit:contain;">
                                                 <div>
                                                     <div class="fw-semibold">{{ $vehicleType->car_name }}</div>

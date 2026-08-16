@@ -6,7 +6,7 @@
 @section('main')
 <div id="layout-wrapper">
     <div class="card">
-        <div class="card-header d-flex flex-wrap gap-3 align-items-center">
+        <div class="card-header d-flex flex-wrap gap-3 align-items-end">
             <div class="flex-grow-1">
                 <h4 class="mb-1">Company onboarding requests</h4>
                 <div class="text-muted">Review draft, pending, approved, rejected, and suspended operator onboarding records from one queue.</div>

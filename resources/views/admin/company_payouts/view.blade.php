@@ -3,7 +3,7 @@
 @section('main')
 <div id="layout-wrapper">
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="card-header d-flex justify-content-between align-items-end flex-wrap gap-3">
             <div>
                 <h4 class="mb-1">{{ isset($payout_title) ? $payout_title : __('messages.admin.manage_payouts.company_payouts') }}</h4>
                 <div class="text-muted">Review grouped company payout records without DataTables.</div>

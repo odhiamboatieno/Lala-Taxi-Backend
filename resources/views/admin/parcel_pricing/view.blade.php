@@ -6,7 +6,7 @@
 @section('main')
 <div id="layout-wrapper">
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="card-header d-flex justify-content-between align-items-end flex-wrap gap-3">
             <div>
                 <h4 class="mb-1">Parcel Pricing</h4>
                 <div class="text-muted">Review parcel fare rules by category, vehicle type, and zone.</div>

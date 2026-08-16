@@ -35,7 +35,7 @@
                                     <span class="badge bg-warning-subtle text-warning ms-1" title="This level inherits from the admin-configured level of the same name.">Inherited</span>
                                 @endif
                             </div>
-                            <div class="rounded-circle bg-primary-subtle text-primary d-inline-flex align-items-center justify-content-center" style="width:52px;height:52px;">
+                            <div class="rounded-circle bg-primary-subtle text-primary d-inline-flex align-items-end justify-content-center" style="width:52px;height:52px;">
                                 <i class="{{ $card['icon'] ?: config('user_levels.types.driver.icon') }} fs-4"></i>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="border rounded-3 p-3 h-100 d-flex justify-content-between align-items-start gap-3">
                                 <div>
-                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                    <div class="d-flex align-items-end gap-2 mb-1">
                                         <i class="{{ $adminLevel->icon ?: config('user_levels.types.driver.icon') }} text-primary"></i>
                                         <strong>{{ $adminLevel->name }}</strong>
                                     </div>
@@ -131,8 +131,8 @@
                             <tr>
                                 <td>{{ $levels->firstItem() + $index }}</td>
                                 <td>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="rounded-circle bg-primary-subtle text-primary d-inline-flex align-items-center justify-content-center" style="width:46px;height:46px;">
+                                    <div class="d-flex align-items-end gap-3">
+                                        <div class="rounded-circle bg-primary-subtle text-primary d-inline-flex align-items-end justify-content-center" style="width:46px;height:46px;">
                                             <i class="{{ $effectiveIcon ?: config('user_levels.types.driver.icon') }}"></i>
                                         </div>
                                         <div>

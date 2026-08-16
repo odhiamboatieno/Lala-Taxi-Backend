@@ -3,7 +3,7 @@
 @section('main')
 <div id="layout-wrapper">
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="card-header d-flex justify-content-between align-items-end flex-wrap gap-3">
             <div>
                 <h4 class="mb-1">{{ $main_title ?? __('messages.admin.referrals.title') }}</h4>
                 <div class="text-muted">Track referral earnings and pending balances for {{ strtolower($user_type) }}s.</div>

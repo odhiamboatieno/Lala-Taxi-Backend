@@ -4,7 +4,7 @@
 <div id="layout-wrapper">
     <div class="card">
         <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
                 <div>
                     <h4 class="mb-1">{{ __('messages.admin.manage_statements.drivers') }}</h4>
                     <div class="text-muted">Review driver statement summaries with server-rendered search and pagination.</div>

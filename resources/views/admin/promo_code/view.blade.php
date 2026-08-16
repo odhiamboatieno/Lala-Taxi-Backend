@@ -3,7 +3,7 @@
 @section('main')
 <div id="layout-wrapper">
     <div class="card">
-        <div class="card-header d-flex align-items-center flex-wrap gap-2">
+        <div class="card-header d-flex align-items-end flex-wrap gap-2">
             <h5 class="card-title mb-0 flex-grow-1">{{ __('messages.admin.manage_wallet_and_promo.promo_code') }}</h5>
             @if(optional(Auth::guard('admin')->user())->can('create_promo_code'))
                 <div class="ms-auto">

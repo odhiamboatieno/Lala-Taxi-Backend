@@ -3,7 +3,7 @@
 @section('main')
 <div id="layout-wrapper">
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="card-header d-flex justify-content-between align-items-end flex-wrap gap-3">
             <div>
                 <h4 class="mb-1">{{ __('messages.blade_static.admin_users_management_715217a5') }}</h4>
                 <div class="text-muted">Manage internal admin users with a standard paginated table.</div>

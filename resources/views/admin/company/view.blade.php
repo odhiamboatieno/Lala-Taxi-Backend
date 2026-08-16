@@ -6,7 +6,7 @@
 @section('main')
 <div id="layout-wrapper">
     <div class="card">
-        <div class="card-header d-flex align-items-center flex-wrap gap-3">
+        <div class="card-header d-flex align-items-end flex-wrap gap-3">
             <div class="flex-grow-1">
                 <h4 class="mb-1">Manage Companies</h4>
                 <div class="text-muted">Review operator accounts, driver totals, contact information, and company status.</div>

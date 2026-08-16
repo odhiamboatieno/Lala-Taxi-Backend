@@ -7,7 +7,7 @@
     @endphp
     <div class="card">
         <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
                 <div>
                     <h4 class="mb-1">{{ __('messages.blade_static.manage_banners_ec8d2e20') }}</h4>
                     <div class="text-muted">Review promotional banners with a simpler responsive listing and quick actions.</div>
@@ -64,7 +64,7 @@
                             <tr>
                                 <td>#{{ $banner->id }}</td>
                                 <td>
-                                    <div class="d-flex align-items-center gap-3">
+                                    <div class="d-flex align-items-end gap-3">
                                         @if($banner->image)
                                             <img src="{{ $banner->image_src }}" alt="{{ $banner->name }}" class="rounded" style="width:56px;height:42px;object-fit:cover;">
                                         @endif

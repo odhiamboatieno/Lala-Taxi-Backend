@@ -3,7 +3,7 @@
 @section('main')
 <div id="layout-wrapper">
     <div class="card">
-        <div class="card-header d-flex align-items-center flex-wrap gap-2">
+        <div class="card-header d-flex align-items-end flex-wrap gap-2">
             <h5 class="card-title mb-0 flex-grow-1">{{ $main_title ?? __('messages.admin.manage_wallet_and_promo.wallet') }}</h5>
             <div class="ms-auto">
                 <a class="btn btn-success" href="{{ route('add_wallet', ['user_type' => $user_type]) }}"><i class="bi bi-plus-circle me-1"></i>{{ __('messages.admin.manage_wallet_and_promo.add_wallet') }}</a>
