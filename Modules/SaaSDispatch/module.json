@@ -1,0 +1,13 @@
+{
+    "name": "SaaSDispatch",
+    "alias": "saasdispatch",
+    "description": "Standalone SaaS dispatch module for multi-company dispatch operations.",
+    "keywords": ["laravel", "module", "dispatch", "saas"],
+    "priority": 0,
+    "providers": [
+        "Modules\\SaaSDispatch\\Providers\\SaaSDispatchServiceProvider"
+    ],
+    "files": [
+        "Helpers/helpers.php"
+    ]
+}

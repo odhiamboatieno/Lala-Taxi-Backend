@@ -1,0 +1,10 @@
+{
+    "name": "UserLevels",
+    "alias": "userlevels",
+    "description": "Driver and customer level management for admin and SaaS operators.",
+    "active": 1,
+    "order": 30,
+    "providers": [
+        "Modules\\UserLevels\\Providers\\UserLevelsServiceProvider"
+    ]
+}

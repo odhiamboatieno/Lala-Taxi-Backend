@@ -1,0 +1,136 @@
+/* Admin compatibility layer for the modern dashboard shell. */
+:root {
+    --admin-preloader-bg: rgba(248, 250, 252, .92);
+    --admin-table-bg: #fff;
+    --admin-table-text: #111827;
+    --admin-table-muted: #64748b;
+    --admin-table-border: #e5e7eb;
+    --admin-table-head: #f8fafc;
+    --admin-table-hover: #f1f5f9;
+}
+
+[data-bs-theme="dark"],
+[data-theme="dark"],
+body.dark,
+body[data-sidebar-color="dark"] {
+    --admin-preloader-bg: rgba(2, 6, 23, .86);
+    --admin-table-bg: #0f172a;
+    --admin-table-text: #e5e7eb;
+    --admin-table-muted: #94a3b8;
+    --admin-table-border: rgba(148, 163, 184, .22);
+    --admin-table-head: #111827;
+    --admin-table-hover: rgba(30, 41, 59, .8);
+}
+
+#admin-page-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    display: grid;
+    place-items: center;
+    background: var(--admin-preloader-bg);
+    backdrop-filter: blur(10px);
+    transition: opacity .28s ease, visibility .28s ease;
+}
+
+#admin-page-preloader.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+#admin-page-preloader .admin-preloader-spinner {
+    width: 58px;
+    height: 58px;
+    border-radius: 999px;
+    border: 4px solid rgba(20, 184, 166, .16);
+    border-top-color: #14b8a6;
+    border-right-color: #0f766e;
+    animation: adminPreloaderSpin .72s linear infinite;
+    box-shadow: 0 18px 50px rgba(20, 184, 166, .2);
+}
+
+@keyframes adminPreloaderSpin {
+    to { transform: rotate(360deg); }
+}
+
+.card .table,
+.dataTable,
+.table-responsive .table {
+    --bs-table-bg: var(--admin-table-bg);
+    --bs-table-color: var(--admin-table-text);
+    --bs-table-border-color: var(--admin-table-border);
+    color: var(--admin-table-text) !important;
+    background: var(--admin-table-bg) !important;
+}
+
+.table > :not(caption) > * > *,
+.dataTable > :not(caption) > * > * {
+    color: var(--admin-table-text) !important;
+    background-color: transparent !important;
+    border-color: var(--admin-table-border) !important;
+}
+
+.table thead th,
+.dataTable thead th {
+    color: var(--admin-table-text) !important;
+    background: var(--admin-table-head) !important;
+    border-color: var(--admin-table-border) !important;
+    font-weight: 700;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > *,
+.dataTable.table-striped > tbody > tr:nth-of-type(odd) > * {
+    --bs-table-accent-bg: rgba(148, 163, 184, .06);
+}
+
+.table-hover > tbody > tr:hover > *,
+.dataTable.table-hover > tbody > tr:hover > * {
+    --bs-table-accent-bg: var(--admin-table-hover);
+    color: var(--admin-table-text) !important;
+}
+
+.dataTables_wrapper,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_length label,
+.dataTables_wrapper .dataTables_filter label {
+    color: var(--admin-table-muted) !important;
+}
+
+.dataTables_wrapper .form-control,
+.dataTables_wrapper .form-select,
+.dataTables_wrapper input,
+.dataTables_wrapper select {
+    color: var(--admin-table-text) !important;
+    background-color: var(--admin-table-bg) !important;
+    border-color: var(--admin-table-border) !important;
+}
+
+.dataTables_wrapper .paginate_button,
+.dataTables_wrapper .pagination .page-link {
+    color: var(--admin-table-text) !important;
+    background: var(--admin-table-bg) !important;
+    border-color: var(--admin-table-border) !important;
+}
+
+.dataTables_wrapper .pagination .active .page-link,
+.dataTables_wrapper .paginate_button.current {
+    color: #fff !important;
+    background: #14b8a6 !important;
+    border-color: #14b8a6 !important;
+}
+
+.table-responsive {
+    border-radius: 1rem;
+}
+
+@media (max-width: 768px) {
+    .dataTables_wrapper .row {
+        gap: .75rem;
+    }
+
+    .dataTables_wrapper .dataTables_filter,
+    .dataTables_wrapper .dataTables_length {
+        text-align: left !important;
+    }
+}

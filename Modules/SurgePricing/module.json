@@ -1,0 +1,11 @@
+{
+    "name": "SurgePricing",
+    "alias": "surgepricing",
+    "description": "Scheduled surge pricing for rides and parcels",
+    "keywords": ["surge", "pricing", "time based", "parcel", "ride"],
+    "priority": 0,
+    "providers": [
+        "Modules\\SurgePricing\\Providers\\SurgePricingServiceProvider"
+    ],
+    "files": []
+}

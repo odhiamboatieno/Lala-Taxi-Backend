@@ -1,0 +1,40 @@
+# Laravel / PHP
+/vendor
+/composer
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+.env
+.env.backup
+.env.production
+.env.local
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+
+# Runtime / deployment artifacts
+/storage/installed
+public/key.txt
+public/key_backup.txt
+public/otp.txt
+public/error_log
+/public/trip_file/*
+/public/build_logs
+
+# Editor / OS
+/.idea
+/.vscode
+/.fleet
+.DS_Store
+*.swp
+*.swo
+*.iml
+
+# Logs
+*.log

@@ -1,0 +1,342 @@
+.dashboard-shell-body {
+  background:
+    radial-gradient(circle at top left, rgba(197, 95, 54, 0.16), transparent 26%),
+    radial-gradient(circle at top right, rgba(31, 108, 125, 0.14), transparent 24%),
+    linear-gradient(180deg, #f7f4ee 0%, #ece6db 100%);
+  color: #20262f;
+  font-family: "Gill Sans", "Trebuchet MS", sans-serif;
+}
+
+.dashboard-shell-body .dashboard-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background:
+    linear-gradient(135deg, rgba(24, 33, 45, 0.92), rgba(31, 62, 79, 0.9)) !important;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 36px rgba(24, 33, 45, 0.16);
+}
+
+.dashboard-shell-body .dashboard-topbar .container-fluid {
+  padding: 14px 24px;
+}
+
+.dashboard-shell-body .dash-head-logo,
+.dashboard-shell-body .logo-link img {
+  height: 52px !important;
+  width: auto !important;
+  max-width: 180px;
+  object-fit: contain;
+  border-radius: 16px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.12);
+}
+
+.dashboard-shell-body .nav--block > li > a,
+.dashboard-shell-body .site-nav a,
+.dashboard-shell-body .menu-a {
+  color: #f5f7fa !important;
+}
+
+.dashboard-shell-body .flyout__content,
+.dashboard-shell-body .nav-div {
+  background: linear-gradient(180deg, #213344 0%, #1a2430 100%) !important;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+}
+
+.dashboard-shell-body .flash-container .alert {
+  border: 0;
+  border-radius: 18px;
+  box-shadow: 0 18px 34px rgba(34, 42, 58, 0.14);
+}
+
+.dashboard-shell-body .dashboard-main {
+  padding: 26px 24px 48px;
+}
+
+.dashboard-shell-body .dashboard-frame {
+  width: 100%;
+  max-width: 100%;
+}
+
+.dashboard-shell-body .page-sidebar {
+  position: sticky;
+  top: 110px;
+  border-radius: 30px;
+  padding: 26px 18px !important;
+  background:
+    linear-gradient(180deg, rgba(32, 48, 64, 0.96), rgba(23, 33, 44, 0.96)) !important;
+  box-shadow: 0 30px 60px rgba(28, 35, 46, 0.2);
+}
+
+.dashboard-shell-body .page-sidebar .site-nav {
+  margin: 0;
+}
+
+.dashboard-shell-body .page-sidebar .site-nav > li {
+  margin-bottom: 8px;
+}
+
+.dashboard-shell-body .page-sidebar .site-nav > li > a,
+.dashboard-shell-body .page-sidebar .side-nav-a,
+.dashboard-shell-body .page-sidebar .sidenav-item {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  color: rgba(245,247,250,0.84) !important;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.dashboard-shell-body .page-sidebar .site-nav > li > a:hover,
+.dashboard-shell-body .page-sidebar .side-nav-a:hover,
+.dashboard-shell-body .page-sidebar .sidenav-item:hover,
+.dashboard-shell-body .page-sidebar a[aria-selected="true"] {
+  background: linear-gradient(135deg, #c55f36, #8f3e16);
+  color: #fff !important;
+  box-shadow: 0 16px 30px rgba(143, 62, 22, 0.22);
+}
+
+.dashboard-shell-body .page-sidebar .dropdown-container {
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.05);
+}
+
+.dashboard-shell-body .page-sidebar .text--center > div,
+.dashboard-shell-body .text--normal {
+  color: #fff !important;
+}
+
+.dashboard-shell-body .page-content {
+  padding-left: 26px !important;
+}
+
+.dashboard-shell-body .page-content > div:first-child,
+.dashboard-shell-body .page-content form,
+.dashboard-shell-body .more-table-trips,
+.dashboard-shell-body .guest-drive-payment,
+.dashboard-shell-body .paymentpage,
+.dashboard-shell-body .pay_period_details,
+.dashboard-shell-body .parter-info,
+.dashboard-shell-body .trip-filters,
+.dashboard-shell-body .page-lead {
+  border-radius: 28px;
+}
+
+.dashboard-shell-body .page-lead,
+.dashboard-shell-body .trip-filters,
+.dashboard-shell-body .parter-info,
+.dashboard-shell-body .guest-drive-payment,
+.dashboard-shell-body .paymentpage,
+.dashboard-shell-body .pay_period_details,
+.dashboard-shell-body .more-table-trips,
+.dashboard-shell-body #no-more-tables {
+  background: rgba(255, 251, 246, 0.88);
+  border: 1px solid rgba(112, 88, 66, 0.14);
+  box-shadow: 0 24px 60px rgba(72, 48, 28, 0.12);
+}
+
+.dashboard-shell-body .page-lead,
+.dashboard-shell-body .trip-filters,
+.dashboard-shell-body .more-table-trips,
+.dashboard-shell-body .guest-drive-payment {
+  padding: 22px !important;
+}
+
+.dashboard-shell-body .parter-info,
+.dashboard-shell-body .pay_period_details {
+  padding: 22px 18px !important;
+  margin-bottom: 18px;
+}
+
+.dashboard-shell-body .cls_profiletitle,
+.dashboard-shell-body .flush-h1,
+.dashboard-shell-body .flush-h2,
+.dashboard-shell-body .page-lead h1 {
+  margin: 0;
+  color: #18222d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.dashboard-shell-body h2.flush-h2 {
+  font-size: 24px;
+}
+
+.dashboard-shell-body ._style_3vhmZK,
+.dashboard-shell-body .form-control,
+.dashboard-shell-body select,
+.dashboard-shell-body input[type="text"],
+.dashboard-shell-body input[type="email"],
+.dashboard-shell-body input[type="button"],
+.dashboard-shell-body input[type="number"] {
+  min-height: 48px;
+  border-radius: 16px !important;
+  border: 1px solid rgba(112, 88, 66, 0.16) !important;
+  background: rgba(255,255,255,0.92) !important;
+  color: #1f2a36 !important;
+  box-shadow: none !important;
+}
+
+.dashboard-shell-body textarea {
+  border-radius: 18px !important;
+}
+
+.dashboard-shell-body label,
+.dashboard-shell-body small,
+.dashboard-shell-body .color--neutral {
+  color: #596171 !important;
+}
+
+.dashboard-shell-body .btn,
+.dashboard-shell-body .btn-input,
+.dashboard-shell-body .btn-blue,
+.dashboard-shell-body .doc-button,
+.dashboard-shell-body button[type="submit"],
+.dashboard-shell-body input[type="button"] {
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #c55f36, #8f3e16) !important;
+  color: #fff !important;
+  font-weight: 700;
+  box-shadow: 0 18px 34px rgba(143, 62, 22, 0.2);
+}
+
+.dashboard-shell-body .btn:hover,
+.dashboard-shell-body .btn-input:hover,
+.dashboard-shell-body button[type="submit"]:hover,
+.dashboard-shell-body input[type="button"]:hover {
+  transform: translateY(-1px);
+}
+
+.dashboard-shell-body .trip-filter__origin-link,
+.dashboard-shell-body .trip-filter__origin-btn {
+  background: linear-gradient(135deg, #1c6c7c, #174956) !important;
+}
+
+.dashboard-shell-body table,
+.dashboard-shell-body .cls_table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+.dashboard-shell-body table thead th,
+.dashboard-shell-body .cls_table thead th {
+  background: rgba(28, 108, 124, 0.08);
+  color: #22444d;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(28,108,124,0.12);
+}
+
+.dashboard-shell-body table td,
+.dashboard-shell-body table th {
+  padding: 14px 12px;
+  border-top: 1px solid rgba(112, 88, 66, 0.08);
+  vertical-align: middle;
+}
+
+.dashboard-shell-body table tbody tr:hover {
+  background: rgba(197, 95, 54, 0.05);
+}
+
+.dashboard-shell-body .trip-expand,
+.dashboard-shell-body .trip-expand__origin,
+.dashboard-shell-body .filtertrip,
+.dashboard-shell-body .earning_period_details,
+.dashboard-shell-body .paymentpage {
+  border-radius: 20px;
+}
+
+.dashboard-shell-body .bor-left {
+  padding: 16px 18px;
+  border-left: 4px solid #1c6c7c;
+  border-radius: 18px;
+  background: rgba(28, 108, 124, 0.06);
+}
+
+.dashboard-shell-body .pagination,
+.dashboard-shell-body .results_count {
+  background: transparent !important;
+}
+
+.dashboard-shell-body .pagination a,
+.dashboard-shell-body .pagination span,
+.dashboard-shell-body posts-pagination a,
+.dashboard-shell-body posts-pagination span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  min-height: 42px;
+  margin-left: 8px;
+  border-radius: 999px;
+  background: rgba(31, 42, 54, 0.08);
+  color: #1f2a36;
+}
+
+.dashboard-shell-body .modal-content {
+  border: 1px solid rgba(112, 88, 66, 0.14);
+  border-radius: 24px;
+  box-shadow: 0 30px 60px rgba(36, 42, 54, 0.16);
+}
+
+.dashboard-shell-body .panel-header {
+  border-radius: 24px 24px 0 0;
+  background: linear-gradient(135deg, #1c6c7c, #174956);
+  color: #fff;
+}
+
+.dashboard-shell-body .driver-avatar,
+.dashboard-shell-body .head_profile,
+.dashboard-shell-body .img--circle {
+  box-shadow: 0 16px 30px rgba(31, 42, 54, 0.16);
+}
+
+@media (max-width: 991px) {
+  .dashboard-shell-body .dashboard-main {
+    padding: 18px 14px 34px;
+  }
+
+  .dashboard-shell-body .page-content {
+    padding-left: 0 !important;
+  }
+
+  .dashboard-shell-body .page-sidebar {
+    position: static;
+    margin-bottom: 18px;
+  }
+
+  .dashboard-shell-body .cls_profiletitle,
+  .dashboard-shell-body .flush-h1,
+  .dashboard-shell-body .page-lead h1 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  .dashboard-shell-body .dashboard-topbar .container-fluid {
+    padding: 12px 14px;
+  }
+
+  .dashboard-shell-body .page-lead,
+  .dashboard-shell-body .trip-filters,
+  .dashboard-shell-body .more-table-trips,
+  .dashboard-shell-body .guest-drive-payment,
+  .dashboard-shell-body .parter-info,
+  .dashboard-shell-body .pay_period_details {
+    padding: 16px !important;
+  }
+}

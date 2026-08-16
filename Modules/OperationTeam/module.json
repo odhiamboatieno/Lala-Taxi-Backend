@@ -1,0 +1,11 @@
+{
+    "name": "OperationTeam",
+    "alias": "operationteam",
+    "description": "Company operation team roles and employees module",
+    "keywords": ["company", "employees", "roles", "team"],
+    "priority": 0,
+    "providers": [
+        "Modules\\OperationTeam\\Providers\\OperationTeamServiceProvider"
+    ],
+    "files": []
+}

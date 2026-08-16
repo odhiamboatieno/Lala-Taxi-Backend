@@ -1,0 +1,11 @@
+{
+    "name": "ManualBooking",
+    "alias": "manualbooking",
+    "description": "Manual booking and later booking module",
+    "keywords": ["manual booking", "later booking", "dispatch"],
+    "priority": 0,
+    "providers": [
+        "Modules\\ManualBooking\\Providers\\ManualBookingServiceProvider"
+    ],
+    "files": []
+}

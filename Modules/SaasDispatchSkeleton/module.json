@@ -1,0 +1,10 @@
+{
+    "name": "SaasDispatch",
+    "alias": "saasdispatch",
+    "description": "SaaS dispatch and multi-company operations module (skeleton).",
+    "version": "1.0.0",
+    "author": "WiTaxi",
+    "providers": [
+        "Modules\\SaasDispatch\\Providers\\SaasDispatchServiceProvider"
+    ]
+}

@@ -1,2 +1,2 @@
-# Lala-Taxi-Backend
-Laravel Codebase for Lala Taxi - Kenyan Taxi Booking app
+# Witaxi-Backend
+Laravel Code Code for Witaxi App Web and Admin Panel.

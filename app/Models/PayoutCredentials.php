@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * Payout Credentials Model
+ *
+ * @package     Witaxi
+ * @subpackage  Model
+ * @category    Payout Credentials
+ * @author      Wilaso
+ * @version     4.0.0
+ * @link        https://Wilaso.com
+ */
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class PayoutCredentials extends Model
+{
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['user_id', 'type'];
+
+    // Return the drivers default payout_preference details
+    public function payout_preference()
+    {
+        return $this->belongsTo(\App\Models\PayoutPreference::class,'preference_id','id');
+    }
+
+    // Join with users table
+	public function users()
+    {
+		return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
+	}
+}
