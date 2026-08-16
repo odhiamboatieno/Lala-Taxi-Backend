@@ -3,7 +3,7 @@
 /**
  * Site Settings Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Site Settings
  * @author      Wilaso

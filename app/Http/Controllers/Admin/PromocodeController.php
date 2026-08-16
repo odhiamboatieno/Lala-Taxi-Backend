@@ -3,7 +3,7 @@
 /**
  * Promo Code Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Promo Code
  * @author      Wilaso

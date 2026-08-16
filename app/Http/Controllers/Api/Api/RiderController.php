@@ -3,7 +3,7 @@
 /**
  * Rider Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Rider
  * @author      Wilaso

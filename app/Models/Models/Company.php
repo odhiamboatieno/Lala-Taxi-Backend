@@ -3,7 +3,7 @@
 /**
  * Company Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Company
  * @author      Wilaso

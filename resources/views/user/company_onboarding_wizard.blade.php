@@ -137,7 +137,7 @@
             @endif
             @if($currentStep === 'company-details')
                 <h2>Company details</h2>
-                <p class="onboarding-copy">Tell us about the operator account you are creating. These details shape the review experience and the company profile that appears inside WiTaxi.</p>
+                <p class="onboarding-copy">Tell us about the operator account you are creating. These details shape the review experience and the company profile that appears inside LalaTaxi.</p>
                 {!! Form::open(['url' => 'company/onboarding/step/company-details']) !!}
                     <div class="field-grid">
                         <div class="field">

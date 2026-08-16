@@ -3,7 +3,7 @@
 /**
  * Api Credentials Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Api Credentials
  * @author      Wilaso

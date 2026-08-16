@@ -3,7 +3,7 @@
 /**
  * Payments Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Payments
  * @author      Wilaso

@@ -3,7 +3,7 @@
 /**
  * Documents Translation Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Documents Translation
  * @author      Wilaso

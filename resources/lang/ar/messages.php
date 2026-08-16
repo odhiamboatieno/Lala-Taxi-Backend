@@ -1457,7 +1457,7 @@ return [
 			'usage' => 'Usage',
 			'ride_hero' => 'Ride Hero',
 			'ride_smarter' => 'Ride smarter',
-			'book_faster' => 'Book faster with WiTaxi',
+			'book_faster' => 'Book faster with LalaTaxi',
 			'ride_parcel_action' => 'ride / parcel action',
 			'ride_description' => '<strong>Ride</strong> banners show in the rider home "Ride smarter" section.',
 			'parcel_description' => '<strong>Parcel</strong> banners show in the deliveries section below it.',

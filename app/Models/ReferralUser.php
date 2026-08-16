@@ -3,7 +3,7 @@
 /**
  * Referral User Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Referral User
  * @author      Wilaso

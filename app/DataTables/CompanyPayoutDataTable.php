@@ -3,7 +3,7 @@
 /**
  * Company Payouts DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Company Payouts
  * @author      Source Monster Team

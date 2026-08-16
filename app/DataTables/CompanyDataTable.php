@@ -3,7 +3,7 @@
 /**
  * Company DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Company
  * @author      Source Monster Team

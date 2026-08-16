@@ -3,7 +3,7 @@
 /**
  * Vehicle Type Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Vehicle Type
  * @author      Wilaso

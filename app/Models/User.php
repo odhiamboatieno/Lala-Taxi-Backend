@@ -3,7 +3,7 @@
 /**
  * User Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    User
  * @author      Wilaso

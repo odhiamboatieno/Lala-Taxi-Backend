@@ -3,7 +3,7 @@
 /**
  * Flutterwave Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Payment
  * @author      Wilaso

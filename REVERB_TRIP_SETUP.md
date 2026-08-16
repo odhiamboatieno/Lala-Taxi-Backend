@@ -33,13 +33,13 @@ For production, replace `localhost`, keys, and secrets with real values and swit
 Production example for a public domain:
 
 ```env
-APP_URL=https://witaxi.wilaso.com
+APP_URL=https://lalataxi.wilaso.com
 
 REVERB_APP_ID=taxi-dispatch
 REVERB_APP_KEY=taxi-dispatch-key
 REVERB_APP_SECRET=taxi-dispatch-secret
 
-REVERB_HOST=witaxi.wilaso.com
+REVERB_HOST=lalataxi.wilaso.com
 REVERB_PORT=443
 REVERB_SCHEME=https
 REVERB_SERVER_HOST=0.0.0.0
@@ -103,19 +103,19 @@ Also ensure Redis is running before `queue:work` and Reverb start, and that the 
 
 The Flutter apps read these Dart defines:
 
-- `WITAXI_API_BASE_URL`
-- `WITAXI_REVERB_KEY`
-- `WITAXI_REVERB_CLUSTER`
-- `WITAXI_REVERB_HOST`
-- `WITAXI_REVERB_WS_PORT`
-- `WITAXI_REVERB_WSS_PORT`
-- `WITAXI_REVERB_SCHEME`
+- `LALATAXI_API_BASE_URL`
+- `LALATAXI_REVERB_KEY`
+- `LALATAXI_REVERB_CLUSTER`
+- `LALATAXI_REVERB_HOST`
+- `LALATAXI_REVERB_WS_PORT`
+- `LALATAXI_REVERB_WSS_PORT`
+- `LALATAXI_REVERB_SCHEME`
 
 Required match:
 
-- `WITAXI_REVERB_KEY == REVERB_APP_KEY`
+- `LALATAXI_REVERB_KEY == REVERB_APP_KEY`
 - host/port/scheme must point to the Reverb server reachable by the device
-- `WITAXI_API_BASE_URL` must expose `/api/broadcasting/auth`
+- `LALATAXI_API_BASE_URL` must expose `/api/broadcasting/auth`
 
 ### 6. Channel names used by this codebase
 

@@ -46,9 +46,9 @@ class Helpers
             return $metas->first()->$field;
         else if($url == 'app/{type}'){
             if(request()->type=='user')
-                return 'Witaxi Driver App';
+                return 'LalaTaxi Driver App';
             else
-                return 'Witaxi User App';
+                return 'LalaTaxi User App';
         }
         else if($field == 'title')
             return 'Page Not Found';

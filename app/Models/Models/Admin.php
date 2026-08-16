@@ -3,7 +3,7 @@
 /**
  * Admin Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Admin
  * @author      Wilaso

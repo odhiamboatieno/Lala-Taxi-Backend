@@ -3,7 +3,7 @@
 /**
  * Payment Interface
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Contracts
  * @category    Payment Interface
  * @author      Wilaso

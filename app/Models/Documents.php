@@ -3,7 +3,7 @@
 /**
 * Documents Model
 *
-* @package     Witaxi
+* @package     LalaTaxi
 * @subpackage  Controller
 * @category    Documents
 * @author      Wilaso

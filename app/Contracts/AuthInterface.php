@@ -3,7 +3,7 @@
 /**
  * Auth Interface
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Contracts
  * @category    Auth Interface
  * @author      Wilaso

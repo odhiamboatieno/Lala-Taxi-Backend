@@ -3,7 +3,7 @@
 /**
  * Pages Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Pages
  * @author      Wilaso

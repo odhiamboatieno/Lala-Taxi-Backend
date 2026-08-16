@@ -3,7 +3,7 @@
 /**
  * Rating DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Rating
  * @author      Source Monster Team

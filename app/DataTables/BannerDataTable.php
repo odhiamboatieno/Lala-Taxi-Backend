@@ -3,7 +3,7 @@
 /**
  * Banner DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Banner
  * @author      Wilaso

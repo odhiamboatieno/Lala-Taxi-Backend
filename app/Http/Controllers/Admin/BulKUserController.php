@@ -74,9 +74,9 @@ class BulKUserController extends Controller
                 $city = 'Madurai';
                 $state = 'tamilnadu';
                 $postalCode = '625001';
-                $license_front =  asset('/images/Witaxi_logo.png');
+                $license_front =  asset('/images/LalaTaxi_logo.png');
                 $license_front_status = '';
-                $license_back = asset('/images/Witaxi_logo.png');; ;
+                $license_back = asset('/images/LalaTaxi_logo.png');; ;
                 $license_back_status = '';
                 $expire_date = '2030-11-13';
                 $license_status = '' ;
@@ -99,7 +99,7 @@ class BulKUserController extends Controller
                             $driver_document->type          = 'Driver';
                             $driver_document->vehicle_id    = 0;
                             $driver_document->document_id   = $documents->id;    
-                            $filename = asset('/images/Witaxi_logo.png');
+                            $filename = asset('/images/LalaTaxi_logo.png');
                             $driver_document->document = $filename;
                             if($documents->expiry_required) {
                                 $driver_document->expired_date  = \Carbon\Carbon::now()->format('Y-m-d');
@@ -146,7 +146,7 @@ class BulKUserController extends Controller
                             $vehicle_document->type          = 'Vehicle';
                             $vehicle_document->vehicle_id    = $vehicle->id;
                             $vehicle_document->document_id   = $documents->id;    
-                            $filename = asset('/images/Witaxi_logo.png');
+                            $filename = asset('/images/LalaTaxi_logo.png');
                             $vehicle_document->document = $filename;
                             if($documents->expiry_required) {
                                 $vehicle_document->expired_date  = \Carbon\Carbon::now()->format('Y-m-d');

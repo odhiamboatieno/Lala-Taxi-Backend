@@ -3,7 +3,7 @@
 /**
  * Payments DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Payments
  * @author      Source Monster Team

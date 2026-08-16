@@ -3,7 +3,7 @@
 /**
  * Local Image Handler
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Services
  * @category    Image Handler
  * @author      Wilaso

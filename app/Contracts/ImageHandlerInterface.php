@@ -3,7 +3,7 @@
 /**
  * Image Handler Interface
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Contracts
  * @category    Image Handler
  * @author      Wilaso

@@ -3,7 +3,7 @@
 /**
  * Referral Setting Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Referral Settings
  * @author      Wilaso

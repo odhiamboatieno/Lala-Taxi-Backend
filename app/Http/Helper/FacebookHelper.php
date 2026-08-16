@@ -3,7 +3,7 @@
 /**
  * Facebook Helper
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Helper
  * @category    Helper
  * @author      Wilaso

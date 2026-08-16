@@ -1,5 +1,5 @@
 @php
-    $brandName = $site_name ?? 'WiTaxi';
+    $brandName = $site_name ?? 'LalaTaxi';
     $logo = $logo_url ?? url('images/logos/logo.png');
     $appLinks = $app_links ?? collect();
     $socialLinks = $join_us ?? collect();
@@ -35,7 +35,7 @@
         ['icon' => 'fa-credit-card', 'title' => 'Payments and Wallets', 'text' => 'Support rider payments, wallet balances and trip settlement workflows inside the platform.'],
         ['icon' => 'fa-line-chart', 'title' => 'Reports and Analytics', 'text' => 'Review operational performance, booking activity and business signals with management-level reporting.'],
         ['icon' => 'fa-sitemap', 'title' => 'Operator Network', 'text' => 'Coordinate multiple operators, branches or partner fleets inside one structured dispatch ecosystem.'],
-        ['icon' => 'fa-cogs', 'title' => 'SaaS Management', 'text' => 'Position WiTaxi as a platform business with onboarding flows for transport companies and private hire operators.'],
+        ['icon' => 'fa-cogs', 'title' => 'SaaS Management', 'text' => 'Position LalaTaxi as a platform business with onboarding flows for transport companies and private hire operators.'],
     ];
     $dispatchWorkflows = [
         'Create bookings manually for phone, office, hotel or account-based requests.',
@@ -70,12 +70,12 @@
         'Multi-branch and multi-company scaling support',
     ];
     $benefits = [
-        ['title' => 'Built for dispatch operations', 'text' => 'WiTaxi is structured around real booking desks, operator teams and active trip management rather than simple brochure booking.'],
+        ['title' => 'Built for dispatch operations', 'text' => 'LalaTaxi is structured around real booking desks, operator teams and active trip management rather than simple brochure booking.'],
         ['title' => 'Designed for all platform users', 'text' => 'Passengers, drivers, dispatchers and transport companies each get workflows that fit their responsibilities.'],
         ['title' => 'SaaS-ready from the start', 'text' => 'The platform can serve a single operator or grow into a multi-company dispatch ecosystem with operator onboarding.'],
         ['title' => 'Advanced booking workflows', 'text' => 'Support manual bookings, passenger bookings, later jobs, airport pickups and account-driven operational requests.'],
         ['title' => 'Real-time trip visibility', 'text' => 'Live driver location, trip status and dispatch awareness help teams stay ahead of service issues.'],
-        ['title' => 'Flexible for regional taxi markets', 'text' => 'Adapt WiTaxi to local private hire, taxi, fleet and mobility business models without rebuilding the core system.'],
+        ['title' => 'Flexible for regional taxi markets', 'text' => 'Adapt LalaTaxi to local private hire, taxi, fleet and mobility business models without rebuilding the core system.'],
     ];
 @endphp
 <!DOCTYPE html>
@@ -86,7 +86,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $brandName }} | Hybrid Taxi Dispatch and Mobility Platform</title>
-    <meta name="description" content="WiTaxi is a hybrid taxi dispatch platform for operators, fleets, drivers and passengers with booking, dispatch, tracking, payments and SaaS onboarding workflows.">
+    <meta name="description" content="LalaTaxi is a hybrid taxi dispatch platform for operators, fleets, drivers and passengers with booking, dispatch, tracking, payments and SaaS onboarding workflows.">
     <link rel="shortcut icon" href="{{ $favicon ?? asset('favicon.ico') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -157,10 +157,10 @@
         <section class="hero-section">
             <div class="landing-shell hero-grid">
                 <div class="hero-copy">
-                    <span class="eyebrow">WiTaxi | Hybrid Taxi Dispatch and Mobility Platform</span>
+                    <span class="eyebrow">LalaTaxi | Hybrid Taxi Dispatch and Mobility Platform</span>
                     <h1>Modern Taxi Dispatch Software for Operators, Drivers and Passengers</h1>
                     <p>
-                        WiTaxi helps taxi companies, private hire operators and fleet businesses manage bookings, dispatch
+                        LalaTaxi helps taxi companies, private hire operators and fleet businesses manage bookings, dispatch
                         drivers, track trips, onboard operators, control fleets and grow with a hybrid SaaS dispatch system
                         built for real-world transport operations.
                     </p>
@@ -233,7 +233,7 @@
                     <span class="section-kicker">Platform strengths</span>
                     <h2>Built to support modern dispatch operations without compromise</h2>
                     <p>
-                        WiTaxi brings together dispatch control, driver and passenger dashboards, multi-operator readiness,
+                        LalaTaxi brings together dispatch control, driver and passenger dashboards, multi-operator readiness,
                         scheduled bookings, fleet visibility and account-based service delivery in one commercial platform.
                     </p>
                 </div>
@@ -280,7 +280,7 @@
                     <span class="section-kicker">Dispatch workflow</span>
                     <h2>Designed for manual dispatch teams and real operator control rooms</h2>
                     <p>
-                        WiTaxi supports the operator workflow behind every serious taxi business, from call handling and
+                        LalaTaxi supports the operator workflow behind every serious taxi business, from call handling and
                         manual trip creation to driver assignment, airport scheduling, cancellation control and live trip
                         supervision.
                     </p>
@@ -336,7 +336,7 @@
                     <span class="section-kicker">Driver and passenger experience</span>
                     <h2>Two purpose-built experiences connected to the same dispatch engine</h2>
                     <p>
-                        WiTaxi gives passengers a dependable booking journey while giving drivers the job flow, trip tools
+                        LalaTaxi gives passengers a dependable booking journey while giving drivers the job flow, trip tools
                         and earnings visibility required for consistent service delivery.
                     </p>
                 </div>
@@ -383,7 +383,7 @@
                     <span class="section-kicker">Company and operator tools</span>
                     <h2>Built for Taxi Companies That Need More Than Basic Booking</h2>
                     <p>
-                        WiTaxi is positioned for operators that need proper business controls, staff coordination, driver
+                        LalaTaxi is positioned for operators that need proper business controls, staff coordination, driver
                         oversight, reporting, approvals and the ability to expand into larger multi-branch or multi-company
                         structures.
                     </p>
@@ -414,7 +414,7 @@
             <div class="landing-shell saas-layout">
                 <div class="section-intro">
                     <span class="section-kicker">Hybrid SaaS model</span>
-                    <h2>Run WiTaxi as a single-company dispatch system or a multi-operator SaaS platform</h2>
+                    <h2>Run LalaTaxi as a single-company dispatch system or a multi-operator SaaS platform</h2>
                     <p>
                         The same product can support one transport company or become the foundation for onboarding multiple
                         taxi operators, each with their own company profile, drivers, settings, booking operations and
@@ -437,10 +437,10 @@
         <section class="benefits-section">
             <div class="landing-shell">
                 <div class="section-intro center">
-                    <span class="section-kicker">Why WiTaxi</span>
+                    <span class="section-kicker">Why LalaTaxi</span>
                     <h2>A dispatch-focused platform positioned for commercial growth</h2>
                     <p>
-                        WiTaxi is presented as a serious transport operations platform with the flexibility to support local
+                        LalaTaxi is presented as a serious transport operations platform with the flexibility to support local
                         taxi markets, private hire operators and future addon expansion.
                     </p>
                 </div>
@@ -461,7 +461,7 @@
                     <span class="section-kicker">Launch your platform</span>
                     <h2>Ready to Launch or Upgrade Your Taxi Dispatch Platform?</h2>
                     <p>
-                        Position WiTaxi for operators, fleets, drivers and passengers with a dispatch-first platform that
+                        Position LalaTaxi for operators, fleets, drivers and passengers with a dispatch-first platform that
                         is ready for direct business use or SaaS expansion.
                     </p>
                 </div>

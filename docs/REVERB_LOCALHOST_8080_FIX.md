@@ -11,7 +11,7 @@ This means Laravel is trying to broadcast through Reverb, but the Reverb server 
 ## 1. Go to the backend directory
 
 ```bash
-cd /www/wwwroot/witaxi.wilaso.com
+cd /www/wwwroot/lalataxi.wilaso.com
 ```
 
 ## 2. Check the current broadcast / Reverb values
@@ -31,7 +31,7 @@ nano .env
 Set these values:
 
 ```env
-APP_URL=https://witaxi.wilaso.com
+APP_URL=https://lalataxi.wilaso.com
 
 BROADCAST_CONNECTION=reverb
 QUEUE_CONNECTION=redis
@@ -99,7 +99,7 @@ If Reverb is up, you should no longer get `connection refused`.
 In another terminal:
 
 ```bash
-cd /www/wwwroot/witaxi.wilaso.com
+cd /www/wwwroot/lalataxi.wilaso.com
 php artisan queue:work --tries=3 --timeout=120
 ```
 
@@ -137,41 +137,41 @@ exit
 Create Reverb supervisor config:
 
 ```bash
-nano /etc/supervisor/conf.d/witaxi-reverb.conf
+nano /etc/supervisor/conf.d/lalataxi-reverb.conf
 ```
 
 Paste:
 
 ```ini
-[program:witaxi-reverb]
-directory=/www/wwwroot/witaxi.wilaso.com
+[program:lalataxi-reverb]
+directory=/www/wwwroot/lalataxi.wilaso.com
 command=/usr/bin/php artisan reverb:start --host=0.0.0.0 --port=8080
 autostart=true
 autorestart=true
 user=root
 redirect_stderr=true
-stdout_logfile=/www/wwwroot/witaxi.wilaso.com/storage/logs/reverb.log
+stdout_logfile=/www/wwwroot/lalataxi.wilaso.com/storage/logs/reverb.log
 stopwaitsecs=3600
 ```
 
 Create queue worker supervisor config:
 
 ```bash
-nano /etc/supervisor/conf.d/witaxi-queue.conf
+nano /etc/supervisor/conf.d/lalataxi-queue.conf
 ```
 
 Paste:
 
 ```ini
-[program:witaxi-queue]
-directory=/www/wwwroot/witaxi.wilaso.com
+[program:lalataxi-queue]
+directory=/www/wwwroot/lalataxi.wilaso.com
 command=/usr/bin/php artisan queue:work --tries=3 --timeout=120
 autostart=true
 autorestart=true
 numprocs=1
 user=root
 redirect_stderr=true
-stdout_logfile=/www/wwwroot/witaxi.wilaso.com/storage/logs/queue-worker.log
+stdout_logfile=/www/wwwroot/lalataxi.wilaso.com/storage/logs/queue-worker.log
 stopwaitsecs=3600
 ```
 
@@ -180,8 +180,8 @@ Reload supervisor:
 ```bash
 supervisorctl reread
 supervisorctl update
-supervisorctl restart witaxi-reverb
-supervisorctl restart witaxi-queue
+supervisorctl restart lalataxi-reverb
+supervisorctl restart lalataxi-queue
 supervisorctl status
 ```
 

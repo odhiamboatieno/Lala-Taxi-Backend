@@ -3,7 +3,7 @@
 /**
  * Firebase Service
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Services
  * @category    Service
  * @author      Wilaso
@@ -179,7 +179,7 @@ class FirebaseService
 					'ttl' => $isIncomingRide ? '0s' : '15s',
 					'priority' => 'high',
                     'notification' => [
-                        'channel_id' => $isIncomingRide ? 'witaxi_incoming_ride' : 'witaxi_driver_updates',
+                        'channel_id' => $isIncomingRide ? 'lalataxi_incoming_ride' : 'lalataxi_driver_updates',
                         'notification_priority' => $isIncomingRide ? 'PRIORITY_MAX' : 'PRIORITY_HIGH',
                         'default_sound' => true,
                         'default_vibrate_timings' => true,

@@ -3,7 +3,7 @@
 /**
  * Fees Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Fees
  * @author      Wilaso

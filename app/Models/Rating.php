@@ -3,7 +3,7 @@
 /**
  * Rating Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Rating
  * @author      Wilaso

@@ -3,7 +3,7 @@
 /**
  * Promo Code DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Promo Code
  * @author      Source Monster Team

@@ -3,7 +3,7 @@
 /**
  * Company Payout Credentials Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Company Payout Credentials
  * @author      Wilaso

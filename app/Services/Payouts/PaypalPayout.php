@@ -3,7 +3,7 @@
 /**
  * Paypal Payout Service
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Services\Payouts
  * @category    Paypal
  * @author      Wilaso

@@ -3,7 +3,7 @@
 /**
  * Payment Gateway Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Payment Gateway
  * @author      Wilaso

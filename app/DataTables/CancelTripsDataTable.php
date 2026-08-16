@@ -3,7 +3,7 @@
 /**
  * Cancel Trips DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Cancel Trips
  * @author      Source Monster Team

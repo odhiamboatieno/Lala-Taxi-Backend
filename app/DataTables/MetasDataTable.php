@@ -3,7 +3,7 @@
 /**
  * Metas DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Metas
  * @author      Source Monster Team

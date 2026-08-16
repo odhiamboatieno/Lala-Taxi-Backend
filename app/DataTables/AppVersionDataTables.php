@@ -3,7 +3,7 @@
 /**
  * Locations DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Locations
  * @author      Wilaso

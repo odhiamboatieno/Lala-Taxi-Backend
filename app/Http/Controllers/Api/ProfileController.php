@@ -3,7 +3,7 @@
 /**
  * Profile Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Profile
  * @author      Wilaso

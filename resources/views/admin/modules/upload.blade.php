@@ -7,7 +7,7 @@
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <div>
                     <h4 class="mb-1">{{ $pageTitle ?? 'Upload module' }}</h4>
-                    <p class="text-muted mb-0">{{ $pageSubtitle ?? 'Upload a module zip and install it into WiTaxi.' }}</p>
+                    <p class="text-muted mb-0">{{ $pageSubtitle ?? 'Upload a module zip and install it into LalaTaxi.' }}</p>
                 </div>
                 <div class="page-title-right">
                     <a href="{{ route('admin.modules.index') }}" class="btn btn-soft-secondary">

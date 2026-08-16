@@ -3,7 +3,7 @@
 /**
  * Applied Referrals Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Applied Referrals
  * @author      Wilaso

@@ -3,7 +3,7 @@
 /**
  * Wallet Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Wallet
  * @author      Wilaso

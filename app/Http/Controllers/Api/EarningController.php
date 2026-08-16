@@ -3,7 +3,7 @@
 /**
  * Earning Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Earning
  * @author      Wilaso

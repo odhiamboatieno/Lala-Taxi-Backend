@@ -7,7 +7,7 @@
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <div>
                     <h4 class="mb-1">{{ $pageTitle ?? 'Modules' }}</h4>
-                    <p class="text-muted mb-0">{{ $pageSubtitle ?? 'Install, enable and manage WiTaxi add-on modules.' }}</p>
+                    <p class="text-muted mb-0">{{ $pageSubtitle ?? 'Install, enable and manage LalaTaxi add-on modules.' }}</p>
                 </div>
                 <div class="page-title-right">
                     <a href="{{ route('admin.modules.create') }}" class="btn btn-primary">

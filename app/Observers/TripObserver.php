@@ -3,7 +3,7 @@
 /**
  * Trip Observer
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Observer
  * @category    Trip
  * @author      Wilaso

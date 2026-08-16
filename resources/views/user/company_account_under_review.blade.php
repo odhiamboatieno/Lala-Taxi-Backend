@@ -32,7 +32,7 @@
             <img src="{{ $logo_url }}" alt="{{ $site_name }}" style="height:48px;max-width:180px;object-fit:contain;filter:brightness(0) invert(1);margin-bottom:18px;">
             <div style="display:inline-flex;padding:10px 14px;border-radius:999px;background:rgba(20,184,166,.16);color:#99f6e4;font-weight:800;">{{ $statusTitle }}</div>
             <h1 style="font-size:clamp(2rem,5vw,3.4rem);line-height:1.05;margin:16px 0 12px;">{{ $company->name ?: $company->legal_name }}</h1>
-            <p style="color:rgba(255,255,255,.78);font-size:17px;line-height:1.8;margin:0;">Your company account is being processed through the WiTaxi onboarding and approval flow. You can review what was submitted, continue onboarding if needed, or sign out while the team completes their checks.</p>
+            <p style="color:rgba(255,255,255,.78);font-size:17px;line-height:1.8;margin:0;">Your company account is being processed through the LalaTaxi onboarding and approval flow. You can review what was submitted, continue onboarding if needed, or sign out while the team completes their checks.</p>
 
             <div class="review-grid">
                 <div class="review-item"><span>Reference</span>{{ $company->registration_reference ?: 'Pending reference' }}</div>

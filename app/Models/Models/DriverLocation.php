@@ -3,7 +3,7 @@
 /**
  * Driver Location Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Driver Location
  * @author      Wilaso

@@ -3,7 +3,7 @@
 /**
  * Wallet DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Wallet
  * @author      Source Monster Team

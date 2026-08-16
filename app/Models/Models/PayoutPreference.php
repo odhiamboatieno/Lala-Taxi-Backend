@@ -3,7 +3,7 @@
 /**
  * Payout Preference Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Payout Preference
  * @author      Wilaso

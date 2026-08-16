@@ -3,7 +3,7 @@
 /**
  * Datatable Base Controller - For custom search 
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Datatable Base
  * @author      Wilaso

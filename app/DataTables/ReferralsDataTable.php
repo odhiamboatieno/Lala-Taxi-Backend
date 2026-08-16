@@ -3,7 +3,7 @@
 /**
  * Referrals Users DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Referrals Users
  * @author      Source Monster Team

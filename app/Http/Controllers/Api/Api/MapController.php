@@ -3,7 +3,7 @@
 /**
  * Heat Map Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    HeatMap
  * @author      Wilaso

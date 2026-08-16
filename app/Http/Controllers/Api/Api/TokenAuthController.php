@@ -3,7 +3,7 @@
 /**
  * Token Auth Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Token Auth
  * @author      Wilaso

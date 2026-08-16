@@ -3,7 +3,7 @@
 /**
  * Later Booking Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Later Booking
  * @author      Wilaso

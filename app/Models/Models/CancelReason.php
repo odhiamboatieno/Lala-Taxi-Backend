@@ -3,7 +3,7 @@
 /**
  * Cancel Reson Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    CancelReason
  * @author      Wilaso

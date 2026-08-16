@@ -3,7 +3,7 @@
 /**
  * Car Type DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Car Type
  * @author      Source Monster Team

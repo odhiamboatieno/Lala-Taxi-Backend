@@ -3,7 +3,7 @@
 /**
  * Rider Location Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Rider Location
  * @author      Wilaso

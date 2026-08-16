@@ -3,7 +3,7 @@
 /**
  * Rider DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Rider
  * @author      Source Monster Team

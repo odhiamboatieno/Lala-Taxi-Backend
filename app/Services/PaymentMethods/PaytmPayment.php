@@ -3,7 +3,7 @@
 /**
  * Paytm Payment Service
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Services\Payments
  * @category    Paytm
  * @author      Wilaso

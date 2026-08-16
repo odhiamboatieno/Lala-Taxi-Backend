@@ -3,7 +3,7 @@
 /**
  * Join Us Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Join Us
  * @author      Wilaso

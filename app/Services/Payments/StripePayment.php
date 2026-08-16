@@ -3,7 +3,7 @@
 /**
  * Stripe Payment Service
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Services\Payments
  * @category    Stripe
  * @author      Wilaso

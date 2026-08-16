@@ -3,7 +3,7 @@
 /**
  * Stripe Payment Repository
  *
- * @package     WitaxiEats
+ * @package     LalaTaxiEats
  * @subpackage  Repositories
  * @category    Stripe
  * @author      Wilaso

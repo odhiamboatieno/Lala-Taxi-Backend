@@ -3,7 +3,7 @@
 /**
  * User Observer
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Observer
  * @category    User
  * @author      Wilaso

@@ -3,7 +3,7 @@
 /**
  * Currency Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Currency
  * @author      Wilaso

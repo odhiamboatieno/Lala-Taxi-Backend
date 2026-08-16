@@ -3,7 +3,7 @@
 /**
  * Payout Detail Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Payout Detail
  * @author      Wilaso

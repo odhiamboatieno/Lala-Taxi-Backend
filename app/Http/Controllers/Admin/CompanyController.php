@@ -3,7 +3,7 @@
 /**
  * Company Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Company
  * @author      Wilaso

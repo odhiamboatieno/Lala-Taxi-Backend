@@ -3,7 +3,7 @@
 /**
  * Profile Picture Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    Profile Picture
  * @author      Wilaso

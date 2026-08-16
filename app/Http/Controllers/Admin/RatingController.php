@@ -3,7 +3,7 @@
 /**
  * Rating Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Rating
  * @author      Wilaso

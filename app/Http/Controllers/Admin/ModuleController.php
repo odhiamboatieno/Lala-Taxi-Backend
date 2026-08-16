@@ -28,7 +28,7 @@ class ModuleController extends Controller
         return view('admin.modules.index', [
             'modules' => $modules,
             'pageTitle' => 'Modules',
-            'pageSubtitle' => 'Install, enable and manage WiTaxi add-on modules.',
+            'pageSubtitle' => 'Install, enable and manage LalaTaxi add-on modules.',
         ]);
     }
 
@@ -39,7 +39,7 @@ class ModuleController extends Controller
     {
         return view('admin.modules.upload', [
             'pageTitle' => 'Upload module',
-            'pageSubtitle' => 'Upload a module zip and install it into WiTaxi.',
+            'pageSubtitle' => 'Upload a module zip and install it into LalaTaxi.',
         ]);
     }
 

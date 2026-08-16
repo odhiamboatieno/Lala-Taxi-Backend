@@ -3,7 +3,7 @@
 /**
  * JoinUs Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    JoinUs
  * @author      Wilaso

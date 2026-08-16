@@ -3,7 +3,7 @@
 /**
  * Help Translations Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Help Translations
  * @author      Wilaso

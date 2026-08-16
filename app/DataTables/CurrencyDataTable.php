@@ -3,7 +3,7 @@
 /**
  * Currency DataTable
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  DataTable
  * @category    Currency
  * @author      Source Monster Team

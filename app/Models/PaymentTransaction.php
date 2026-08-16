@@ -3,7 +3,7 @@
 /**
  * PaymentMethod Model
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Model
  * @category    PaymentMethod
  * @author      Wilaso

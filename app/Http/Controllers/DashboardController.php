@@ -3,7 +3,7 @@
 /**
  * Dashboard Controller
  *
- * @package     Witaxi
+ * @package     LalaTaxi
  * @subpackage  Controller
  * @category    Dashboard
  * @author      Wilaso
