@@ -31,7 +31,7 @@
         padding-top     :   25px;
     }
     img {
-        border: 1px solid #c2c2c2;
+        border: 1px solid var(--color-as-c2c2c2);
         border-radius: 100% !important;
         max-width: 100%;
     }

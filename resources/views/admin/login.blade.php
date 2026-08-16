@@ -25,8 +25,8 @@
         body {
             font-family: 'Inter', sans-serif;
             background:
-                radial-gradient(circle at top left, rgba(20, 184, 166, .24), transparent 36rem),
-                linear-gradient(135deg, #07111f 0%, #123454 100%);
+                radial-gradient(circle at top left, var(--color-as-rgba-20-184-166-0-24), transparent 36rem),
+                linear-gradient(135deg, var(--color-as-07111f) 0%, var(--color-as-123454) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -35,9 +35,9 @@
         }
 
         .login-box {
-            background: #ffffff;
+            background: var(--color-white);
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px var(--color-as-rgba-0-0-0-0-2);
             width: 100%;
             max-width: 420px;
             padding: 2rem;
@@ -49,12 +49,12 @@
             text-align: center;
             font-size: 1.8rem;
             font-weight: 700;
-            color: #102033;
+            color: var(--color-as-102033);
             margin-bottom: 1.5rem;
         }
 
         .login-box h2 .red {
-            color: #e63946;
+            color: var(--color-as-e63946);
         }
 
         .login-tabs {
@@ -65,7 +65,7 @@
 
         .login-tabs ul {
             display: flex;
-            background: #f1f5f9;
+            background: var(--color-as-f1f5f9);
             border-radius: 8px;
             padding: 0.3rem;
             width: 100%;
@@ -79,20 +79,20 @@
             cursor: pointer;
             font-size: 0.95rem;
             font-weight: 500;
-            color: #64748b;
+            color: var(--color-as-64748b);
             transition: all 0.3s ease;
             border-radius: 6px;
         }
 
         .login-tabs li.active {
-            background: #0f766e;
-            color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background: var(--color-as-0f766e);
+            color: var(--color-white);
+            box-shadow: 0 2px 8px var(--color-as-rgba-0-0-0-0-1);
         }
 
         .login-tabs li:hover {
-            background: #e2e8f0;
-            color: #1e3c72;
+            background: var(--color-as-e2e8f0);
+            color: var(--color-as-1e3c72);
         }
 
         .form-group {
@@ -103,37 +103,37 @@
             display: block;
             font-size: 0.9rem;
             font-weight: 500;
-            color: #334155;
+            color: var(--color-as-334155);
             margin-bottom: 0.5rem;
         }
 
         .form-group input {
             width: 100%;
             padding: 0.8rem;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--color-as-e2e8f0);
             border-radius: 8px;
             font-size: 0.95rem;
-            color: #1e3c72;
+            color: var(--color-as-1e3c72);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #1e3c72;
-            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+            border-color: var(--color-as-1e3c72);
+            box-shadow: 0 0 0 3px var(--color-as-rgba-30-60-114-0-1);
         }
 
         .form-group input::placeholder {
-            color: #94a3b8;
+            color: var(--color-as-94a3b8);
         }
 
         button[type="submit"] {
             width: 100%;
             padding: 0.9rem;
-            background: linear-gradient(90deg, #0f766e 0%, #2563eb 100%);
+            background: linear-gradient(90deg, var(--color-as-0f766e) 0%, var(--color-info) 100%);
             border: none;
             border-radius: 8px;
-            color: #ffffff;
+            color: var(--color-white);
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -141,7 +141,7 @@
         }
 
         button[type="submit"]:hover {
-            background: linear-gradient(90deg, #115e59 0%, #1d4ed8 100%);
+            background: linear-gradient(90deg, var(--color-as-115e59) 0%, var(--color-as-1d4ed8) 100%);
             transform: translateY(-2px);
         }
 
@@ -163,13 +163,13 @@
         }
 
         .alert-success {
-            background: #d1fae5;
-            color: #065f46;
+            background: var(--color-as-d1fae5);
+            color: var(--color-as-065f46);
         }
 
         .alert-danger {
-            background: #fee2e2;
-            color: #991b1b;
+            background: var(--color-as-fee2e2);
+            color: var(--color-as-991b1b);
         }
 
         .alert-close {
@@ -193,6 +193,10 @@
             }
         }
     </style>
+  <!-- lalatokens -->
+  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
+  <script src="{{ url('js/colors.js') }}"></script>
+  <!-- /lalatokens -->
 </head>
 <body class="hold-transition login-page">
     <div class="flash-container">

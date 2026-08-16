@@ -15,9 +15,9 @@
             max-height: 420px;
             overflow-y: auto;
             padding: 1rem;
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--color-as-e0e0e0);
             border-radius: 6px;
-            background: #f9f9f9;
+            background: var(--color-as-f9f9f9);
         }
         .permission-group {
             margin-bottom: 1.5rem;
@@ -25,8 +25,8 @@
         .permission-group h6 {
             font-size: 1.05rem;
             margin-bottom: 0.75rem;
-            color: #495057;
-            border-bottom: 1px solid #dee2e6;
+            color: var(--color-as-495057);
+            border-bottom: 1px solid var(--color-as-dee2e6);
             padding-bottom: 0.5rem;
         }
         .permission-item {

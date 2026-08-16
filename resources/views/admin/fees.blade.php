@@ -12,7 +12,7 @@
 
     <style>
         .input-group-text {
-            background-color: #f8f9fa;
+            background-color: var(--color-as-f8f9fa);
             border-radius: 6px 0 0 6px;
             font-weight: 500;
         }

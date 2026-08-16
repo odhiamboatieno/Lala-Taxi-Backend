@@ -6,7 +6,7 @@
 
 <div class="" style="padding:0px 15px;">
 <div class="page-lead separated--bottom col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border-bottom:0px !important;">
-<a data-toggle="collapse" href="#trip-filterer" class=" collapsed  btn btn--link hard--bottom rider-signup primary-font--bold  borderless--left col-lg-12 col-md-12 col-sm-12 col-xs-12" href="#" style="text-transform: capitalize !important;color:#2ec5e1 !important;    text-align: left;
+<a data-toggle="collapse" href="#trip-filterer" class=" collapsed  btn btn--link hard--bottom rider-signup primary-font--bold  borderless--left col-lg-12 col-md-12 col-sm-12 col-xs-12" href="#" style="text-transform: capitalize !important;color:var(--color-as-2ec5e1) !important;    text-align: left;
     padding-bottom: 40px;font-weight: bold;"><i class="icon icon_plus push-tiny--left" style="padding-right:10px;">{{trans('messages.driver_dashboard.add_vehicle')}}</i></a>
         <div id="trip-filters" class="trip-filters pull-left col-lg-12 col-sm-12 col-md-12 col-xs-12" style="padding:0px;">
     <div id="trip-filters-active" class="trip-filters__active"></div>
@@ -252,9 +252,9 @@
     left: -6px;
 }
 .trip-filter {
-    color: #555 !important;
-    background: #f7f7f7 !important;
-    border: 1px solid #ddd;
+    color: var(--color-as-555555) !important;
+    background: var(--color-as-f7f7f7) !important;
+    border: 1px solid var(--color-as-dddddd);
 }
 .trip-filter__item{border-bottom: 0px !important;}
 @media (max-width: 400px){

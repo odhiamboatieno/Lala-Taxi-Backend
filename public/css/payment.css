@@ -29,9 +29,9 @@ main {
 
 .main-header {
   align-items: center;
-  background-color: #fff;
+  background-color: var(--color-white);
   border-radius: 8px 8px 0 0;
-  color: #222222;
+  color: var(--color-as-222222);
   display: flex;
   font-size: 25px;
   font-weight: bold;
@@ -158,8 +158,8 @@ button {
   width: 100%;
 }
 button:focus, button:hover {
-  background: #1FBAD6;
-  border: 1px solid #1FBAD6;
+  background: var(--color-as-1fbad6);
+  border: 1px solid var(--color-as-1fbad6);
   box-shadow: var(--button-shadow-hover);
   color: white;
   cursor: pointer;
@@ -214,75 +214,75 @@ body {
 }
 
 :root {
-  --color-bg-level0: rgba(255, 255, 255, 1);
-  --color-bg-level0-accent: rgba(237, 240, 242, 1);
-  --color-bg-level1: rgba(249, 250, 251, 1);
-  --color-bg-level1-accent: rgba(228, 231, 235, 1);
-  --color-bg-level2: rgba(242, 245, 247, 1);
-  --color-bg-level2-accent: rgba(220, 225, 230, 1);
-  --color-bg-level3: rgba(235, 239, 242, 1);
-  --color-bg-level3-accent: rgba(211, 216, 222, 1);
-  --color-content-contrast: rgba(19, 41, 63, 1);
-  --color-content-default: rgba(19, 41, 63, 0.8);
-  --color-content-subtle: rgba(19, 41, 63, 0.65);
-  --color-content-nonessential: rgba(19, 41, 63, 0.4);
-  --elevation-shadow-3: 0 16px 32px rgba(0, 0, 0, 0.2),
-    0 0 64px rgba(0, 0, 0, 0.05);
-  --color-selection-outline: rgba(0, 156, 227, 1);
-  --color-selection-edge-hover: rgba(127, 215, 255, 1);
-  --input-border-focus: 1px solid rgba(226, 231, 237, 1);
-  --input-shadow-focus: inset -5px -5px 10px 0 var(--color-bg-level1), inset 5px 5px 10px 0 rgba(200, 204, 207, 1);
-  --switch-handle-gradient: linear-gradient(115deg, rgba(100, 100, 100, 0.02), rgba(255, 255, 255, 0.5)), var(--color-bg-level3);
-  --switch-handle-shadow: 2px 2px 5px rgba(200, 204, 207, 1);
-  --switch-handle-shadow-hover: 5px 5px 10px rgba(200, 204, 207, 1);
-  --switch-background-gradient: linear-gradient(115deg, rgba(100, 100, 100, 0.02), rgba(255, 255, 255, 0.5)), var(--color-selection-outline);
-  --button-background-hover: linear-gradient(115deg, rgba(100, 100, 100, 0.02), rgba(255, 255, 255, 0.5)), var(--color-bg-level3);
-  --button-shadow-hover: -10px -10px 20px var(--color-bg-level1), 10px 10px 20px rgba(200, 204, 207, 1);
-  --button-shadow-active: -2px -2px 10px var(--color-bg-level1), 2px 2px 5px rgba(200, 204, 207, 1);
+  --color-bg-level0: var(--color-as-rgba-255-255-255-1);
+  --color-bg-level0-accent: var(--color-as-rgba-237-240-242-1);
+  --color-bg-level1: var(--color-as-rgba-249-250-251-1);
+  --color-bg-level1-accent: var(--color-as-rgba-228-231-235-1);
+  --color-bg-level2: var(--color-as-rgba-242-245-247-1);
+  --color-bg-level2-accent: var(--color-as-rgba-220-225-230-1);
+  --color-bg-level3: var(--color-as-rgba-235-239-242-1);
+  --color-bg-level3-accent: var(--color-as-rgba-211-216-222-1);
+  --color-content-contrast: var(--color-as-rgba-19-41-63-1);
+  --color-content-default: var(--color-as-rgba-19-41-63-0-8);
+  --color-content-subtle: var(--color-as-rgba-19-41-63-0-65);
+  --color-content-nonessential: var(--color-as-rgba-19-41-63-0-4);
+  --elevation-shadow-3: 0 16px 32px var(--color-as-rgba-0-0-0-0-2),
+    0 0 64px var(--color-as-rgba-0-0-0-0-05);
+  --color-selection-outline: var(--color-as-rgba-0-156-227-1);
+  --color-selection-edge-hover: var(--color-as-rgba-127-215-255-1);
+  --input-border-focus: 1px solid var(--color-as-rgba-226-231-237-1);
+  --input-shadow-focus: inset -5px -5px 10px 0 var(--color-bg-level1), inset 5px 5px 10px 0 var(--color-as-rgba-200-204-207-1);
+  --switch-handle-gradient: linear-gradient(115deg, var(--color-as-rgba-100-100-100-0-02), var(--color-as-rgba-255-255-255-0-5)), var(--color-bg-level3);
+  --switch-handle-shadow: 2px 2px 5px var(--color-as-rgba-200-204-207-1);
+  --switch-handle-shadow-hover: 5px 5px 10px var(--color-as-rgba-200-204-207-1);
+  --switch-background-gradient: linear-gradient(115deg, var(--color-as-rgba-100-100-100-0-02), var(--color-as-rgba-255-255-255-0-5)), var(--color-selection-outline);
+  --button-background-hover: linear-gradient(115deg, var(--color-as-rgba-100-100-100-0-02), var(--color-as-rgba-255-255-255-0-5)), var(--color-bg-level3);
+  --button-shadow-hover: -10px -10px 20px var(--color-bg-level1), 10px 10px 20px var(--color-as-rgba-200-204-207-1);
+  --button-shadow-active: -2px -2px 10px var(--color-bg-level1), 2px 2px 5px var(--color-as-rgba-200-204-207-1);
 }
 
 .dark {
-  --color-bg-level0: rgba(16, 20, 23, 1);
-  --color-bg-level0-accent: rgba(35, 42, 49, 1);
-  --color-bg-level1: rgba(25, 31, 36, 1);
-  --color-bg-level1-accent: rgba(44, 52, 62, 1);
-  --color-bg-level2: rgba(35, 42, 49, 1);
-  --color-bg-level2-accent: rgba(49, 59, 69, 1);
-  --color-bg-level3: rgba(51, 51, 51, 1);
-  --color-bg-level3-accent: rgba(69, 82, 94, 1);
-  --color-content-contrast: rgba(230, 242, 255, 1);
-  --color-content-default: rgba(230, 242, 255, 0.8);
-  --color-content-subtle: rgba(230, 242, 255, 0.65);
-  --color-content-nonessential: rgba(230, 242, 255, 0.4);
-  --elevation-shadow-3: 0 16px 32px rgba(0, 0, 0, 0.3),
-    0 0 64px rgba(0, 0, 0, 0.1);
-  --color-selection-outline: rgba(0, 156, 227, 1);
-  --color-selection-edge-hover: rgba(0, 103, 150, 1);
-  --input-border-focus: 1px solid rgba(29, 24, 18, 0.15);
-  --input-shadow-focus: inset -5px -5px 10px 0 var(--color-bg-level3-accent), inset 5px 5px 10px 0 rgba(0, 0, 0, 0.3);
-  --switch-handle-gradient: linear-gradient(115deg, rgba(155, 155, 155, 0.02), rgba(0, 0, 0, 0.1)), var(--color-bg-level3);
-  --switch-handle-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  --switch-handle-shadow-hover: 5px 5px 10px rgba(0, 0, 0, 0.3);
-  --switch-background-gradient: linear-gradient(115deg, rgba(155, 155, 155, 0.02), var(--color-bg-level3)), var(--color-selection-outline);
-  --button-background-hover: linear-gradient(115deg, rgba(155, 155, 155, 0.02), rgba(0, 0, 0, 0.1)), var(--color-bg-level3);
-  --button-shadow-hover: -10px -10px 20px var(--color-bg-level3-accent), 10px 10px 20px rgba(0, 0, 0, 0.3);
-  --button-shadow-active: -2px -2px 10px var(--color-bg-level3-accent), 2px 2px 5px rgba(0, 0, 0, 0.3);
+  --color-bg-level0: var(--color-as-rgba-16-20-23-1);
+  --color-bg-level0-accent: var(--color-as-rgba-35-42-49-1);
+  --color-bg-level1: var(--color-as-rgba-25-31-36-1);
+  --color-bg-level1-accent: var(--color-as-rgba-44-52-62-1);
+  --color-bg-level2: var(--color-as-rgba-35-42-49-1);
+  --color-bg-level2-accent: var(--color-as-rgba-49-59-69-1);
+  --color-bg-level3: var(--color-as-rgba-51-51-51-1);
+  --color-bg-level3-accent: var(--color-as-rgba-69-82-94-1);
+  --color-content-contrast: var(--color-as-rgba-230-242-255-1);
+  --color-content-default: var(--color-as-rgba-230-242-255-0-8);
+  --color-content-subtle: var(--color-as-rgba-230-242-255-0-65);
+  --color-content-nonessential: var(--color-as-rgba-230-242-255-0-4);
+  --elevation-shadow-3: 0 16px 32px var(--color-as-rgba-0-0-0-0-3),
+    0 0 64px var(--color-as-rgba-0-0-0-0-1);
+  --color-selection-outline: var(--color-as-rgba-0-156-227-1);
+  --color-selection-edge-hover: var(--color-as-rgba-0-103-150-1);
+  --input-border-focus: 1px solid var(--color-as-rgba-29-24-18-0-15);
+  --input-shadow-focus: inset -5px -5px 10px 0 var(--color-bg-level3-accent), inset 5px 5px 10px 0 var(--color-as-rgba-0-0-0-0-3);
+  --switch-handle-gradient: linear-gradient(115deg, var(--color-as-rgba-155-155-155-0-02), var(--color-as-rgba-0-0-0-0-1)), var(--color-bg-level3);
+  --switch-handle-shadow: 2px 2px 5px var(--color-as-rgba-0-0-0-0-3);
+  --switch-handle-shadow-hover: 5px 5px 10px var(--color-as-rgba-0-0-0-0-3);
+  --switch-background-gradient: linear-gradient(115deg, var(--color-as-rgba-155-155-155-0-02), var(--color-bg-level3)), var(--color-selection-outline);
+  --button-background-hover: linear-gradient(115deg, var(--color-as-rgba-155-155-155-0-02), var(--color-as-rgba-0-0-0-0-1)), var(--color-bg-level3);
+  --button-shadow-hover: -10px -10px 20px var(--color-bg-level3-accent), 10px 10px 20px var(--color-as-rgba-0-0-0-0-3);
+  --button-shadow-active: -2px -2px 10px var(--color-bg-level3-accent), 2px 2px 5px var(--color-as-rgba-0-0-0-0-3);
 }
 .cls_option {
        padding: 20px 15px;
-    background-color: #fafafa;
+    background-color: var(--color-neutral-50);
     margin-top: 15px;
-    color: #000;
+    color: var(--color-black);
     border-radius: 5px;
 }
 .cls_option span {
     font-size: 20px;
-    color: #333;
+    color: var(--color-as-333333);
     margin-left: 10px;
 }
 
 body {
-  background-color: rgb(0 0 0 / 0.5);
+  background-color: var(--color-as-rgb-000-0-5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -295,8 +295,8 @@ form {
 
 .group {
   background: white;
-  box-shadow: 0 7px 14px 0 rgba(49,49,93,0.10),
-              0 3px 6px 0 rgba(0,0,0,0.08);
+  box-shadow: 0 7px 14px 0 var(--color-as-rgba-49-49-93-0-10),
+              0 3px 6px 0 var(--color-as-rgba-0-0-0-0-08);
   border-radius: 4px;
   margin: 20px 20px 0;
   padding: 15px 0;
@@ -304,7 +304,7 @@ form {
 
 label, #pouet {
   position: relative;
-  color: #8898AA;
+  color: var(--color-as-8898aa);
   font-weight: 300;
   height: 40px;
   line-height: 40px;
@@ -317,7 +317,7 @@ div#saved-card {
     font-size: 18px;
 }
 .group label:not(:last-child) {
-  border-bottom: 1px solid #F0F5FA;
+  border-bottom: 1px solid var(--color-as-f0f5fa);
 }
 
 label > span, #pouet > span {
@@ -330,7 +330,7 @@ label > span, #pouet > span {
   background: transparent;
   font-weight: 300;
   border: 0;
-  color: #31325F;
+  color: var(--color-as-31325f);
   outline: none;
   flex: 1;
   padding-right: 10px;
@@ -338,13 +338,13 @@ label > span, #pouet > span {
   cursor: text;
 }
 
-.field::-webkit-input-placeholder { color: #CFD7E0; }
-.field::-moz-placeholder { color: #CFD7E0; }
+.field::-webkit-input-placeholder { color: var(--color-as-cfd7e0); }
+.field::-moz-placeholder { color: var(--color-as-cfd7e0); }
 
 button {
       display: block;
-    background: #1FBAD6;
-    color: #02172d;
+    background: var(--color-as-1fbad6);
+    color: var(--color-as-02172d);
     border-radius: 10px;
     border: 0;
     margin-top: 0px;
@@ -371,16 +371,16 @@ button {
     width: 100%;
     background-repeat: no-repeat;
     z-index: 99999;
-    background-color: #ffffff78;
+    background-color: var(--color-as-ffffff78);
     background-position: center;
     background-size: 70px;
 }
 button:focus {
-  background: #1FBAD6;
+  background: var(--color-as-1fbad6);
 }
 
 button:active {
-  background: #1FBAD6;
+  background: var(--color-as-1fbad6);
 }
 
 .outcome {
@@ -401,11 +401,11 @@ button:active {
 }
 
 .error {
-  color: #E4584C;
+  color: var(--color-as-e4584c);
 }
 
 .success-new-card, .success-saved-card {
-  color: #1FBAD6;
+  color: var(--color-as-1fbad6);
 }
 
 .success-new-card .token, .success-saved-card .saved-card, {
@@ -435,7 +435,7 @@ button:active {
   {
     margin: 0;
     align-items: baseline;
-    background-color: #fff !important;
+    background-color: var(--color-white) !important;
   }
 .payment-form
 {
@@ -466,7 +466,7 @@ button:active {
 }
 .cardinalOverlay-mask
 {
-  background: rgb(255 255 255) !important;
+  background: var(--color-as-rgb-255255255) !important;
 }
 .shadow-effect
 {
@@ -475,15 +475,15 @@ button:active {
 }
 .dark .main-header ,  .dark .group
 {
-  background-color: #222;
-  color: #fff;
-  background: #222;
+  background-color: var(--color-as-222222);
+  color: var(--color-white);
+  background: var(--color-as-222222);
 }
 .dark  #saved-card {
-    color: #fff;
+    color: var(--color-white);
 }
 .dark input.InputElement {
-    color: #fff !important;
+    color: var(--color-white) !important;
 }
 .braintree-method
 {
@@ -491,25 +491,25 @@ button:active {
 }
 .dark .braintree-large-button
 {
-  background: #222;
-  color: #fff;
+  background: var(--color-as-222222);
+  color: var(--color-white);
 }
 .dark .braintree-heading, .dark .braintree-placeholder
 {
-  color: #fff;
+  color: var(--color-white);
 }
 .dark .braintree-method , .dark .braintree-option , .dark .braintree-sheet
 {
-  background-color: #222;
+  background-color: var(--color-as-222222);
 }
 
 .dark span , .dark .braintree-method .braintree-method__label , .dark .braintree-option .braintree-option__label , .dark .braintree-sheet__header .braintree-sheet__text
 {
-  color: #fff;
+  color: var(--color-white);
 }
 .dark * {
- color: #fff !important;
+ color: var(--color-white) !important;
 }
 .dark :focus {
-    color: #fff;
+    color: var(--color-white);
 }

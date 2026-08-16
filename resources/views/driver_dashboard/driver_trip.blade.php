@@ -98,7 +98,7 @@
                             <div class="trip-expand trip-expand--completed">
                                 <div id="trip-@{{ trip.id }}-expand" class="flexbox">
                                     <div class="col-lg-12">
-                                        <div class="displayflex" style="border-bottom: 1px solid #ddd;margin-bottom: 20px;">
+                                        <div class="displayflex" style="border-bottom: 1px solid var(--color-as-dddddd);margin-bottom: 20px;">
                                             <div class="col-lg-8">
                                                 <div class="cls_flexbox">
                                                     <h3 class="alpha push-half--bottom">

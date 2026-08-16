@@ -23,16 +23,16 @@
             align-items: center;
             padding: 1.5rem;
             background:
-                radial-gradient(circle at top left, rgba(20, 184, 166, .24), transparent 36rem),
-                linear-gradient(135deg, #07111f 0%, #123454 100%);
+                radial-gradient(circle at top left, var(--color-as-rgba-20-184-166-0-24), transparent 36rem),
+                linear-gradient(135deg, var(--color-as-07111f) 0%, var(--color-as-123454) 100%);
         }
 
         .login-shell {
             width: 100%;
             max-width: 430px;
-            background: #ffffff;
+            background: var(--color-white);
             border-radius: 18px;
-            box-shadow: 0 22px 60px rgba(2, 6, 23, 0.28);
+            box-shadow: 0 22px 60px var(--color-as-rgba-2-6-23-0-28);
             overflow: hidden;
         }
 
@@ -48,8 +48,8 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #0f766e 0%, #2563eb 100%);
-            color: #fff;
+            background: linear-gradient(135deg, var(--color-as-0f766e) 0%, var(--color-info) 100%);
+            color: var(--color-white);
             font-size: 1.2rem;
             font-weight: 800;
             letter-spacing: .08em;
@@ -58,16 +58,16 @@
         .login-title {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #0f172a;
+            color: var(--color-as-0f172a);
             margin-bottom: .45rem;
         }
 
         .login-title span {
-            color: #dc2626;
+            color: var(--color-error);
         }
 
         .login-subtitle {
-            color: #64748b;
+            color: var(--color-as-64748b);
             line-height: 1.65;
             margin-bottom: 1.5rem;
         }
@@ -79,8 +79,8 @@
             margin-bottom: 1rem;
             padding: .45rem .75rem;
             border-radius: 999px;
-            background: #ecfeff;
-            color: #0f766e;
+            background: var(--color-as-ecfeff);
+            color: var(--color-as-0f766e);
             font-size: .85rem;
             font-weight: 700;
         }
@@ -92,7 +92,7 @@
         .form-group label {
             display: block;
             margin-bottom: .45rem;
-            color: #334155;
+            color: var(--color-as-334155);
             font-size: .92rem;
             font-weight: 600;
         }
@@ -100,23 +100,23 @@
         .form-group input {
             width: 100%;
             padding: .9rem 1rem;
-            border: 1px solid #dbe3ef;
+            border: 1px solid var(--color-as-dbe3ef);
             border-radius: 12px;
-            color: #0f172a;
+            color: var(--color-as-0f172a);
             font-size: .96rem;
             transition: border-color .2s ease, box-shadow .2s ease;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+            border-color: var(--color-info);
+            box-shadow: 0 0 0 4px var(--color-as-rgba-37-99-235-0-12);
         }
 
         .field-error {
             display: block;
             margin-top: .35rem;
-            color: #dc2626;
+            color: var(--color-error);
             font-size: .82rem;
         }
 
@@ -126,12 +126,12 @@
             align-items: center;
             gap: .75rem;
             margin: 1.25rem 0 1.5rem;
-            color: #64748b;
+            color: var(--color-as-64748b);
             font-size: .92rem;
         }
 
         .login-actions a {
-            color: #0f766e;
+            color: var(--color-as-0f766e);
             font-weight: 700;
             text-decoration: none;
         }
@@ -144,14 +144,14 @@
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            color: #fff;
-            background: linear-gradient(90deg, #0f766e 0%, #2563eb 100%);
+            color: var(--color-white);
+            background: linear-gradient(90deg, var(--color-as-0f766e) 0%, var(--color-info) 100%);
             transition: transform .2s ease, box-shadow .2s ease;
         }
 
         .login-submit:hover {
             transform: translateY(-1px);
-            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.18);
+            box-shadow: 0 12px 24px var(--color-as-rgba-37-99-235-0-18);
         }
 
         .flash-container {
@@ -169,18 +169,18 @@
             display: flex;
             gap: .5rem;
             align-items: flex-start;
-            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+            box-shadow: 0 12px 30px var(--color-as-rgba-15-23-42-0-12);
         }
 
         .alert-info,
         .alert-success {
-            background: #dcfce7;
-            color: #166534;
+            background: var(--color-as-dcfce7);
+            color: var(--color-as-166534);
         }
 
         .alert-danger {
-            background: #fee2e2;
-            color: #991b1b;
+            background: var(--color-as-fee2e2);
+            color: var(--color-as-991b1b);
         }
 
         @media (max-width: 576px) {
@@ -203,6 +203,10 @@
             }
         }
     </style>
+  <!-- lalatokens -->
+  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
+  <script src="{{ url('js/colors.js') }}"></script>
+  <!-- /lalatokens -->
 </head>
 <body>
     <div class="flash-container">

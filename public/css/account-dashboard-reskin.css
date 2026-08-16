@@ -1,9 +1,9 @@
 .dashboard-shell-body {
   background:
-    radial-gradient(circle at top left, rgba(197, 95, 54, 0.16), transparent 26%),
-    radial-gradient(circle at top right, rgba(31, 108, 125, 0.14), transparent 24%),
-    linear-gradient(180deg, #f7f4ee 0%, #ece6db 100%);
-  color: #20262f;
+    radial-gradient(circle at top left, var(--color-as-rgba-197-95-54-0-16), transparent 26%),
+    radial-gradient(circle at top right, var(--color-as-rgba-31-108-125-0-14), transparent 24%),
+    linear-gradient(180deg, var(--color-as-f7f4ee) 0%, var(--color-as-ece6db) 100%);
+  color: var(--color-as-20262f);
   font-family: "Gill Sans", "Trebuchet MS", sans-serif;
 }
 
@@ -12,9 +12,9 @@
   top: 0;
   z-index: 20;
   background:
-    linear-gradient(135deg, rgba(24, 33, 45, 0.92), rgba(31, 62, 79, 0.9)) !important;
+    linear-gradient(135deg, var(--color-as-rgba-24-33-45-0-92), var(--color-as-rgba-31-62-79-0-9)) !important;
   backdrop-filter: blur(14px);
-  box-shadow: 0 18px 36px rgba(24, 33, 45, 0.16);
+  box-shadow: 0 18px 36px var(--color-as-rgba-24-33-45-0-16);
 }
 
 .dashboard-shell-body .dashboard-topbar .container-fluid {
@@ -29,27 +29,27 @@
   object-fit: contain;
   border-radius: 16px;
   padding: 8px 14px;
-  background: rgba(255,255,255,0.92);
-  box-shadow: 0 14px 28px rgba(0,0,0,0.12);
+  background: var(--color-as-rgba-255-255-255-0-92);
+  box-shadow: 0 14px 28px var(--color-as-rgba-0-0-0-0-12);
 }
 
 .dashboard-shell-body .nav--block > li > a,
 .dashboard-shell-body .site-nav a,
 .dashboard-shell-body .menu-a {
-  color: #f5f7fa !important;
+  color: var(--color-as-f5f7fa) !important;
 }
 
 .dashboard-shell-body .flyout__content,
 .dashboard-shell-body .nav-div {
-  background: linear-gradient(180deg, #213344 0%, #1a2430 100%) !important;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+  background: linear-gradient(180deg, var(--color-as-213344) 0%, var(--color-as-1a2430) 100%) !important;
+  border: 1px solid var(--color-as-rgba-255-255-255-0-08);
+  box-shadow: 0 20px 40px var(--color-as-rgba-0-0-0-0-18);
 }
 
 .dashboard-shell-body .flash-container .alert {
   border: 0;
   border-radius: 18px;
-  box-shadow: 0 18px 34px rgba(34, 42, 58, 0.14);
+  box-shadow: 0 18px 34px var(--color-as-rgba-34-42-58-0-14);
 }
 
 .dashboard-shell-body .dashboard-main {
@@ -67,8 +67,8 @@
   border-radius: 30px;
   padding: 26px 18px !important;
   background:
-    linear-gradient(180deg, rgba(32, 48, 64, 0.96), rgba(23, 33, 44, 0.96)) !important;
-  box-shadow: 0 30px 60px rgba(28, 35, 46, 0.2);
+    linear-gradient(180deg, var(--color-as-rgba-32-48-64-0-96), var(--color-as-rgba-23-33-44-0-96)) !important;
+  box-shadow: 0 30px 60px var(--color-as-rgba-28-35-46-0-2);
 }
 
 .dashboard-shell-body .page-sidebar .site-nav {
@@ -87,7 +87,7 @@
   min-height: 48px;
   padding: 12px 14px;
   border-radius: 16px;
-  color: rgba(245,247,250,0.84) !important;
+  color: var(--color-as-rgba-245-247-250-0-84) !important;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -97,21 +97,21 @@
 .dashboard-shell-body .page-sidebar .side-nav-a:hover,
 .dashboard-shell-body .page-sidebar .sidenav-item:hover,
 .dashboard-shell-body .page-sidebar a[aria-selected="true"] {
-  background: linear-gradient(135deg, #c55f36, #8f3e16);
-  color: #fff !important;
-  box-shadow: 0 16px 30px rgba(143, 62, 22, 0.22);
+  background: linear-gradient(135deg, var(--color-as-c55f36), var(--color-as-8f3e16));
+  color: var(--color-white) !important;
+  box-shadow: 0 16px 30px var(--color-as-rgba-143-62-22-0-22);
 }
 
 .dashboard-shell-body .page-sidebar .dropdown-container {
   margin-top: 8px;
   padding: 8px;
   border-radius: 16px;
-  background: rgba(255,255,255,0.05);
+  background: var(--color-as-rgba-255-255-255-0-05);
 }
 
 .dashboard-shell-body .page-sidebar .text--center > div,
 .dashboard-shell-body .text--normal {
-  color: #fff !important;
+  color: var(--color-white) !important;
 }
 
 .dashboard-shell-body .page-content {
@@ -138,9 +138,9 @@
 .dashboard-shell-body .pay_period_details,
 .dashboard-shell-body .more-table-trips,
 .dashboard-shell-body #no-more-tables {
-  background: rgba(255, 251, 246, 0.88);
-  border: 1px solid rgba(112, 88, 66, 0.14);
-  box-shadow: 0 24px 60px rgba(72, 48, 28, 0.12);
+  background: var(--color-as-rgba-255-251-246-0-88);
+  border: 1px solid var(--color-as-rgba-112-88-66-0-14);
+  box-shadow: 0 24px 60px var(--color-as-rgba-72-48-28-0-12);
 }
 
 .dashboard-shell-body .page-lead,
@@ -161,7 +161,7 @@
 .dashboard-shell-body .flush-h2,
 .dashboard-shell-body .page-lead h1 {
   margin: 0;
-  color: #18222d;
+  color: var(--color-as-18222d);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 34px;
   font-weight: 700;
@@ -181,9 +181,9 @@
 .dashboard-shell-body input[type="number"] {
   min-height: 48px;
   border-radius: 16px !important;
-  border: 1px solid rgba(112, 88, 66, 0.16) !important;
-  background: rgba(255,255,255,0.92) !important;
-  color: #1f2a36 !important;
+  border: 1px solid var(--color-as-rgba-112-88-66-0-16) !important;
+  background: var(--color-as-rgba-255-255-255-0-92) !important;
+  color: var(--color-as-1f2a36) !important;
   box-shadow: none !important;
 }
 
@@ -194,7 +194,7 @@
 .dashboard-shell-body label,
 .dashboard-shell-body small,
 .dashboard-shell-body .color--neutral {
-  color: #596171 !important;
+  color: var(--color-as-596171) !important;
 }
 
 .dashboard-shell-body .btn,
@@ -205,10 +205,10 @@
 .dashboard-shell-body input[type="button"] {
   border: 0 !important;
   border-radius: 999px !important;
-  background: linear-gradient(135deg, #c55f36, #8f3e16) !important;
-  color: #fff !important;
+  background: linear-gradient(135deg, var(--color-as-c55f36), var(--color-as-8f3e16)) !important;
+  color: var(--color-white) !important;
   font-weight: 700;
-  box-shadow: 0 18px 34px rgba(143, 62, 22, 0.2);
+  box-shadow: 0 18px 34px var(--color-as-rgba-143-62-22-0-2);
 }
 
 .dashboard-shell-body .btn:hover,
@@ -220,7 +220,7 @@
 
 .dashboard-shell-body .trip-filter__origin-link,
 .dashboard-shell-body .trip-filter__origin-btn {
-  background: linear-gradient(135deg, #1c6c7c, #174956) !important;
+  background: linear-gradient(135deg, var(--color-as-1c6c7c), var(--color-as-174956)) !important;
 }
 
 .dashboard-shell-body table,
@@ -233,23 +233,23 @@
 
 .dashboard-shell-body table thead th,
 .dashboard-shell-body .cls_table thead th {
-  background: rgba(28, 108, 124, 0.08);
-  color: #22444d;
+  background: var(--color-as-rgba-28-108-124-0-08);
+  color: var(--color-as-22444d);
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(28,108,124,0.12);
+  border-bottom: 1px solid var(--color-as-rgba-28-108-124-0-12);
 }
 
 .dashboard-shell-body table td,
 .dashboard-shell-body table th {
   padding: 14px 12px;
-  border-top: 1px solid rgba(112, 88, 66, 0.08);
+  border-top: 1px solid var(--color-as-rgba-112-88-66-0-08);
   vertical-align: middle;
 }
 
 .dashboard-shell-body table tbody tr:hover {
-  background: rgba(197, 95, 54, 0.05);
+  background: var(--color-as-rgba-197-95-54-0-05);
 }
 
 .dashboard-shell-body .trip-expand,
@@ -262,9 +262,9 @@
 
 .dashboard-shell-body .bor-left {
   padding: 16px 18px;
-  border-left: 4px solid #1c6c7c;
+  border-left: 4px solid var(--color-as-1c6c7c);
   border-radius: 18px;
-  background: rgba(28, 108, 124, 0.06);
+  background: var(--color-as-rgba-28-108-124-0-06);
 }
 
 .dashboard-shell-body .pagination,
@@ -283,26 +283,26 @@
   min-height: 42px;
   margin-left: 8px;
   border-radius: 999px;
-  background: rgba(31, 42, 54, 0.08);
-  color: #1f2a36;
+  background: var(--color-as-rgba-31-42-54-0-08);
+  color: var(--color-as-1f2a36);
 }
 
 .dashboard-shell-body .modal-content {
-  border: 1px solid rgba(112, 88, 66, 0.14);
+  border: 1px solid var(--color-as-rgba-112-88-66-0-14);
   border-radius: 24px;
-  box-shadow: 0 30px 60px rgba(36, 42, 54, 0.16);
+  box-shadow: 0 30px 60px var(--color-as-rgba-36-42-54-0-16);
 }
 
 .dashboard-shell-body .panel-header {
   border-radius: 24px 24px 0 0;
-  background: linear-gradient(135deg, #1c6c7c, #174956);
-  color: #fff;
+  background: linear-gradient(135deg, var(--color-as-1c6c7c), var(--color-as-174956));
+  color: var(--color-white);
 }
 
 .dashboard-shell-body .driver-avatar,
 .dashboard-shell-body .head_profile,
 .dashboard-shell-body .img--circle {
-  box-shadow: 0 16px 30px rgba(31, 42, 54, 0.16);
+  box-shadow: 0 16px 30px var(--color-as-rgba-31-42-54-0-16);
 }
 
 @media (max-width: 991px) {

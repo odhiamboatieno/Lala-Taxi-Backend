@@ -32,9 +32,9 @@
 		text-align: left;
 		margin-left: -100px !important;
 		left: 50%;
-		background: #2c3239;
+		background: var(--color-as-2c3239);
 		border-radius: 2px;
-		color: #fff;
+		color: var(--color-white);
 		font-style: normal;
 		position: absolute;
 		display: none;
@@ -45,7 +45,7 @@
 		-moz-border-left-colors: none;
 		-moz-border-right-colors: none;
 		-moz-border-top-colors: none;
-		border-color: #2c3239 transparent transparent;
+		border-color: var(--color-as-2c3239) transparent transparent;
 		border-image: none;
 		border-style: solid;
 		border-width: 3px;
@@ -75,20 +75,20 @@
 		min-height: auto;
 	}
 	.payment-gateway-page .box {
-		background: #fff;
+		background: var(--color-white);
 		border: 0;
 		border-radius: 18px;
-		box-shadow: 0 18px 45px rgba(15, 23, 42, .08);
+		box-shadow: 0 18px 45px var(--color-as-rgba-15-23-42-0-08);
 		overflow: hidden;
 	}
 	.payment-gateway-page .box-header {
 		padding: 24px;
-		border-bottom: 1px solid rgba(148, 163, 184, .22);
-		background: linear-gradient(135deg, rgba(20, 184, 166, .12), rgba(37, 99, 235, .10));
+		border-bottom: 1px solid var(--color-as-rgba-148-163-184-0-22);
+		background: linear-gradient(135deg, var(--color-as-rgba-20-184-166-0-12), var(--color-as-rgba-37-99-235-0-10));
 	}
 	.payment-gateway-page .box-title {
 		font-weight: 700;
-		color: #0f172a;
+		color: var(--color-as-0f172a);
 	}
 	.payment-gateway-page .box-body {
 		padding: 18px 24px;
@@ -103,7 +103,7 @@
 	.payment-gateway-page .control-label {
 		text-align: left;
 		font-weight: 600;
-		color: #334155;
+		color: var(--color-as-334155);
 	}
 	.payment-gateway-page .col-sm-3,
 	.payment-gateway-page .col-md-7 {
@@ -118,13 +118,13 @@
 	.payment-gateway-page .form-control,
 	.payment-gateway-page select {
 		border-radius: 12px;
-		border-color: #dbe3ef;
+		border-color: var(--color-as-dbe3ef);
 		min-height: 42px;
 	}
 	.payment-gateway-page .box-footer {
 		padding: 24px;
-		background: #f8fafc;
-		border-top: 1px solid rgba(148, 163, 184, .22);
+		background: var(--color-as-f8fafc);
+		border-top: 1px solid var(--color-as-rgba-148-163-184-0-22);
 	}
 	@media (max-width: 768px) {
 		.payment-gateway-page .form-group {
@@ -441,7 +441,7 @@
 							</label>
 							<div class="col-md-7 col-sm-offset-1">
 								{!! Form::text('merchant_account_id', old('merchant_account_id', demoPaymentGateway('merchant_account_id','Braintree')), ['class'=>'form-control', 'id'=>'input_merchant_account_id', 'placeholder'=>'Braintree Merchant Account Id']) !!}
-								<small class="description" style="color: #9da1ab;">
+								<small class="description" style="color: var(--color-as-9da1ab);">
 					                {{ __('messages.blade_static.for_default_account_id_leave_it_as_empty_e7d2d877') }}
 					            </small>
 							</div>

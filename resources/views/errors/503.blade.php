@@ -14,7 +14,7 @@
                 margin: 0;
                 padding: 0;
                 width: 100%;
-                color: #B0BEC5;
+                color: var(--color-as-b0bec5);
                 display: table;
                 font-weight: 100;
                 font-family: 'Lato';
@@ -36,7 +36,11 @@
                 margin-bottom: 40px;
             }
         </style>
-    </head>
+      <!-- lalatokens -->
+  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
+  <script src="{{ url('js/colors.js') }}"></script>
+  <!-- /lalatokens -->
+</head>
     <body>
         <div class="container">
             <div class="content">

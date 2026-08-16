@@ -16,12 +16,12 @@
     overflow: hidden;
 }
 .topbannertxt h1 {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 62px;
     font-weight: bold;
 }
 .topbannertxt p {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 18px;
     font-weight: 500;
     line-height: 31px;
@@ -34,9 +34,9 @@
 }
 .topbannertxt li {
     display: inline-block;
-    background-color: #02172d;
+    background-color: var(--color-as-02172d);
     padding: 15px;
-    box-shadow: 0px 3px 6px #00000029;
+    box-shadow: 0px 3px 6px var(--color-as-00000029);
     border-radius: 10px;
     margin-right: 20px;
 }
@@ -47,24 +47,24 @@
 	flex-wrap: wrap;
 }
 .alllogin {
-    background-color: #02172d;
+    background-color: var(--color-as-02172d);
    /* border-radius: 92px 92px 0px 0px; */
     padding: 4em 0;
 }
 .alllogin .alllogintop {
     padding-bottom: 4em;
-    border-bottom: 1px solid #ffffff2e;
+    border-bottom: 1px solid var(--color-as-ffffff2e);
     margin-bottom: 4em;
 }
 .alllogin .allloginonetxt h3 {
-    color: #FFFFFF;
+    color: var(--color-white);
     font-size: 34px;
     font-weight: bold;
     line-height: 62px;
     margin: 0;
 }
 .alllogin .allloginonetxt p {
-    color: #FFFFFF;
+    color: var(--color-white);
     font-size: 41px;
     font-weight: bold;
     line-height: 62px;
@@ -72,14 +72,14 @@
 }
 .alllogin .allloginone h3 
 {
-	color: #FFFFFF;
+	color: var(--color-white);
 	font-size: 30px;
 	font-weight: bold;
 	margin: 0 0 15px;
 }
 .alllogin .allloginone a 
 {
-	color: #1FBAD6;
+	color: var(--color-as-1fbad6);
 	font-size: 14px;
 	font-weight: bold;
 }
@@ -90,7 +90,7 @@
 
 .alllogin .alllogintwo h4
 {
-	color: #FFFFFF;
+	color: var(--color-white);
 	font-size: 42px;
 	font-weight: bold;
 	line-height: 55px;
@@ -98,7 +98,7 @@
 }
 .alllogin .alllogintwo p
 {
-	color: #fff;
+	color: var(--color-white);
 	font-size: 16px;
 	font-weight: bold;
 	line-height: 28px;
@@ -109,7 +109,7 @@
 }
 .alllogin .allloginbottom1 a {
     font-size: 21px;
-    color: #1FBAD6;
+    color: var(--color-as-1fbad6);
     text-transform: uppercase;
     line-height: 31px;
     font-weight:bold;
@@ -137,14 +137,14 @@
     padding: 0 2em;
 }
 .cls_sectionone .cls_sectiononetxt h4 {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 36px;
     font-weight: bold;
     line-height: 62px;
 }
 
 .cls_sectionone .cls_sectiononetxt p {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 18px;
     font-weight: bold;
     line-height: 31px;
@@ -154,33 +154,33 @@
 }
 
 .cls_arriving .title h5 {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 34px;
     line-height: 62px;
     font-weight: bold;
 }
 
 .cls_arriving .title h6 {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 51px;
     font-weight: bold;
     margin-bottom: 1em;
 }
 .cls_arrivingin {
-    background: #ddf2ff 0% 0% no-repeat padding-box;
+    background: var(--color-as-ddf2ff) 0% 0% no-repeat padding-box;
     border-radius: 10px;
     display: inline-block;
     padding: 3em;
 }
 .cls_arrivingin h5{
-	color: #02172d;
+	color: var(--color-as-02172d);
 	font-size:36px;
 	line-height: 62px;
 	font-weight: bold;
 }
 
 .cls_arrivingin p{
-	color: #02172d
+	color: var(--color-as-02172d)
 	font-size:18px;
 	line-height: 31px;
 	font-weight: bold;
@@ -193,28 +193,28 @@
 }
 .cls_driveronetxt h3
 {
-    color: #000;
+    color: var(--color-black);
     font-size: 34px;
     line-height: 62px;
     font-weight: bold;
 }
 .cls_driveronetxt p
 {
-    color: #000;
+    color: var(--color-black);
     font-size: 51px;
     line-height: 62px;
     font-weight: bold;
 }
 .cls_driveronetwo
 {
-    background-color: #ddf2ff;
+    background-color: var(--color-as-ddf2ff);
     padding: 3em;
     border-radius: 15px;
 }
 
 .cls_driveronetwo h4
 {
-   color: #02172d;
+   color: var(--color-as-02172d);
     font-size: 36px;
     font-weight: bold;
     margin-bottom: 30px;
@@ -222,28 +222,28 @@
 
 .cls_driveronetwo p
 {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 18px;
     line-height: 31px;
 }
 .cls_dottedline .circle {
     height: 48px;
-    border: 1px solid #1FBAD6;
+    border: 1px solid var(--color-as-1fbad6);
     display: block;
     width: 48px;
     text-align: center;
-    background-color: #1FBAD6;
+    background-color: var(--color-as-1fbad6);
     border-radius: 100px;
     font-size: 31px;
     line-height: 47px;
-    color: #02172d;
+    color: var(--color-as-02172d);
         z-index: 2;
     position: relative;
         margin-left: 1em;
 }
 .cls_dottedline .line {
     width: 68%;
-    border: 2px dashed rgb(0 0 0 / 21%);
+    border: 2px dashed var(--color-as-rgb-000-21);
     position: absolute;
     left: 50px;
     top: 23px;
@@ -260,13 +260,13 @@
     padding: 5em 0;
 }
 .cls_signin .cls_signintext {
-    background-color: #ddf2ff;
+    background-color: var(--color-as-ddf2ff);
     padding: 4em;
     border-radius: 15px;
 }
 
 .cls_signin .title {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 41px;
     line-height: 62px;
     margin: 0 0 1em 22px;
@@ -274,14 +274,14 @@
 }
 .cls_signintext h4 
 {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 30px;
     line-height: 55px;
     font-weight: bold;
 }
 .cls_signintext p 
 {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 16px;
     line-height: 28px;
     font-weight: bold;
@@ -290,7 +290,7 @@
 
 .cls_signintext a
 {
-    color: #1FBAD6;
+    color: var(--color-as-1fbad6);
     font-size: 21px;
     text-transform: uppercase;
     font-weight: bold;
@@ -301,7 +301,7 @@
 }
 h1.cls_profiletitle {
     margin: 0;
-    color: #1FBAD6;
+    color: var(--color-as-1fbad6);
     font-size: 27px;
     line-height: 62px;
     font-weight: bold;
@@ -311,18 +311,18 @@ h1.cls_profiletitle {
     width: 100%;
     padding: 15px 0;
     border-width: 1px 0 1px 0;
-    border-color: rgb(112 112 112 / 20%);
+    border-color: var(--color-as-rgb-112112112-20);
     border-style: solid;
 }
 .paymentpage small
 {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 17px;
     line-height: 45px;
 }
 .paymentpage label
 {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 31px;
     line-height: 36px;
     font-weight: bold;
@@ -330,18 +330,18 @@ h1.cls_profiletitle {
 
 .paymentpage small.pull-right.pull-left-sm 
 {
-    color: #02172d;
+    color: var(--color-as-02172d);
     font-size: 14px;
     line-height: 37px;
 }
 .cls_paymentpage .form-control
 {
-    color: #02172d !important;
+    color: var(--color-as-02172d) !important;
     font-weight: bold !important;
     font-size: 15px !important;
 }
 .pay_period_details .bor-left {
-    background-color: #ddf2ff;
+    background-color: var(--color-as-ddf2ff);
     border-radius: 10px;
     padding:2em 3em;
     border: unset;
@@ -356,45 +356,45 @@ h1.cls_profiletitle {
 {
     font-size: 18px;
     line-height: 21px
-    color:#02172d;
+    color:var(--color-as-02172d);
 }
 .cls_table thead tr th {
     padding: 15px 0;
     font-size: 19px;
-    color: #3A4750;
+    color: var(--color-as-3a4750);
     line-height: 22px;
 }
 .cls_table tbody tr td {
     padding: 15px 0;
     font-size: 19px;
-    color: #3A4750;
+    color: var(--color-as-3a4750);
     line-height: 22px;
     font-weight: 100;
 }
 .cls_table tbody tr {
     border-width: 1px 0 1px 0;
     border-style: solid ;
-    border-color: rgb(112 112 112 / 20%);
+    border-color: var(--color-as-rgb-112112112-20);
 }
 .pagination > li > a, .pagination > li > span
 {
-    background-color: #ddf2ff;
-    color: #3A4750;
-    border-color: #ddf2ff !important;
+    background-color: var(--color-as-ddf2ff);
+    color: var(--color-as-3a4750);
+    border-color: var(--color-as-ddf2ff) !important;
     border-radius: 10px !important;
     font-size: 17px;
 }
 .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus
 {
-    background-color: #ddf2ff;
-    border-color: #ddf2ff;
-    color: #3A4750;
+    background-color: var(--color-as-ddf2ff);
+    border-color: var(--color-as-ddf2ff);
+    color: var(--color-as-3a4750);
 }
 .cls_litags a.custom-clas {
     display: inline-block;
     position: relative;
     padding: 7px 20px 7px 7px;
-    background-color: #f6c90f;
+    background-color: var(--color-as-f6c90f);
     border-radius: 10px;
 }
 .cls_litags .filter-checked {
@@ -419,37 +419,37 @@ img
     justify-content: flex-end;
 }
 .signup-wrapper.cls_signuprider {
-    background-color: #ddf2ff;
+    background-color: var(--color-as-ddf2ff);
     border-radius: 5px;
     padding-bottom: 1em;
 }
 .cls_signuprider .form-control {
-    background-color: #fff !important;
+    background-color: var(--color-white) !important;
     border-radius: 5px !important;
 }
 .cls_signuprider .select.select--xl
 {
-    background-color: #fff !important;
+    background-color: var(--color-white) !important;
     border-radius: 10px !important;
 }
 .cls_signuprider i 
 {
-    color: #02172d !important;
+    color: var(--color-as-02172d) !important;
 }
 .cls_driversignup .driverform {
-    background-color: #ffffff;
+    background-color: var(--color-white);
     padding: 1em 2em;
     border-radius: 10px;
     display: inline-block;
 }
 .cls_lefttext h1 {
     font-size: 61px;
-    /*color: #fff; */
+    /*color: var(--color-white); */
     margin-bottom: 30px;
 }
 .cls_lefttext p {
     font-size: 21px;
-    color: #fff;
+    color: var(--color-white);
     margin-bottom: 30px;
     line-height: 30px;
 }
@@ -466,16 +466,16 @@ img
 {
     padding: 12px 15px;
     position: inherit;
-    background-color: #ddf2ff;
+    background-color: var(--color-as-ddf2ff);
     opacity: 1;
-    border: 1px solid #C7C7C7 !important;
+    border: 1px solid var(--color-as-c7c7c7) !important;
     border-right: none;
     width: 100%;
     border-radius: 5px;
 }
 .cls_arrivinginatag
 {
-    color: #1FBAD6;
+    color: var(--color-as-1fbad6);
     font-size:21px; 
     font-weight: bold;
 }

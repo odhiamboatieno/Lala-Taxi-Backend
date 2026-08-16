@@ -9,7 +9,7 @@
         height: 560px;
         width: 100%;
         border-radius: 1rem;
-        border: 1px solid rgba(20, 33, 61, 0.08);
+        border: 1px solid var(--color-as-rgba-20-33-61-0-08);
     }
     .controls.hide {
         display: none;
@@ -19,7 +19,7 @@
         width: min(420px, calc(100vw - 96px)) !important;
         max-width: calc(100vw - 96px);
         margin: 10px 0 0 0;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+        box-shadow: 0 2px 6px var(--color-as-rgba-0-0-0-0-18);
         z-index: 1;
     }
     .map-canvas-wrap {

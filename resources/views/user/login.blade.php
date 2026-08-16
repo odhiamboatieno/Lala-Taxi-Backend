@@ -4,7 +4,7 @@
 
 <style>
   .cls_signin .cls_signintext {
-    background-color: #ddf2ff;
+    background-color: var(--color-as-ddf2ff);
     padding: 3em;
     border-radius: 56px;
 }

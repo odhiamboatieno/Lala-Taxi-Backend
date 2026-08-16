@@ -1,7 +1,7 @@
 @extends('templatesign')
 
 @section('main')
-<div class="container-fluid fixed-header" style="background:rgb(248, 248, 249);z-index:99;">
+<div class="container-fluid fixed-header" style="background:var(--color-as-rgb-248-248-249);z-index:99;">
 <ul class="sub-header">
 <li><a href="{{ url('safety') }}">{{trans('messages.footer.safety')}}</a></li>
 <li><a href="{{ url('how_it_works') }}">{{trans('messages.header.how_it_works')}}</a></li>
@@ -11,15 +11,15 @@
 <div style="position:relative;float:left;width:100%;">
 <div class="slide-img slide-img-ride"></div>
 
-<div class="pattern" style="height: 520px; width: 274px; right: 0px; position: absolute; z-index: 10;"><div style="background-color: #A6DAEC; height: 100%; overflow: hidden;"><div aria-label="{{ __('messages.blade_static.decorative_pattern_b3870f86') }}" style="height: 100%;"><div class="isvg loaded" style="height: 100%;"><img src="{{url('images/icon/patten_274_520.jpg')}}">
+<div class="pattern" style="height: 520px; width: 274px; right: 0px; position: absolute; z-index: 10;"><div style="background-color: var(--color-as-a6daec); height: 100%; overflow: hidden;"><div aria-label="{{ __('messages.blade_static.decorative_pattern_b3870f86') }}" style="height: 100%;"><div class="isvg loaded" style="height: 100%;"><img src="{{url('images/icon/patten_274_520.jpg')}}">
 </div>
 </div>
 </div>
 </div>
 @if(Auth::user()==null)
 <div class="mini-green ride-mini-green" >
-    <div href="#" class="_style_4jQAPw green-mini-div" style="width: 206px; padding: 32px 20px 20px 32px; display: block; position: relative; height: 206px; background-color: #FFC107">
-    <div class="_style_1PPmFR" style="font-weight: 500; color: rgb(255, 255, 255);font-size: 21px; line-height: 1.4;">{{trans('messages.ride.ride_with_Cabme',['site_name'=>$site_name])}}</div>
+    <div href="#" class="_style_4jQAPw green-mini-div" style="width: 206px; padding: 32px 20px 20px 32px; display: block; position: relative; height: 206px; background-color: var(--color-as-ffc107)">
+    <div class="_style_1PPmFR" style="font-weight: 500; color: var(--color-as-rgb-255-255-255);font-size: 21px; line-height: 1.4;">{{trans('messages.ride.ride_with_Cabme',['site_name'=>$site_name])}}</div>
 <a class="btn btn--primary btn--arrow position--relative error-retry-btn" href="{{ url('signup_rider') }}" style= "background: transparent !important;     border: none !important;    float: right;margin-top: 55px;    margin-right: -16px;">
 <div class="block-context soft-small--right">{{trans('messages.home.siginup')}}</div>
 <i class="icon_right-arrow-thin icon transition delta position--absolute"></i>
@@ -29,7 +29,7 @@
 @endif
 </div>
 </div>
-<div class="container-fluid pad-sm-20 height-fluid" style="padding:0px;background:#fff !important;">
+<div class="container-fluid pad-sm-20 height-fluid" style="padding:0px;background:var(--color-white) !important;">
 <div class="col-lg-10 col-lg-push-2 col-md-12 col-sm-12 col-xs-12 ride-always">
 <div class="pad-44">
 <h1 class="slide-head ride-head">{{trans('messages.ride.always_ride')}}</h1><p class="ride-content slide-content">
@@ -59,8 +59,8 @@
 </div>
 </div>
 </div>
-<div class="container-fluid" style="padding:0px;background:#F8F8F9!important">
-<div class="col-lg-10 col-lg-push-2 col-md-12 col-sm-12 col-xs-12 ride-always" style="background:#F8F8F9!important;margin-top:0px !important;padding: 0px !important;padding-bottom: 0px !important;">
+<div class="container-fluid" style="padding:0px;background:var(--color-as-f8f8f9)!important">
+<div class="col-lg-10 col-lg-push-2 col-md-12 col-sm-12 col-xs-12 ride-always" style="background:var(--color-as-f8f8f9)!important;margin-top:0px !important;padding: 0px !important;padding-bottom: 0px !important;">
 <div class="pad-44">
 <h1 class="slide-head ride-slide">{{trans('messages.ride.every_price')}}</h1><p class="slide-content">
 {{trans('messages.ride.any_occasion')}}</p>
@@ -99,7 +99,7 @@
 </div>
 </div>
 	
-	<div class="contianer-fluid" style="    background-color: #F8F8F9!important;">
+	<div class="contianer-fluid" style="    background-color: var(--color-as-f8f8f9)!important;">
 	<div class="container ash-cont">
 	<p class="_style_ZJW1y" style="
     margin-bottom: 25px !important;">{{trans('messages.footer.safety')}}</p>
@@ -112,7 +112,7 @@
 	<div class="container-fluid" style="padding:0px;">
 	<div class="col-lg-11 col-lg-push-1 col-sm-push-1 col-md-12 col-sm-11 col-xs-12 pattern-ride" >
 	<div class="pattern" id="pattern" style="display:block !important;height: 100% !important; left: 0px; position: absolute; z-index: 10;">
-	<div style="background-color:#A6DAEC; height: 100%; overflow: hidden;"><div aria-label="{{ __('messages.blade_static.decorative_pattern_b3870f86') }}" style="height: 100%;"><div class="isvg loaded" style="height: 100%;">
+	<div style="background-color:var(--color-as-a6daec); height: 100%; overflow: hidden;"><div aria-label="{{ __('messages.blade_static.decorative_pattern_b3870f86') }}" style="height: 100%;"><div class="isvg loaded" style="height: 100%;">
 <img src="{{url('images/icon/patten_90_238.jpg')}}">
 </div>
 </div>
@@ -130,7 +130,7 @@
 </div>
 	</div>
 	</div>
-	<div class="container-fluid con-back-div" style="background-color: #F1F1F1!important;">
+	<div class="container-fluid con-back-div" style="background-color: var(--color-as-f1f1f1)!important;">
 	<div class="col-lg-10 col-lg-push-2 col-md-12 col-sm-12 col-xs-12" style="overflow:hidden;padding:0px;">
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0px;">
 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mar-height ride-three" style="padding-right: 20px; padding-left: 20px;">
@@ -171,16 +171,16 @@
 /* Reset and Base Styles */
 body {
   font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #f5f5f5;
-  color: #212121;
+  background: var(--color-as-f5f5f5);
+  color: var(--color-as-212121);
   margin: 0;
   line-height: 1.6;
 }
 
 /* Fixed Header */
 .fixed-header {
-  background: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: var(--color-white);
+  box-shadow: 0 2px 4px var(--color-as-rgba-0-0-0-0-1);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -197,7 +197,7 @@ body {
 }
 
 .sub-header li a {
-  color: #212121;
+  color: var(--color-as-212121);
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
@@ -206,15 +206,15 @@ body {
 }
 
 .sub-header li a:hover {
-  color: #0288d1;
-  background: #e3f2fd;
+  color: var(--color-as-0288d1);
+  background: var(--color-as-e3f2fd);
   border-radius: 4px;
 }
 
 /* Hero Section (ride-div-main) */
 .ride-div-main {
   position: relative;
-  background: linear-gradient(135deg, #0288d1 0%, #4fc3f7 100%);
+  background: linear-gradient(135deg, var(--color-as-0288d1) 0%, var(--color-as-4fc3f7) 100%);
   padding: 0;
   overflow: hidden;
 }
@@ -254,10 +254,10 @@ body {
 }
 
 .green-mini-div {
-  background: #0288d1 !important;
+  background: var(--color-as-0288d1) !important;
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px var(--color-as-rgba-0-0-0-0-2);
   width: 240px;
   height: auto;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -265,13 +265,13 @@ body {
 
 .green-mini-div:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 16px var(--color-as-rgba-0-0-0-0-3);
 }
 
 .green-mini-div ._style_1PPmFR {
   font-size: 20px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--color-white);
   line-height: 1.4;
   margin-bottom: 16px;
 }
@@ -279,7 +279,7 @@ body {
 .green-mini-div .btn--primary {
   background: transparent;
   border: none;
-  color: #ffffff;
+  color: var(--color-white);
   font-size: 16px;
   font-weight: 500;
   display: flex;
@@ -289,7 +289,7 @@ body {
 }
 
 .green-mini-div .btn--primary:hover {
-  color: #e3f2fd;
+  color: var(--color-as-e3f2fd);
 }
 
 .green-mini-div .icon_right-arrow-thin {
@@ -304,7 +304,7 @@ body {
 /* Always Ride Section */
 .ride-always {
   padding: 60px 0;
-  background: #ffffff;
+  background: var(--color-white);
 }
 
 .pad-44 {
@@ -314,14 +314,14 @@ body {
 .slide-head.ride-head {
   font-size: 36px;
   font-weight: 700;
-  color: #212121;
+  color: var(--color-as-212121);
   margin-bottom: 16px;
   text-align: center;
 }
 
 .slide-content {
   font-size: 18px;
-  color: #616161;
+  color: var(--color-as-616161);
   text-align: center;
   max-width: 800px;
   margin: 0 auto 40px;
@@ -332,29 +332,29 @@ body {
 }
 
 .arrive-content {
-  background: #ffffff;
+  background: var(--color-white);
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--color-as-rgba-0-0-0-0-1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
 }
 
 .arrive-content:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px var(--color-as-rgba-0-0-0-0-15);
 }
 
 .arrive-content ._style_ZJW1y {
   font-size: 22px;
   font-weight: 600;
-  color: #212121;
+  color: var(--color-as-212121);
   margin-bottom: 16px;
 }
 
 .arrive-content .cmln__paragraph {
   font-size: 16px;
-  color: #616161;
+  color: var(--color-as-616161);
   line-height: 1.5;
 }
 
@@ -362,13 +362,13 @@ body {
 .ride-slide {
   font-size: 36px;
   font-weight: 700;
-  color: #212121;
+  color: var(--color-as-212121);
   margin-bottom: 16px;
   text-align: center;
 }
 
 #mySliderTabsContainer {
-  background: #f8f8f9;
+  background: var(--color-as-f8f8f9);
   padding: 40px 0;
 }
 
@@ -388,20 +388,20 @@ body {
 #mySliderTabs ul li a {
   display: block;
   padding: 12px 24px;
-  background: #ffffff;
+  background: var(--color-white);
   border-radius: 8px;
   text-decoration: none;
-  color: #212121;
+  color: var(--color-as-212121);
   font-size: 16px;
   font-weight: 500;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--color-as-rgba-0-0-0-0-1);
   transition: background 0.3s ease, color 0.3s ease;
 }
 
 #mySliderTabs ul li a:hover,
 #mySliderTabs ul li.ui-tabs-active a {
-  background: #0288d1;
-  color: #ffffff;
+  background: var(--color-as-0288d1);
+  color: var(--color-white);
 }
 
 #mySliderTabs img {
@@ -411,7 +411,7 @@ body {
   border-radius: 12px;
   margin: 0 auto;
   display: block;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--color-as-rgba-0-0-0-0-1);
 }
 
 /* Safety Section */
@@ -423,26 +423,26 @@ body {
 .ash-cont ._style_ZJW1y {
   font-size: 18px;
   font-weight: 500;
-  color: #0288d1;
+  color: var(--color-as-0288d1);
   margin-bottom: 16px;
 }
 
 .ash-cont .slide-head {
   font-size: 36px;
   font-weight: 700;
-  color: #212121;
+  color: var(--color-as-212121);
   margin-bottom: 16px;
 }
 
 .ash-cont .slide-content {
   font-size: 18px;
-  color: #616161;
+  color: var(--color-as-616161);
   max-width: 800px;
   margin: 0 auto 24px;
 }
 
 .ash-cont .btn--link {
-  color: #0288d1;
+  color: var(--color-as-0288d1);
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
@@ -454,7 +454,7 @@ body {
 }
 
 .ash-cont .btn--link:hover {
-  color: #01579b;
+  color: var(--color-as-01579b);
 }
 
 .ash-cont .icon_right-arrow {
@@ -488,21 +488,21 @@ body {
   align-items: center;
   gap: 24px;
   padding: 40px 20px;
-  background: #ffffff;
+  background: var(--color-white);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--color-as-rgba-0-0-0-0-1);
 }
 
 .pad-ride-red .slide-content {
   font-size: 18px;
-  color: #616161;
+  color: var(--color-as-616161);
   flex: 1;
   text-align: left;
 }
 
 .pad-ride-red .btn--primary {
-  background: #0288d1;
-  color: #ffffff;
+  background: var(--color-as-0288d1);
+  color: var(--color-white);
   border: none;
   border-radius: 8px;
   padding: 12px 24px;
@@ -515,7 +515,7 @@ body {
 }
 
 .pad-ride-red .btn--primary:hover {
-  background: #01579b;
+  background: var(--color-as-01579b);
   transform: translateY(-2px);
 }
 
@@ -526,7 +526,7 @@ body {
 /* Ride Three Section */
 .con-back-div {
   padding: 60px 0;
-  background: #f1f1f1;
+  background: var(--color-as-f1f1f1);
 }
 
 .ride-three {
@@ -541,35 +541,35 @@ body {
 }
 
 .ride-three .arrive-content {
-  background: #ffffff;
+  background: var(--color-white);
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--color-as-rgba-0-0-0-0-1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .ride-three .arrive-content:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px var(--color-as-rgba-0-0-0-0-15);
 }
 
 .ride-three .arrive-content a {
   font-size: 18px;
   font-weight: 600;
-  color: #212121;
+  color: var(--color-as-212121);
   text-decoration: none;
 }
 
 .ride-three .arrive-content ._style_ZJW1y {
   font-size: 20px;
   font-weight: 500;
-  color: #212121;
+  color: var(--color-as-212121);
   margin: 10px 0 15px;
 }
 
 .ride-three .arrive-content .cmln__paragraph {
   font-size: 16px;
-  color: #616161;
+  color: var(--color-as-616161);
 }
 
 /* Responsive Design */

@@ -11,17 +11,17 @@
         }
 
         .notify-panel {
-            background: var(--bs-card-bg, var(--bs-body-bg, #fff));
-            border: 1px solid var(--bs-border-color, rgba(0, 0, 0, .125));
+            background: var(--bs-card-bg, var(--bs-body-bg, var(--color-white)));
+            border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
             border-radius: 22px;
-            box-shadow: 0 14px 30px rgba(16, 67, 79, .08);
+            box-shadow: 0 14px 30px var(--color-as-rgba-16-67-79-0-08);
             margin-bottom: 24px;
             overflow: hidden;
         }
 
         .notify-panel__head {
             align-items: center;
-            border-bottom: 1px solid var(--bs-border-color, rgba(0, 0, 0, .125));
+            border-bottom: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
             display: flex;
             justify-content: space-between;
             padding: 20px 22px 18px;
@@ -35,16 +35,16 @@
         }
 
         .notify-panel__caption {
-            color: var(--bs-secondary-color, #6c757d);
+            color: var(--bs-secondary-color, var(--color-as-6c757d));
             font-size: 14px;
             margin-top: 6px;
         }
 
         .notify-alert {
-            background: var(--bs-warning-bg-subtle, #fff3cd);
-            border: 1px solid var(--bs-warning-border-subtle, #f4df99);
+            background: var(--bs-warning-bg-subtle, var(--color-as-fff3cd));
+            border: 1px solid var(--bs-warning-border-subtle, var(--color-as-f4df99));
             border-radius: 14px;
-            color: var(--bs-warning-text-emphasis, #8b6b10);
+            color: var(--bs-warning-text-emphasis, var(--color-as-8b6b10));
             margin: 20px 22px 0;
             padding: 12px 16px;
         }
@@ -57,8 +57,8 @@
         }
 
         .notify-card {
-            background: var(--bs-card-bg, var(--bs-body-bg, #fff));
-            border: 1px solid var(--bs-border-color, rgba(0, 0, 0, .125));
+            background: var(--bs-card-bg, var(--bs-body-bg, var(--color-white)));
+            border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
             border-radius: 18px;
             padding: 20px;
         }
@@ -71,21 +71,21 @@
         }
 
         .notify-card__caption {
-            color: var(--bs-secondary-color, #6c757d);
+            color: var(--bs-secondary-color, var(--color-as-6c757d));
             font-size: 13px;
             margin-bottom: 18px;
         }
 
         .notify-stat {
-            background: var(--bs-tertiary-bg, rgba(127, 127, 127, .08));
-            border: 1px solid var(--bs-border-color, rgba(0, 0, 0, .125));
+            background: var(--bs-tertiary-bg, var(--color-as-rgba-127-127-127-0-08));
+            border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
             border-radius: 18px;
             margin-bottom: 14px;
             padding: 16px 18px;
         }
 
         .notify-stat small {
-            color: var(--bs-secondary-color, #6c757d);
+            color: var(--bs-secondary-color, var(--color-as-6c757d));
             display: block;
             font-size: 12px;
             font-weight: 700;
@@ -103,7 +103,7 @@
 
         .notify-upload {
             align-items: center;
-            border: 2px dashed var(--bs-border-color, rgba(0, 0, 0, .125));
+            border: 2px dashed var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
             border-radius: 18px;
             display: flex;
             flex-direction: column;
@@ -149,7 +149,7 @@
         }
 
         .notify-history__meta {
-            color: var(--bs-secondary-color, #6c757d);
+            color: var(--bs-secondary-color, var(--color-as-6c757d));
             font-size: 12px;
             margin-top: 3px;
         }
@@ -166,22 +166,22 @@
 
         .notify-status--completed,
         .notify-status--active {
-            background: rgba(50, 199, 170, .14);
-            color: #11907c;
+            background: var(--color-as-rgba-50-199-170-0-14);
+            color: var(--color-as-11907c);
         }
 
         .notify-status--scheduled,
         .notify-status--queued,
         .notify-status--processing {
-            background: rgba(73, 163, 255, .14);
-            color: #2b78c7;
+            background: var(--color-as-rgba-73-163-255-0-14);
+            color: var(--color-as-2b78c7);
         }
 
         .notify-status--paused,
         .notify-status--completed_with_errors,
         .notify-status--active_with_errors {
-            background: rgba(255, 186, 73, .16);
-            color: #cb8212;
+            background: var(--color-as-rgba-255-186-73-0-16);
+            color: var(--color-as-cb8212);
         }
 
         .notify-actions {
@@ -393,7 +393,7 @@
                                     @if($campaign->image_path)
                                         <img src="{{ asset($campaign->image_path) }}" alt="{{ $campaign->title }}" class="notify-history__thumb">
                                     @else
-                                        <div class="notify-history__thumb d-flex align-items-center justify-content-center small" style="background: var(--bs-tertiary-bg, #f8f9fa); color: var(--bs-secondary-color, #6c757d);">{{ __('messages.admin.send_message_page.no_image') }}</div>
+                                        <div class="notify-history__thumb d-flex align-items-center justify-content-center small" style="background: var(--bs-tertiary-bg, var(--color-as-f8f9fa)); color: var(--bs-secondary-color, var(--color-as-6c757d));">{{ __('messages.admin.send_message_page.no_image') }}</div>
                                     @endif
                                 </td>
                                 <td>

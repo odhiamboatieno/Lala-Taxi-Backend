@@ -9,7 +9,7 @@
 	<div class="" style="padding:0px 15px;" ng-init="referral_code='{{ $result->referral_code }}'" ng-cloak>
 		<div class="parter-info separated--bottom" style="padding: 0px 0px 15px;" ng-if="apply_referral == 1">
 			<input type="hidden" name="user_id" value="{{ @Auth::user()->id}}" id="user_id">
-			<h4 class="flush-h3"> {{trans('messages.referrals.referral_code')}} : <span class="font-weight-bold" style="font-weight: bold;color: #1FBAD6"> @{{ referral_code }} </span> </h4>
+			<h4 class="flush-h3"> {{trans('messages.referrals.referral_code')}} : <span class="font-weight-bold" style="font-weight: bold;color: var(--color-as-1fbad6)"> @{{ referral_code }} </span> </h4>
 		</div>
 		<!-- <div class="parter-info separated--bottom" style="padding: 0px 0px 15px;">
 			<h2 class="flush-h2" style="text-align: center;"> {{trans('messages.referrals.previous_referrals')}} </h2>

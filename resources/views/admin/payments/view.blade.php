@@ -58,14 +58,14 @@
                                 <svg viewBox="0 0 560 240" preserveAspectRatio="none" aria-hidden="true">
                                     <defs>
                                         <linearGradient id="routeStroke" x1="0%" x2="100%" y1="0%" y2="0%">
-                                            <stop offset="0%" stop-color="#16a34a"></stop>
-                                            <stop offset="100%" stop-color="#2563eb"></stop>
+                                            <stop offset="0%" stop-color="var(--color-success)"></stop>
+                                            <stop offset="100%" stop-color="var(--color-info)"></stop>
                                         </linearGradient>
                                     </defs>
-                                    <rect width="560" height="240" rx="24" fill="#f8fafc"></rect>
+                                    <rect width="560" height="240" rx="24" fill="var(--color-as-f8fafc)"></rect>
                                     <path d="M72 164 C148 52, 218 204, 302 120 S436 42, 494 106" fill="none" stroke="url(#routeStroke)" stroke-width="8" stroke-linecap="round"></path>
-                                    <circle cx="72" cy="164" r="14" fill="#16a34a"></circle>
-                                    <circle cx="494" cy="106" r="14" fill="#ef4444"></circle>
+                                    <circle cx="72" cy="164" r="14" fill="var(--color-success)"></circle>
+                                    <circle cx="494" cy="106" r="14" fill="var(--color-as-ef4444)"></circle>
                                 </svg>
                             </div>
                         </div>
@@ -168,7 +168,7 @@
 
 <style>
     .payment-review-page {
-        background: #f4f7fb;
+        background: var(--color-as-f4f7fb);
         min-height: 100vh;
     }
 
@@ -189,12 +189,12 @@
         margin: 0;
         font-size: 2rem;
         font-weight: 800;
-        color: #18233d;
+        color: var(--color-as-18233d);
     }
 
     .payment-review-header p {
         margin: .35rem 0 0;
-        color: #6c7898;
+        color: var(--color-as-6c7898);
     }
 
     .payment-review-hero {
@@ -204,9 +204,9 @@
         gap: 1rem;
         padding: 1.6rem 1.8rem;
         border-radius: 28px;
-        background: linear-gradient(135deg, #182848 0%, #4f46e5 100%);
-        color: #fff;
-        box-shadow: 0 22px 40px rgba(41, 55, 117, .18);
+        background: linear-gradient(135deg, var(--color-as-182848) 0%, var(--color-as-4f46e5) 100%);
+        color: var(--color-white);
+        box-shadow: 0 22px 40px var(--color-as-rgba-41-55-117-0-18);
         margin: 18px 0 20px;
     }
 
@@ -243,11 +243,11 @@
     }
 
     .payment-card {
-        background: #fff;
-        border: 1px solid #e6ebf4;
+        background: var(--color-white);
+        border: 1px solid var(--color-as-e6ebf4);
         border-radius: 24px;
         padding: 1.35rem;
-        box-shadow: 0 12px 30px rgba(19, 35, 78, .06);
+        box-shadow: 0 12px 30px var(--color-as-rgba-19-35-78-0-06);
     }
 
     .payment-card__head {
@@ -262,7 +262,7 @@
         margin: 0;
         font-size: 1.08rem;
         font-weight: 800;
-        color: #1a2544;
+        color: var(--color-as-1a2544);
     }
 
     .payment-badge {
@@ -275,17 +275,17 @@
         font-weight: 800;
     }
 
-    .payment-badge.is-success { background: #e8fbef; color: #159947; }
-    .payment-badge.is-warning { background: #fff7df; color: #b7791f; }
-    .payment-badge.is-danger { background: #ffe7e7; color: #d53f3f; }
+    .payment-badge.is-success { background: var(--color-as-e8fbef); color: var(--color-as-159947); }
+    .payment-badge.is-warning { background: var(--color-as-fff7df); color: var(--color-as-b7791f); }
+    .payment-badge.is-danger { background: var(--color-as-ffe7e7); color: var(--color-as-d53f3f); }
 
     .payment-route-map {
         position: relative;
         min-height: 260px;
         border-radius: 20px;
         overflow: hidden;
-        background: #f8fafc;
-        border: 1px solid #e8eef7;
+        background: var(--color-as-f8fafc);
+        border: 1px solid var(--color-as-e8eef7);
     }
 
     .payment-route-fallback,
@@ -308,7 +308,7 @@
         gap: .75rem;
         padding: .95rem 1rem;
         border-radius: 18px;
-        background: #f8fafc;
+        background: var(--color-as-f8fafc);
     }
 
     .payment-point__dot {
@@ -319,8 +319,8 @@
         flex: 0 0 auto;
     }
 
-    .payment-point--pickup .payment-point__dot { background: #16a34a; }
-    .payment-point--drop .payment-point__dot { background: #ef4444; }
+    .payment-point--pickup .payment-point__dot { background: var(--color-success); }
+    .payment-point--drop .payment-point__dot { background: var(--color-as-ef4444); }
 
     .payment-point small,
     .payment-definition-grid span,
@@ -328,7 +328,7 @@
     .payment-metric-grid span,
     .payment-breakdown-row span {
         display: block;
-        color: #7b88a8;
+        color: var(--color-as-7b88a8);
         font-size: .76rem;
         margin-bottom: .2rem;
     }
@@ -338,7 +338,7 @@
     .payment-definition-stack strong,
     .payment-metric-grid strong,
     .payment-breakdown-row strong {
-        color: #1c2642;
+        color: var(--color-as-1c2642);
         font-size: .95rem;
         font-weight: 700;
     }
@@ -366,7 +366,7 @@
         justify-content: space-between;
         gap: 1rem;
         padding-bottom: .8rem;
-        border-bottom: 1px solid #edf1f7;
+        border-bottom: 1px solid var(--color-as-edf1f7);
     }
 
     .payment-breakdown-row:last-child {
@@ -375,7 +375,7 @@
     }
 
     .payment-total {
-        color: #4f46e5;
+        color: var(--color-as-4f46e5);
         font-size: 1.1rem;
     }
 
@@ -448,7 +448,7 @@
             var routeLine = new google.maps.Polyline({
                 path: [pickup, drop],
                 geodesic: true,
-                strokeColor: '#2563eb',
+                strokeColor: LalaColors.info,
                 strokeOpacity: 1,
                 strokeWeight: 4,
             });

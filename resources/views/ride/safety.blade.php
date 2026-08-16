@@ -1,7 +1,7 @@
 @extends('templatesign')
 
 @section('main')
-<div class="container-fluid fixed-header" style="background:rgb(248, 248, 249);z-index:99;">
+<div class="container-fluid fixed-header" style="background:var(--color-as-rgb-248-248-249);z-index:99;">
 <ul class="sub-header">
 <li><a href="{{ url('safety') }}">{{trans('messages.footer.safety')}}</a></li>
 <li><a href="{{ url('how_it_works') }}">{{trans('messages.header.how_it_works')}}</a></li>
@@ -14,7 +14,7 @@
 <div class="slide-img safety-img"></div>
 </div>
 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="height:100%;">
-<div class="pattern" style="height: 100% !important; width: 100% !important; right: 0px; position: absolute; z-index: 10;"><div style="background-color: #A6DAEC; height: 100%; overflow: hidden;"><div aria-label="{{ __('messages.blade_static.decorative_pattern_b3870f86') }}" style="height: 100%;"><div class="isvg loaded" style="height: 100%;"> 
+<div class="pattern" style="height: 100% !important; width: 100% !important; right: 0px; position: absolute; z-index: 10;"><div style="background-color: var(--color-as-a6daec); height: 100%; overflow: hidden;"><div aria-label="{{ __('messages.blade_static.decorative_pattern_b3870f86') }}" style="height: 100%;"><div class="isvg loaded" style="height: 100%;"> 
 <img src="{{url('images/icon/patten_94_390.jpg')}}">
 </div>
 </div>
@@ -23,8 +23,8 @@
 </div>
 @if(Auth::user()==null)
 <div class="mini-green ride-mini-green" >
-    <div href="#" class="_style_4jQAPw green-mini-div" style="width: 206px; padding: 32px 20px 20px 32px; display: block; position: relative; height: 206px; background-color: rgb(153 196 70)">
-    <div class="_style_1PPmFR" style="font-weight: 500; color: rgb(255, 255, 255);font-size: 21px; line-height: 1.4;">{{trans('messages.ride.ride_with_Cabme',['site_name'=>$site_name])}}</div>
+    <div href="#" class="_style_4jQAPw green-mini-div" style="width: 206px; padding: 32px 20px 20px 32px; display: block; position: relative; height: 206px; background-color: var(--color-as-rgb-15319670)">
+    <div class="_style_1PPmFR" style="font-weight: 500; color: var(--color-as-rgb-255-255-255);font-size: 21px; line-height: 1.4;">{{trans('messages.ride.ride_with_Cabme',['site_name'=>$site_name])}}</div>
 <a class="btn btn--primary btn--arrow position--relative error-retry-btn" href="{{ url('signup_rider') }}" style="    background: transparent !important;   border: none !important;    float: right;margin-top: 55px;    margin-right: -16px;">
 <div class="block-context soft-small--right">{{trans('messages.home.siginup')}}</div>
 <i class="icon_right-arrow-thin icon transition delta position--absolute"></i>
@@ -43,7 +43,7 @@
 
 </div>
 </div>
-<div class="container-fluid" style="background:#f8f8f9 !important">
+<div class="container-fluid" style="background:var(--color-as-f8f8f9) !important">
 <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 pattern-content">
 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 ">
 <img src="images/icon/easy_way.png">
@@ -64,7 +64,7 @@
 </div>
 </div>
 </div>
-<div class="container-fluid" style="background:#fff !important;padding:0px;">
+<div class="container-fluid" style="background:var(--color-white) !important;padding:0px;">
 <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 height-safety trip-height" style="padding:0px;">
 <div class="slide-img safety-img safety-trip-img"></div>
 </div>
@@ -80,7 +80,7 @@
 
 </div>
 </div>
-<div class="container-fluid" style="background:#f8f8f9 !important">
+<div class="container-fluid" style="background:var(--color-as-f8f8f9) !important">
 <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 pattern-content">
 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 ">
 <img src="images/icon/cont6.jpg">
@@ -100,7 +100,7 @@
 </div>
 </div>
 </div>
-<div class="container-fluid" style="background:rgb(241, 241, 241) !important;padding:0px;">
+<div class="container-fluid" style="background:var(--color-as-rgb-241-241-241) !important;padding:0px;">
 <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 height-safety trip-height" style="padding:0px;">
 <div class="slide-img safety-img safety-trip-img1"></div>
 </div>
@@ -114,7 +114,7 @@
 
 </div>
 </div>
-	<div class="container-fluid" style="background-color: #f8f8f9 !important;">
+	<div class="container-fluid" style="background-color: var(--color-as-f8f8f9) !important;">
 	<div class="col-lg-11 col-md-12 col-sm-12 col-xs-12 pattern-content" >
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0px;">
 <p class="_style_ZJW1y" style="margin: 10px 0px 0px !important; min-height: unset;">{{trans('messages.ride.app_offline')}}</p>
@@ -147,7 +147,7 @@
 
 </div>
 </div>
-<div class="container-fluid" style="background:rgb(241,241,241);">
+<div class="container-fluid" style="background:var(--color-as-rgb-241-241-241);">
 <div class="container pad-container-small" style="padding-bottom:75px;">
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  column-content" style="padding:0px;">
 
@@ -162,7 +162,7 @@
 </div>
 </div>
 @if(Auth::user()==null)
-<div class="container-fluid" style="background:#fff !important">
+<div class="container-fluid" style="background:var(--color-white) !important">
 <div class="container pad-container-small">
 <div class=""><h3 class="flush bottom-head"><div class="primary-font--thin">{{trans('messages.ride.safer_ride')}} {{$site_name}}</div></h3></div>
 <div class="soft-large--bottom palm-hard--bottom app-footer__city-picker
@@ -192,7 +192,7 @@ float: left !important;
 }
 .column-content:before{display: none !important;}
 .btn-input:hover, .btn:hover, .file-input:hover, .tooltip:hover , .btn, .btn-input, .file-input, .tooltip{background:transparent !important; border: none !important}
-.btn.btn--primary:hover{background:transparent !important; color: #fff !important;}
+.btn.btn--primary:hover{background:transparent !important; color: var(--color-white) !important;}
 	@media (min-width: 1100px){
 		.trip-content.slide-content{font-size: 36px !important;}
 	}

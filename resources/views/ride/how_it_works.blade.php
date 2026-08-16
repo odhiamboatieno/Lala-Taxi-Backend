@@ -72,7 +72,7 @@
 
 
 
-<div class="container-fluid" style="background-color: #f8f8f9 !important;">
+<div class="container-fluid" style="background-color: var(--color-as-f8f8f9) !important;">
 <div class="page-container-responsive">
 <div class="features1">
 <p class="slide-content trip-content how-column-content" data-reactid="287">{{trans('messages.ride.faq')}}</p>
@@ -147,7 +147,7 @@
 
 
 
-<div class="container-fluid" style="background:#fff;">
+<div class="container-fluid" style="background:var(--color-white);">
 <div class="page-container-responsive">
 <div class="features1">
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 bor-bot-sm" id="pad-sm-zero"">
@@ -227,7 +227,7 @@
     display: block;
     position: relative;
     height: 206px;
-        background-color: #FFC107
+        background-color: var(--color-as-ffc107)
 }
 ._style_4jQAPw.green-mini-div a{
 background: transparent !important;
@@ -239,11 +239,11 @@ background: transparent !important;
 }
 ._style_4jQAPw.green-mini-div a.btn.btn--primary:hover {
      background: transparent !important; 
-    color: #fff !important;
+    color: var(--color-white) !important;
 }
 ._style_1PPmFR{
     font-weight: 500; 
-    color: rgb(255, 255, 255);
+    color: var(--color-as-rgb-255-255-255);
     font-size: 21px; 
     line-height: 1.4;
 }
@@ -290,7 +290,7 @@ p.slide-content.trip-content.how-column-content{
     top: 12px;
     width: 40px;
     height: 2px;
-    background-color: #C6C6C6;
+    background-color: var(--color-as-c6c6c6);
     margin: -10px 0px;
 }
 .features{
@@ -303,7 +303,7 @@ p.slide-content.trip-content.how-column-content{
          padding: 0px 20px;
 }
 #category-tabs{
-    border-top: 1px solid rgb(214, 214, 213);
+    border-top: 1px solid var(--color-as-rgb-214-214-213);
 }
 .sub_list_view{
     margin-bottom: -16px; margin-top: 20px;
@@ -333,8 +333,8 @@ margin-bottom: 4px;
     font-size: 13px !important;
 }
 .arrive-content1 .btn.btn--primary:hover {
-    background-color: #285228 !important;
-    border-color: #285228 !important;
+    background-color: var(--color-as-285228) !important;
+    border-color: var(--color-as-285228) !important;
 }   
 .features1 {
     padding-top: 80px !important;

@@ -3,47 +3,47 @@
 <style>
     .company-wizard {
         min-height: 100vh;
-        background: #f8fafc;
-        color: #111827;
+        background: var(--color-as-f8fafc);
+        color: var(--color-as-111827);
     }
     .wizard-hero {
-        background: linear-gradient(120deg, rgba(15,118,110,.92), rgba(37,99,235,.84)), url("{{ url('images/icon/become_company.png') }}") center/cover no-repeat;
-        color: #fff;
+        background: linear-gradient(120deg, var(--color-as-rgba-15-118-110-0-92), var(--color-as-rgba-37-99-235-0-84)), url("{{ url('images/icon/become_company.png') }}") center/cover no-repeat;
+        color: var(--color-white);
         padding: 32px 0 88px;
     }
     .wizard-container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
     .wizard-nav { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 56px; }
     .wizard-nav img { width: 132px; max-height: 56px; object-fit: contain; filter: brightness(0) invert(1); }
-    .wizard-nav a { color: #fff; font-weight: 800; text-decoration: none; border: 1px solid rgba(255,255,255,.34); border-radius: 8px; padding: 12px 16px; }
+    .wizard-nav a { color: var(--color-white); font-weight: 800; text-decoration: none; border: 1px solid var(--color-as-rgba-255-255-255-0-34); border-radius: 8px; padding: 12px 16px; }
     .wizard-hero h1 { font-size: clamp(38px, 7vw, 72px); line-height: 1; letter-spacing: 0; max-width: 760px; margin: 0 0 18px; }
-    .wizard-hero p { color: rgba(255,255,255,.84); line-height: 1.7; font-size: 18px; max-width: 700px; margin: 0; }
+    .wizard-hero p { color: var(--color-as-rgba-255-255-255-0-84); line-height: 1.7; font-size: 18px; max-width: 700px; margin: 0; }
     .wizard-shell { margin-top: -58px; display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 22px; align-items: start; }
-    .wizard-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 20px 60px rgba(15,23,42,.10); }
+    .wizard-card { background: var(--color-white); border: 1px solid var(--color-as-e5e7eb); border-radius: 8px; box-shadow: 0 20px 60px var(--color-as-rgba-15-23-42-0-10); }
     .wizard-side { padding: 24px; }
     .wizard-stepper { list-style: none; padding: 0; margin: 0; }
-    .wizard-stepper li { display: flex; gap: 12px; padding: 14px 0; color: #64748b; font-weight: 700; }
-    .wizard-stepper span { width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: #e2e8f0; color: #334155; flex: 0 0 auto; }
-    .wizard-stepper li.is-active { color: #0f766e; }
-    .wizard-stepper li.is-active span { background: #ccfbf1; color: #0f766e; }
+    .wizard-stepper li { display: flex; gap: 12px; padding: 14px 0; color: var(--color-as-64748b); font-weight: 700; }
+    .wizard-stepper span { width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--color-as-e2e8f0); color: var(--color-as-334155); flex: 0 0 auto; }
+    .wizard-stepper li.is-active { color: var(--color-as-0f766e); }
+    .wizard-stepper li.is-active span { background: var(--color-as-ccfbf1); color: var(--color-as-0f766e); }
     .wizard-form { padding: 28px; }
     .wizard-panel { display: none; }
     .wizard-panel.is-active { display: block; }
     .wizard-panel h2 { font-size: 28px; margin: 0 0 8px; letter-spacing: 0; }
-    .wizard-panel p { color: #64748b; line-height: 1.6; margin: 0 0 24px; }
+    .wizard-panel p { color: var(--color-as-64748b); line-height: 1.6; margin: 0 0 24px; }
     .field-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .field { margin-bottom: 16px; }
-    .field label { display: block; margin-bottom: 8px; font-weight: 800; color: #334155; }
-    .field input, .field select { width: 100%; min-height: 48px; border: 1px solid #dbe3ef; border-radius: 8px; padding: 0 14px; font-size: 15px; background: #fff; }
+    .field label { display: block; margin-bottom: 8px; font-weight: 800; color: var(--color-as-334155); }
+    .field input, .field select { width: 100%; min-height: 48px; border: 1px solid var(--color-as-dbe3ef); border-radius: 8px; padding: 0 14px; font-size: 15px; background: var(--color-white); }
     .phone-grid { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 10px; }
-    .text-danger { color: #dc2626; font-size: 13px; display: block; margin-top: 6px; }
-    .wizard-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; border-top: 1px solid #e5e7eb; padding-top: 22px; }
-    .wizard-btn { min-height: 48px; border-radius: 8px; border: 1px solid #dbe3ef; padding: 0 18px; font-weight: 800; background: #fff; cursor: pointer; }
-    .wizard-btn-primary { background: #0f766e; color: #fff; border-color: #0f766e; }
+    .text-danger { color: var(--color-error); font-size: 13px; display: block; margin-top: 6px; }
+    .wizard-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; border-top: 1px solid var(--color-as-e5e7eb); padding-top: 22px; }
+    .wizard-btn { min-height: 48px; border-radius: 8px; border: 1px solid var(--color-as-dbe3ef); padding: 0 18px; font-weight: 800; background: var(--color-white); cursor: pointer; }
+    .wizard-btn-primary { background: var(--color-as-0f766e); color: var(--color-white); border-color: var(--color-as-0f766e); }
     .benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; padding: 54px 0; }
-    .benefit { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 22px; }
+    .benefit { background: var(--color-white); border: 1px solid var(--color-as-e5e7eb); border-radius: 8px; padding: 22px; }
     .benefit img { width: 72px; height: 72px; object-fit: contain; margin-bottom: 16px; }
     .benefit h3 { margin: 0 0 8px; }
-    .benefit p { margin: 0; color: #64748b; line-height: 1.6; }
+    .benefit p { margin: 0; color: var(--color-as-64748b); line-height: 1.6; }
     @media (max-width: 920px) {
         .wizard-shell, .field-grid, .benefits { grid-template-columns: 1fr; }
         .phone-grid { grid-template-columns: 1fr; }
@@ -53,7 +53,7 @@
 
 <div class="flash-container">
     @if(Session::has('message'))
-        <div class="alert text-center participant-alert" style="background:#1fbad6;color:#fff;margin-bottom:0;" role="alert">
+        <div class="alert text-center participant-alert" style="background:var(--color-as-1fbad6);color:var(--color-white);margin-bottom:0;" role="alert">
             {!! Session::get('message') !!}
         </div>
     @endif

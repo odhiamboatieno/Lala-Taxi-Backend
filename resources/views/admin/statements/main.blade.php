@@ -12,7 +12,7 @@
         .loading-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(255, 255, 255, 0.75);
+            background: var(--color-as-rgba-255-255-255-0-75);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -27,7 +27,7 @@
         }
         .stat-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.12) !important;
+            box-shadow: 0 12px 25px var(--color-as-rgba-0-0-0-0-12) !important;
         }
         .filter-form .form-group {
             margin-right: 1rem;

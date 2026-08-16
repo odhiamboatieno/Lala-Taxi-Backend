@@ -331,7 +331,7 @@
 
 <style>
     .detail-card {
-        background: linear-gradient(145deg, #f9fafb, #ffffff);
+        background: linear-gradient(145deg, var(--color-as-f9fafb), var(--color-white));
         padding: 1rem;
         border-radius: 0.5rem;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -339,11 +339,11 @@
 
     .detail-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px var(--color-as-rgba-0-0-0-0-1);
     }
 
     .shadow-3xl {
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 20px 40px var(--color-as-rgba-0-0-0-0-15);
     }
 
     table {
@@ -356,7 +356,7 @@
     }
 
     .content-wrapper {
-        background-color: #f3f4f6;
+        background-color: var(--color-as-f3f4f6);
         min-height: 100vh;
     }
 

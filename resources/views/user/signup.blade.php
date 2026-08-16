@@ -7,7 +7,7 @@
 /* Signin Section */
 .cls_signin {
   padding: 80px 0;
-  background: #ffffff;
+  background: var(--color-white);
 }
 
 .cls_signin .container {
@@ -19,7 +19,7 @@
 .cls_signin .title {
   font-size: 36px;
   font-weight: 700;
-  color: #212121;
+  color: var(--color-as-212121);
   text-align: center;
   margin-bottom: 40px;
 }
@@ -39,31 +39,31 @@
 }
 
 .cls_signintext {
-  background: #ffffff;
-  border: 2px solid #e0e0e0; /* Solid border for Material Design */
+  background: var(--color-white);
+  border: 2px solid var(--color-as-e0e0e0); /* Solid border for Material Design */
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle elevation */
+  box-shadow: 0 2px 8px var(--color-as-rgba-0-0-0-0-1); /* Subtle elevation */
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .cls_signintext:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-color: #0288d1; /* Highlight border on hover */
+  box-shadow: 0 4px 12px var(--color-as-rgba-0-0-0-0-15);
+  border-color: var(--color-as-0288d1); /* Highlight border on hover */
 }
 
 .cls_signintext h4 {
   font-size: 24px;
   font-weight: 600;
-  color: #212121;
+  color: var(--color-as-212121);
   margin-bottom: 16px;
 }
 
 .cls_signintext p {
   font-size: 16px;
-  color: #616161;
+  color: var(--color-as-616161);
   margin-bottom: 24px;
   line-height: 1.5;
 }
@@ -72,21 +72,21 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #0288d1;
+  color: var(--color-as-0288d1);
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
   text-transform: uppercase;
   padding: 12px 12px;
-  border: 2px solid #0288d1;
+  border: 2px solid var(--color-as-0288d1);
   border-radius: 8px;
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .cls_signintext a:hover {
-  background: #0288d1;
-  color: #ffffff;
-  border-color: #0288d1;
+  background: var(--color-as-0288d1);
+  color: var(--color-white);
+  border-color: var(--color-as-0288d1);
 }
 
 .cls_signintext a img {

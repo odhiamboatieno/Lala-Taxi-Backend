@@ -2,6 +2,10 @@
 <html>
 <head>
   <title></title>
+  <!-- lalatokens -->
+  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
+  <script src="{{ url('js/colors.js') }}"></script>
+  <!-- /lalatokens -->
 </head>
 <body>
 

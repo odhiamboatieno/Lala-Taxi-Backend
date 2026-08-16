@@ -25,14 +25,14 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.8);
+        background: var(--color-as-rgba-255-255-255-0-8);
         z-index: 9999;
         justify-content: center;
         align-items: center;
     }
     .spinner {
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #28a745;
+        border: 4px solid var(--color-as-f3f3f3);
+        border-top: 4px solid var(--color-as-28a745);
         border-radius: 50%;
         width: 40px;
         height: 40px;
@@ -52,7 +52,7 @@
         width: 100%;
         padding: 10px;
         margin-bottom: 10px;
-        border: 1px solid #ccc;
+        border: 1px solid var(--color-as-cccccc);
         border-radius: 4px;
     }
     .form-outline.mb-9 {
@@ -61,20 +61,24 @@
     button {
         width: 100%;
         padding: 12px;
-        background: #28a745;
+        background: var(--color-as-28a745);
         color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
     }
     button:hover {
-        background: #218838;
+        background: var(--color-as-218838);
     }
     #phoneError {
         color: red;
         font-size: 0.9em;
     }
 </style>
+  <!-- lalatokens -->
+  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
+  <script src="{{ url('js/colors.js') }}"></script>
+  <!-- /lalatokens -->
 </head>
 <body ng-app="App" class="">
     <div class="preloader" id="preloader">

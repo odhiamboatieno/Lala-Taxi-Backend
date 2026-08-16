@@ -37,7 +37,7 @@
               <div class="inner-tooltip">
                 <div class="trans-tip">
                   <svg  width="23.82842712474619" height="11.914213562373096" class="svg-arrow">
-                    <path d="M 0.7071067811865476 11.914213562373096 L 11.914213562373096 0.7071067811865476 L 23.121320343559645 11.914213562373096" fill="white" stroke="#E5E5E4" stroke-width="1" stroke-linecap="square"></path>
+                    <path d="M 0.7071067811865476 11.914213562373096 L 11.914213562373096 0.7071067811865476 L 23.121320343559645 11.914213562373096" fill="white" stroke="var(--color-as-e5e5e4)" stroke-width="1" stroke-linecap="square"></path>
                   </svg>
                   <div class="tip-box">
                     <div style="width: max-content !important;">
@@ -60,7 +60,7 @@
           </header>
           <div class="flash-container">
             @if(Session::has('message'))
-            <div class="alert text-center participant-alert " style="    background: #1fbad6 !important;color: #fff !important;margin-bottom: 0;" role="alert">
+            <div class="alert text-center participant-alert " style="    background: var(--color-as-1fbad6) !important;color: var(--color-white) !important;margin-bottom: 0;" role="alert">
               <a href="#" class="alert-close text-white" data-dismiss="alert"></a>
               {!! Session::get('message') !!}
             </div>

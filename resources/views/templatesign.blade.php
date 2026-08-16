@@ -5,7 +5,7 @@
 #ride-preloader {
     position: fixed;
     inset: 0;
-    background: #0f172a; /* dark map feel */
+    background: var(--color-as-0f172a); /* dark map feel */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,7 +19,7 @@
     height: 180px;
     border-radius: 50%;
     overflow: hidden;
-    background: #020617;
+    background: var(--color-as-020617);
 }
 
 /* Map grid */
@@ -27,8 +27,8 @@
     position: absolute;
     inset: 0;
     background-image:
-        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+        linear-gradient(var(--color-as-rgba-255-255-255-0-05) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-as-rgba-255-255-255-0-05) 1px, transparent 1px);
     background-size: 20px 20px;
 }
 
@@ -40,8 +40,8 @@
     border-radius: 50%;
     background: conic-gradient(
         from 0deg,
-        rgba(34,197,94,0.4),
-        rgba(34,197,94,0) 60%
+        var(--color-as-rgba-34-197-94-0-4),
+        var(--color-as-rgba-34-197-94-0) 60%
     );
     animation: radar-spin 1.5s linear infinite;
 }
@@ -53,16 +53,16 @@
     left: 50%;
     width: 12px;
     height: 12px;
-    background: #22c55e;
+    background: var(--color-as-22c55e);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 0 rgba(34,197,94,0.7);
+    box-shadow: 0 0 0 var(--color-as-rgba-34-197-94-0-7);
     animation: pulse 1.5s infinite;
 }
 
 .loading-text {
     margin-top: 20px;
-    color: #e5e7eb;
+    color: var(--color-as-e5e7eb);
     font-size: 14px;
     letter-spacing: 0.5px;
 }
@@ -72,9 +72,9 @@
 }
 
 @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.7); }
-    70% { box-shadow: 0 0 0 20px rgba(34,197,94,0); }
-    100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    0% { box-shadow: 0 0 0 0 var(--color-as-rgba-34-197-94-0-7); }
+    70% { box-shadow: 0 0 0 20px var(--color-as-rgba-34-197-94-0); }
+    100% { box-shadow: 0 0 0 0 var(--color-as-rgba-34-197-94-0); }
 }
 
 .hidden {

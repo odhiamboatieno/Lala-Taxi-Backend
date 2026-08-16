@@ -26,7 +26,7 @@
         height: 360px;
         width: 100%;
         border-radius: 1rem;
-        border: 1px solid rgba(20, 33, 61, 0.08);
+        border: 1px solid var(--color-as-rgba-20-33-61-0-08);
     }
     .controls.hide {
         display: none;
@@ -34,9 +34,9 @@
     .zone-guide-media {
         width: 100%;
         border-radius: 1rem;
-        border: 1px solid rgba(20, 33, 61, 0.08);
+        border: 1px solid var(--color-as-rgba-20-33-61-0-08);
         overflow: hidden;
-        background: #f8fbff;
+        background: var(--color-as-f8fbff);
     }
     .zone-guide-media img {
         width: 100%;
@@ -54,9 +54,9 @@
         z-index: 3;
         width: 225px;
         border-radius: 1rem;
-        background: #fff;
-        border: 1px solid rgba(20, 33, 61, 0.12);
-        box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+        background: var(--color-white);
+        border: 1px solid var(--color-as-rgba-20-33-61-0-12);
+        box-shadow: 0 16px 40px var(--color-as-rgba-15-23-42-0-12);
         padding: 1rem 1.1rem;
     }
     .zone-extra-popover:after {
@@ -66,7 +66,7 @@
         right: 38px;
         border-width: 10px 10px 0 10px;
         border-style: solid;
-        border-color: #fff transparent transparent transparent;
+        border-color: var(--color-white) transparent transparent transparent;
     }
     .zone-extra-popover:before {
         content: "";
@@ -75,7 +75,7 @@
         right: 38px;
         border-width: 11px 11px 0 11px;
         border-style: solid;
-        border-color: rgba(20, 33, 61, 0.12) transparent transparent transparent;
+        border-color: var(--color-as-rgba-20-33-61-0-12) transparent transparent transparent;
     }
     .zone-status-switch {
         min-width: 42px;
@@ -85,7 +85,7 @@
         width: min(420px, calc(100vw - 96px)) !important;
         max-width: calc(100vw - 96px);
         margin: 10px 0 0 0;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+        box-shadow: 0 2px 6px var(--color-as-rgba-0-0-0-0-18);
         z-index: 1;
     }
     .map-canvas-wrap {
@@ -467,7 +467,7 @@ function initLocationMap() {
 
     // Drawing & editing toolbar
     var toolbar = document.createElement('div');
-    toolbar.style.cssText = 'display:flex;gap:6px;background:#fff;padding:6px 10px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.18);margin:10px 0 0 10px;';
+    toolbar.style.cssText = 'display:flex;gap:6px;background:var(--color-white);padding:6px 10px;border-radius:8px;box-shadow:0 2px 8px var(--color-as-rgba-0-0-0-0-18);margin:10px 0 0 10px;';
     toolbar.innerHTML =
         '<button id="draw-btn" class="btn btn-sm btn-outline-primary" title="Draw zone boundary" type="button"><i class="bi bi-bezier2"></i> Draw</button>' +
         '<button id="finish-btn" class="btn btn-sm btn-success" style="display:none" type="button"><i class="bi bi-check-lg"></i> Finish</button>' +
@@ -527,9 +527,9 @@ function loadExistingPolygon() {
     zonePolygon = new google.maps.Polygon({
         paths: paths,
         strokeWeight: 1,
-        strokeColor: '#fe2c2c',
+        strokeColor: LalaColors.asFe2c2c,
         fillOpacity: 0.45,
-        fillColor: '#fe2c2c',
+        fillColor: LalaColors.asFe2c2c,
         editable: false,
         draggable: false,
         zIndex: 1,
@@ -592,9 +592,9 @@ function addVertex(latLng) {
         icon: {
             path: google.maps.SymbolPath.CIRCLE,
             scale: isFirst ? 10 : 6,
-            fillColor: '#0f766e',
+            fillColor: LalaColors.as0f766e,
             fillOpacity: 1,
-            strokeColor: '#fff',
+            strokeColor: LalaColors.white,
             strokeWeight: isFirst ? 3 : 2,
         },
         zIndex: 3,
@@ -606,7 +606,7 @@ function addVertex(latLng) {
     drawPolyline = new google.maps.Polyline({
         path: drawVertices,
         map: locationMap,
-        strokeColor: '#0f766e',
+        strokeColor: LalaColors.as0f766e,
         strokeWeight: 2,
         strokeOpacity: 0.8,
         zIndex: 2,
@@ -618,9 +618,9 @@ function addVertex(latLng) {
         drawPolygon = new google.maps.Polygon({
             paths: drawVertices,
             strokeWeight: 1,
-            strokeColor: '#0f766e',
+            strokeColor: LalaColors.as0f766e,
             fillOpacity: 0.35,
-            fillColor: '#14b8a6',
+            fillColor: LalaColors.as14b8a6,
             editable: false,
             draggable: false,
             zIndex: 1,
@@ -640,9 +640,9 @@ function finishDrawing() {
     if (drawPolygon) {
         drawPolygon.setOptions({
             strokeWeight: 1.5,
-            strokeColor: '#fe2c2c',
+            strokeColor: LalaColors.asFe2c2c,
             fillOpacity: 0.45,
-            fillColor: '#fe2c2c',
+            fillColor: LalaColors.asFe2c2c,
         });
         zonePolygon = drawPolygon;
         drawPolygon = null;
@@ -679,7 +679,7 @@ function selectPolygon(poly) {
     if (isDrawing) return;
     if (editMode) return;
     selectedPolygon = poly;
-    zonePolygon.setOptions({ strokeColor: '#2563eb', strokeWeight: 2.5 });
+    zonePolygon.setOptions({ strokeColor: LalaColors.info, strokeWeight: 2.5 });
     showToolbarButtons(['edit-btn', 'delete-btn']);
     hideToolbarButtons(['draw-btn']);
 }
@@ -688,7 +688,7 @@ function deselectPolygon() {
     if (!zonePolygon) return;
     if (editMode) return;
     selectedPolygon = null;
-    zonePolygon.setOptions({ strokeColor: '#fe2c2c', strokeWeight: 1.5 });
+    zonePolygon.setOptions({ strokeColor: LalaColors.asFe2c2c, strokeWeight: 1.5 });
     showToolbarButtons(['draw-btn']);
     hideToolbarButtons(['edit-btn', 'delete-btn']);
 }
@@ -706,7 +706,7 @@ function enableEditMode() {
     if (!zonePolygon) return;
     editMode = true;
     selectedPolygon = null;
-    zonePolygon.setOptions({ strokeColor: '#2563eb', strokeWeight: 2.5, editable: false });
+    zonePolygon.setOptions({ strokeColor: LalaColors.info, strokeWeight: 2.5, editable: false });
     document.getElementById('edit-btn').innerHTML = '<i class="bi bi-check-lg"></i> Done';
     document.getElementById('edit-btn').className = 'btn btn-sm btn-success';
     hideToolbarButtons(['delete-btn', 'draw-btn']);
@@ -721,9 +721,9 @@ function enableEditMode() {
             icon: {
                 path: google.maps.SymbolPath.CIRCLE,
                 scale: 7,
-                fillColor: '#fff',
+                fillColor: LalaColors.white,
                 fillOpacity: 1,
-                strokeColor: '#2563eb',
+                strokeColor: LalaColors.info,
                 strokeWeight: 3,
             },
             zIndex: 4,
@@ -742,7 +742,7 @@ function enableEditMode() {
 function disableEditMode() {
     editMode = false;
     removeEditMarkers();
-    zonePolygon.setOptions({ strokeColor: '#fe2c2c', strokeWeight: 1.5 });
+    zonePolygon.setOptions({ strokeColor: LalaColors.asFe2c2c, strokeWeight: 1.5 });
     document.getElementById('edit-btn').innerHTML = '<i class="bi bi-pencil"></i> Edit';
     document.getElementById('edit-btn').className = 'btn btn-sm btn-outline-info';
     showToolbarButtons(['draw-btn']);

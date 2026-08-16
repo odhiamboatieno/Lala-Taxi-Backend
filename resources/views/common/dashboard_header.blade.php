@@ -150,7 +150,7 @@
 </div>
   <div class="flash-container">
     @if(Session::has('message'))
-    <div class="alert text-center participant-alert" style="background: #dff0d8 !important;color: #3c763d !important;" role="alert">
+    <div class="alert text-center participant-alert" style="background: var(--color-as-dff0d8) !important;color: var(--color-as-3c763d) !important;" role="alert">
       <a href="#" class="alert-close text-white" data-dismiss="alert"></a>
       {!! Session::get('message') !!}
     </div>

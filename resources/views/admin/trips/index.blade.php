@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="{{ url('css/buttons.dataTables.css') }}">
     <style>
         .trip-ops-shell {
-            --trip-ops-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
-            --trip-ops-border: rgba(148, 163, 184, 0.22);
+            --trip-ops-shadow: 0 20px 45px var(--color-as-rgba-15-23-42-0-08);
+            --trip-ops-border: var(--color-as-rgba-148-163-184-0-22);
         }
 
         .trip-ops-hero {
@@ -18,10 +18,10 @@
             overflow: hidden;
             border: 0;
             border-radius: 28px;
-            color: #fff;
+            color: var(--color-white);
             background:
-                radial-gradient(circle at top right, rgba(255,255,255,.18), transparent 28rem),
-                linear-gradient(135deg, #0f172a 0%, #0f766e 48%, #2563eb 100%);
+                radial-gradient(circle at top right, var(--color-as-rgba-255-255-255-0-18), transparent 28rem),
+                linear-gradient(135deg, var(--color-as-0f172a) 0%, var(--color-as-0f766e) 48%, var(--color-info) 100%);
             box-shadow: var(--trip-ops-shadow);
         }
 
@@ -40,7 +40,7 @@
 
         .trip-ops-hero__subtitle {
             margin: 0;
-            color: rgba(255,255,255,.84);
+            color: var(--color-as-rgba-255-255-255-0-84);
             max-width: 760px;
             line-height: 1.65;
         }
@@ -90,7 +90,7 @@
         }
 
         .trip-kpi-label {
-            color: #64748b;
+            color: var(--color-as-64748b);
             font-size: .82rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -99,7 +99,7 @@
 
         .trip-kpi-value {
             margin-top: .4rem;
-            color: #0f172a;
+            color: var(--color-as-0f172a);
             font-size: 1.55rem;
             font-weight: 800;
         }
@@ -124,11 +124,11 @@
             min-width: 240px;
             border: 1px solid var(--trip-ops-border);
             border-radius: 20px;
-            background: #fff;
+            background: var(--color-white);
             padding: 1rem;
             text-decoration: none;
             color: inherit;
-            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+            box-shadow: 0 12px 28px var(--color-as-rgba-15-23-42-0-05);
         }
 
         .trip-filter-grid {
@@ -162,7 +162,7 @@
             gap: 1rem;
             flex-wrap: wrap;
             align-items: center;
-            color: #64748b;
+            color: var(--color-as-64748b);
             font-size: .9rem;
         }
 
@@ -170,15 +170,15 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: #22c55e;
+            background: var(--color-as-22c55e);
             display: inline-block;
-            box-shadow: 0 0 0 0 rgba(34, 197, 94, .6);
+            box-shadow: 0 0 0 0 var(--color-as-rgba-34-197-94-0-6);
             animation: pulse-live 1.6s infinite;
         }
 
         @keyframes pulse-live {
-            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, .55); }
-            100% { box-shadow: 0 0 0 14px rgba(34, 197, 94, 0); }
+            0% { box-shadow: 0 0 0 0 var(--color-as-rgba-34-197-94-0-55); }
+            100% { box-shadow: 0 0 0 14px var(--color-as-rgba-34-197-94-0); }
         }
 
         .trip-card-view {
@@ -195,27 +195,27 @@
             border: 1px solid var(--trip-ops-border);
             border-radius: 22px;
             padding: 1rem;
-            background: #fff;
-            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+            background: var(--color-white);
+            box-shadow: 0 12px 28px var(--color-as-rgba-15-23-42-0-05);
         }
 
         .trip-placeholder-view {
             display: none;
-            border: 1px dashed rgba(148, 163, 184, .28);
+            border: 1px dashed var(--color-as-rgba-148-163-184-0-28);
             border-radius: 22px;
             padding: 2rem;
             text-align: center;
-            color: #64748b;
-            background: #f8fafc;
+            color: var(--color-as-64748b);
+            background: var(--color-as-f8fafc);
         }
 
         .trip-map-shell {
             display: none;
-            border: 1px solid rgba(148, 163, 184, .18);
+            border: 1px solid var(--color-as-rgba-148-163-184-0-18);
             border-radius: 22px;
             overflow: hidden;
-            background: #fff;
-            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+            background: var(--color-white);
+            box-shadow: 0 12px 28px var(--color-as-rgba-15-23-42-0-05);
         }
 
         .trip-map-shell.active {
@@ -229,26 +229,26 @@
             gap: 1rem;
             flex-wrap: wrap;
             padding: 1rem 1.2rem;
-            border-bottom: 1px solid rgba(148, 163, 184, .18);
+            border-bottom: 1px solid var(--color-as-rgba-148-163-184-0-18);
         }
 
         .trip-map-metrics {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
-            color: #64748b;
+            color: var(--color-as-64748b);
             font-size: .9rem;
         }
 
         .trip-map-canvas {
             width: 100%;
             min-height: 560px;
-            background: linear-gradient(135deg, rgba(15,118,110,.06), rgba(37,99,235,.08));
+            background: linear-gradient(135deg, var(--color-as-rgba-15-118-110-0-06), var(--color-as-rgba-37-99-235-0-08));
         }
 
         .trip-map-empty {
             padding: 1rem 1.2rem 1.25rem;
-            color: #64748b;
+            color: var(--color-as-64748b);
         }
 
         .trip-timeline-view-shell {
@@ -269,12 +269,12 @@
             border: 1px solid var(--trip-ops-border);
             border-radius: 22px;
             padding: 1.1rem;
-            background: #fff;
-            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+            background: var(--color-white);
+            box-shadow: 0 12px 28px var(--color-as-rgba-15-23-42-0-05);
         }
 
         .trip-timeline-card__meta {
-            color: #64748b;
+            color: var(--color-as-64748b);
             font-size: .88rem;
         }
 
@@ -283,8 +283,8 @@
             border-radius: 24px;
             padding: 2rem;
             text-align: center;
-            background: linear-gradient(135deg, rgba(15,118,110,.07), rgba(37,99,235,.07));
-            border: 1px dashed rgba(37, 99, 235, .24);
+            background: linear-gradient(135deg, var(--color-as-rgba-15-118-110-0-07), var(--color-as-rgba-37-99-235-0-07));
+            border: 1px dashed var(--color-as-rgba-37-99-235-0-24);
         }
 
         .trip-analytics-card .card-body {
@@ -303,7 +303,7 @@
             justify-content: space-between;
             gap: 1rem;
             padding: .7rem 0;
-            border-bottom: 1px solid rgba(148, 163, 184, .14);
+            border-bottom: 1px solid var(--color-as-rgba-148-163-184-0-14);
         }
 
         .trip-list-mini li:last-child {
@@ -328,7 +328,7 @@
             top: .15rem;
             bottom: .15rem;
             width: 2px;
-            background: rgba(148, 163, 184, .25);
+            background: var(--color-as-rgba-148-163-184-0-25);
         }
 
         .trip-timeline li {
@@ -345,7 +345,7 @@
             width: .65rem;
             height: .65rem;
             border-radius: 50%;
-            background: #2563eb;
+            background: var(--color-info);
         }
 
         .table.trip-compact-table > :not(caption) > * > * {
@@ -1021,7 +1021,7 @@
                 xaxis: { categories: revenueChartData.labels || [] },
                 stroke: { curve: 'smooth', width: 3 },
                 fill: { opacity: 0.2 },
-                colors: ['#2563eb']
+                colors: [LalaColors.info]
             });
 
             renderChart('trip-payment-chart', {
@@ -1139,9 +1139,9 @@
                         title: 'Pickup #' + row.id,
                         icon: {
                             path: google.maps.SymbolPath.CIRCLE,
-                            fillColor: '#16a34a',
+                            fillColor: LalaColors.success,
                             fillOpacity: 1,
-                            strokeColor: '#ffffff',
+                            strokeColor: LalaColors.white,
                             strokeWeight: 2,
                             scale: 7
                         }
@@ -1153,9 +1153,9 @@
                         title: 'Dropoff #' + row.id,
                         icon: {
                             path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                            fillColor: '#dc2626',
+                            fillColor: LalaColors.error,
                             fillOpacity: 1,
-                            strokeColor: '#ffffff',
+                            strokeColor: LalaColors.white,
                             strokeWeight: 2,
                             scale: 5
                         }
@@ -1164,7 +1164,7 @@
                     var routeLine = new google.maps.Polyline({
                         map: tripMap,
                         path: [pickup, drop],
-                        strokeColor: '#2563eb',
+                        strokeColor: LalaColors.info,
                         strokeOpacity: 0.8,
                         strokeWeight: 3
                     });

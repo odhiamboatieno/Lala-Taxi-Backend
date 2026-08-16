@@ -11,7 +11,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.7);
+        background: var(--color-as-rgba-255-255-255-0-7);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -23,7 +23,7 @@
     }
     .card-stat:hover {
         transform: translateY(-4px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        box-shadow: 0 10px 20px var(--color-as-rgba-0-0-0-0-08);
     }
 </style>
 @endsection

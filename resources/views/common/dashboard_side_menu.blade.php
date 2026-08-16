@@ -14,7 +14,7 @@
 							</div>
 						</div>
 						<div class="text--center">
-							<div style="font-size: 15px;color: #02172d;font-weight: bold;line-height: 58px;
+							<div style="font-size: 15px;color: var(--color-as-02172d);font-weight: bold;line-height: 58px;
                             ">
 								{{ @Auth::user()->first_name}} {{ @Auth::user()->last_name}}
 							</div>

@@ -10,10 +10,10 @@
         }
 
         .template-surface {
-            background: var(--bs-card-bg, var(--bs-body-bg, #fff));
-            border: 1px solid var(--bs-border-color, rgba(0, 0, 0, .125));
+            background: var(--bs-card-bg, var(--bs-body-bg, var(--color-white)));
+            border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
             border-radius: 22px;
-            box-shadow: 0 14px 30px rgba(16, 67, 79, .08);
+            box-shadow: 0 14px 30px var(--color-as-rgba-16-67-79-0-08);
             padding: 22px;
         }
 
@@ -39,8 +39,8 @@
         }
 
         .template-tab {
-            background: var(--bs-card-bg, var(--bs-body-bg, #fff));
-            border: 1px solid var(--bs-border-color, rgba(0, 0, 0, .125));
+            background: var(--bs-card-bg, var(--bs-body-bg, var(--color-white)));
+            border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
             border-radius: 12px;
             color: var(--bs-body-color, inherit);
             font-weight: 700;
@@ -49,21 +49,21 @@
         }
 
         .template-tab.is-active {
-            background: #31c8b1;
-            border-color: #31c8b1;
-            color: #fff;
+            background: var(--color-as-31c8b1);
+            border-color: var(--color-as-31c8b1);
+            color: var(--color-white);
         }
 
         .template-section {
-            background: var(--bs-card-bg, var(--bs-body-bg, #fff));
-            border: 1px solid var(--bs-border-color, rgba(0, 0, 0, .125));
+            background: var(--bs-card-bg, var(--bs-body-bg, var(--color-white)));
+            border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
             border-radius: 20px;
             margin-bottom: 24px;
             overflow: hidden;
         }
 
         .template-section__head {
-            border-bottom: 1px solid var(--bs-border-color, rgba(0, 0, 0, .125));
+            border-bottom: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
             padding: 18px 22px 16px;
         }
 
@@ -75,7 +75,7 @@
         }
 
         .template-section__caption {
-            color: var(--bs-secondary-color, #6c757d);
+            color: var(--bs-secondary-color, var(--color-as-6c757d));
             font-size: 13px;
         }
 
@@ -87,8 +87,8 @@
         }
 
         .template-item {
-            background: var(--bs-tertiary-bg, rgba(127, 127, 127, .08));
-            border: 1px solid var(--bs-border-color, rgba(0, 0, 0, .125));
+            background: var(--bs-tertiary-bg, var(--color-as-rgba-127-127-127-0-08));
+            border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
             border-radius: 18px;
             padding: 16px;
         }
@@ -109,7 +109,7 @@
         }
 
         .template-item__desc {
-            color: var(--bs-secondary-color, #6c757d);
+            color: var(--bs-secondary-color, var(--color-as-6c757d));
             font-size: 12px;
         }
 
@@ -120,7 +120,7 @@
 
         .template-switch {
             align-items: center;
-            color: var(--bs-secondary-color, #6c757d);
+            color: var(--bs-secondary-color, var(--color-as-6c757d));
             display: inline-flex;
             font-size: 12px;
             font-weight: 700;
@@ -128,17 +128,17 @@
         }
 
         .template-placeholders {
-            background: var(--bs-body-bg, rgba(127, 127, 127, .04));
-            border: 1px dashed var(--bs-border-color, rgba(0, 0, 0, .125));
+            background: var(--bs-body-bg, var(--color-as-rgba-127-127-127-0-04));
+            border: 1px dashed var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
             border-radius: 14px;
-            color: var(--bs-secondary-color, #6c757d);
+            color: var(--bs-secondary-color, var(--color-as-6c757d));
             font-size: 12px;
             margin-top: 12px;
             padding: 12px;
         }
 
         .template-placeholders code {
-            color: var(--bs-primary, #0d6efd);
+            color: var(--bs-primary, var(--color-as-0d6efd));
             margin-right: 8px;
         }
 

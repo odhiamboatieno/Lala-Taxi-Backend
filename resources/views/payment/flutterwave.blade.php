@@ -3,6 +3,10 @@
 <head>
   <title>{{ __('messages.blade_static.payment_b41a92be') }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  <!-- lalatokens -->
+  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
+  <script src="{{ url('js/colors.js') }}"></script>
+  <!-- /lalatokens -->
 </head>
 
 {!! Html::style('css/webpayment.css') !!}

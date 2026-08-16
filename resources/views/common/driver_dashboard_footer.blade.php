@@ -1,7 +1,7 @@
 <div class="container-fluid page-footer-back" style="padding: 0">
   <div class="footer-img1"><img src="{{url('images/icon/footer2_2.png')}}"></div>
 </div>
-<footer class="container-fluid" style="background:#000;">
+<footer class="container-fluid" style="background:var(--color-black);">
  @if(!Auth::user())
  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer-back pull-app-gutter--sides soft-app-gutter--sides">
   <div class="footer-head nt_fot col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -77,7 +77,7 @@
   
   <!--<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
     <div class="currency_select">
-      <select id="js-currency-select" class="select payment-select paysel" style="width: 100%; background-color: #000;">
+      <select id="js-currency-select" class="select payment-select paysel" style="width: 100%; background-color: var(--color-black);">
         @foreach($currency_select as $code)
         <option value="{{$code}}" @if(session('currency') == $code ) selected="selected" @endif >{{$code}}</option>
         @endforeach

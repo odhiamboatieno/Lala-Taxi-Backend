@@ -71,7 +71,7 @@ app.controller('user', ['$scope', '$http', '$compile','fileUploadService', funct
 						if(response.success == 'true')
 						{
 							$('.profile_picture').attr('src',response.profile_url);
-							$('.flash-container').html('<div class="alert alert-success text-center col-ssm-12" style="background: #2ec5e1 !important;border-color: #2ec5e1 !important;color: #fff !important;" >' + response.status_message + '</div>');
+							$('.flash-container').html('<div class="alert alert-success text-center col-ssm-12" style="background: var(--color-as-2ec5e1) !important;border-color: var(--color-as-2ec5e1) !important;color: var(--color-white) !important;" >' + response.status_message + '</div>');
 							$(".flash-container").fadeIn(3000);
 							$(".flash-container").fadeOut(3000);
 							$('.profile_update-loader').removeClass('loading');

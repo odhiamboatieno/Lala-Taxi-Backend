@@ -6,6 +6,10 @@
         // Expose payment_status to the JavaScript context
         window.payment_status = @json($payment_status);
     </script>
+  <!-- lalatokens -->
+  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
+  <script src="{{ url('js/colors.js') }}"></script>
+  <!-- /lalatokens -->
 </head>
 <body>
     <h1>{{ __('messages.blade_static.payment_processing_0d203aa0') }}</h1>

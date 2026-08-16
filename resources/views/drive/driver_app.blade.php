@@ -15,7 +15,7 @@
 @extends('template')
 
 @section('main')
-<div class="container-fluid fixed-header" style="background:rgb(248, 248, 249);z-index:99;">
+<div class="container-fluid fixed-header" style="background:var(--color-as-rgb-248-248-249);z-index:99;">
 <ul class="sub-header">
 <li><a href="{{ url('requirements') }}">{{trans('messages.header.require')}}</a></li>
 <li><a href="{{ url('driver_app') }}">{{trans('messages.header.app')}}</a></li>
@@ -29,7 +29,7 @@
 <div class="slide-img safety-img drive-app-img"></div>
 </div>
 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="height:100%;">
-<div class="pattern" style="height: 100% !important; width: 100% !important; right: 0px; position: absolute; z-index: 10;"><div style="background-color: #A6DAEC; height: 100%; overflow: hidden;"><div aria-label="{{ __('messages.blade_static.decorative_pattern_b3870f86') }}" style="height: 100%;"><div class="isvg loaded" style="height: 100%;">
+<div class="pattern" style="height: 100% !important; width: 100% !important; right: 0px; position: absolute; z-index: 10;"><div style="background-color: var(--color-as-a6daec); height: 100%; overflow: hidden;"><div aria-label="{{ __('messages.blade_static.decorative_pattern_b3870f86') }}" style="height: 100%;"><div class="isvg loaded" style="height: 100%;">
 <img src="{{url('images/icon/patten_145_665.jpg')}}">
 </div>
 </div>
@@ -49,7 +49,7 @@
 
 </div>
 </div>
-<div class="container-fluid" style="background:#f8f8f9;">
+<div class="container-fluid" style="background:var(--color-as-f8f8f9);">
 <div class="container">
 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 mobile-slide-pad hide-md show-sm">
   <div id="wrapper" class="">
@@ -200,8 +200,8 @@
 </div>
 </div>
 </div>
-<div class="container-fluid" style="background:#f8f8f9;">
-<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 col-lg-push-1 col-sm-push-1 col-md-push-1 col-xs-push-1 pad-100 feed-div" style="background:#fff;">
+<div class="container-fluid" style="background:var(--color-as-f8f8f9);">
+<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 col-lg-push-1 col-sm-push-1 col-md-push-1 col-xs-push-1 pad-100 feed-div" style="background:var(--color-white);">
 <div class="_style_VxPAE" data-reactid="330"><p class="_style_ZJW1y" data-reactid="331">{{trans('messages.drive.communication')}}</p><h2 style="margin-bottom:40px !important;" class="_style_3zaJwR" data-reactid="332">{{trans('messages.drive.feedback_success')}}</h2></div>
 <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
 <img src="images/icon/stay_info_Feedback_for_success.png" style="margin-bottom:20px;" >
@@ -219,7 +219,7 @@
 </div>
 </div>
 </div>
-<div class="container-fluid" style="background:#f8f8f9;">
+<div class="container-fluid" style="background:var(--color-as-f8f8f9);">
 <div class="col-lg-11 col-md-12 col-sm-12 col-xs-12 pattern-content">
 <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12 bor-bottom-ash" style="padding:30px 0px;">
 <div class="_style_VxPAE" data-reactid="330"><p class="_style_ZJW1y" data-reactid="331">{{trans('messages.home.siginup')}}</p><h2 style="margin-bottom:10px !important;" class="_style_3zaJwR" data-reactid="332">{{trans('messages.drive.start_drive_now')}}</h2></div>
@@ -235,7 +235,7 @@
 </div>
 </div>
 </div>
-<div class="container-fluid" style="background:#f8f8f9 !important">
+<div class="container-fluid" style="background:var(--color-as-f8f8f9) !important">
 <div class="container" >
 <small style="font-size:10.5px !important;">{{trans('messages.drive.info_page')}}</small>
 </div>
@@ -250,12 +250,12 @@
 .drive-app .arrive-content{
     padding: 200px 0px 30px 70px;}
 .drive-app .cmln__paragraph{font-size: 16px !important;}
-.footer-img{ background-color:#f8f8f9 !important;}
+.footer-img{ background-color:var(--color-as-f8f8f9) !important;}
 .page-footer-back{
-  background-color:#f8f8f9 !important;
+  background-color:var(--color-as-f8f8f9) !important;
   }
   .btn-input:hover, .btn:hover, .file-input:hover, .tooltip:hover , .btn, .btn-input, .file-input, .tooltip{background:transparent !important; border: none !important}
-.btn.btn--primary:hover{background:transparent !important; color: #fff !important;}
+.btn.btn--primary:hover{background:transparent !important; color: var(--color-white) !important;}
 	@media (min-width: 1100px){
 		.trip-content.slide-content{font-size: 36px !important;}
 }
@@ -273,7 +273,7 @@
     top: 12px;
     width: 40px;
     height: 2px;
-    background-color: #C6C6C6;
+    background-color: var(--color-as-c6c6c6);
     margin: -25px 0px;
 }
 </style>

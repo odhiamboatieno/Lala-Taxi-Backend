@@ -9,9 +9,9 @@
                <input type="hidden" name="user_type" value="Rider" id="user_type">
                <div data-reactid="15" class="email_phone-sec">
                   <h4 data-reactid="14">{{trans('messages.header.signin')}}</h4>
-                  <div style="-moz-box-sizing:border-box;font-family:ff-clan-web-pro, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;font-weight:500;font-size:12px;line-height:24px;text-align:none;color:#939393;box-sizing:border-box;margin-bottom:0;margin-top:0;" data-reactid="16"></div>
+                  <div style="-moz-box-sizing:border-box;font-family:ff-clan-web-pro, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;font-weight:500;font-size:12px;line-height:24px;text-align:none;color:var(--color-as-939393);box-sizing:border-box;margin-bottom:0;margin-top:0;" data-reactid="16"></div>
                   <div style="width:100%;" data-reactid="17">
-                     <div style="font-family:ff-clan-web-pro, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;font-weight:500;font-size:14px;line-height:24px;text-align:none;color:#3e3e3e;box-sizing:border-box;margin-bottom:24px;" data-reactid="19">
+                     <div style="font-family:ff-clan-web-pro, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;font-weight:500;font-size:14px;line-height:24px;text-align:none;color:var(--color-as-3e3e3e);box-sizing:border-box;margin-bottom:24px;" data-reactid="19">
                         <div class="_style_CZTQ8 input-group" data-reactid="20">
                            <select name="country_code" tabindex="-1" id="phone_country" class="text-select input-group-addon" data-reactid="21">
                              @foreach($country as $key => $value)
@@ -27,9 +27,9 @@
                </div>
                <h3 class="email_or_phone password-sec hide text-center" style="margin-top: 0px;margin-bottom: 20px;"></h3>
                <div data-reactid="15" class="password-sec hide">
-                  <div style="-moz-box-sizing:border-box;font-family:ff-clan-web-pro, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;font-weight:500;font-size:12px;line-height:24px;text-align:none;color:#939393;box-sizing:border-box;margin-bottom:0;margin-top:0;" data-reactid="16"></div>
+                  <div style="-moz-box-sizing:border-box;font-family:ff-clan-web-pro, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;font-weight:500;font-size:12px;line-height:24px;text-align:none;color:var(--color-as-939393);box-sizing:border-box;margin-bottom:0;margin-top:0;" data-reactid="16"></div>
                   <div style="width:100%;" data-reactid="17">
-                     <div style="font-family:ff-clan-web-pro, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;font-weight:500;font-size:14px;line-height:24px;text-align:none;color:#3e3e3e;box-sizing:border-box;margin-bottom:24px;" data-reactid="19">
+                     <div style="font-family:ff-clan-web-pro, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;font-weight:500;font-size:14px;line-height:24px;text-align:none;color:var(--color-as-3e3e3e);box-sizing:border-box;margin-bottom:24px;" data-reactid="19">
                         <div class="_style_CZTQ8" data-reactid="20">
                            <input class="text-input input-group-addon password_btn" id="password" placeholder="{{trans('messages.user.paswrd')}}" autocorrect="off" autocapitalize="off" name="password" data-reactid="21" type="password" value="{{ canDisplayCredentials() ? '123456':'' }}">
                         </div>
@@ -65,14 +65,14 @@
             @endif
 
             @if(in_array('facebook',$social_logins))
-            <a href="{{ url('facebook_login') }}" class="btn btn--arrow push-small--bottom violet-btn btn-facebook" style="background-color: rgb(59, 89, 152); border-color: rgb(246 201 47);">
+            <a href="{{ url('facebook_login') }}" class="btn btn--arrow push-small--bottom violet-btn btn-facebook" style="background-color: var(--color-as-rgb-59-89-152); border-color: var(--color-as-rgb-24620147);">
                <i class="fa fa-facebook push-half--right"></i>
                <span class="push-small--right">@lang('messages.user.continue_with')</span> <i class="fa fa-long-arrow-right icon icon_right-arrow-thin facebook-ride"></i>
             </a>
             @endif
 
             @if(in_array('google',$social_logins))
-            <a href="javascript:;" id="google_login" class="col-md-offset-1 google_login g-signin2 btn btn--arrow push-small--bottom white-btn google-btn" style="background: #6e9af7;color: #fff;">
+            <a href="javascript:;" id="google_login" class="col-md-offset-1 google_login g-signin2 btn btn--arrow push-small--bottom white-btn google-btn" style="background: var(--color-as-6e9af7);color: var(--color-white);">
                <i class="fa fa-google push-half--right"></i>
                <span> @lang('messages.user.continue_with_google') </span>
                <i class="fa fa-long-arrow-right icon icon_right-arrow-thin google-ride"></i>

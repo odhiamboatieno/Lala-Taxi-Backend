@@ -25,15 +25,15 @@
 @section('css')
     <style>
         .ops-dashboard {
-            color: #1f3554;
+            color: var(--color-as-1f3554);
         }
 
         .ops-welcome {
             align-items: center;
-            background: #f6fbfd;
-            border: 1px solid #dfeff3;
+            background: var(--color-as-f6fbfd);
+            border: 1px solid var(--color-as-dfeff3);
             border-radius: 16px;
-            box-shadow: 0 8px 18px rgba(27, 65, 93, .05);
+            box-shadow: 0 8px 18px var(--color-as-rgba-27-65-93-0-05);
             display: flex;
             justify-content: space-between;
             margin-bottom: 24px;
@@ -41,23 +41,23 @@
         }
 
         .ops-welcome__title {
-            color: #183b68;
+            color: var(--color-as-183b68);
             font-size: 28px;
             font-weight: 800;
             margin: 0 0 6px;
         }
 
         .ops-welcome__subtitle {
-            color: #68809b;
+            color: var(--color-as-68809b);
             font-size: 14px;
             margin: 0;
         }
 
         .ops-welcome__badge {
-            background: rgba(56, 189, 178, .12);
-            border: 1px solid rgba(56, 189, 178, .24);
+            background: var(--color-as-rgba-56-189-178-0-12);
+            border: 1px solid var(--color-as-rgba-56-189-178-0-24);
             border-radius: 999px;
-            color: #17a398;
+            color: var(--color-as-17a398);
             font-size: 12px;
             font-weight: 700;
             letter-spacing: .04em;
@@ -79,7 +79,7 @@
         .dashboard-card__icon {
             align-items: center;
             border-radius: 12px;
-            color: #fff;
+            color: var(--color-white);
             display: inline-flex;
             font-size: 18px;
             height: 42px;
@@ -88,14 +88,14 @@
             width: 42px;
         }
 
-        .dashboard-card--primary .dashboard-card__icon { background: #3b82f6; }
-        .dashboard-card--success .dashboard-card__icon { background: #22c55e; }
-        .dashboard-card--info .dashboard-card__icon { background: #06b6d4; }
-        .dashboard-card--warning .dashboard-card__icon { background: #f59e0b; }
-        .dashboard-card--danger .dashboard-card__icon { background: #ef4444; }
+        .dashboard-card--primary .dashboard-card__icon { background: var(--color-as-3b82f6); }
+        .dashboard-card--success .dashboard-card__icon { background: var(--color-as-22c55e); }
+        .dashboard-card--info .dashboard-card__icon { background: var(--color-as-06b6d4); }
+        .dashboard-card--warning .dashboard-card__icon { background: var(--color-as-f59e0b); }
+        .dashboard-card--danger .dashboard-card__icon { background: var(--color-as-ef4444); }
 
         .dashboard-card__label {
-            color: #6b8096;
+            color: var(--color-as-6b8096);
             font-size: 12px;
             font-weight: 700;
             letter-spacing: .04em;
@@ -104,7 +104,7 @@
         }
 
         .dashboard-card__value {
-            color: #16375a;
+            color: var(--color-as-16375a);
             font-size: 28px;
             font-weight: 800;
             line-height: 1.1;
@@ -118,14 +118,14 @@
 
         .ops-card__head {
             align-items: center;
-            border-bottom: 1px solid rgba(216, 241, 244, .9);
+            border-bottom: 1px solid var(--color-as-rgba-216-241-244-0-9);
             display: flex;
             justify-content: space-between;
             padding: 18px 22px 16px;
         }
 
         .ops-card__title {
-            color: #1d3d67;
+            color: var(--color-as-1d3d67);
             font-size: 24px;
             font-weight: 800;
             line-height: 1.2;
@@ -133,7 +133,7 @@
         }
 
         .ops-card__caption {
-            color: #8aa1b7;
+            color: var(--color-as-8aa1b7);
             display: block;
             font-size: 13px;
             margin-top: 4px;
@@ -158,7 +158,7 @@
         .ops-stat__icon {
             align-items: center;
             border-radius: 16px;
-            color: #fff;
+            color: var(--color-white);
             display: inline-flex;
             font-size: 24px;
             height: 52px;
@@ -167,15 +167,15 @@
             width: 52px;
         }
 
-        .ops-stat--sky .ops-stat__icon { background: #3ca9f4; }
-        .ops-stat--mint .ops-stat__icon { background: #35c5a8; }
-        .ops-stat--sun .ops-stat__icon { background: #ffad5b; }
-        .ops-stat--violet .ops-stat__icon { background: #9c6aff; }
-        .ops-stat--emerald .ops-stat__icon { background: #31c471; }
-        .ops-stat--rose .ops-stat__icon { background: #ff7278; }
+        .ops-stat--sky .ops-stat__icon { background: var(--color-as-3ca9f4); }
+        .ops-stat--mint .ops-stat__icon { background: var(--color-as-35c5a8); }
+        .ops-stat--sun .ops-stat__icon { background: var(--color-as-ffad5b); }
+        .ops-stat--violet .ops-stat__icon { background: var(--color-as-9c6aff); }
+        .ops-stat--emerald .ops-stat__icon { background: var(--color-as-31c471); }
+        .ops-stat--rose .ops-stat__icon { background: var(--color-as-ff7278); }
 
         .ops-stat__value {
-            color: #1f3554;
+            color: var(--color-as-1f3554);
             font-size: 16px;
             font-weight: 700;
             margin-bottom: 6px;
@@ -189,7 +189,7 @@
         }
 
         .ops-stat__label {
-            color: #68809b;
+            color: var(--color-as-68809b);
             font-size: 14px;
             font-weight: 600;
         }
@@ -214,19 +214,19 @@
         }
 
         .ops-zone__name {
-            color: #1f3554;
+            color: var(--color-as-1f3554);
             font-size: 15px;
             font-weight: 700;
         }
 
         .ops-zone__meta {
-            color: #8196aa;
+            color: var(--color-as-8196aa);
             font-size: 13px;
             font-weight: 700;
         }
 
         .ops-zone__track {
-            background: #edf3f8;
+            background: var(--color-as-edf3f8);
             border-radius: 999px;
             height: 12px;
             overflow: hidden;
@@ -239,11 +239,11 @@
             height: 100%;
         }
 
-        .ops-zone__bar--1 { background: linear-gradient(90deg, #ff7b81 0%, #ff5f6d 100%); }
-        .ops-zone__bar--2 { background: linear-gradient(90deg, #ffd43b 0%, #ffb000 100%); }
-        .ops-zone__bar--3 { background: linear-gradient(90deg, #4fd1c5 0%, #15b8a6 100%); }
-        .ops-zone__bar--4 { background: linear-gradient(90deg, #7c9bff 0%, #5875f5 100%); }
-        .ops-zone__bar--5 { background: linear-gradient(90deg, #d18fff 0%, #aa6df4 100%); }
+        .ops-zone__bar--1 { background: linear-gradient(90deg, var(--color-as-ff7b81) 0%, var(--color-as-ff5f6d) 100%); }
+        .ops-zone__bar--2 { background: linear-gradient(90deg, var(--color-as-ffd43b) 0%, var(--color-as-ffb000) 100%); }
+        .ops-zone__bar--3 { background: linear-gradient(90deg, var(--color-as-4fd1c5) 0%, var(--color-as-15b8a6) 100%); }
+        .ops-zone__bar--4 { background: linear-gradient(90deg, var(--color-as-7c9bff) 0%, var(--color-as-5875f5) 100%); }
+        .ops-zone__bar--5 { background: linear-gradient(90deg, var(--color-as-d18fff) 0%, var(--color-as-aa6df4) 100%); }
 
         .ops-chart-card .ops-card__body {
             padding-top: 10px;
@@ -256,24 +256,24 @@
         }
 
         .morris-hover.morris-default-style {
-            background: #ffffff;
-            border: 1px solid #d8e8ef;
+            background: var(--color-white);
+            border: 1px solid var(--color-as-d8e8ef);
             border-radius: 14px;
-            box-shadow: 0 16px 34px rgba(15, 23, 42, .16);
-            color: #16375a;
+            box-shadow: 0 16px 34px var(--color-as-rgba-15-23-42-0-16);
+            color: var(--color-as-16375a);
             padding: 12px 14px;
             z-index: 9999;
         }
 
         .morris-hover.morris-default-style .morris-hover-row-label {
-            color: #16375a;
+            color: var(--color-as-16375a);
             font-size: 12px;
             font-weight: 800;
             margin-bottom: 6px;
         }
 
         .morris-hover.morris-default-style .morris-hover-point {
-            color: #40627f !important;
+            color: var(--color-as-40627f) !important;
             font-size: 12px;
             font-weight: 700;
             line-height: 1.5;
@@ -286,10 +286,10 @@
         }
 
         .ops-select {
-            background: #fff;
-            border: 1px solid #dcecf1;
+            background: var(--color-white);
+            border: 1px solid var(--color-as-dcecf1);
             border-radius: 12px;
-            color: #1f3554;
+            color: var(--color-as-1f3554);
             font-size: 13px;
             font-weight: 700;
             min-width: 130px;
@@ -309,7 +309,7 @@
             background: transparent;
             border: 0;
             border-radius: 999px;
-            color: #1f3554;
+            color: var(--color-as-1f3554);
             font-size: 14px;
             font-weight: 700;
             margin-left: 8px;
@@ -317,8 +317,8 @@
         }
 
         .ops-board__tab.is-active {
-            background: #35c5a8;
-            color: #fff;
+            background: var(--color-as-35c5a8);
+            color: var(--color-white);
         }
 
         .ops-board__pane {
@@ -345,7 +345,7 @@
 
         .ops-podium__item {
             border-radius: 18px 18px 10px 10px;
-            color: #fff;
+            color: var(--color-white);
             min-height: 120px;
             padding: 16px 10px 14px;
             position: relative;
@@ -354,22 +354,22 @@
         }
 
         .ops-podium__item--first {
-            background: linear-gradient(180deg, #37c3af 0%, #18aa94 100%);
+            background: linear-gradient(180deg, var(--color-as-37c3af) 0%, var(--color-as-18aa94) 100%);
             min-height: 228px;
         }
 
         .ops-podium__item--second {
-            background: linear-gradient(180deg, #f9ab62 0%, #f18a47 100%);
+            background: linear-gradient(180deg, var(--color-as-f9ab62) 0%, var(--color-as-f18a47) 100%);
             min-height: 168px;
         }
 
         .ops-podium__item--third {
-            background: linear-gradient(180deg, #f3d879 0%, #efc94a 100%);
+            background: linear-gradient(180deg, var(--color-as-f3d879) 0%, var(--color-as-efc94a) 100%);
             min-height: 148px;
         }
 
         .ops-podium__avatar {
-            border: 4px solid #fff;
+            border: 4px solid var(--color-white);
             border-radius: 50%;
             height: 72px;
             left: 50%;
@@ -398,8 +398,8 @@
 
         .ops-podium__rank {
             align-items: center;
-            background: rgba(255, 255, 255, .18);
-            border: 3px solid rgba(255, 255, 255, .7);
+            background: var(--color-as-rgba-255-255-255-0-18);
+            border: 3px solid var(--color-as-rgba-255-255-255-0-7);
             border-radius: 50%;
             bottom: 16px;
             display: inline-flex;
@@ -413,7 +413,7 @@
         }
 
         .ops-podium__name {
-            color: #fff;
+            color: var(--color-white);
             display: block;
             font-size: 13px;
             font-weight: 700;
@@ -424,7 +424,7 @@
         }
 
         .ops-podium__rating {
-            color: rgba(255, 255, 255, .92);
+            color: var(--color-as-rgba-255-255-255-0-92);
             display: block;
             font-size: 11px;
             margin-top: 4px;
@@ -437,7 +437,7 @@
 
         .ops-board__row {
             align-items: center;
-            border-top: 1px solid #ebf4f7;
+            border-top: 1px solid var(--color-as-ebf4f7);
             display: flex;
             justify-content: space-between;
             padding: 16px 0;
@@ -462,43 +462,43 @@
         }
 
         .ops-board__name {
-            color: #1f3554;
+            color: var(--color-as-1f3554);
             font-size: 15px;
             font-weight: 700;
             margin-bottom: 4px;
         }
 
         .ops-board__sub {
-            color: #8aa1b7;
+            color: var(--color-as-8aa1b7);
             font-size: 12px;
             font-weight: 600;
         }
 
         .ops-board__metric {
-            color: #1f3554;
+            color: var(--color-as-1f3554);
             font-size: 16px;
             font-weight: 800;
         }
 
         .ops-empty {
-            color: #8aa1b7;
+            color: var(--color-as-8aa1b7);
             font-size: 14px;
             padding: 40px 10px;
             text-align: center;
         }
 
         .ops-feed__item {
-            border-top: 1px solid #ebf4f7;
+            border-top: 1px solid var(--color-as-ebf4f7);
             padding: 16px 0;
             position: relative;
         }
 
         .ops-floating-tooltip {
-            background: #fff;
-            border: 1px solid #d8e8ef;
+            background: var(--color-white);
+            border: 1px solid var(--color-as-d8e8ef);
             border-radius: 14px;
-            box-shadow: 0 16px 34px rgba(15, 23, 42, .16);
-            color: #16375a;
+            box-shadow: 0 16px 34px var(--color-as-rgba-15-23-42-0-16);
+            color: var(--color-as-16375a);
             display: none;
             min-width: 210px;
             padding: 12px 14px;
@@ -512,14 +512,14 @@
         }
 
         .ops-floating-tooltip__title {
-            color: #16375a;
+            color: var(--color-as-16375a);
             font-size: 12px;
             font-weight: 800;
             margin-bottom: 8px;
         }
 
         .ops-floating-tooltip__line {
-            color: #4e6880;
+            color: var(--color-as-4e6880);
             font-size: 12px;
             font-weight: 700;
             line-height: 1.6;
@@ -557,10 +557,10 @@
         }
 
         .ops-feed__avatar {
-            background: #fff;
-            border: 2px solid #fff;
+            background: var(--color-white);
+            border: 2px solid var(--color-white);
             border-radius: 50%;
-            box-shadow: 0 6px 14px rgba(15, 23, 42, .12);
+            box-shadow: 0 6px 14px var(--color-as-rgba-15-23-42-0-12);
             height: 28px;
             object-fit: cover;
             width: 28px;
@@ -571,7 +571,7 @@
         }
 
         .ops-feed__amount {
-            color: #1f3554;
+            color: var(--color-as-1f3554);
             font-size: 30px;
             font-weight: 800;
             line-height: 1;
@@ -579,13 +579,13 @@
         }
 
         .ops-feed__title {
-            color: #1f3554;
+            color: var(--color-as-1f3554);
             font-size: 14px;
             font-weight: 700;
         }
 
         .ops-feed__meta {
-            color: #8aa1b7;
+            color: var(--color-as-8aa1b7);
             font-size: 12px;
             margin-top: 6px;
         }
@@ -602,28 +602,28 @@
         }
 
         .ops-badge--success {
-            background: rgba(50, 199, 170, .14);
-            color: #19a78f;
+            background: var(--color-as-rgba-50-199-170-0-14);
+            color: var(--color-as-19a78f);
         }
 
         .ops-badge--warning {
-            background: rgba(255, 186, 73, .16);
-            color: #d39424;
+            background: var(--color-as-rgba-255-186-73-0-16);
+            color: var(--color-as-d39424);
         }
 
         .ops-badge--danger {
-            background: rgba(255, 108, 122, .15);
-            color: #ee5d69;
+            background: var(--color-as-rgba-255-108-122-0-15);
+            color: var(--color-as-ee5d69);
         }
 
         .ops-badge--info {
-            background: rgba(92, 151, 255, .15);
-            color: #4678d8;
+            background: var(--color-as-rgba-92-151-255-0-15);
+            color: var(--color-as-4678d8);
         }
 
         .ops-activity__row {
             align-items: center;
-            border-top: 1px solid #ebf4f7;
+            border-top: 1px solid var(--color-as-ebf4f7);
             display: flex;
             gap: 14px;
             padding: 14px 0;
@@ -636,9 +636,9 @@
 
         .ops-activity__icon {
             align-items: center;
-            background: #f2f8fb;
+            background: var(--color-as-f2f8fb);
             border-radius: 14px;
-            color: #69839c;
+            color: var(--color-as-69839c);
             display: inline-flex;
             flex: 0 0 48px;
             font-size: 21px;
@@ -655,14 +655,14 @@
         }
 
         .ops-activity__title {
-            color: #1f3554;
+            color: var(--color-as-1f3554);
             font-size: 18px;
             font-weight: 800;
             margin-bottom: 2px;
         }
 
         .ops-activity__meta {
-            color: #8aa1b7;
+            color: var(--color-as-8aa1b7);
             font-size: 12px;
         }
 
@@ -1210,14 +1210,14 @@
                     xkey: 'label',
                     ykeys: ['gross', 'operator'],
                     labels: ['Gross Bookings', @json($earningsChart['series_title'] ?? 'Earnings')],
-                    lineColors: ['#35c5a8', '#5c97ff'],
+                    lineColors: [LalaColors.as35c5a8, LalaColors.as5c97ff],
                     lineWidth: 3,
                     pointSize: 3,
-                    pointFillColors: ['#35c5a8', '#5c97ff'],
-                    pointStrokeColors: ['#35c5a8', '#5c97ff'],
+                    pointFillColors: [LalaColors.as35c5a8, LalaColors.as5c97ff],
+                    pointStrokeColors: [LalaColors.as35c5a8, LalaColors.as5c97ff],
                     hideHover: false,
-                    gridTextColor: '#658098',
-                    gridLineColor: '#edf3f8',
+                    gridTextColor: LalaColors.as658098,
+                    gridLineColor: LalaColors.asEdf3f8,
                     parseTime: false,
                     hoverCallback: function (index, options, content, row) {
                         return '<div class="morris-hover-row-label">' + row.label + '</div>'

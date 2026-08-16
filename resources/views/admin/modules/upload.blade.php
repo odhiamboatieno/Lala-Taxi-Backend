@@ -65,7 +65,7 @@
                     <h5 class="card-title"><i class="bi bi-info-circle"></i> Module package format</h5>
                     <p class="text-muted small">A valid module zip must include a <code>module.json</code> at the root or inside a top-level folder.</p>
 
-<pre class="mb-3" style="background:#0f172a;color:#e2e8f0;padding:14px;border-radius:10px;font-size:12px;">
+<pre class="mb-3" style="background:var(--color-as-0f172a);color:var(--color-as-e2e8f0);padding:14px;border-radius:10px;font-size:12px;">
 MyModule.zip
 └── MyModule/
     ├── module.json
@@ -78,7 +78,7 @@ MyModule.zip
 </pre>
 
                     <p class="small text-muted">Example <code>module.json</code>:</p>
-<pre style="background:#0f172a;color:#e2e8f0;padding:14px;border-radius:10px;font-size:12px;">
+<pre style="background:var(--color-as-0f172a);color:var(--color-as-e2e8f0);padding:14px;border-radius:10px;font-size:12px;">
 {
   "name": "MyModule",
   "alias": "mymodule",
@@ -99,22 +99,22 @@ MyModule.zip
 <style>
 .upload-drop {
     position: relative;
-    border: 2px dashed #cbd5e1;
+    border: 2px dashed var(--color-as-cbd5e1);
     border-radius: 16px;
     padding: 36px 20px;
     text-align: center;
     transition: border-color .15s ease, background .15s ease;
-    background: #f8fafc;
+    background: var(--color-as-f8fafc);
     cursor: pointer;
 }
-.upload-drop.is-dragover { border-color: #214ba2; background: #eef3ff; }
+.upload-drop.is-dragover { border-color: var(--color-as-214ba2); background: var(--color-as-eef3ff); }
 .upload-drop input[type=file] {
     position: absolute; inset: 0; opacity: 0; cursor: pointer;
 }
-.upload-drop__icon { font-size: 36px; color: #214ba2; }
-.upload-drop__title { font-weight: 600; margin-top: 8px; color: #0f172a; }
-.upload-drop__hint { color: #64748b; font-size: 13px; }
-.upload-drop__filename { color: #214ba2; font-weight: 600; margin-top: 10px; }
+.upload-drop__icon { font-size: 36px; color: var(--color-as-214ba2); }
+.upload-drop__title { font-weight: 600; margin-top: 8px; color: var(--color-as-0f172a); }
+.upload-drop__hint { color: var(--color-as-64748b); font-size: 13px; }
+.upload-drop__filename { color: var(--color-as-214ba2); font-weight: 600; margin-top: 10px; }
 </style>
 
 <script>

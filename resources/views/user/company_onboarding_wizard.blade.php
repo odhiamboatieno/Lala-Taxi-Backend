@@ -11,66 +11,66 @@
     $uploadedDocumentsById = collect($uploadedDocuments ?? [])->keyBy('id');
 @endphp
 <style>
-    .onboarding-shell{min-height:100vh;background:linear-gradient(180deg,#f5f7fb 0%,#eef3f8 100%);color:#0f172a}
+    .onboarding-shell{min-height:100vh;background:linear-gradient(180deg,var(--color-as-f5f7fb) 0%,var(--color-as-eef3f8) 100%);color:var(--color-as-0f172a)}
     .onboarding-wrap{width:min(1180px,calc(100% - 32px));margin:0 auto}
-    .onboarding-hero{padding:32px 0 120px;background:radial-gradient(circle at top right,rgba(255,255,255,.15),transparent 26rem),linear-gradient(135deg,#081321 0%,#0f766e 42%,#2563eb 100%);color:#fff}
+    .onboarding-hero{padding:32px 0 120px;background:radial-gradient(circle at top right,var(--color-as-rgba-255-255-255-0-15),transparent 26rem),linear-gradient(135deg,var(--color-as-081321) 0%,var(--color-as-0f766e) 42%,var(--color-info) 100%);color:var(--color-white)}
     .onboarding-top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:42px}
-    .onboarding-top a{color:#fff;text-decoration:none;font-weight:800}
-    .onboarding-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);font-size:13px;font-weight:700}
+    .onboarding-top a{color:var(--color-white);text-decoration:none;font-weight:800}
+    .onboarding-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:var(--color-as-rgba-255-255-255-0-14);border:1px solid var(--color-as-rgba-255-255-255-0-18);font-size:13px;font-weight:700}
     .onboarding-hero h1{font-size:clamp(2.5rem,6vw,4.8rem);line-height:1.02;margin:0 0 16px;max-width:760px}
-    .onboarding-hero p{max-width:720px;color:rgba(255,255,255,.84);font-size:18px;line-height:1.7;margin:0}
+    .onboarding-hero p{max-width:720px;color:var(--color-as-rgba-255-255-255-0-84);font-size:18px;line-height:1.7;margin:0}
     .onboarding-grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:24px;margin-top:-80px;align-items:start}
-    .onboarding-card{background:#fff;border:1px solid rgba(148,163,184,.16);border-radius:28px;box-shadow:0 24px 70px rgba(15,23,42,.10)}
+    .onboarding-card{background:var(--color-white);border:1px solid var(--color-as-rgba-148-163-184-0-16);border-radius:28px;box-shadow:0 24px 70px var(--color-as-rgba-15-23-42-0-10)}
     .onboarding-sidebar{padding:26px;position:sticky;top:24px}
-    .onboarding-progress{height:10px;border-radius:999px;background:#e2e8f0;overflow:hidden;margin:18px 0 24px}
-    .onboarding-progress span{display:block;height:100%;background:linear-gradient(90deg,#0f766e,#2563eb)}
-    .onboarding-step{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid rgba(226,232,240,.75)}
+    .onboarding-progress{height:10px;border-radius:999px;background:var(--color-as-e2e8f0);overflow:hidden;margin:18px 0 24px}
+    .onboarding-progress span{display:block;height:100%;background:linear-gradient(90deg,var(--color-as-0f766e),var(--color-info))}
+    .onboarding-step{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--color-as-rgba-226-232-240-0-75)}
     .onboarding-step:last-child{border-bottom:0}
-    .onboarding-step__dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e2e8f0;color:#475569;font-weight:800;flex:0 0 auto}
-    .onboarding-step.is-active .onboarding-step__dot,.onboarding-step.is-complete .onboarding-step__dot{background:#ccfbf1;color:#0f766e}
-    .onboarding-step small{display:block;color:#94a3b8;font-weight:700;margin-bottom:3px}
+    .onboarding-step__dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--color-as-e2e8f0);color:var(--color-as-475569);font-weight:800;flex:0 0 auto}
+    .onboarding-step.is-active .onboarding-step__dot,.onboarding-step.is-complete .onboarding-step__dot{background:var(--color-as-ccfbf1);color:var(--color-as-0f766e)}
+    .onboarding-step small{display:block;color:var(--color-as-94a3b8);font-weight:700;margin-bottom:3px}
     .onboarding-step strong{display:block;font-size:15px}
     .onboarding-main{padding:30px}
     .onboarding-main h2{margin:0 0 10px;font-size:34px;letter-spacing:-.03em}
-    .onboarding-copy{color:#64748b;line-height:1.75;margin:0 0 24px}
+    .onboarding-copy{color:var(--color-as-64748b);line-height:1.75;margin:0 0 24px}
     .field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
     .field{margin-bottom:18px}
-    .field label{display:block;margin-bottom:8px;font-weight:800;color:#334155}
-    .field input,.field select,.field textarea{width:100%;border:1px solid #d9e2ec;border-radius:16px;min-height:52px;padding:12px 16px;font-size:15px;background:#fff}
+    .field label{display:block;margin-bottom:8px;font-weight:800;color:var(--color-as-334155)}
+    .field input,.field select,.field textarea{width:100%;border:1px solid var(--color-as-d9e2ec);border-radius:16px;min-height:52px;padding:12px 16px;font-size:15px;background:var(--color-white)}
     .field textarea{min-height:120px;resize:vertical}
-    .field-hint{font-size:13px;color:#94a3b8;margin-top:6px}
+    .field-hint{font-size:13px;color:var(--color-as-94a3b8);margin-top:6px}
     .text-danger{display:block;font-size:13px;margin-top:6px}
     .badge-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
     .status-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;font-size:13px;font-weight:800}
-    .status-badge--ok{background:#dcfce7;color:#166534}
-    .status-badge--warn{background:#fef3c7;color:#92400e}
-    .status-badge--danger{background:#fee2e2;color:#b91c1c}
-    .upload-card,.review-card,.otp-card,.doc-card{border:1px solid rgba(148,163,184,.18);border-radius:22px;padding:20px;background:#f8fafc}
-    .upload-card img{width:120px;height:120px;border-radius:24px;object-fit:cover;border:1px solid rgba(148,163,184,.18);display:block;margin-bottom:16px}
+    .status-badge--ok{background:var(--color-as-dcfce7);color:var(--color-as-166534)}
+    .status-badge--warn{background:var(--color-as-fef3c7);color:var(--color-as-92400e)}
+    .status-badge--danger{background:var(--color-as-fee2e2);color:var(--color-as-b91c1c)}
+    .upload-card,.review-card,.otp-card,.doc-card{border:1px solid var(--color-as-rgba-148-163-184-0-18);border-radius:22px;padding:20px;background:var(--color-as-f8fafc)}
+    .upload-card img{width:120px;height:120px;border-radius:24px;object-fit:cover;border:1px solid var(--color-as-rgba-148-163-184-0-18);display:block;margin-bottom:16px}
     .otp-actions,.wizard-actions{display:flex;gap:12px;flex-wrap:wrap}
-    .wizard-actions{justify-content:space-between;align-items:center;margin-top:28px;padding-top:22px;border-top:1px solid #e2e8f0}
-    .wizard-btn{display:inline-flex;align-items:center;justify-content:center;border-radius:16px;border:1px solid #cbd5e1;padding:13px 18px;font-weight:800;background:#fff;color:#0f172a;text-decoration:none}
-    .wizard-btn--primary{background:linear-gradient(90deg,#0f766e,#2563eb);border:0;color:#fff}
-    .wizard-btn--soft{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
+    .wizard-actions{justify-content:space-between;align-items:center;margin-top:28px;padding-top:22px;border-top:1px solid var(--color-as-e2e8f0)}
+    .wizard-btn{display:inline-flex;align-items:center;justify-content:center;border-radius:16px;border:1px solid var(--color-as-cbd5e1);padding:13px 18px;font-weight:800;background:var(--color-white);color:var(--color-as-0f172a);text-decoration:none}
+    .wizard-btn--primary{background:linear-gradient(90deg,var(--color-as-0f766e),var(--color-info));border:0;color:var(--color-white)}
+    .wizard-btn--soft{background:var(--color-as-eff6ff);border-color:var(--color-as-bfdbfe);color:var(--color-as-1d4ed8)}
     .otp-card h3,.review-card h3,.doc-card h3,.upload-card h3{margin:0 0 10px}
     .review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-    .review-item{padding:16px;border-radius:18px;background:#fff;border:1px solid rgba(148,163,184,.14)}
-    .review-item span{display:block;color:#64748b;font-size:12px;text-transform:uppercase;font-weight:800;letter-spacing:.08em;margin-bottom:6px}
+    .review-item{padding:16px;border-radius:18px;background:var(--color-white);border:1px solid var(--color-as-rgba-148-163-184-0-14)}
+    .review-item span{display:block;color:var(--color-as-64748b);font-size:12px;text-transform:uppercase;font-weight:800;letter-spacing:.08em;margin-bottom:6px}
     .doc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
     .doc-card__meta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
-    .doc-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;background:#e2e8f0;color:#334155;font-size:12px;font-weight:800}
+    .doc-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;background:var(--color-as-e2e8f0);color:var(--color-as-334155);font-size:12px;font-weight:800}
     .timeline{display:grid;gap:10px;margin-top:18px}
-    .timeline div{padding:12px 14px;border-radius:16px;background:#f8fafc;border:1px solid rgba(148,163,184,.14);font-weight:700;color:#475569}
+    .timeline div{padding:12px 14px;border-radius:16px;background:var(--color-as-f8fafc);border:1px solid var(--color-as-rgba-148-163-184-0-14);font-weight:700;color:var(--color-as-475569)}
     .autocomplete-shell{position:relative}
-    .autocomplete-results{display:none;position:absolute;z-index:30;top:calc(100% + 8px);left:0;right:0;list-style:none;margin:0;padding:8px;background:#fff;border:1px solid #d9e2ec;border-radius:18px;box-shadow:0 18px 45px rgba(15,23,42,.12);max-height:260px;overflow:auto}
+    .autocomplete-results{display:none;position:absolute;z-index:30;top:calc(100% + 8px);left:0;right:0;list-style:none;margin:0;padding:8px;background:var(--color-white);border:1px solid var(--color-as-d9e2ec);border-radius:18px;box-shadow:0 18px 45px var(--color-as-rgba-15-23-42-0-12);max-height:260px;overflow:auto}
     .autocomplete-item{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;cursor:pointer}
-    .autocomplete-item:hover{background:#f8fafc}
-    .map-modal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(2,6,23,.62);padding:20px;align-items:center;justify-content:center}
+    .autocomplete-item:hover{background:var(--color-as-f8fafc)}
+    .map-modal{display:none;position:fixed;inset:0;z-index:2000;background:var(--color-as-rgba-2-6-23-0-62);padding:20px;align-items:center;justify-content:center}
     .map-modal.is-open{display:flex}
-    .map-modal__card{width:min(960px,100%);background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 28px 70px rgba(15,23,42,.26)}
-    .map-modal__head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid #e2e8f0}
+    .map-modal__card{width:min(960px,100%);background:var(--color-white);border-radius:28px;overflow:hidden;box-shadow:0 28px 70px var(--color-as-rgba-15-23-42-0-26)}
+    .map-modal__head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid var(--color-as-e2e8f0)}
     .map-modal__body{padding:22px}
-    .map-canvas{width:100%;height:420px;border-radius:22px;border:1px solid #d9e2ec}
+    .map-canvas{width:100%;height:420px;border-radius:22px;border:1px solid var(--color-as-d9e2ec)}
     .map-modal__actions{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px}
     @media (max-width:960px){.onboarding-grid,.field-grid,.review-grid,.doc-grid{grid-template-columns:1fr}.onboarding-sidebar{position:static}.onboarding-main{padding:22px}}
 </style>
@@ -126,9 +126,9 @@
 
         <section class="onboarding-card onboarding-main">
             @if($errors->any())
-                <div class="review-card" style="margin-bottom:20px;border-color:#fecaca;background:#fff7f7;">
-                    <h3 style="color:#b91c1c;">Please fix the highlighted issues</h3>
-                    <ul style="margin:0;padding-left:18px;color:#7f1d1d;">
+                <div class="review-card" style="margin-bottom:20px;border-color:var(--color-as-fecaca);background:var(--color-as-fff7f7);">
+                    <h3 style="color:var(--color-as-b91c1c);">Please fix the highlighted issues</h3>
+                    <ul style="margin:0;padding-left:18px;color:var(--color-as-7f1d1d);">
                         @foreach($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach

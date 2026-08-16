@@ -3,7 +3,7 @@
 
 <div class="flash-container">
   @if(Session::has('message'))
-  <div class="alert text-center participant-alert " style="    background: #1fbad6 !important;color: #fff !important;margin-bottom: 0;" role="alert">
+  <div class="alert text-center participant-alert " style="    background: var(--color-as-1fbad6) !important;color: var(--color-white) !important;margin-bottom: 0;" role="alert">
     <a href="#" class="alert-close text-white" data-dismiss="alert"></a>
     {!! Session::get('message') !!}
   </div>
@@ -121,10 +121,10 @@
                         <input type="hidden" name="longitude" id="longitude" value="">
                       </div>
                       <span class="text-danger home_address_error">{{ $errors->first('home_address') }}</span>
-                      <div style="box-sizing:border-box;border:1px solid #E5E5E4;position:absolute;width:100%;background:#FFFFFF;z-index:1000;visibility:hidden;-moz-box-sizing:border-box;" >
+                      <div style="box-sizing:border-box;border:1px solid var(--color-as-e5e5e4);position:absolute;width:100%;background:var(--color-white);z-index:1000;visibility:hidden;-moz-box-sizing:border-box;" >
                         <div style="max-height:300px;overflow:auto;" >
                           <div aria-live="assertive" >
-                            <div style="font-family:ff-clan-web-pro, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;font-weight:400;font-size:14px;line-height:24px;padding:8px 18px;border-bottom:1px solid #E5E5E4;" class="_style_1cBulK" >{{ __('messages.blade_static.no_results_b993b0c5') }}
+                            <div style="font-family:ff-clan-web-pro, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;font-weight:400;font-size:14px;line-height:24px;padding:8px 18px;border-bottom:1px solid var(--color-as-e5e5e4);" class="_style_1cBulK" >{{ __('messages.blade_static.no_results_b993b0c5') }}
                             </div>
                           </div>
                         </div>

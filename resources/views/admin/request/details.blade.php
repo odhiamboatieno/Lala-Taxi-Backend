@@ -162,11 +162,11 @@
             max-width: 100%;
             height: auto;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px var(--color-as-rgba-0-0-0-0-1);
         }
 
         #map {
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--color-as-e0e0e0);
             border-radius: 8px;
         }
     </style>

@@ -122,7 +122,7 @@
 
 }
 .header-left-link li a:hover, .header-left-link li a:focus {
-    color: #216C55 !important;
+    color: var(--color-as-216c55) !important;
     border-bottom: none !important;
     border-top: 4px solid transparent !important;
  

@@ -93,6 +93,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ url('css/landing-dispatch.css') }}?v={{ $version ?? '1' }}">
+  <!-- lalatokens -->
+  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
+  <script src="{{ url('js/colors.js') }}"></script>
+  <!-- /lalatokens -->
 </head>
 <body class="landing-dispatch-page">
     <header class="landing-header">

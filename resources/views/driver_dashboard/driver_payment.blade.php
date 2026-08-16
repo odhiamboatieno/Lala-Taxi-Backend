@@ -141,7 +141,7 @@
         }
         .btn--link .icon_right-arrow{left: 0px !important;}
         .btn-switch {
-            background: #fff;
+            background: var(--color-white);
             border: 1px solid green !important;
         }
         .btn-switch::before{

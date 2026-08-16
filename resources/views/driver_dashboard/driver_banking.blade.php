@@ -7,8 +7,8 @@
 <div class="" style="padding:0px 15px;">
 
 <div class="page-lead separated--bottom col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border-bottom:0px !important;">
-<p style="color:#bc1218;"><i class="icon icon_alert" style="padding-right:5px;"></i> {{trans('messages.driver_dashboard.payment_details')}}</p>
-<p style="color:#000;margin:0px;"><i class="icon icon_circle-check" style="padding-right:5px;"></i>{{trans('messages.driver_dashboard.weekly_payout')}}</p>
+<p style="color:var(--color-as-bc1218);"><i class="icon icon_alert" style="padding-right:5px;"></i> {{trans('messages.driver_dashboard.payment_details')}}</p>
+<p style="color:var(--color-black);margin:0px;"><i class="icon icon_circle-check" style="padding-right:5px;"></i>{{trans('messages.driver_dashboard.weekly_payout')}}</p>
 </div>
 
 <div class="parter-info separated--bottom col-lg-12 col-md-12 col-sm-12 col-xs-12" style="    padding: 25px 0px 15px;">
@@ -55,8 +55,8 @@
 </div>
 </div>
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin-bottom:25px;">
-<label class="" style="padding:6px 0px;color:#bc1218;">{{trans('messages.driver_dashboard.driver_dob')}}</label>
-<div class="" style="padding:6px 0px;color:#bc1218;" >
+<label class="" style="padding:6px 0px;color:var(--color-as-bc1218);">{{trans('messages.driver_dashboard.driver_dob')}}</label>
+<div class="" style="padding:6px 0px;color:var(--color-as-bc1218);" >
 {{trans('messages.driver_dashboard.dob')}}<br>
 {{trans('messages.driver_dashboard.under_req_age')}}
 </div>

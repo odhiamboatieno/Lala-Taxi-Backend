@@ -13,8 +13,8 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
+                background-color: var(--color-white);
+                color: var(--color-as-636b6f);
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
                 height: 100vh;
@@ -50,7 +50,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: var(--color-as-636b6f);
                 padding: 0 25px;
                 font-size: 12px;
                 font-weight: 600;
@@ -63,7 +63,11 @@
                 margin-bottom: 30px;
             }
         </style>
-    </head>
+      <!-- lalatokens -->
+  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
+  <script src="{{ url('js/colors.js') }}"></script>
+  <!-- /lalatokens -->
+</head>
     
 
 

@@ -12,7 +12,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, #1e3c72, #2a5298); /* Carpooling-themed gradient */
+        background: linear-gradient(135deg, var(--color-as-1e3c72), var(--color-as-2a5298)); /* Carpooling-themed gradient */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -46,27 +46,27 @@
     }
 
     .dot:nth-child(1) {
-        background-color: #ff6b6b; /* Red */
+        background-color: var(--color-as-ff6b6b); /* Red */
         animation-delay: 0s;
     }
 
     .dot:nth-child(2) {
-        background-color: #48dbfb; /* Blue */
+        background-color: var(--color-as-48dbfb); /* Blue */
         animation-delay: 0.15s;
     }
 
     .dot:nth-child(3) {
-        background-color: #1dd1a1; /* Green */
+        background-color: var(--color-as-1dd1a1); /* Green */
         animation-delay: 0.3s;
     }
 
     .dot:nth-child(4) {
-        background-color: #feca57; /* Yellow */
+        background-color: var(--color-as-feca57); /* Yellow */
         animation-delay: 0.45s;
     }
 
     .preloader-text {
-        color: #fff;
+        color: var(--color-white);
         font-size: 18px;
         font-weight: bold;
         font-family: 'Arial', sans-serif;
@@ -110,10 +110,10 @@
         float: right;
         font-size: 13px;
         display: inline-block;
-        color: #000;
+        color: var(--color-black);
         height: auto;
         margin: 13px 6px 3px;
-        border-color: rgb(169, 169, 169);
+        border-color: var(--color-as-rgb-169-169-169);
         width: auto;
     }
 </style>
@@ -139,7 +139,7 @@
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">{{ __('messages.blade_static.toggle_navigation_1ec0b00d') }}</span>
         </a>
-        <span id="show_date_time" class="show_date_time" style="color:#303841; font-size:16px; line-height: 46px;"></span>
+        <span id="show_date_time" class="show_date_time" style="color:var(--color-as-303841); font-size:16px; line-height: 46px;"></span>
         <div class="navbar-custom-menu">
             @php
                 if (defined('LOGIN_USER_TYPE') && LOGIN_USER_TYPE == 'company') {

@@ -36,23 +36,23 @@
   var elements = stripe.elements();
   let type = '{{ request()->mode }}';
   if(type == ''){
-    var color = '#222222'
+    var color = LalaColors.as222222
   }
   else 
   {
-    var color = type == 'light' ? '#222222' : '#fff';
+    var color = type == 'light' ? LalaColors.as222222 : LalaColors.white;
   }
     var card = elements.create('card', { 
     hidePostalCode:true,
     style: {
       base: {
-        iconColor: '#666EE8',
+        iconColor: LalaColors.as666ee8,
         color: color,
         lineHeight: '40px',
         fontWeight: 300,
         fontSize: '15px',
         '::placeholder': {
-          color: '#CFD7E0',
+          color: LalaColors.asCfd7e0,
         },
       },
     }

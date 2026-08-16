@@ -1,25 +1,25 @@
 /* Admin compatibility layer for the modern dashboard shell. */
 :root {
-    --admin-preloader-bg: rgba(248, 250, 252, .92);
-    --admin-table-bg: #fff;
-    --admin-table-text: #111827;
-    --admin-table-muted: #64748b;
-    --admin-table-border: #e5e7eb;
-    --admin-table-head: #f8fafc;
-    --admin-table-hover: #f1f5f9;
+    --admin-preloader-bg: var(--color-as-rgba-248-250-252-0-92);
+    --admin-table-bg: var(--color-white);
+    --admin-table-text: var(--color-as-111827);
+    --admin-table-muted: var(--color-as-64748b);
+    --admin-table-border: var(--color-as-e5e7eb);
+    --admin-table-head: var(--color-as-f8fafc);
+    --admin-table-hover: var(--color-as-f1f5f9);
 }
 
 [data-bs-theme="dark"],
 [data-theme="dark"],
 body.dark,
 body[data-sidebar-color="dark"] {
-    --admin-preloader-bg: rgba(2, 6, 23, .86);
-    --admin-table-bg: #0f172a;
-    --admin-table-text: #e5e7eb;
-    --admin-table-muted: #94a3b8;
-    --admin-table-border: rgba(148, 163, 184, .22);
-    --admin-table-head: #111827;
-    --admin-table-hover: rgba(30, 41, 59, .8);
+    --admin-preloader-bg: var(--color-as-rgba-2-6-23-0-86);
+    --admin-table-bg: var(--color-as-0f172a);
+    --admin-table-text: var(--color-as-e5e7eb);
+    --admin-table-muted: var(--color-as-94a3b8);
+    --admin-table-border: var(--color-as-rgba-148-163-184-0-22);
+    --admin-table-head: var(--color-as-111827);
+    --admin-table-hover: var(--color-as-rgba-30-41-59-0-8);
 }
 
 #admin-page-preloader {
@@ -43,11 +43,11 @@ body[data-sidebar-color="dark"] {
     width: 58px;
     height: 58px;
     border-radius: 999px;
-    border: 4px solid rgba(20, 184, 166, .16);
-    border-top-color: #14b8a6;
-    border-right-color: #0f766e;
+    border: 4px solid var(--color-as-rgba-20-184-166-0-16);
+    border-top-color: var(--color-as-14b8a6);
+    border-right-color: var(--color-as-0f766e);
     animation: adminPreloaderSpin .72s linear infinite;
-    box-shadow: 0 18px 50px rgba(20, 184, 166, .2);
+    box-shadow: 0 18px 50px var(--color-as-rgba-20-184-166-0-2);
 }
 
 @keyframes adminPreloaderSpin {
@@ -81,7 +81,7 @@ body[data-sidebar-color="dark"] {
 
 .table-striped > tbody > tr:nth-of-type(odd) > *,
 .dataTable.table-striped > tbody > tr:nth-of-type(odd) > * {
-    --bs-table-accent-bg: rgba(148, 163, 184, .06);
+    --bs-table-accent-bg: var(--color-as-rgba-148-163-184-0-06);
 }
 
 .table-hover > tbody > tr:hover > *,
@@ -115,9 +115,9 @@ body[data-sidebar-color="dark"] {
 
 .dataTables_wrapper .pagination .active .page-link,
 .dataTables_wrapper .paginate_button.current {
-    color: #fff !important;
-    background: #14b8a6 !important;
-    border-color: #14b8a6 !important;
+    color: var(--color-white) !important;
+    background: var(--color-as-14b8a6) !important;
+    border-color: var(--color-as-14b8a6) !important;
 }
 
 .table-responsive {

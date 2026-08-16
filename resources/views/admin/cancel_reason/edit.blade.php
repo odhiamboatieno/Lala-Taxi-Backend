@@ -10,8 +10,8 @@
     <!-- Custom styles for translations -->
     <style>
         .translation-item {
-            background: #f8f9fa;
-            border: 1px solid #e3e6f0;
+            background: var(--color-as-f8f9fa);
+            border: 1px solid var(--color-as-e3e6f0);
             border-radius: 0.375rem;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
@@ -24,7 +24,7 @@
         }
         .translation-item legend {
             margin-top: 1rem;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid var(--color-as-dee2e6);
             width: 100%;
         }
         .add-translation-btn {

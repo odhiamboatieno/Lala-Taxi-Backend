@@ -12,7 +12,7 @@
     .fleet-live-card .card-header {
         background: transparent;
         padding: 22px 24px;
-        border-bottom: 1px solid rgba(16, 24, 40, 0.08);
+        border-bottom: 1px solid var(--color-as-rgba-16-24-40-0-08);
     }
     .fleet-live-tabs {
         display: flex;
@@ -21,7 +21,7 @@
         flex-wrap: wrap;
     }
     .fleet-live-tab {
-        color: #23395d;
+        color: var(--color-as-23395d);
         font-weight: 600;
         padding: 0 0 10px;
         border-bottom: 2px solid transparent;
@@ -30,8 +30,8 @@
         align-items: center;
     }
     .fleet-live-tab.active {
-        color: #27b7a8;
-        border-color: #27b7a8;
+        color: var(--color-as-27b7a8);
+        border-color: var(--color-as-27b7a8);
     }
     .fleet-live-layout {
         display: grid;
@@ -40,9 +40,9 @@
         align-items: start;
     }
     .fleet-side-panel {
-        border-right: 1px solid rgba(16, 24, 40, 0.08);
+        border-right: 1px solid var(--color-as-rgba-16-24-40-0-08);
         padding: 24px 0 0;
-        background: rgba(248, 250, 252, 0.46);
+        background: var(--color-as-rgba-248-250-252-0-46);
         position: sticky;
         top: 96px;
         align-self: start;
@@ -63,7 +63,7 @@
     .fleet-panel-title {
         font-size: 15px;
         font-weight: 700;
-        color: #23395d;
+        color: var(--color-as-23395d);
         margin-bottom: 14px;
     }
     .fleet-search {
@@ -86,7 +86,7 @@
         padding: 0 20px;
     }
     .fleet-list-item {
-        border-bottom: 1px solid rgba(16, 24, 40, 0.08);
+        border-bottom: 1px solid var(--color-as-rgba-16-24-40-0-08);
         padding: 16px 0;
         cursor: pointer;
     }
@@ -94,12 +94,12 @@
         border-bottom: 0;
     }
     .fleet-list-item.active .fleet-list-name {
-        color: #27b7a8;
+        color: var(--color-as-27b7a8);
     }
     .fleet-list-name {
         font-size: 17px;
         font-weight: 700;
-        color: #23395d;
+        color: var(--color-as-23395d);
         margin-bottom: 6px;
         display: flex;
         align-items: center;
@@ -109,22 +109,22 @@
         width: 18px;
         height: 18px;
         border-radius: 6px;
-        background: #414b5f;
+        background: var(--color-as-414b5f);
         flex: 0 0 auto;
     }
     .fleet-dot.on-trip {
-        background: #ff9f43;
+        background: var(--color-as-ff9f43);
     }
     .fleet-dot.idle {
-        background: #27b7a8;
+        background: var(--color-as-27b7a8);
     }
     .fleet-dot.alert {
-        background: #ff5c5c;
+        background: var(--color-as-ff5c5c);
     }
     .fleet-list-meta,
     .fleet-list-submeta {
         font-size: 14px;
-        color: #4a5568;
+        color: var(--color-as-4a5568);
         line-height: 1.55;
     }
     .fleet-map-column {
@@ -150,8 +150,8 @@
         min-height: 560px;
         border-radius: 14px;
         overflow: hidden;
-        background: #f4f7fb;
-        border: 1px solid rgba(16, 24, 40, 0.08);
+        background: var(--color-as-f4f7fb);
+        border: 1px solid var(--color-as-rgba-16-24-40-0-08);
     }
     #fleet-map {
         width: 100%;
@@ -171,9 +171,9 @@
         height: 42px;
         border-radius: 12px;
         border: 0;
-        background: #fff;
-        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
-        color: #23395d;
+        background: var(--color-white);
+        box-shadow: 0 10px 24px var(--color-as-rgba-15-23-42-0-14);
+        color: var(--color-as-23395d);
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -193,8 +193,8 @@
         height: 58px;
         border-radius: 50%;
         border: 0;
-        background: #fff;
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.16);
+        background: var(--color-white);
+        box-shadow: 0 14px 30px var(--color-as-rgba-15-23-42-0-16);
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -208,7 +208,7 @@
         border-radius: 999px;
         font-size: 11px;
         line-height: 24px;
-        background: #ff5c5c;
+        background: var(--color-as-ff5c5c);
     }
     .fleet-map-selection {
         display: none;
@@ -221,7 +221,7 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        color: #23395d;
+        color: var(--color-as-23395d);
         font-weight: 600;
         margin-bottom: 18px;
     }
@@ -230,7 +230,7 @@
         gap: 12px;
         align-items: center;
         padding-bottom: 16px;
-        border-bottom: 1px solid rgba(16, 24, 40, 0.08);
+        border-bottom: 1px solid var(--color-as-rgba-16-24-40-0-08);
         margin-bottom: 16px;
     }
     .fleet-profile img {
@@ -242,7 +242,7 @@
     .fleet-profile-name {
         font-size: 17px;
         font-weight: 700;
-        color: #23395d;
+        color: var(--color-as-23395d);
         margin-bottom: 6px;
     }
     .fleet-badge {
@@ -251,22 +251,22 @@
         gap: 6px;
         padding: 4px 10px;
         border-radius: 999px;
-        background: #dff7f1;
-        color: #27b7a8;
+        background: var(--color-as-dff7f1);
+        color: var(--color-as-27b7a8);
         font-size: 12px;
         font-weight: 700;
     }
     .fleet-detail-card {
-        border: 1px solid rgba(16, 24, 40, 0.08);
+        border: 1px solid var(--color-as-rgba-16-24-40-0-08);
         border-radius: 12px;
         padding: 14px 14px 10px;
         margin-bottom: 16px;
-        background: #fff;
+        background: var(--color-white);
     }
     .fleet-detail-card h6 {
         font-size: 15px;
         font-weight: 700;
-        color: #23395d;
+        color: var(--color-as-23395d);
         margin-bottom: 12px;
     }
     .fleet-detail-grid {
@@ -276,27 +276,27 @@
     }
     .fleet-detail-grid div {
         font-size: 14px;
-        color: #4a5568;
+        color: var(--color-as-4a5568);
     }
     .fleet-alert-card {
-        background: #fff5f5;
-        border-color: rgba(255, 92, 92, 0.15);
+        background: var(--color-as-fff5f5);
+        border-color: var(--color-as-rgba-255-92-92-0-15);
     }
     .fleet-alert-card p {
         font-size: 14px;
-        color: #7a3f3f;
+        color: var(--color-as-7a3f3f);
         margin-bottom: 12px;
     }
     .fleet-empty {
         padding: 22px 16px;
         border-radius: 12px;
-        background: rgba(255,255,255,0.7);
+        background: var(--color-as-rgba-255-255-255-0-7);
         text-align: center;
-        color: #64748b;
+        color: var(--color-as-64748b);
         font-size: 14px;
     }
     .fleet-map-updated {
-        color: #64748b;
+        color: var(--color-as-64748b);
         font-size: 13px;
         margin-top: 10px;
         text-align: right;
@@ -306,12 +306,12 @@
     }
     .fleet-map-popup__title {
         font-weight: 700;
-        color: #23395d;
+        color: var(--color-as-23395d);
         margin-bottom: 6px;
     }
     .fleet-map-popup__meta {
         font-size: 13px;
-        color: #64748b;
+        color: var(--color-as-64748b);
         line-height: 1.45;
     }
     @media (max-width: 1200px) {
@@ -320,7 +320,7 @@
         }
         .fleet-side-panel {
             border-right: 0;
-            border-bottom: 1px solid rgba(16, 24, 40, 0.08);
+            border-bottom: 1px solid var(--color-as-rgba-16-24-40-0-08);
             position: static;
             top: auto;
             align-self: auto;
@@ -367,7 +367,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between gap-3 align-items-start flex-wrap">
                         <div>
-                            <h3 class="mb-1" style="font-weight:700;color:#23395d;">{{ $fleetPayload['title'] }}</h3>
+                            <h3 class="mb-1" style="font-weight:700;color:var(--color-as-23395d);">{{ $fleetPayload['title'] }}</h3>
                             <p class="text-muted mb-0">{{ $fleetPayload['subtitle'] }}</p>
                         </div>
                         <div style="min-width:220px;">

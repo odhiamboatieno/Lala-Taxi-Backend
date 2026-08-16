@@ -29,7 +29,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #ccc;
+            background-color: var(--color-as-cccccc);
             transition: .4s;
             border-radius: 20px;
         }
@@ -45,7 +45,7 @@
             border-radius: 50%;
         }
         input:checked + .slider {
-            background-color: #1FBAD6;
+            background-color: var(--color-as-1fbad6);
         }
         input:checked + .slider:before {
             transform: translateX(14px);
@@ -54,14 +54,14 @@
             font-weight: 600;
         }
         .input-group-text {
-            background-color: #f8f9fa;
+            background-color: var(--color-as-f8f9fa);
             border-radius: 6px 0 0 6px;
         }
         .image-preview {
             max-width: 140px;
             margin-top: 8px;
             border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px var(--color-as-rgba-0-0-0-0-08);
         }
     </style>
 @endsection

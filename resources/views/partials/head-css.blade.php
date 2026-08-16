@@ -1,3 +1,7 @@
+  <!-- lalatokens -->
+  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
+  <script src="{{ url('js/colors.js') }}"></script>
+  <!-- /lalatokens -->
 <!-- Simplebar Css -->
 <link rel="stylesheet" href="{{ asset('assets/libs/simplebar/simplebar.min.css') }}">
 <!-- Swiper Css -->

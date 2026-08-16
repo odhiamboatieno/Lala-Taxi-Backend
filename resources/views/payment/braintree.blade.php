@@ -31,13 +31,13 @@
         var form = document.querySelector('#checkout_payment');
         var client_token = "{{ $data['data']['get_user_token']->bt_clientToken }}";
         let type = '{{ request()->mode }}';
-        // console.log(type == '' ? "#222222" : ('light' ? '#222222' : '#fff')) 
+        // console.log(type == '' ? LalaColors.as222222 : ('light' ? LalaColors.as222222 : LalaColors.white)) 
         if(type == ''){
-          var color = '#222222'
+          var color = LalaColors.as222222
         }
         else 
         {
-          var color = type == 'light' ? '#222222' : '#fff';
+          var color = type == 'light' ? LalaColors.as222222 : LalaColors.white;
         }
         var threeDSecureParameters = {
             amount: '{{$data["amount"]}}'

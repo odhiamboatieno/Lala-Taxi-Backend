@@ -9,7 +9,7 @@
     <!-- Custom css for tabs -->
     <style>
         .language-tabs .nav-tabs {
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid var(--color-as-dee2e6);
         }
         .language-tabs .nav-tabs .nav-link {
             border: 1px solid transparent;
@@ -17,12 +17,12 @@
             margin-right: 2px;
         }
         .language-tabs .nav-tabs .nav-link.active {
-            background-color: #007bff;
+            background-color: var(--color-as-007bff);
             color: white;
-            border-color: #007bff;
+            border-color: var(--color-as-007bff);
         }
         .language-content {
-            border: 1px solid #dee2e6;
+            border: 1px solid var(--color-as-dee2e6);
             border-top: none;
             padding: 20px;
             border-radius: 0 0 4px 4px;
@@ -31,10 +31,10 @@
             margin-bottom: 30px;
         }
         .language-section h4 {
-            color: #007bff;
+            color: var(--color-as-007bff);
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #f8f9fa;
+            border-bottom: 2px solid var(--color-as-f8f9fa);
         }
         .language-field {
             margin-bottom: 15px;

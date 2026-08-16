@@ -14,7 +14,7 @@
         .credential-group {
             margin-bottom: 2.5rem;
             padding-bottom: 1.5rem;
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid var(--color-as-e9ecef);
         }
         .credential-group:last-child {
             border-bottom: none;
@@ -24,11 +24,11 @@
         .credential-group h6 {
             font-size: 1.1rem;
             margin-bottom: 1.25rem;
-            color: #495057;
+            color: var(--color-as-495057);
         }
         .form-text-small {
             font-size: 0.85rem;
-            color: #6c757d;
+            color: var(--color-as-6c757d);
         }
     </style>
 @endsection

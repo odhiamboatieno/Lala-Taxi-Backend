@@ -49,7 +49,7 @@
 
 <style type="text/css">
 	.page-footer-back{
-		background: #f8f8f9;
+		background: var(--color-as-f8f8f9);
 	}
 	.btn-input:hover, .btn:hover, .file-input:hover, .tooltip:hover , .btn, .btn-input, .file-input, .tooltip{
 		background:transparent !important;
@@ -57,7 +57,7 @@
 	}
 	.btn.btn--primary:hover{
 		background:transparent !important;
-		color: #fff !important;
+		color: var(--color-white) !important;
 	}
 </style>
 @endpush
