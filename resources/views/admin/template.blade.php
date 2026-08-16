@@ -149,7 +149,7 @@
     }
 </style>
 
-<body ng-app="App">
+<body class="admin-app" ng-app="App">
     <div id="admin-page-preloader" aria-hidden="true">
         <div class="admin-preloader-spinner"></div>
     </div>

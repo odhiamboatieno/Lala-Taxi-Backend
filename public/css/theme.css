@@ -908,3 +908,27 @@ td, th,
 [class*="discount"], [class*="bonus"], [class*="currency"], [class*="money"] {
   font-variant-numeric: tabular-nums;
 }
+
+/* ==========================================================================
+   Admin dashboard: Inter strictly (no Space Grotesk headings).
+   Scoped to body.admin-app (admin/template.blade.php). Appended last so it
+   wins over the heading/override rules above.
+   ========================================================================== */
+body.admin-app,
+body.admin-app .wrapper,
+body.admin-app .content-wrapper {
+  font-family: var(--font-body) !important;
+  --bs-body-font-family: var(--font-body) !important;
+  --bs-font-sans-serif: var(--font-body) !important;
+  --bs-heading-font-family: var(--font-body) !important;
+}
+
+body.admin-app h1, body.admin-app h2, body.admin-app h3,
+body.admin-app h4, body.admin-app h5, body.admin-app h6,
+body.admin-app .h1, body.admin-app .h2, body.admin-app .h3,
+body.admin-app .h4, body.admin-app .h5, body.admin-app .h6,
+body.admin-app [class*="display-"], body.admin-app [class^="title"],
+body.admin-app [class$="-title"], body.admin-app [class^="heading"],
+body.admin-app [class*=" heading"], body.admin-app .font-heading {
+  font-family: var(--font-body) !important;
+}
