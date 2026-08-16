@@ -38,8 +38,8 @@
 
   <link rel="stylesheet" type="text/css" href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- lalatokens -->
-  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
-  <script src="{{ url('js/colors.js') }}"></script>
+  <link rel="stylesheet" href="{{ url('css/theme.css?v='.filemtime(public_path('css/theme.css'))) }}">
+  <script src="{{ url('js/colors.js?v='.filemtime(public_path('js/colors.js'))) }}"></script>
   <!-- /lalatokens -->
 </head>
 <body ng-app="App" class="{{ (!isset($exception)) ? (Route::current()->uri() == '/' ? 'homepage' : '') : '' }} commonpage">

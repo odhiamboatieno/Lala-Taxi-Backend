@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ __('messages.blade_static.payment_success_2d591b04') }}</title>
   <!-- lalatokens -->
-  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
-  <script src="{{ url('js/colors.js') }}"></script>
+  <link rel="stylesheet" href="{{ url('css/theme.css?v='.filemtime(public_path('css/theme.css'))) }}">
+  <script src="{{ url('js/colors.js?v='.filemtime(public_path('js/colors.js'))) }}"></script>
   <!-- /lalatokens -->
 </head>
 <body>

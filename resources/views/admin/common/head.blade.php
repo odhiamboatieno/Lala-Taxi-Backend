@@ -55,8 +55,8 @@
   <link rel="stylesheet" href="{{ url('admin_assets/dist/css/jquery.multiselect.css') }}">
 
   <!-- lalatokens -->
-  <link rel="stylesheet" href="{{ url('css/theme.css') }}">
-  <script src="{{ url('js/colors.js') }}"></script>
+  <link rel="stylesheet" href="{{ url('css/theme.css?v='.filemtime(public_path('css/theme.css'))) }}">
+  <script src="{{ url('js/colors.js?v='.filemtime(public_path('js/colors.js'))) }}"></script>
   <!-- /lalatokens -->
 </head>
 <body class="skin-purple hold-transition sidebar-mini fixed newdesign" ng-app="App">
