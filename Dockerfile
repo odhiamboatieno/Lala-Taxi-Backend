@@ -35,6 +35,7 @@ RUN apk add --no-cache \
         libwebp-dev \
         libzip-dev \
         oniguruma-dev \
+        linux-headers \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install \
         bcmath \
@@ -54,6 +55,7 @@ RUN apk add --no-cache \
         libwebp-dev \
         libzip-dev \
         oniguruma-dev \
+        linux-headers \
     && rm -rf /var/cache/apk/* /tmp/*
 
 # Copy the composer binary so we can regenerate the optimized autoloader.
