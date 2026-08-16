@@ -8,7 +8,9 @@ FROM composer:2 AS vendor
 
 WORKDIR /app
 
-COPY composer.json composer.lock ./
+# Full source is required: composer.json's classmap references database/seeds
+# and database/factories, which must exist for composer to resolve them.
+COPY . .
 
 RUN composer install \
     --no-dev \
