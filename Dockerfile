@@ -70,7 +70,7 @@ RUN composer dump-autoload --no-dev --optimize --no-scripts --no-interaction \
     && chmod -R 755 storage bootstrap/cache
 
 # Runtime entrypoint (storage bootstrap, migrations, permissions).
-COPY deploy/entrypoint.sh /usr/local/bin/entrypoint
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint
 RUN chmod +x /usr/local/bin/entrypoint
 
 EXPOSE 9000
