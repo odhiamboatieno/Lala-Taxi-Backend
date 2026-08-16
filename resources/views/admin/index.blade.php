@@ -11,6 +11,34 @@
         ['label' => __('messages.blade_static.platform_revenue_e40996c9'), 'value' => $currencySymbol . number_format((float) ($today_revenue ?? 0), 2), 'icon' => 'ri-money-dollar-circle-line', 'tone' => 'danger'],
     ];
     $overviewCards = $dashboard_overview ?? [];
+    $summaryCards = array_map(function ($stat) {
+        return [
+            'label' => $stat['label'] ?? '',
+            'value' => $stat['value'] ?? 0,
+            'icon' => $stat['icon'] ?? 'fa fa-bar-chart',
+        ];
+    }, $legacyStats);
+
+    foreach ($overviewCards as $card) {
+        $value = !empty($card['money'])
+            ? $currencySymbol . number_format((float) ($card['value'] ?? 0), 2)
+            : number_format((float) ($card['value'] ?? 0), 0);
+
+        $secondary = null;
+        if (isset($card['secondary_value'])) {
+            $secondaryValue = !empty($card['money_secondary'])
+                ? $currencySymbol . number_format((float) $card['secondary_value'], 2)
+                : number_format((float) $card['secondary_value'], 0);
+            $secondary = trim($secondaryValue . ' ' . ($card['secondary_label'] ?? ''));
+        }
+
+        $summaryCards[] = [
+            'label' => $card['label'] ?? '',
+            'value' => $value,
+            'secondary' => $secondary,
+            'icon' => $card['icon'] ?? 'fa fa-bar-chart',
+        ];
+    }
     $locationStats = $location_trip_statistics ?? ['periods' => [], 'default_period' => 'all_time'];
     $earningsChart = $earnings_chart ?? ['periods' => [], 'default_period' => 'all_time', 'series_title' => 'Earnings'];
     $driverBoard = $driver_leaderboard ?? ['periods' => [], 'default_period' => 'all_time'];
@@ -66,33 +94,43 @@
         }
 
         .dashboard-card {
-            border-radius: 0;
+            border: 1px solid var(--color-as-dfeff3);
+            border-radius: 12px;
+            box-shadow: 0 6px 18px var(--color-as-rgba-27-65-93-0-05);
             margin-bottom: 20px;
-            min-height: 130px;
+            min-height: 126px;
             overflow: hidden;
         }
 
         .dashboard-card__inner {
-            padding: 18px 18px 16px;
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            justify-content: flex-start;
+            min-height: 126px;
+            padding: 18px;
         }
 
         .dashboard-card__icon {
             align-items: center;
-            border-radius: 0;
-            color: var(--color-white);
+            background: var(--color-as-f6fbfd);
+            border: 1px solid var(--color-as-dfeff3);
+            border-radius: 10px;
+            color: var(--color-as-68809b);
             display: inline-flex;
+            flex: 0 0 46px;
             font-size: 18px;
-            height: 42px;
+            height: 46px;
             justify-content: center;
-            margin-bottom: 14px;
-            width: 42px;
+            margin: 0;
+            width: 46px;
         }
 
-        .dashboard-card--primary .dashboard-card__icon { background: var(--color-as-3b82f6); }
-        .dashboard-card--success .dashboard-card__icon { background: var(--color-as-22c55e); }
-        .dashboard-card--info .dashboard-card__icon { background: var(--color-as-06b6d4); }
-        .dashboard-card--warning .dashboard-card__icon { background: var(--color-as-f59e0b); }
-        .dashboard-card--danger .dashboard-card__icon { background: var(--color-as-ef4444); }
+        .dashboard-card__content {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
 
         .dashboard-card__label {
             color: var(--color-as-6b8096);
@@ -110,8 +148,17 @@
             line-height: 1.1;
         }
 
+        .dashboard-card__secondary {
+            color: var(--color-as-68809b);
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
         .ops-card {
-            border-radius: 0;
+            border: 1px solid var(--color-as-dfeff3);
+            border-radius: 12px;
+            box-shadow: 0 6px 18px var(--color-as-rgba-27-65-93-0-05);
             margin-bottom: 24px;
             overflow: hidden;
         }
@@ -143,55 +190,71 @@
             padding: 22px;
         }
 
+        .ops-mini-grid .col-lg-3,
         .ops-mini-grid .col-md-6,
         .ops-mini-grid .col-sm-6 {
             margin-bottom: 18px;
         }
 
         .ops-stat {
-            border-radius: 0;
-            min-height: 170px;
-            padding: 20px 22px;
+            align-items: center;
+            border: 1px solid var(--color-as-dfeff3);
+            border-radius: 12px;
+            box-shadow: 0 6px 18px var(--color-as-rgba-27-65-93-0-05);
+            display: flex;
+            gap: 17px;
+            min-height: 126px;
+            padding: 18px;
             position: relative;
         }
 
         .ops-stat__icon {
             align-items: center;
-            border-radius: 0;
-            color: var(--color-white);
+            background: var(--color-as-f6fbfd);
+            border: 1px solid var(--color-as-dfeff3);
+            border-radius: 10px;
+            color: var(--color-as-68809b);
             display: inline-flex;
-            font-size: 24px;
-            height: 52px;
+            flex: 0 0 50px;
+            font-size: 21px;
+            height: 50px;
             justify-content: center;
-            margin-bottom: 18px;
-            width: 52px;
+            margin: 0;
+            width: 50px;
         }
 
-        .ops-stat--sky .ops-stat__icon { background: var(--color-as-3ca9f4); }
-        .ops-stat--mint .ops-stat__icon { background: var(--color-as-35c5a8); }
-        .ops-stat--sun .ops-stat__icon { background: var(--color-as-ffad5b); }
-        .ops-stat--violet .ops-stat__icon { background: var(--color-as-9c6aff); }
-        .ops-stat--emerald .ops-stat__icon { background: var(--color-as-31c471); }
-        .ops-stat--rose .ops-stat__icon { background: var(--color-as-ff7278); }
+        .ops-stat__content {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
 
         .ops-stat__value {
             color: var(--color-as-1f3554);
-            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin: 0;
         }
 
         .ops-stat__value strong {
             display: block;
-            font-size: 38px;
+            font-size: 28px;
             line-height: 1;
-            margin-bottom: 6px;
+            margin: 0;
         }
 
         .ops-stat__label {
+            color: var(--color-as-6b8096);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .04em;
+            margin-bottom: 7px;
+            text-transform: uppercase;
+        }
+
+        .ops-stat__secondary {
             color: var(--color-as-68809b);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
+            margin-top: 6px;
         }
 
         .ops-zone__pane {
@@ -239,14 +302,33 @@
             height: 100%;
         }
 
-        .ops-zone__bar--1 { background: linear-gradient(90deg, var(--color-as-ff7b81) 0%, var(--color-as-ff5f6d) 100%); }
-        .ops-zone__bar--2 { background: linear-gradient(90deg, var(--color-as-ffd43b) 0%, var(--color-as-ffb000) 100%); }
-        .ops-zone__bar--3 { background: linear-gradient(90deg, var(--color-as-4fd1c5) 0%, var(--color-as-15b8a6) 100%); }
-        .ops-zone__bar--4 { background: linear-gradient(90deg, var(--color-as-7c9bff) 0%, var(--color-as-5875f5) 100%); }
-        .ops-zone__bar--5 { background: linear-gradient(90deg, var(--color-as-d18fff) 0%, var(--color-as-aa6df4) 100%); }
+        .ops-zone__bar--1,
+        .ops-zone__bar--2,
+        .ops-zone__bar--3,
+        .ops-zone__bar--4,
+        .ops-zone__bar--5 { background: var(--color-as-35c5a8); }
 
         .ops-chart-card .ops-card__body {
             padding-top: 10px;
+        }
+
+        .ops-analytics-row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .ops-analytics__earnings,
+        .ops-analytics__location {
+            display: flex;
+        }
+
+        .ops-analytics-row .ops-card {
+            margin-bottom: 24px;
+            width: 100%;
+        }
+
+        .ops-location-card {
+            min-height: 100%;
         }
 
         .ops-chart {
@@ -675,6 +757,10 @@
         }
 
         @media (max-width: 1199px) {
+            .ops-analytics-row {
+                display: block;
+            }
+
             .ops-board__wrap {
                 display: block;
             }
@@ -712,6 +798,23 @@
             .ops-board__podium {
                 overflow-x: auto;
             }
+
+            .dashboard-card__inner,
+            .ops-stat {
+                min-height: 108px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .ops-analytics__earnings {
+                flex: 0 0 65%;
+                max-width: 65%;
+            }
+
+            .ops-analytics__location {
+                flex: 0 0 35%;
+                max-width: 35%;
+            }
         }
     </style>
 @endsection
@@ -726,57 +829,52 @@
             <div class="ops-welcome__badge">{{ LOGIN_USER_TYPE == 'company' ? 'Company view' : 'Platform view' }}</div>
         </div>
 
-        <div class="row ops-legacy-row">
-            @foreach($legacyStats as $stat)
-                <div class="col-lg-2 col-md-4 col-sm-6">
-                    <div class="dashboard-card dashboard-card--{{ $stat['tone'] ?? 'primary' }} card">
+        <div class="row ops-metric-grid">
+            @foreach($summaryCards as $stat)
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="dashboard-card card">
                         <div class="dashboard-card__inner">
                             <div class="dashboard-card__icon">
                                 <i class="{{ $stat['icon'] ?? 'fa fa-bar-chart' }}"></i>
                             </div>
-                            <div class="dashboard-card__label">{{ $stat['label'] }}</div>
-                            <div class="dashboard-card__value">{{ $stat['value'] }}</div>
+                            <div class="dashboard-card__content">
+                                <div class="dashboard-card__label">{{ $stat['label'] }}</div>
+                                <div class="dashboard-card__value">{{ $stat['value'] }}</div>
+                                @if(!empty($stat['secondary']))
+                                    <div class="dashboard-card__secondary">{{ $stat['secondary'] }}</div>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
 
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="row ops-mini-grid">
-                    @foreach($overviewCards as $card)
-                        <div class="col-md-6 col-sm-6">
-                            <div class="ops-stat ops-stat--{{ $card['tone'] ?? 'sky' }} card">
-                                <div class="ops-stat__icon">
-                                    <i class="{{ $card['icon'] ?? 'fa fa-bar-chart' }}"></i>
-                                </div>
-                                <div class="ops-stat__value">
-                                    @if(!empty($card['money']))
-                                        <strong>{{ $currencySymbol }}{{ number_format((float) ($card['value'] ?? 0), 2) }}</strong>
-                                    @else
-                                        <strong>{{ number_format((float) ($card['value'] ?? 0), 0) }}</strong>
-                                    @endif
-                                    {{ $card['label'] ?? '' }}
-                                </div>
-                                @if(isset($card['secondary_value']))
-                                    <div class="ops-stat__label">
-                                        @if(!empty($card['money_secondary']))
-                                            {{ $currencySymbol }}{{ number_format((float) $card['secondary_value'], 2) }}
-                                        @else
-                                            {{ number_format((float) $card['secondary_value'], 0) }}
-                                        @endif
-                                        {{ $card['secondary_label'] ?? '' }}
-                                    </div>
-                                @endif
-                            </div>
+        <div class="row ops-analytics-row">
+            <div class="col-lg-8 ops-analytics__earnings">
+                <div class="ops-card ops-chart-card card">
+                    <div class="ops-card__head">
+                        <div>
+                            <h3 class="ops-card__title">{{ $earningsChart['title'] ?? 'Earnings Statistics' }}</h3>
+                            <span class="ops-card__caption">{{ $earningsChart['subtitle'] ?? 'Gross bookings vs earnings' }}</span>
                         </div>
-                    @endforeach
+                        <div class="ops-toolbar">
+                            <select class="ops-select" id="earnings-period-switch">
+                                @foreach(($earningsChart['periods'] ?? []) as $periodKey => $periodData)
+                                    <option value="{{ $periodKey }}" {{ ($earningsChart['default_period'] ?? '') === $periodKey ? 'selected' : '' }}>
+                                        {{ $periodData['label'] ?? ucfirst(str_replace('_', ' ', $periodKey)) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ops-card__body">
+                        <div id="ops-earnings-chart" class="ops-chart"></div>
+                    </div>
                 </div>
             </div>
-
-            <div class="col-lg-6">
-                <div class="ops-card card">
+            <div class="col-lg-4 ops-analytics__location">
+                <div class="ops-card ops-location-card card">
                     <div class="ops-card__head">
                         <div>
                             <h3 class="ops-card__title">{{ $locationStats['title'] ?? 'Location-Based Trip Statistics' }}</h3>
@@ -821,27 +919,6 @@
                         @endforelse
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="ops-card ops-chart-card card">
-            <div class="ops-card__head">
-                <div>
-                    <h3 class="ops-card__title">{{ $earningsChart['title'] ?? 'Earnings Statistics' }}</h3>
-                    <span class="ops-card__caption">{{ $earningsChart['subtitle'] ?? 'Gross bookings vs earnings' }}</span>
-                </div>
-                <div class="ops-toolbar">
-                    <select class="ops-select" id="earnings-period-switch">
-                        @foreach(($earningsChart['periods'] ?? []) as $periodKey => $periodData)
-                            <option value="{{ $periodKey }}" {{ ($earningsChart['default_period'] ?? '') === $periodKey ? 'selected' : '' }}>
-                                {{ $periodData['label'] ?? ucfirst(str_replace('_', ' ', $periodKey)) }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="ops-card__body">
-                <div id="ops-earnings-chart" class="ops-chart"></div>
             </div>
         </div>
 

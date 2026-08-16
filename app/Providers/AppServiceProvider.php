@@ -62,7 +62,7 @@ public function register()
 	 */
 	public function boot()
 	{
-	   $this->app['request']->server->set('HTTPS', true);
+	   //$this->app['request']->server->set('HTTPS', true);
        	
 		if (!defined('EMAIL_LOGO_URL')) {
 			define('EMAIL_LOGO_URL', 'images/logo.png');
