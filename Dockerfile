@@ -63,9 +63,11 @@ RUN apk add --no-cache --virtual .build-deps \
 # Copy the composer binary so we can regenerate the optimized autoloader.
 COPY --from=vendor /usr/bin/composer /usr/local/bin/composer
 
-WORKDIR /var/www/html
+WORKDIR /src
 
-# Copy application source.
+# Copy application source. The runtime ships it at /src; the entrypoint syncs it
+# into the shared app_code volume at /var/www/html (mounted by nginx too), so
+# image updates propagate without manually resetting the volume.
 COPY . .
 
 # Copy the already-installed production dependencies (no dev packages).
@@ -73,7 +75,8 @@ COPY --from=vendor /app/vendor ./vendor
 
 # Rebuild the optimized autoloader so App\ + Modules\ namespaces resolve.
 RUN composer dump-autoload --no-dev --optimize --no-scripts --no-interaction \
-    && chmod -R 755 storage bootstrap/cache
+    && chmod -R 755 storage bootstrap/cache \
+    && date -u +%s > .src-build
 
 # Runtime entrypoint (storage bootstrap, migrations, permissions).
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint
