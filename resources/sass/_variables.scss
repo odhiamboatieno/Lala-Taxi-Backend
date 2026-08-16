@@ -36,3 +36,50 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
+
+// ============================================================================
+// LalaTaxi brand palette (design tokens)
+// Naming follows the codebase SCSS convention: $color-<family>-<step>.
+// ============================================================================
+
+// Primary (Lala red)
+$color-primary-50:  #FFF1F3;
+$color-primary-100: #FFD9DF;
+$color-primary-200: #FFB0BC;
+$color-primary-300: #FF7D91;
+$color-primary-400: #FF4C68;
+$color-primary-500: #FF214A; // brand base
+$color-primary-600: #E01640;
+$color-primary-700: #B21134;
+$color-primary-800: #850C27;
+$color-primary-900: #59081A;
+
+// Secondary (Lala amber)
+$color-amber-50:  #FFF9EC;
+$color-amber-100: #FFEECB;
+$color-amber-200: #FFDF9E;
+$color-amber-300: #FFCE71;
+$color-amber-400: #FFC565;
+$color-amber-500: #FFBD59; // brand base
+$color-amber-600: #F0A83A;
+$color-amber-700: #D68E22;
+$color-amber-800: #A66E1A;
+$color-amber-900: #764F13;
+
+// Neutral
+$color-neutral-50:  #FAFAFA;
+$color-neutral-100: #F4F4F5;
+$color-neutral-200: #E4E4E7;
+$color-neutral-300: #D1D1D6;
+$color-neutral-400: #A1A1AA;
+$color-neutral-500: #71717A;
+$color-neutral-600: #52525B;
+$color-neutral-700: #3F3F46;
+$color-neutral-800: #27272A;
+$color-neutral-900: #0A0A0A;
+
+// Semantic
+$color-success: #16A34A;
+$color-warning: #A66E1A;
+$color-error:   #DC2626;
+$color-info:    #2563EB;
