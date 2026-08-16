@@ -844,3 +844,67 @@ so the whole UI now renders in the LalaTaxi brand while remaining editable.
   --color-primary-900: #59081A;
   --color-warning: #A66E1A;
 }
+
+/* ==========================================================================
+   Typography
+   Space Grotesk (headings) + Inter (body), enforced app-wide.
+   ========================================================================== */
+:root {
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Bootstrap / admin theme font hooks -> Inter body font, Space Grotesk headings. */
+  --bs-body-font-family: var(--font-body);
+  --bs-font-sans-serif: var(--font-body);
+  --bs-heading-font-family: var(--font-heading);
+}
+
+/* Base: everything inherits Inter unless it is a heading. */
+html,
+body {
+  font-family: var(--font-body) !important;
+}
+
+/* Headings and display/title/heading utility classes -> Space Grotesk. */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+[class*="display-"], [class^="title"], [class$="-title"], [class^="heading"], [class*=" heading"],
+:root .font-heading,
+.signup-top .signup-top-text .signup-top-text-title {
+  font-family: var(--font-heading) !important;
+}
+
+/* Override remaining hardcoded text font-families (Century Gothic, Poppins,
+   DM Sans, Manrope, Trebuchet MS, Gill Sans) so Inter wins everywhere.
+   Icon fonts (Font Awesome, uber-icons, Glyphicons) are untouched. */
+body.landing-dispatch-page,
+body.admin-dashboard-shell,
+.dashboard-shell-body,
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"],
+input[type="number"], input[type="search"], input[type="url"],
+textarea, select, button,
+:root .form-control,
+:root ._style_3vhmZK,
+:root .font-base,
+.background-line > span,
+.blue-signin-btn,
+.violet-btn,
+.form-control-inline .form-control,
+.form-control-inline .form-control-inline-text,
+.form-control-inline .choices .choices__inner .choices__item,
+.signup-top .signup-top-text .signup-top-text-subtitle,
+.tooltip,
+.popover {
+  font-family: var(--font-body) !important;
+}
+
+/* Numeric data (fares, ETAs, stats, ratings, counts, table cells) -> tabular-nums. */
+td, th,
+[class*="amount"], [class*="price"], [class*="fare"], [class*="rating"], [class*="count"],
+[class*="stat"], [class*="eta"], [class*="timer"], [class*="balance"], [class*="wallet"],
+[class*="fee"], [class*="commission"], [class*="income"], [class*="earning"], [class*="distance"],
+[class*="duration"], [class*="number"], [class*="phone"], [class*="total"], [class*="counter"],
+[class*="numeric"], [class*="mileage"], [class*="cost"], [class*="tariff"], [class*="payout"],
+[class*="discount"], [class*="bonus"], [class*="currency"], [class*="money"] {
+  font-variant-numeric: tabular-nums;
+}

@@ -90,7 +90,7 @@
     <link rel="shortcut icon" href="{{ $favicon ?? asset('favicon.ico') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ url('css/landing-dispatch.css') }}?v={{ filemtime(public_path('css/landing-dispatch.css')) }}">
   <!-- lalatokens -->
