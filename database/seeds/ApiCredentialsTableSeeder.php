@@ -1,41 +1,39 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ApiCredentialsTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        DB::table('api_credentials')->delete();
-        
-        DB::table('api_credentials')->insert([
-            ['name' => 'key', 'value' => 'AIzaSyB6lCQnISdsSUVFdcQYxaHxXXjvKDn9wcs', 'site' => 'GoogleMap'],
-            ['name' => 'server_key', 'value' => 'AIzaSyB6lCQnISdsSUVFdcQYxaHxXXjvKDn9wcs', 'site' => 'GoogleMap'],
-            ['name' => 'sid', 'value' => 'ACf64f4d6b2a55e7c56b592b6dec3919ae', 'site' => 'Twillo'],
-            ['name' => 'token', 'value' => 'bc887b0e7159ab5cb0945c3fc59b345a', 'site' => 'Twillo'],
-            ['name' => 'service_sid', 'value' => 'ACf64f4d6b2a55e7c56b592b6dec3919ae', 'site' => 'Twillo'],
-            ['name' => 'from', 'value' => '#', 'site' => 'Twillo'],
-            ['name' => 'server_key', 'value' => 'AAAAN8uxiFw:APA91bF_yPwrQdSe3cm2Ns7HzoI_5UjPpLIq2Z0Xz3-smpNlY2cvdrKmDBO-ls23kEgP3hQdwJOg1_4NObbWkFB_sYrekkDhwGlVm_RwCMtMDSLxZVU_LDLqwx81R3rNutQz7QgxUXqo', 'site' => 'FCM'],
-            ['name' => 'sender_id', 'value' => '239640610908', 'site' => 'FCM'],                
-            ['name' => 'client_id', 'value' => '1105678852897547', 'site' => 'Facebook'],
-            ['name' => 'client_secret', 'value' => '64c4d6d3dc2ba3471297c17585a60aff', 'site' => 'Facebook'],
-            ['name' => 'client_id', 'value' => '#', 'site' => 'Google'],
-            ['name' => 'client_secret', 'value' => '#', 'site' => 'Google'],
-            ['name' => 'sinch_key', 'value' => '55992d18-0a40-44b9-8cf6-456f729031e7', 'site' => 'Sinch'],
-            ['name' => 'sinch_secret_key', 'value' => 'yx4js89/Y0KxBNHwJWv+3w==', 'site' => 'Sinch'],
-            ['name' => 'service_id', 'value' => '#', 'site' => 'Apple'],
-            ['name' => 'team_id', 'value' => '#', 'site' => 'Apple'],
-            ['name' => 'key_id', 'value' => '#', 'site' => 'Apple'],
-            ['name' => 'key_file', 'value' => '/public/key.txt', 'site' => 'Apple'],
-            ['name' => 'database_url', 'value' => '#', 'site' => 'Firebase'],
-            ['name' => 'service_account', 'value' => '/resources/credentials/service_account.json', 'site' => 'Firebase'],
-            ['name' => 'site_key', 'value' => '#', 'site' => 'Recaptcha'],
-            ['name' => 'secret_key', 'value' => '#', 'site' => 'Recaptcha'],
-        ]);
+        $rows = [
+            ['id' => 1, 'name' => 'key', 'value' => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'site' => 'GoogleMap'],
+            ['id' => 2, 'name' => 'server_key', 'value' => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'site' => 'GoogleMap'],
+            ['id' => 3, 'name' => 'sid', 'value' => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'site' => 'Twillo'],
+            ['id' => 4, 'name' => 'token', 'value' => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'site' => 'Twillo'],
+            ['id' => 5, 'name' => 'service_sid', 'value' => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'site' => 'Twillo'],
+            ['id' => 6, 'name' => 'from', 'value' => 'XXXXXXXXXXX', 'site' => 'Twillo'],
+            ['id' => 7, 'name' => 'server_key', 'value' => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'site' => 'FCM'],
+            ['id' => 8, 'name' => 'sender_id', 'value' => '884120994848', 'site' => 'FCM'],
+            ['id' => 9, 'name' => 'client_id', 'value' => '#', 'site' => 'Facebook'],
+            ['id' => 10, 'name' => 'client_secret', 'value' => '#', 'site' => 'Facebook'],
+            ['id' => 11, 'name' => 'client_id', 'value' => '#', 'site' => 'Google'],
+            ['id' => 12, 'name' => 'client_secret', 'value' => '#', 'site' => 'Google'],
+            ['id' => 13, 'name' => 'sinch_key', 'value' => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'site' => 'Sinch'],
+            ['id' => 14, 'name' => 'sinch_secret_key', 'value' => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'site' => 'Sinch'],
+            ['id' => 15, 'name' => 'service_id', 'value' => '#', 'site' => 'Apple'],
+            ['id' => 16, 'name' => 'team_id', 'value' => '#', 'site' => 'Apple'],
+            ['id' => 17, 'name' => 'key_id', 'value' => '#', 'site' => 'Apple'],
+            ['id' => 18, 'name' => 'key_file', 'value' => '/public/key.txt', 'site' => 'Apple'],
+            ['id' => 19, 'name' => 'database_url', 'value' => 'https://prime-taxi-dcd6e-default-rtdb.firebaseio.com/', 'site' => 'Firebase'],
+            ['id' => 20, 'name' => 'service_account', 'value' => '/resources/credentials//service_account.json', 'site' => 'Firebase'],
+            ['id' => 21, 'name' => 'site_key', 'value' => '6LfJKvoUAAAAAFe8tYNw85mY5Tur-_A4tp865bL3', 'site' => 'Recaptcha'],
+            ['id' => 22, 'name' => 'secret_key', 'value' => '6LfJKvoUAAAAABh-36UFZrtp-_bZEtdgcg0kwWhy', 'site' => 'Recaptcha'],
+        ];
+
+        foreach (array_chunk($rows, 500) as $chunk) {
+            DB::table('api_credentials')->insert($chunk);
+        }
     }
 }
