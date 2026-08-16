@@ -96,6 +96,8 @@
   <!-- lalatokens -->
   <link rel="stylesheet" href="{{ url('css/theme.css?v='.filemtime(public_path('css/theme.css'))) }}">
   <script src="{{ url('js/colors.js?v='.filemtime(public_path('js/colors.js'))) }}"></script>
+  <script src="{{ url('js/lucide.min.js?v='.filemtime(public_path('js/lucide.min.js'))) }}"></script>
+  <script src="{{ url('js/lucide-loader.js?v='.filemtime(public_path('js/lucide-loader.js'))) }}"></script>
   <!-- /lalatokens -->
 </head>
 <body class="landing-dispatch-page">
