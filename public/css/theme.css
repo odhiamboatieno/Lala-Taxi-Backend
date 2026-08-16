@@ -807,9 +807,9 @@ so the whole UI now renders in the LalaTaxi brand while remaining editable.
   --color-as-rgba-9-18-34-0-1: rgba(9,18,34,0.1);
   --color-as-rgba-92-151-255-0-15: rgba(92,151,255,0.15);
   --color-black: #000000;
-  --color-error: var(--color-error);
-  --color-info: var(--color-info);
-  --color-neutral-50: var(--color-neutral-50);
-  --color-success: var(--color-success);
-  --color-white: var(--color-white);
+  --color-error: #DC2626;
+  --color-info: #2563EB;
+  --color-neutral-50: #FAFAFA;
+  --color-success: #16A34A;
+  --color-white: #FFFFFF;
 }
