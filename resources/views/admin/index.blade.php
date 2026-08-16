@@ -313,22 +313,21 @@
         }
 
         .ops-analytics-row {
+            align-items: stretch;
             display: flex;
             flex-wrap: wrap;
+            margin-bottom: 24px;
         }
 
         .ops-analytics__earnings,
         .ops-analytics__location {
+            align-items: stretch;
             display: flex;
         }
 
         .ops-analytics-row .ops-card {
             margin-bottom: 24px;
             width: 100%;
-        }
-
-        .ops-location-card {
-            min-height: 100%;
         }
 
         .ops-chart {
@@ -482,7 +481,7 @@
             align-items: center;
             background: var(--color-as-rgba-255-255-255-0-18);
             border: 3px solid var(--color-as-rgba-255-255-255-0-7);
-            border-radius: 0;
+            border-radius: 50%;
             bottom: 16px;
             display: inline-flex;
             font-size: 18px;
@@ -719,21 +718,24 @@
         .ops-activity__icon {
             align-items: center;
             background: var(--color-as-f2f8fb);
-            border-radius: 0;
+            border: 1px solid var(--color-as-dfeff3);
+            border-radius: 50% !important;
             color: var(--color-as-69839c);
             display: inline-flex;
             flex: 0 0 48px;
             font-size: 21px;
             height: 48px;
             justify-content: center;
+            overflow: hidden;
             width: 48px;
         }
 
         .ops-activity__vehicle-image {
-            border-radius: 0;
-            height: 32px;
-            object-fit: contain;
-            width: 32px;
+            border-radius: 50% !important;
+            display: block;
+            height: 40px;
+            object-fit: cover;
+            width: 40px;
         }
 
         .ops-activity__title {
@@ -806,6 +808,10 @@
         }
 
         @media (min-width: 1200px) {
+            .ops-analytics-row .ops-card {
+                height: 100%;
+            }
+
             .ops-analytics__earnings {
                 flex: 0 0 65%;
                 max-width: 65%;
@@ -815,6 +821,124 @@
                 flex: 0 0 35%;
                 max-width: 35%;
             }
+        }
+
+        /* Dashboard dark mode: one quiet neutral surface system with a teal accent. */
+        [data-bs-theme="dark"] {
+            --ops-surface: #17232d;
+            --ops-surface-soft: #1e2d38;
+            --ops-border: #2b3d4b;
+            --ops-text: #e7eef5;
+            --ops-muted: #93a4b5;
+            --ops-accent: #55b9ad;
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard {
+            color: var(--ops-text);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-welcome,
+        [data-bs-theme="dark"] .ops-dashboard .dashboard-card,
+        [data-bs-theme="dark"] .ops-dashboard .ops-stat,
+        [data-bs-theme="dark"] .ops-dashboard .ops-card,
+        [data-bs-theme="dark"] .morris-hover.morris-default-style,
+        [data-bs-theme="dark"] .ops-floating-tooltip {
+            background: var(--ops-surface);
+            border-color: var(--ops-border);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, .24);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-welcome {
+            background: var(--ops-surface-soft);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-welcome__title,
+        [data-bs-theme="dark"] .ops-dashboard .ops-card__title,
+        [data-bs-theme="dark"] .ops-dashboard .dashboard-card__value,
+        [data-bs-theme="dark"] .ops-dashboard .ops-stat__value,
+        [data-bs-theme="dark"] .ops-dashboard .ops-zone__name,
+        [data-bs-theme="dark"] .ops-dashboard .ops-board__name,
+        [data-bs-theme="dark"] .ops-dashboard .ops-board__metric,
+        [data-bs-theme="dark"] .ops-dashboard .ops-feed__title,
+        [data-bs-theme="dark"] .ops-dashboard .ops-feed__amount,
+        [data-bs-theme="dark"] .ops-dashboard .ops-activity__title,
+        [data-bs-theme="dark"] .morris-hover.morris-default-style,
+        [data-bs-theme="dark"] .morris-hover.morris-default-style .morris-hover-row-label,
+        [data-bs-theme="dark"] .ops-floating-tooltip__title {
+            color: var(--ops-text);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-welcome__subtitle,
+        [data-bs-theme="dark"] .ops-dashboard .dashboard-card__label,
+        [data-bs-theme="dark"] .ops-dashboard .dashboard-card__secondary,
+        [data-bs-theme="dark"] .ops-dashboard .ops-stat__label,
+        [data-bs-theme="dark"] .ops-dashboard .ops-stat__secondary,
+        [data-bs-theme="dark"] .ops-dashboard .ops-card__caption,
+        [data-bs-theme="dark"] .ops-dashboard .ops-zone__meta,
+        [data-bs-theme="dark"] .ops-dashboard .ops-board__sub,
+        [data-bs-theme="dark"] .ops-dashboard .ops-feed__meta,
+        [data-bs-theme="dark"] .ops-dashboard .ops-activity__meta,
+        [data-bs-theme="dark"] .ops-dashboard .ops-empty,
+        [data-bs-theme="dark"] .morris-hover.morris-default-style .morris-hover-point,
+        [data-bs-theme="dark"] .ops-floating-tooltip__line {
+            color: var(--ops-muted) !important;
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .dashboard-card__icon,
+        [data-bs-theme="dark"] .ops-dashboard .ops-stat__icon,
+        [data-bs-theme="dark"] .ops-dashboard .ops-activity__icon {
+            background: var(--ops-surface-soft);
+            border-color: var(--ops-border);
+            color: var(--ops-muted);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-card__head,
+        [data-bs-theme="dark"] .ops-dashboard .ops-board__row,
+        [data-bs-theme="dark"] .ops-dashboard .ops-feed__item,
+        [data-bs-theme="dark"] .ops-dashboard .ops-activity__row {
+            border-color: var(--ops-border);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-select {
+            background: var(--ops-surface-soft);
+            border-color: var(--ops-border);
+            color: var(--ops-text);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-board__tab {
+            color: var(--ops-muted);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-board__tab.is-active,
+        [data-bs-theme="dark"] .ops-dashboard .ops-zone__bar {
+            background: var(--ops-accent);
+            color: var(--color-white);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-zone__track {
+            background: var(--ops-surface-soft);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-welcome__badge {
+            background: rgba(85, 185, 173, .14);
+            border-color: rgba(85, 185, 173, .28);
+            color: #79d5ca;
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-podium__item--first {
+            background: linear-gradient(180deg, #276d66 0%, #1c504c 100%);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-podium__item--second {
+            background: linear-gradient(180deg, #536673 0%, #3f505d 100%);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-podium__item--third {
+            background: linear-gradient(180deg, #475c6b 0%, #354a59 100%);
+        }
+
+        [data-bs-theme="dark"] .ops-dashboard .ops-podium__avatar {
+            border-color: var(--ops-surface);
         }
     </style>
 @endsection
@@ -1269,6 +1393,10 @@
                 var gross = periodPayload.gross || [];
                 var operator = periodPayload.operator || [];
                 var chartData = [];
+                var isDarkMode = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+                var chartLineColors = isDarkMode
+                    ? ['#55b9ad', '#82a9d6']
+                    : [LalaColors.as35c5a8, LalaColors.as5c97ff];
 
                 for (var i = 0; i < labels.length; i++) {
                     chartData.push({
@@ -1287,14 +1415,14 @@
                     xkey: 'label',
                     ykeys: ['gross', 'operator'],
                     labels: ['Gross Bookings', @json($earningsChart['series_title'] ?? 'Earnings')],
-                    lineColors: [LalaColors.as35c5a8, LalaColors.as5c97ff],
+                    lineColors: chartLineColors,
                     lineWidth: 3,
                     pointSize: 3,
-                    pointFillColors: [LalaColors.as35c5a8, LalaColors.as5c97ff],
-                    pointStrokeColors: [LalaColors.as35c5a8, LalaColors.as5c97ff],
+                    pointFillColors: chartLineColors,
+                    pointStrokeColors: chartLineColors,
                     hideHover: false,
-                    gridTextColor: LalaColors.as658098,
-                    gridLineColor: LalaColors.asEdf3f8,
+                    gridTextColor: isDarkMode ? '#93a4b5' : LalaColors.as658098,
+                    gridLineColor: isDarkMode ? '#2b3d4b' : LalaColors.asEdf3f8,
                     parseTime: false,
                     hoverCallback: function (index, options, content, row) {
                         return '<div class="morris-hover-row-label">' + row.label + '</div>'
@@ -1309,6 +1437,19 @@
             });
 
             renderEarningsChart($('#earnings-period-switch').val());
+
+            if (window.MutationObserver) {
+                new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        if (mutation.type === 'attributes' && mutation.attributeName === 'data-bs-theme') {
+                            renderEarningsChart($('#earnings-period-switch').val());
+                        }
+                    });
+                }).observe(document.documentElement, {
+                    attributes: true,
+                    attributeFilter: ['data-bs-theme']
+                });
+            }
         });
     </script>
 @endpush

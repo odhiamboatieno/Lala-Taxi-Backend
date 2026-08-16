@@ -19,6 +19,30 @@
 @yield('css')
 @include('partials.head-css')
 <style>
+    /* Keep the admin control language crisp and consistent. */
+    .admin-app input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+    .admin-app select,
+    .admin-app textarea,
+    .admin-app .form-control,
+    .admin-app .form-select,
+    .admin-app .selectize-input,
+    .admin-app .select2-container .select2-selection,
+    .admin-app .bootstrap-select .dropdown-toggle,
+    .admin-app button,
+    .admin-app .btn {
+        border-radius: 0 !important;
+    }
+
+    .admin-app .dropdown-menu,
+    .admin-app .bootstrap-select .dropdown-menu,
+    .admin-app .selectize-dropdown,
+    .admin-app .select2-dropdown,
+    .admin-app .datepicker-dropdown,
+    .admin-app .daterangepicker,
+    .admin-app .ui-datepicker {
+        border-radius: 0 !important;
+    }
+
     .dashboard-feedback-modal {
         position: fixed;
         inset: 0;
