@@ -22,6 +22,25 @@ class DriverScoreApiTest extends TestCase
 
         $this->createDriverScoreTestSchema();
         $this->seedDriverScoreSettings();
+
+        DB::table('companies')->insert([
+            'id' => 1,
+            'name' => 'Platform',
+            'status' => 'Active',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('currency')->insert([
+            'id' => 1,
+            'name' => 'Kenyan Shilling',
+            'code' => 'KES',
+            'symbol' => 'KSh',
+            'rate' => 1,
+            'status' => 'Active',
+            'default_currency' => '1',
+            'paypal_currency' => 'No',
+        ]);
     }
 
     public function test_driver_can_view_only_their_own_score_summary(): void
@@ -117,10 +136,56 @@ class DriverScoreApiTest extends TestCase
             'rating',
             'trip_requests',
             'trips',
+            'currency',
+            'companies',
+            'vehicle',
+            'driver_location',
             'users',
         ] as $table) {
             Schema::dropIfExists($table);
         }
+
+        Schema::create('driver_location', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('status')->nullable();
+            $table->unsignedInteger('car_id')->nullable();
+            $table->unsignedInteger('pool_trip_id')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('vehicle', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('vehicle_id')->nullable();
+            $table->string('vehicle_type')->nullable();
+            $table->string('vehicle_name')->nullable();
+            $table->string('vehicle_number')->nullable();
+            $table->string('default_type')->default('1');
+            $table->string('status')->default('Active');
+            $table->timestamps();
+        });
+
+        Schema::create('companies', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('email')->nullable();
+            $table->string('status')->default('Active');
+            $table->timestamps();
+        });
+
+        Schema::create('currency', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 50);
+            $table->string('code', 10)->unique();
+            $table->string('symbol', 10);
+            $table->decimal('rate', 10, 2);
+            $table->string('status')->default('Active');
+            $table->string('default_currency')->default('0');
+            $table->string('paypal_currency')->default('No');
+        });
 
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
@@ -137,8 +202,10 @@ class DriverScoreApiTest extends TestCase
             $table->string('referral_code')->nullable();
             $table->string('currency_code')->nullable();
             $table->string('language')->nullable();
+            $table->string('gender')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('trips', function (Blueprint $table) {
@@ -147,6 +214,7 @@ class DriverScoreApiTest extends TestCase
             $table->unsignedInteger('driver_id')->nullable();
             $table->string('status')->nullable();
             $table->decimal('total_km', 8, 2)->default(0);
+            $table->string('currency_code')->nullable();
             $table->timestamp('accepted_at')->nullable();
             $table->timestamp('started_at')->nullable();
             $table->timestamp('completed_at')->nullable();

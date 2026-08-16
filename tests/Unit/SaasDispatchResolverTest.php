@@ -2,15 +2,15 @@
 
 namespace Tests\Unit;
 
-use App\Models\CompanySaasSetting;
 use App\Models\ManageFare;
 use App\Models\SiteSettings;
 use App\Models\User;
-use App\Services\Dispatch\SaaS\DispatchContextResolver;
-use App\Services\Dispatch\SaaS\DriverPoolResolver;
-use App\Services\Dispatch\SaaS\FareResolver;
-use App\Services\Dispatch\SaaS\OperatorResolver;
-use App\Services\Dispatch\SaaS\SaaSModuleManager;
+use Modules\SaaSDispatch\Entities\CompanySaasSetting;
+use Modules\SaaSDispatch\Services\DispatchContextResolver;
+use Modules\SaaSDispatch\Services\DriverPoolResolver;
+use Modules\SaaSDispatch\Services\FareResolver;
+use Modules\SaaSDispatch\Services\OperatorResolver;
+use Modules\SaaSDispatch\Services\SaaSModuleManager;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
@@ -188,7 +188,7 @@ class SaasDispatchResolverTest extends TestCase
         $this->assertInstanceOf(ManageFare::class, $context['fare_model']);
     }
 
-    public function test_driver_pool_resolver_separates_platform_and_company_drivers(): void
+    public function test_driver_pool_resolver_scopes_company_pool(): void
     {
         $driverPoolResolver = $this->app->make(DriverPoolResolver::class);
         $operatorResolver = $this->app->make(OperatorResolver::class);
@@ -260,8 +260,11 @@ class SaasDispatchResolverTest extends TestCase
         sort($platformIds);
         sort($companyIds);
 
-        $this->assertSame([6001, 6003], $platformIds);
+        // Company context scopes the pool to that company's drivers only.
         $this->assertSame([6002], $companyIds);
+
+        // Platform context in global dispatch mode serves the full driver pool.
+        $this->assertSame([6001, 6002, 6003], $platformIds);
     }
 
     protected function createSchema(): void
@@ -285,9 +288,21 @@ class SaasDispatchResolverTest extends TestCase
             'manage_fare',
             'fees',
             'site_settings',
+            'currency',
         ] as $table) {
             Schema::dropIfExists($table);
         }
+
+        Schema::create('currency', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 50);
+            $table->string('code', 10)->unique();
+            $table->string('symbol', 10);
+            $table->decimal('rate', 10, 2);
+            $table->string('status')->default('Active');
+            $table->string('default_currency')->default('0');
+            $table->string('paypal_currency')->default('No');
+        });
 
         Schema::create('site_settings', function (Blueprint $table) {
             $table->increments('id');
@@ -325,6 +340,7 @@ class SaasDispatchResolverTest extends TestCase
             $table->string('currency_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('profile_picture', function (Blueprint $table) {
@@ -499,6 +515,17 @@ class SaasDispatchResolverTest extends TestCase
 
     protected function seedBaseData(): void
     {
+        \DB::table('currency')->insert([
+            'id' => 1,
+            'name' => 'Kenyan Shilling',
+            'code' => 'KES',
+            'symbol' => 'KSh',
+            'rate' => 1,
+            'status' => 'Active',
+            'default_currency' => '1',
+            'paypal_currency' => 'No',
+        ]);
+
         SiteSettings::query()->insert([
             ['name' => 'saas_dispatch_module_enabled', 'value' => '0'],
             ['name' => 'fare_mode', 'value' => 'Taximeter'],
@@ -509,7 +536,7 @@ class SaasDispatchResolverTest extends TestCase
             ['id' => 2, 'name' => 'Company A', 'status' => 'Active', 'created_at' => now(), 'updated_at' => now()],
         ]);
 
-        User::query()->create([
+        User::query()->forceCreate([
             'id' => 5001,
             'first_name' => 'Rider',
             'last_name' => 'One',
