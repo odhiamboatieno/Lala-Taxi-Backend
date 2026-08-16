@@ -1,0 +1,111 @@
+name: lalataxi
+
+services:
+  app:
+    image: ghcr.io/odhiamboatieno/lala-taxi-backend:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      DB_HOST: mysql
+      REDIS_HOST: redis
+      REVERB_SERVER_HOST: 0.0.0.0
+      RUN_MIGRATIONS: "true"
+    volumes:
+      - app_storage:/var/www/html/storage
+      - app_trip_files:/var/www/html/public/trip_file
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks: [lalataxi]
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks: [lalataxi]
+
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    # Permissive sql_mode: the LalaTaxi schema uses timestamp DEFAULT '0000-00-00'
+    # (legacy zero dates) which strict mode rejects.
+    command: ["--sql-mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"]
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-lalataxi}
+      MYSQL_USER: ${DB_USERNAME:-lalataxi}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-lalataxi-root}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u$$MYSQL_USER", "-p$$MYSQL_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    networks: [lalataxi]
+
+  redis:
+    image: redis:7.4-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks: [lalataxi]
+
+  queue:
+    image: ghcr.io/odhiamboatieno/lala-taxi-backend:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      APP_ENV: production
+      DB_HOST: mysql
+      REDIS_HOST: redis
+      RUN_MIGRATIONS: "false"
+    command: ["php", "artisan", "queue:work", "--tries=3", "--timeout=90", "--sleep=3"]
+    volumes:
+      - app_storage:/var/www/html/storage
+      - app_trip_files:/var/www/html/public/trip_file
+    depends_on:
+      - app
+    networks: [lalataxi]
+
+  reverb:
+    image: ghcr.io/odhiamboatieno/lala-taxi-backend:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      APP_ENV: production
+      DB_HOST: mysql
+      REDIS_HOST: redis
+      REVERB_SERVER_HOST: 0.0.0.0
+      RUN_MIGRATIONS: "false"
+    command: ["php", "artisan", "reverb:start", "--host=0.0.0.0", "--port=8080"]
+    ports:
+      - "8080:8080"
+    depends_on:
+      - app
+    networks: [lalataxi]
+
+volumes:
+  app_storage:
+  app_trip_files:
+  mysql_data:
+  redis_data:
+
+networks:
+  lalataxi:
+    driver: bridge

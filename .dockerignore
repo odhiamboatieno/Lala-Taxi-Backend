@@ -1,0 +1,37 @@
+# Git / VCS
+.git
+.gitignore
+.gitattributes
+.github
+
+# Runtime / environment
+.env
+.env.*
+!.env.example
+
+# Dependencies (rebuilt inside the image)
+vendor
+composer
+node_modules
+
+# Build artifacts / logs
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/framework/testing/*
+storage/installed
+storage/app/public/*
+bootstrap/cache/*.php
+public/trip_file/*
+public/error_log
+public/build_logs
+public/key.txt
+public/key_backup.txt
+public/otp.txt
+*.log
+
+# Deployment / CI files not needed in the image
+deploy
+Dockerfile
+.dockerignore
