@@ -33,7 +33,7 @@
 		margin-left: -100px !important;
 		left: 50%;
 		background: var(--color-as-2c3239);
-		border-radius: 2px;
+		border-radius: 0;
 		color: var(--color-white);
 		font-style: normal;
 		position: absolute;
@@ -77,7 +77,7 @@
 	.payment-gateway-page .box {
 		background: var(--color-white);
 		border: 0;
-		border-radius: 18px;
+		border-radius: 0;
 		box-shadow: 0 18px 45px var(--color-as-rgba-15-23-42-0-08);
 		overflow: hidden;
 	}
@@ -117,7 +117,7 @@
 	}
 	.payment-gateway-page .form-control,
 	.payment-gateway-page select {
-		border-radius: 12px;
+		border-radius: 0;
 		border-color: var(--color-as-dbe3ef);
 		min-height: 42px;
 	}

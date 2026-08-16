@@ -32,7 +32,7 @@
     }
     img {
         border: 1px solid var(--color-as-c2c2c2);
-        border-radius: 100% !important;
+        border-radius: 0 !important;
         max-width: 100%;
     }
     p{

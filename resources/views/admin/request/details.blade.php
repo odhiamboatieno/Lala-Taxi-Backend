@@ -135,7 +135,7 @@
                     <div class="card-body">
                         <h5 class="card-title mb-4">{{ __('messages.admin.manage_trip.request_details.map_view') }}</h5>
 
-                        <div id="map" style="height: 450px; width: 100%; border-radius: 8px;"></div>
+                        <div id="map" style="height: 450px; width: 100%; border-radius: 0;"></div>
 
                         @if (isset($is_tripped) && $trip_data->map_image)
                             <div class="mt-4">
@@ -161,13 +161,13 @@
         .trip_image {
             max-width: 100%;
             height: auto;
-            border-radius: 8px;
+            border-radius: 0;
             box-shadow: 0 2px 10px var(--color-as-rgba-0-0-0-0-1);
         }
 
         #map {
             border: 1px solid var(--color-as-e0e0e0);
-            border-radius: 8px;
+            border-radius: 0;
         }
     </style>
 

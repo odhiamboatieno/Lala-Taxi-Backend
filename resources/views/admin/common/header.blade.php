@@ -40,7 +40,7 @@
     .dot {
         width: 20px;
         height: 20px;
-        border-radius: 50%;
+        border-radius: 0;
         position: absolute;
         animation: rotateAndSwitch 3s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
     }

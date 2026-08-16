@@ -20,11 +20,11 @@ ul.ColVis_collection li {
 	color: black !important;
 	white-space: nowrap;
 
-	-webkit-border-radius: 2px;
-	   -moz-border-radius: 2px;
-	    -ms-border-radius: 2px;
-	     -o-border-radius: 2px;
-	        border-radius: 2px;
+	border-radius: 0;
+	   -moz-border-radius: 0;
+	    -ms-border-radius: 0;
+	     -o-border-radius: 0;
+	        border-radius: 0;
 
 	-webkit-box-shadow: 1px 1px 3px #ccc;
 	   -moz-box-shadow: 1px 1px 3px #ccc;
@@ -99,11 +99,11 @@ ul.ColVis_collection {
 	overflow: hidden;
 	z-index: 2002;
 
-	-webkit-border-radius: 5px;
-	   -moz-border-radius: 5px;
-	    -ms-border-radius: 5px;
-	     -o-border-radius: 5px;
-	        border-radius: 5px;
+	border-radius: 0;
+	   -moz-border-radius: 0;
+	    -ms-border-radius: 0;
+	     -o-border-radius: 0;
+	        border-radius: 0;
 	
 	-webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 	   -moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);

@@ -78,7 +78,7 @@
                                   <a target="_blank" data-toggle="modal" data-target="#mobile_number_tab" name='mobile_number_tab' data-index='{{$support_link->link}}' class="side-nav-a" href="{{ $support_link->link }}">{{ $support_link->name }}</a>
                                   @else
                                  
-                                   <a href="javascript:void(0)"  class="nav-link"><img src="{{ $support_link->support_image }}" style="width: 45px;height:45px;margin:0px 10px 0px 0;object-fit: cover;display: inline-block;border-radius: 50%;"> 
+                                   <a href="javascript:void(0)"  class="nav-link"><img src="{{ $support_link->support_image }}" style="width: 45px;height:45px;margin:0px 10px 0px 0;object-fit: cover;display: inline-block;border-radius: 0;"> 
                                       <span>{{ $support_link->name }}</span></a>
                                   @endif    
                               </li>
@@ -115,15 +115,7 @@
               <span class="icon icon_down-arrow milli">
               </span>
             </a>
-            <div class="flyout__content" style="margin:-1px 0px 0px 0px !important;padding:0px;border-radius: 30px !important">
-              <ul class="site-nav site-nav--flush" style="margin-right: 0">
-                <li>
-                  <div class="grid displayflex">
-                    <div class="grid__item one-quarter">
-                      @if(@Auth::user()->profile_picture->src == '')
-                      <img src="https://d1w2poirtb3as9.cloudfront.net/default.jpeg" class="img--bordered head_profile img--full">
-                      @else
-                      <img src="{{ @Auth::user()->profile_picture->src }}" class="img--bordered img--full head_profile profile_picture">
+            <div class="flyout__content" style="margin:-1px 0px 0px 0px !important;padding:0px;border-radius: 0 !important}}" class="img--bordered img--full head_profile profile_picture">
                       @endif
                     </div>
                     <div class="grid__item three-quarters">

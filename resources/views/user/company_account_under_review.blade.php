@@ -15,22 +15,22 @@
 <style>
     .review-shell{min-height:100vh;background:linear-gradient(180deg,var(--color-as-081321),var(--color-as-0f172a) 42%,var(--color-as-111827));color:var(--color-white);display:flex;align-items:center;padding:32px 0}
     .review-wrap{width:min(920px,calc(100% - 32px));margin:0 auto}
-    .review-card{background:var(--color-as-rgba-255-255-255-0-08);border:1px solid var(--color-as-rgba-255-255-255-0-14);border-radius:30px;padding:34px;backdrop-filter:blur(16px);box-shadow:0 28px 70px var(--color-as-rgba-0-0-0-0-25)}
+    .review-card{background:var(--color-as-rgba-255-255-255-0-08);border:1px solid var(--color-as-rgba-255-255-255-0-14);border-radius: 0;padding:34px;backdrop-filter:blur(16px);box-shadow:0 28px 70px var(--color-as-rgba-0-0-0-0-25)}
     .review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:28px 0}
-    .review-item{padding:18px;border-radius:18px;background:var(--color-as-rgba-255-255-255-0-06);border:1px solid var(--color-as-rgba-255-255-255-0-1)}
+    .review-item{padding:18px;border-radius: 0;background:var(--color-as-rgba-255-255-255-0-06);border:1px solid var(--color-as-rgba-255-255-255-0-1)}
     .review-item span{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-as-rgba-255-255-255-0-64);font-weight:800;margin-bottom:8px}
     .review-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-    .review-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border-radius:16px;font-weight:800;text-decoration:none;border:1px solid var(--color-as-rgba-255-255-255-0-18);color:var(--color-white)}
+    .review-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border-radius: 0;font-weight:800;text-decoration:none;border:1px solid var(--color-as-rgba-255-255-255-0-18);color:var(--color-white)}
     .review-btn--primary{background:var(--color-as-14b8a6);border-color:var(--color-as-14b8a6)}
     .timeline{display:grid;gap:12px;margin-top:18px}
-    .timeline div{padding:14px 16px;border-radius:16px;background:var(--color-as-rgba-255-255-255-0-05);border:1px solid var(--color-as-rgba-255-255-255-0-08)}
+    .timeline div{padding:14px 16px;border-radius: 0;background:var(--color-as-rgba-255-255-255-0-05);border:1px solid var(--color-as-rgba-255-255-255-0-08)}
     @media (max-width:720px){.review-grid{grid-template-columns:1fr}.review-card{padding:24px}}
 </style>
 <div class="review-shell">
     <div class="review-wrap">
         <div class="review-card">
             <img src="{{ $logo_url }}" alt="{{ $site_name }}" style="height:48px;max-width:180px;object-fit:contain;filter:brightness(0) invert(1);margin-bottom:18px;">
-            <div style="display:inline-flex;padding:10px 14px;border-radius:999px;background:var(--color-as-rgba-20-184-166-0-16);color:var(--color-as-99f6e4);font-weight:800;">{{ $statusTitle }}</div>
+            <div style="display:inline-flex;padding:10px 14px;border-radius: 0;background:var(--color-as-rgba-20-184-166-0-16);color:var(--color-as-99f6e4);font-weight:800;">{{ $statusTitle }}</div>
             <h1 style="font-size:clamp(2rem,5vw,3.4rem);line-height:1.05;margin:16px 0 12px;">{{ $company->name ?: $company->legal_name }}</h1>
             <p style="color:var(--color-as-rgba-255-255-255-0-78);font-size:17px;line-height:1.8;margin:0;">Your company account is being processed through the LalaTaxi onboarding and approval flow. You can review what was submitted, continue onboarding if needed, or sign out while the team completes their checks.</p>
 

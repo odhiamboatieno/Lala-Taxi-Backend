@@ -204,7 +204,7 @@
   transform-origin: 50%;
   box-sizing: border-box;
   border: 4px solid var(--swiper-preloader-color, var(--swiper-theme-color));
-  border-radius: 50%;
+  border-radius: 0;
   border-top-color: transparent;
 }
 .swiper:not(.swiper-watch-progress) .swiper-lazy-preloader,
@@ -344,7 +344,7 @@
   --swiper-pagination-bullet-size: 8px;
   --swiper-pagination-bullet-width: 8px;
   --swiper-pagination-bullet-height: 8px;
-  --swiper-pagination-bullet-border-radius: 50%;
+  --swiper-pagination-bullet-border-radius: 0;
   --swiper-pagination-bullet-inactive-color: #000;
   --swiper-pagination-bullet-inactive-opacity: 0.2;
   --swiper-pagination-bullet-opacity: 1;
@@ -407,7 +407,7 @@
   width: var(--swiper-pagination-bullet-width, var(--swiper-pagination-bullet-size, 8px));
   height: var(--swiper-pagination-bullet-height, var(--swiper-pagination-bullet-size, 8px));
   display: inline-block;
-  border-radius: var(--swiper-pagination-bullet-border-radius, 50%);
+  border-radius: 0;
   background: var(--swiper-pagination-bullet-inactive-color, #000);
   opacity: var(--swiper-pagination-bullet-inactive-opacity, 0.2);
 }
@@ -517,7 +517,7 @@ button.swiper-pagination-bullet {
 }
 :root {
   /*
-  --swiper-scrollbar-border-radius: 10px;
+  --swiper-scrollbar-border-radius: 0;
   --swiper-scrollbar-top: auto;
   --swiper-scrollbar-bottom: 4px;
   --swiper-scrollbar-left: auto;
@@ -529,7 +529,7 @@ button.swiper-pagination-bullet {
   */
 }
 .swiper-scrollbar {
-  border-radius: var(--swiper-scrollbar-border-radius, 10px);
+  border-radius: 0;
   position: relative;
   touch-action: none;
   background: var(--swiper-scrollbar-bg-color, rgba(0, 0, 0, 0.1));
@@ -563,7 +563,7 @@ button.swiper-pagination-bullet {
   width: 100%;
   position: relative;
   background: var(--swiper-scrollbar-drag-bg-color, rgba(0, 0, 0, 0.5));
-  border-radius: var(--swiper-scrollbar-border-radius, 10px);
+  border-radius: 0;
   left: 0;
   top: 0;
 }

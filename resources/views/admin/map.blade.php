@@ -6,7 +6,7 @@
 @section('css')
 <style>
     .fleet-live-card {
-        border-radius: 18px;
+        border-radius: 0;
         overflow: hidden;
     }
     .fleet-live-card .card-header {
@@ -72,12 +72,12 @@
         margin-bottom: 18px;
     }
     .fleet-search .form-control {
-        border-radius: 10px;
+        border-radius: 0;
         height: 40px;
     }
     .fleet-search .btn {
         min-width: 88px;
-        border-radius: 10px;
+        border-radius: 0;
     }
     .fleet-list {
         flex: 1 1 auto;
@@ -108,7 +108,7 @@
     .fleet-dot {
         width: 18px;
         height: 18px;
-        border-radius: 6px;
+        border-radius: 0;
         background: var(--color-as-414b5f);
         flex: 0 0 auto;
     }
@@ -142,13 +142,13 @@
     .fleet-map-toolbar .form-control,
     .fleet-map-toolbar .form-select,
     .fleet-map-toolbar select {
-        border-radius: 10px;
+        border-radius: 0;
         height: 44px;
     }
     .fleet-map-shell {
         position: relative;
         min-height: 560px;
-        border-radius: 14px;
+        border-radius: 0;
         overflow: hidden;
         background: var(--color-as-f4f7fb);
         border: 1px solid var(--color-as-rgba-16-24-40-0-08);
@@ -169,7 +169,7 @@
     .fleet-map-action {
         width: 42px;
         height: 42px;
-        border-radius: 12px;
+        border-radius: 0;
         border: 0;
         background: var(--color-white);
         box-shadow: 0 10px 24px var(--color-as-rgba-15-23-42-0-14);
@@ -191,7 +191,7 @@
         z-index: 11;
         width: 58px;
         height: 58px;
-        border-radius: 50%;
+        border-radius: 0;
         border: 0;
         background: var(--color-white);
         box-shadow: 0 14px 30px var(--color-as-rgba-15-23-42-0-16);
@@ -205,7 +205,7 @@
         right: -2px;
         min-width: 24px;
         height: 24px;
-        border-radius: 999px;
+        border-radius: 0;
         font-size: 11px;
         line-height: 24px;
         background: var(--color-as-ff5c5c);
@@ -236,7 +236,7 @@
     .fleet-profile img {
         width: 72px;
         height: 72px;
-        border-radius: 10px;
+        border-radius: 0;
         object-fit: cover;
     }
     .fleet-profile-name {
@@ -250,7 +250,7 @@
         align-items: center;
         gap: 6px;
         padding: 4px 10px;
-        border-radius: 999px;
+        border-radius: 0;
         background: var(--color-as-dff7f1);
         color: var(--color-as-27b7a8);
         font-size: 12px;
@@ -258,7 +258,7 @@
     }
     .fleet-detail-card {
         border: 1px solid var(--color-as-rgba-16-24-40-0-08);
-        border-radius: 12px;
+        border-radius: 0;
         padding: 14px 14px 10px;
         margin-bottom: 16px;
         background: var(--color-white);
@@ -289,7 +289,7 @@
     }
     .fleet-empty {
         padding: 22px 16px;
-        border-radius: 12px;
+        border-radius: 0;
         background: var(--color-as-rgba-255-255-255-0-7);
         text-align: center;
         color: var(--color-as-64748b);

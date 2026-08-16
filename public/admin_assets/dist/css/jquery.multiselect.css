@@ -16,7 +16,7 @@
     color: #aaa;
     outline-offset: -2px;
     white-space: nowrap;
-    border-radius: 10px;
+    border-radius: 0;
 }
 
 .ms-options-wrap > button > span {

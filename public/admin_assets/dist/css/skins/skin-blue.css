@@ -96,7 +96,7 @@
   color: #ffffff;
 }
 .skin-blue .sidebar-form {
-  border-radius: 3px;
+  border-radius: 0;
   border: 1px solid #374850;
   margin: 10px 10px;
 }
@@ -112,10 +112,10 @@
 }
 .skin-blue .sidebar-form input[type="text"] {
   color: #666;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 2px;
+  border-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
 }
 .skin-blue .sidebar-form input[type="text"]:focus,
 .skin-blue .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
@@ -127,10 +127,10 @@
 }
 .skin-blue .sidebar-form .btn {
   color: #999;
-  border-top-left-radius: 0;
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
-  border-bottom-left-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
 }
 .skin-blue.layout-top-nav .main-header > .logo {
   background-color: #3c8dbc;

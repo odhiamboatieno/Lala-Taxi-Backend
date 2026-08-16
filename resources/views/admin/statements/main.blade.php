@@ -17,12 +17,12 @@
             align-items: center;
             justify-content: center;
             z-index: 10;
-            border-radius: 8px;
+            border-radius: 0;
         }
         .stat-card {
             transition: all 0.25s ease;
             border: none;
-            border-radius: 10px;
+            border-radius: 0;
             overflow: hidden;
         }
         .stat-card:hover {

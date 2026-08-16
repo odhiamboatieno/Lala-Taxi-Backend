@@ -13,7 +13,7 @@
         }
         .language-tabs .nav-tabs .nav-link {
             border: 1px solid transparent;
-            border-radius: 4px 4px 0 0;
+            border-radius: 0;
             margin-right: 2px;
         }
         .language-tabs .nav-tabs .nav-link.active {
@@ -25,7 +25,7 @@
             border: 1px solid var(--color-as-dee2e6);
             border-top: none;
             padding: 20px;
-            border-radius: 0 0 4px 4px;
+            border-radius: 0;
         }
         .language-section {
             margin-bottom: 30px;

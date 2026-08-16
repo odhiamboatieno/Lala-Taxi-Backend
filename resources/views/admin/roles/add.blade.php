@@ -16,7 +16,7 @@
             overflow-y: auto;
             padding: 1rem;
             border: 1px solid var(--color-as-e0e0e0);
-            border-radius: 6px;
+            border-radius: 0;
             background: var(--color-as-f9f9f9);
         }
         .permission-group {

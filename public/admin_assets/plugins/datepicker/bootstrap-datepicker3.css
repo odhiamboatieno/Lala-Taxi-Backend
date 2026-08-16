@@ -6,7 +6,7 @@
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
 .datepicker {
-  border-radius: 4px;
+  border-radius: 0;
   direction: ltr;
 }
 .datepicker-inline {
@@ -84,7 +84,7 @@
   text-align: center;
   width: 30px;
   height: 30px;
-  border-radius: 4px;
+  border-radius: 0;
   border: none;
 }
 .table-striped .datepicker table tr td,
@@ -505,7 +505,7 @@ fieldset[disabled] .datepicker table tr td.active.highlighted.focus {
   float: left;
   margin: 1%;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 0;
 }
 .datepicker table tr td span:hover,
 .datepicker table tr td span.focused {
@@ -660,10 +660,10 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.focus {
   text-align: center;
 }
 .input-daterange input:first-child {
-  border-radius: 3px 0 0 3px;
+  border-radius: 0;
 }
 .input-daterange input:last-child {
-  border-radius: 0 3px 3px 0;
+  border-radius: 0;
 }
 .input-daterange .input-group-addon {
   width: auto;

@@ -41,7 +41,7 @@
 .cls_signintext {
   background: var(--color-white);
   border: 2px solid var(--color-as-e0e0e0); /* Solid border for Material Design */
-  border-radius: 12px;
+  border-radius: 0;
   padding: 24px;
   box-shadow: 0 2px 8px var(--color-as-rgba-0-0-0-0-1); /* Subtle elevation */
   text-align: center;
@@ -79,7 +79,7 @@
   text-transform: uppercase;
   padding: 12px 12px;
   border: 2px solid var(--color-as-0288d1);
-  border-radius: 8px;
+  border-radius: 0;
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 

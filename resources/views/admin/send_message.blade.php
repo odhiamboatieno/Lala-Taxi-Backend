@@ -13,7 +13,7 @@
         .notify-panel {
             background: var(--bs-card-bg, var(--bs-body-bg, var(--color-white)));
             border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
-            border-radius: 22px;
+            border-radius: 0;
             box-shadow: 0 14px 30px var(--color-as-rgba-16-67-79-0-08);
             margin-bottom: 24px;
             overflow: hidden;
@@ -43,7 +43,7 @@
         .notify-alert {
             background: var(--bs-warning-bg-subtle, var(--color-as-fff3cd));
             border: 1px solid var(--bs-warning-border-subtle, var(--color-as-f4df99));
-            border-radius: 14px;
+            border-radius: 0;
             color: var(--bs-warning-text-emphasis, var(--color-as-8b6b10));
             margin: 20px 22px 0;
             padding: 12px 16px;
@@ -59,7 +59,7 @@
         .notify-card {
             background: var(--bs-card-bg, var(--bs-body-bg, var(--color-white)));
             border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
-            border-radius: 18px;
+            border-radius: 0;
             padding: 20px;
         }
 
@@ -79,7 +79,7 @@
         .notify-stat {
             background: var(--bs-tertiary-bg, var(--color-as-rgba-127-127-127-0-08));
             border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
-            border-radius: 18px;
+            border-radius: 0;
             margin-bottom: 14px;
             padding: 16px 18px;
         }
@@ -104,7 +104,7 @@
         .notify-upload {
             align-items: center;
             border: 2px dashed var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
-            border-radius: 18px;
+            border-radius: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -114,7 +114,7 @@
         }
 
         .notify-upload__preview {
-            border-radius: 14px;
+            border-radius: 0;
             margin-top: 14px;
             max-height: 120px;
             object-fit: cover;
@@ -137,7 +137,7 @@
         }
 
         .notify-history__thumb {
-            border-radius: 12px;
+            border-radius: 0;
             height: 44px;
             object-fit: cover;
             width: 74px;
@@ -155,7 +155,7 @@
         }
 
         .notify-status {
-            border-radius: 999px;
+            border-radius: 0;
             display: inline-flex;
             font-size: 11px;
             font-weight: 800;

@@ -186,7 +186,7 @@
     font-size: 15px;
     width: 100%;
     margin: 20px 0px 0px 0px;
-    border-radius: 0px;" type="submit" class="btn btn--primary btn-blue">
+    border-radius: 0;" type="submit" class="btn btn--primary btn-blue">
 <span style="padding: 7px;" class="icon icon_file"></span>
     {{trans('messages.driver_dashboard.select_file')}} </a>
       </div>
@@ -225,7 +225,7 @@
     font-size: 15px;
     width: 100%;
     margin: 20px 0px 0px 0px;
-    border-radius: 0px;" type="submit" class="btn btn--primary btn-blue">
+    border-radius: 0;" type="submit" class="btn btn--primary btn-blue">
 <span style="padding: 7px;" class="icon icon_file"></span>
     {{trans('messages.driver_dashboard.select_file')}}</a>
       </div>

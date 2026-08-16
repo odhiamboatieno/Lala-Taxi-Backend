@@ -156,7 +156,7 @@
   position: absolute;
   content: '';
   background: black;
-  border-radius: 7px;
+  border-radius: 0;
   left: 2px;
   right: 2px;
   opacity: 0;

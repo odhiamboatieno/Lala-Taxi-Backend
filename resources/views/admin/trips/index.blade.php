@@ -17,7 +17,7 @@
             position: relative;
             overflow: hidden;
             border: 0;
-            border-radius: 28px;
+            border-radius: 0;
             color: var(--color-white);
             background:
                 radial-gradient(circle at top right, var(--color-as-rgba-255-255-255-0-18), transparent 28rem),
@@ -53,7 +53,7 @@
         }
 
         .trip-ops-actions .btn {
-            border-radius: 999px;
+            border-radius: 0;
             font-weight: 700;
         }
 
@@ -61,7 +61,7 @@
         .trip-panel,
         .trip-analytics-card {
             border: 0;
-            border-radius: 24px;
+            border-radius: 0;
             box-shadow: var(--trip-ops-shadow);
         }
 
@@ -82,7 +82,7 @@
         .trip-kpi-icon {
             width: 52px;
             height: 52px;
-            border-radius: 18px;
+            border-radius: 0;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -123,7 +123,7 @@
         .trip-alert-card {
             min-width: 240px;
             border: 1px solid var(--trip-ops-border);
-            border-radius: 20px;
+            border-radius: 0;
             background: var(--color-white);
             padding: 1rem;
             text-decoration: none;
@@ -144,7 +144,7 @@
         }
 
         .trip-quick-filters .btn {
-            border-radius: 999px;
+            border-radius: 0;
         }
 
         .trip-view-switcher {
@@ -154,7 +154,7 @@
         }
 
         .trip-view-switcher .btn {
-            border-radius: 999px;
+            border-radius: 0;
         }
 
         .trip-ops-meta {
@@ -169,7 +169,7 @@
         .trip-ops-live-dot {
             width: 10px;
             height: 10px;
-            border-radius: 50%;
+            border-radius: 0;
             background: var(--color-as-22c55e);
             display: inline-block;
             box-shadow: 0 0 0 0 var(--color-as-rgba-34-197-94-0-6);
@@ -193,7 +193,7 @@
 
         .trip-mini-card {
             border: 1px solid var(--trip-ops-border);
-            border-radius: 22px;
+            border-radius: 0;
             padding: 1rem;
             background: var(--color-white);
             box-shadow: 0 12px 28px var(--color-as-rgba-15-23-42-0-05);
@@ -202,7 +202,7 @@
         .trip-placeholder-view {
             display: none;
             border: 1px dashed var(--color-as-rgba-148-163-184-0-28);
-            border-radius: 22px;
+            border-radius: 0;
             padding: 2rem;
             text-align: center;
             color: var(--color-as-64748b);
@@ -212,7 +212,7 @@
         .trip-map-shell {
             display: none;
             border: 1px solid var(--color-as-rgba-148-163-184-0-18);
-            border-radius: 22px;
+            border-radius: 0;
             overflow: hidden;
             background: var(--color-white);
             box-shadow: 0 12px 28px var(--color-as-rgba-15-23-42-0-05);
@@ -267,7 +267,7 @@
 
         .trip-timeline-card {
             border: 1px solid var(--trip-ops-border);
-            border-radius: 22px;
+            border-radius: 0;
             padding: 1.1rem;
             background: var(--color-white);
             box-shadow: 0 12px 28px var(--color-as-rgba-15-23-42-0-05);
@@ -280,7 +280,7 @@
 
         .trip-empty-state {
             display: none;
-            border-radius: 24px;
+            border-radius: 0;
             padding: 2rem;
             text-align: center;
             background: linear-gradient(135deg, var(--color-as-rgba-15-118-110-0-07), var(--color-as-rgba-37-99-235-0-07));
@@ -344,7 +344,7 @@
             top: .28rem;
             width: .65rem;
             height: .65rem;
-            border-radius: 50%;
+            border-radius: 0;
             background: var(--color-info);
         }
 

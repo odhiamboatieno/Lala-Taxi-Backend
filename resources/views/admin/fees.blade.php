@@ -13,7 +13,7 @@
     <style>
         .input-group-text {
             background-color: var(--color-as-f8f9fa);
-            border-radius: 6px 0 0 6px;
+            border-radius: 0;
             font-weight: 500;
         }
         .percentage-input .input-group-text {

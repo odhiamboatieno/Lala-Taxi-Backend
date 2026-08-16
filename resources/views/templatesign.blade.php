@@ -17,7 +17,7 @@
     position: relative;
     width: 180px;
     height: 180px;
-    border-radius: 50%;
+    border-radius: 0;
     overflow: hidden;
     background: var(--color-as-020617);
 }
@@ -37,7 +37,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: 0;
     background: conic-gradient(
         from 0deg,
         var(--color-as-rgba-34-197-94-0-4),
@@ -54,7 +54,7 @@
     width: 12px;
     height: 12px;
     background: var(--color-as-22c55e);
-    border-radius: 50%;
+    border-radius: 0;
     transform: translate(-50%, -50%);
     box-shadow: 0 0 0 var(--color-as-rgba-34-197-94-0-7);
     animation: pulse 1.5s infinite;

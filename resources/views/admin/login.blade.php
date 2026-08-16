@@ -36,7 +36,7 @@
 
         .login-box {
             background: var(--color-white);
-            border-radius: 16px;
+            border-radius: 0;
             box-shadow: 0 10px 30px var(--color-as-rgba-0-0-0-0-2);
             width: 100%;
             max-width: 420px;
@@ -66,7 +66,7 @@
         .login-tabs ul {
             display: flex;
             background: var(--color-as-f1f5f9);
-            border-radius: 8px;
+            border-radius: 0;
             padding: 0.3rem;
             width: 100%;
             list-style: none;
@@ -81,7 +81,7 @@
             font-weight: 500;
             color: var(--color-as-64748b);
             transition: all 0.3s ease;
-            border-radius: 6px;
+            border-radius: 0;
         }
 
         .login-tabs li.active {
@@ -111,7 +111,7 @@
             width: 100%;
             padding: 0.8rem;
             border: 1px solid var(--color-as-e2e8f0);
-            border-radius: 8px;
+            border-radius: 0;
             font-size: 0.95rem;
             color: var(--color-as-1e3c72);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -132,7 +132,7 @@
             padding: 0.9rem;
             background: linear-gradient(90deg, var(--color-as-0f766e) 0%, var(--color-info) 100%);
             border: none;
-            border-radius: 8px;
+            border-radius: 0;
             color: var(--color-white);
             font-size: 1rem;
             font-weight: 600;
@@ -154,7 +154,7 @@
 
         .alert {
             padding: 1rem;
-            border-radius: 8px;
+            border-radius: 0;
             font-size: 0.9rem;
             display: flex;
             align-items: center;

@@ -17,7 +17,7 @@ main {
 
 .payment-form {
   
-  border-radius: 8px;
+  border-radius: 0;
 
   display: grid;
   grid-row-gap: 32px;
@@ -30,7 +30,7 @@ main {
 .main-header {
   align-items: center;
   background-color: var(--color-white);
-  border-radius: 8px 8px 0 0;
+  border-radius: 0;
   color: var(--color-as-222222);
   display: flex;
   font-size: 25px;
@@ -60,7 +60,7 @@ main {
 
 .product-info {
   background-color: var(--color-bg-level3-accent);
-  border-radius: 4px;
+  border-radius: 0;
   color: var(--color-content-subtle);
   display: flex;
   font-weight: bold;
@@ -78,7 +78,7 @@ main {
 input[type="text"] {
   background-color: var(--color-bg-level3);
   border: 1px solid var(--color-bg-level3-accent);
-  border-radius: 16px;
+  border-radius: 0;
   color: var(--color-content-subtle);
   font-family: 'Century Gothic';
   font-weight: bold;
@@ -115,7 +115,7 @@ input::-webkit-input-placeholder {
 .switch-background {
   background: var(--color-bg-level3);
   border: 1px solid var(--color-bg-level3-accent);
-  border-radius: 16px;
+  border-radius: 0;
   height: 15px;
   width: 45px;
   transition: background 0.2s ease;
@@ -128,7 +128,7 @@ input::-webkit-input-placeholder {
 .switch-handle {
   background-color: var(--color-bg-level3);
   border: 1px solid var(--color-bg-level3-accent);
-  border-radius: 50%;
+  border-radius: 0;
   box-shadow: var(--switch-handle-shadow);
   height: 30px;
   position: absolute;
@@ -149,7 +149,7 @@ input::-webkit-input-placeholder {
 button {
   background-color: var(--color-bg-level3);
   border: 1px solid var(--color-bg-level3-accent);
-  border-radius: 16px;
+  border-radius: 0;
   color: var(--color-content-nonessential);
   font-family: 'Century Gothic';
   font-weight: 700;
@@ -273,7 +273,7 @@ body {
     background-color: var(--color-neutral-50);
     margin-top: 15px;
     color: var(--color-black);
-    border-radius: 5px;
+    border-radius: 0;
 }
 .cls_option span {
     font-size: 20px;
@@ -297,7 +297,7 @@ form {
   background: white;
   box-shadow: 0 7px 14px 0 var(--color-as-rgba-49-49-93-0-10),
               0 3px 6px 0 var(--color-as-rgba-0-0-0-0-08);
-  border-radius: 4px;
+  border-radius: 0;
   margin: 20px 20px 0;
   padding: 15px 0;
 }
@@ -345,7 +345,7 @@ button {
       display: block;
     background: var(--color-as-1fbad6);
     color: var(--color-as-02172d);
-    border-radius: 10px;
+    border-radius: 0;
     border: 0;
     margin-top: 0px;
     font-size: 15px;

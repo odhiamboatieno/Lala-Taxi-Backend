@@ -302,7 +302,7 @@ a:focus {
     padding: 7px 10px;
     font-family: fontAwesome;
     margin-left: 3em;
-    border-radius: 10px;
+    border-radius: 0;
     font-size: 18px;
     margin-top: 10px;
 }
@@ -410,7 +410,7 @@ a:focus {
 	position: absolute;
 	top: 15px;
 	right: 10px;
-	border-radius: 2px;
+	border-radius: 0;
 }
 .content-header > .breadcrumb > li > a {
 	color: #444;
@@ -545,7 +545,7 @@ a:focus {
     overflow-y: auto;
     box-sizing: content-box;
     background-color: #02172d;
-    border-radius: 0px 67px 67px 0px;
+    border-radius: 0;
 }
 .sidebar a.logo {
     padding: 3em 5px 15px 35px;
@@ -706,15 +706,15 @@ a:focus {
 		margin-right: 0;
 	}
 	.sidebar-mini.sidebar-collapse .sidebar-menu > li > a > span {
-		border-top-right-radius: 4px;
+		border-radius: 0;
 	}
 	.sidebar-mini.sidebar-collapse .sidebar-menu > li:not(.treeview) > a > span {
-		border-bottom-right-radius: 4px;
+		border-radius: 0;
 	}
 	.sidebar-mini.sidebar-collapse .sidebar-menu > li > .treeview-menu {
 		padding-top: 5px;
 		padding-bottom: 5px;
-		border-bottom-right-radius: 4px;
+		border-radius: 0;
 	}
 	.sidebar-mini.sidebar-collapse .sidebar-menu > li:hover > a > span:not(.pull-right),
 	.sidebar-mini.sidebar-collapse .sidebar-menu > li:hover > .treeview-menu {
@@ -913,7 +913,7 @@ a:focus {
 	float: left;
 	width: 35px;
 	height: 35px;
-	border-radius: 50%;
+	border-radius: 0;
 	text-align: center;
 	line-height: 35px;
 }
@@ -1062,10 +1062,10 @@ a:focus {
 .navbar-nav > .notifications-menu > .dropdown-menu > li.header,
 .navbar-nav > .messages-menu > .dropdown-menu > li.header,
 .navbar-nav > .tasks-menu > .dropdown-menu > li.header {
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
 	background-color: #ffffff;
 	padding: 7px 10px;
 	border-bottom: 1px solid #f4f4f4;
@@ -1075,10 +1075,10 @@ a:focus {
 .navbar-nav > .notifications-menu > .dropdown-menu > li.footer > a,
 .navbar-nav > .messages-menu > .dropdown-menu > li.footer > a,
 .navbar-nav > .tasks-menu > .dropdown-menu > li.footer > a {
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 4px;
-	border-bottom-left-radius: 4px;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
 	font-size: 12px;
 	background-color: #fff;
 	padding: 7px 10px;
@@ -1184,16 +1184,16 @@ a:focus {
 	margin: 0;
 }
 .navbar-nav > .user-menu > .dropdown-menu {
-	border-top-right-radius: 0;
-	border-top-left-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
 	padding: 1px 0 0 0;
 	border-top-width: 0;
 	width: 280px;
 }
 .navbar-nav > .user-menu > .dropdown-menu,
 .navbar-nav > .user-menu > .dropdown-menu > .user-body {
-	border-bottom-right-radius: 4px;
-	border-bottom-left-radius: 4px;
+	border-radius: 0;
+	border-radius: 0;
 }
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
 	height: 175px;
@@ -1265,7 +1265,7 @@ a:focus {
 	float: left;
 	width: 25px;
 	height: 25px;
-	border-radius: 50%;
+	border-radius: 0;
 	margin-right: 10px;
 	margin-top: -2px;
 }
@@ -1437,7 +1437,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 .progress > .progress-bar,
 .progress .progress-bar,
 .progress > .progress-bar .progress-bar {
-	border-radius: 1px;
+	border-radius: 0;
 }
 /* size variation */
 .progress.sm,
@@ -1448,7 +1448,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 .progress-sm,
 .progress.sm .progress-bar,
 .progress-sm .progress-bar {
-	border-radius: 1px;
+	border-radius: 0;
 }
 .progress.xs,
 .progress-xs {
@@ -1458,7 +1458,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 .progress-xs,
 .progress.xs .progress-bar,
 .progress-xs .progress-bar {
-	border-radius: 1px;
+	border-radius: 0;
 }
 .progress.xxs,
 .progress-xxs {
@@ -1468,7 +1468,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 .progress-xxs,
 .progress.xxs .progress-bar,
 .progress-xxs .progress-bar {
-	border-radius: 1px;
+	border-radius: 0;
 }
 /* Vertical bars */
 .progress.vertical {
@@ -1560,13 +1560,13 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 * --------------------
 */
 .small-box {
-	border-radius: 2px;
+	border-radius: 0;
 	position: relative;
 	display: block;
 	margin: 25px 0 30px;
 	box-shadow: 0 1px 1px rgba(125, 178, 248, 0.3);
 	background-color: #8fc6ed;
-    border-radius: 15px;
+    border-radius: 0;
 }
 .small-box > .inner {
 	padding: 45px 25px 20px;
@@ -1623,7 +1623,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
     width: 50px;
     background-color: #1FBAD6;
     display: inline-block;
-    border-radius: 100%;
+    border-radius: 0;
 }
 .small-box .icon i {
     font-size: 23px;
@@ -1658,7 +1658,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 */
 .box {
 	position: relative;
-	border-radius: 3px;
+	border-radius: 0;
 	background: #ffffff;
 	/*border-top: 3px solid #d2d6de;*/
 	margin-bottom: 20px;
@@ -1817,7 +1817,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 .overlay-wrapper .overlay {
 	z-index: 50;
 	background: rgba(255, 255, 255, 0.7);
-	border-radius: 3px;
+	border-radius: 0;
 }
 .box .overlay > .fa,
 .overlay-wrapper .overlay > .fa {
@@ -1901,15 +1901,15 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	box-shadow: none;
 }
 .box-body {
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 3px;
-	border-bottom-left-radius: 3px;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
 	padding: 10px;
 }
 .no-header .box-body {
-	border-top-right-radius: 3px;
-	border-top-left-radius: 3px;
+	border-radius: 0;
+	border-radius: 0;
 }
 .box-body > .table {
 	margin-bottom: 0;
@@ -1924,22 +1924,22 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	margin: -9px;
 }
 .box-body .box-pane {
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 3px;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
 }
 .box-body .box-pane-right {
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 3px;
-	border-bottom-left-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
 }
 .box-footer {
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 3px;
-	border-bottom-left-radius: 3px;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
 	/*border-top: 1px solid #f4f4f4;*/
 	padding: 10px;
 	/*background-color: #ffffff;*/
@@ -1998,7 +1998,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	overflow: auto;
 }
 .todo-list > li {
-	border-radius: 2px;
+	border-radius: 0;
 	padding: 10px;
 	background: #f4f4f4;
 	margin-bottom: 2px;
@@ -2083,7 +2083,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	width: 40px;
 	height: 40px;
 	border: 2px solid transparent;
-	border-radius: 50%;
+	border-radius: 0;
 }
 .chat .item > .online {
 	border: 2px solid #f1f1f1;
@@ -2100,7 +2100,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	font-weight: 600;
 }
 .chat .item > .attachment {
-	border-radius: 3px;
+	border-radius: 0;
 	background: #f4f4f4;
 	margin-left: 65px;
 	margin-right: 15px;
@@ -2142,7 +2142,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	background: #fff;
 	width: 100%;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-	border-radius: 2px;
+	border-radius: 0;
 	margin-bottom: 15px;
 }
 .info-box small {
@@ -2161,10 +2161,10 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	background: #fff;
 }
 .info-box-icon {
-	border-top-left-radius: 2px;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 2px;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
 	display: block;
 	float: left;
 	height: 90px;
@@ -2222,7 +2222,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	background: #ddd;
 	left: 31px;
 	margin: 0;
-	border-radius: 2px;
+	border-radius: 0;
 }
 .timeline > li {
 	position: relative;
@@ -2240,7 +2240,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 .timeline > li > .timeline-item {
 	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-	border-radius: 3px;
+	border-radius: 0;
 	margin-top: 0;
 	background: #fff;
 	color: #444;
@@ -2280,7 +2280,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	position: absolute;
 	color: #666;
 	background: #d2d6de;
-	border-radius: 50%;
+	border-radius: 0;
 	text-align: center;
 	left: 18px;
 	top: 0;
@@ -2290,7 +2290,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	padding: 5px;
 	display: inline-block;
 	background-color: #fff;
-	border-radius: 4px;
+	border-radius: 0;
 }
 .timeline-inverse > li > .timeline-item {
 	background: #f0f0f0;
@@ -2306,7 +2306,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 * -----------------
 */
 .btn {
-	border-radius: 3px;
+	border-radius: 0;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	border: 1px solid transparent;
@@ -2376,7 +2376,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	background-color: #1FBAD6;
     border-color: #1FBAD6;
     color: #3A4750;
-    border-radius: 50%;
+    border-radius: 0;
     height: 25px;
     width: auto;
     font-size: 11px;
@@ -2400,7 +2400,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 .btn-success {
 	background-color: #1FBAD6;
 	border-color: #1FBAD6;
-	border-radius: 5px;
+	border-radius: 0;
 	color: #020a0f;
 	font-size: 14px;
 }
@@ -2460,7 +2460,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.2);
 }
 .btn-app {
-	border-radius: 3px;
+	border-radius: 0;
 	position: relative;
 	padding: 15px 5px;
 	margin: 0 0 10px 10px;
@@ -2501,7 +2501,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 * ------------------
 */
 .callout {
-	border-radius: 3px;
+	border-radius: 0;
 	margin: 0 0 20px 0;
 	padding: 15px 30px 15px 15px;
 	border-left: 5px solid #eee;
@@ -2541,7 +2541,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 * ----------------
 */
 .alert {
-	border-radius: 20px;
+	border-radius: 0;
 }
 .alert h4 {
 	font-weight: 600;
@@ -2630,13 +2630,13 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	margin-bottom: 20px;
 	background: #fff;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-	border-radius: 3px;
+	border-radius: 0;
 }
 .nav-tabs-custom > .nav-tabs {
 	margin: 0;
 	border-bottom-color: #f4f4f4;
-	border-top-right-radius: 3px;
-	border-top-left-radius: 3px;
+	border-radius: 0;
+	border-radius: 0;
 }
 .nav-tabs-custom > .nav-tabs > li {
 	border-top: 3px solid transparent;
@@ -2712,8 +2712,8 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 .nav-tabs-custom > .tab-content {
 	background: #fff;
 	padding: 10px;
-	border-bottom-right-radius: 3px;
-	border-bottom-left-radius: 3px;
+	border-radius: 0;
+	border-radius: 0;
 }
 .nav-tabs-custom .dropdown.open > a:active,
 .nav-tabs-custom .dropdown.open > a:focus {
@@ -2742,7 +2742,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 .pagination > li > a {
 	background: #fafafa;
 	color: #02172d;
-	border-radius: 0px;
+	border-radius: 0;
 	margin: 0 2px;
 }
 .pagination > li > a:hover {
@@ -2774,7 +2774,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 	padding: 0;
 }
 .products-list > .item {
-	border-radius: 3px;
+	border-radius: 0;
 	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 	padding: 10px 0;
@@ -2842,7 +2842,7 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 }
 .table > thead > tr > th:first-child
 {
-	border-radius: 10px 0 0 10px;
+	border-radius: 0;
     padding-left: 15px;
 }
 .table > tbody > tr > td
@@ -2855,11 +2855,11 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 }
 .table > thead > tr > th:last-child
 {
-	border-radius: 0 10px 10px 0;
+	border-radius: 0;
 }
 .table thead {
     background: transparent;
-    border-radius: 10px;
+    border-radius: 0;
     padding: 0 10px;
 }
 .table tbody {
@@ -2916,8 +2916,8 @@ table.text-center th {
 * ----------------------
 */
 .direct-chat .box-body {
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
+	border-radius: 0;
+	border-radius: 0;
 	position: relative;
 	overflow-x: hidden;
 	padding: 0;
@@ -2960,7 +2960,7 @@ table.text-center th {
 	transition: transform 0.5s ease-in-out;
 }
 .direct-chat-text {
-	border-radius: 5px;
+	border-radius: 0;
 	position: relative;
 	padding: 5px 10px;
 	background: #d2d6de;
@@ -3000,7 +3000,7 @@ table.text-center th {
 	border-left-color: #d2d6de;
 }
 .direct-chat-img {
-	border-radius: 50%;
+	border-radius: 0;
 	float: left;
 	width: 40px;
 	height: 40px;
@@ -3056,7 +3056,7 @@ table.text-center th {
 	border-bottom: none;
 }
 .contacts-list-img {
-	border-radius: 50%;
+	border-radius: 0;
 	width: 40px;
 	float: left;
 }
@@ -3137,7 +3137,7 @@ table.text-center th {
 	text-align: center;
 }
 .users-list > li img {
-	border-radius: 50%;
+	border-radius: 0;
 	max-width: 100%;
 	height: auto;
 }
@@ -3184,7 +3184,7 @@ table.text-center th {
 	background: rgba(0, 0, 0, 0.3);
 }
 .modal-content {
-	border-radius: 10px;
+	border-radius: 0;
 	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
 	border: 0;
@@ -3233,8 +3233,8 @@ table.text-center th {
 .widget-user .widget-user-header {
 	padding: 20px;
 	height: 120px;
-	border-top-right-radius: 3px;
-	border-top-left-radius: 3px;
+	border-radius: 0;
+	border-radius: 0;
 }
 .widget-user .widget-user-username {
 	margin-top: 0;
@@ -3262,8 +3262,8 @@ table.text-center th {
 }
 .widget-user-2 .widget-user-header {
 	padding: 20px;
-	border-top-right-radius: 3px;
-	border-top-left-radius: 3px;
+	border-radius: 0;
+	border-radius: 0;
 }
 .widget-user-2 .widget-user-username {
 	margin-top: 5px;
@@ -3381,7 +3381,7 @@ table.text-center th {
 }
 /* Will contain the image and the sign in form */
 .lockscreen-item {
-	border-radius: 4px;
+	border-radius: 0;
 	padding: 0;
 	background: #fff;
 	position: relative;
@@ -3390,7 +3390,7 @@ table.text-center th {
 }
 /* User image */
 .lockscreen-image {
-	border-radius: 50%;
+	border-radius: 0;
 	position: absolute;
 	left: -10px;
 	top: -25px;
@@ -3399,7 +3399,7 @@ table.text-center th {
 	z-index: 10;
 }
 .lockscreen-image > img {
-	border-radius: 50%;
+	border-radius: 0;
 	width: 70px;
 	height: 70px;
 }
@@ -4240,7 +4240,7 @@ table.text-center th {
 	margin-bottom: 4px;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-	border-radius: 3px;
+	border-radius: 0;
 	cursor: move;
 }
 .external-event:hover {
@@ -4700,7 +4700,7 @@ table.text-center th {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8fc6ed', endColorstr='#39cccc', GradientType=0) !important;
 	color: #fff;
 	box-shadow: 0px 1px 41px #71717129;
-	border-radius: 10px;
+	border-radius: 0;
 	padding:15px;
 }
 .bg-light-blue-gradient {
@@ -4757,7 +4757,7 @@ table.text-center th {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1FBAD6', endColorstr='#f1f1f1', GradientType=0) !important;
 	color: #43425D;
 	box-shadow: 0px 1px 41px #71717129;
-	border-radius: 10px;
+	border-radius: 0;
 	padding:15px;
 }
 .bg-red-gradient {
@@ -5012,7 +5012,7 @@ table.text-center th {
 	background: #fff !important;
 	float:none;
 	box-shadow: 0px 1px 41px #71717129;
-    border-radius: 10px;
+    border-radius: 0;
     padding: 15px;
 }
 .recent_rides_table th
@@ -5135,7 +5135,7 @@ table.text-center th {
 
 .manual-booking section.content {
 	background: #fff;
-	border-radius: 4px;
+	border-radius: 0;
 	margin-top: 15px;
 	padding-top: 10px;
 }
@@ -5148,7 +5148,7 @@ table.text-center th {
 }
 
 .manual-booking .form-control {
-	border-radius: 4px;
+	border-radius: 0;
 	padding: 8px;
 	height: auto;
 }
@@ -5170,7 +5170,7 @@ table.text-center th {
 
 .manual-booking .location-form {
 	padding: 15px;
-	border-radius: 4px;
+	border-radius: 0;
 	border: 1px solid #ccc;
 }
 
@@ -5184,7 +5184,7 @@ table.text-center th {
 
 .manual-booking .map-route-option {
 	padding: 15px; 
-	border-radius: 4px;
+	border-radius: 0;
 	border: 1px solid #ccc;
 	position: relative;
 }
@@ -5206,7 +5206,7 @@ table.text-center th {
 .manual-notes {
 	padding: 15px; 
 	margin-top: 20px;
-	border-radius: 4px;
+	border-radius: 0;
 	border: 1px solid #ccc;
 	background: #ecf0f5;
 }
@@ -5244,7 +5244,7 @@ table.text-center th {
 	right: 15px;
 	top: 15px;
 	border: 1px solid #ccc;
-	border-radius: 4px;
+	border-radius: 0;
 }
 
 .driver_detail_popup h4 {
@@ -5341,7 +5341,7 @@ table.text-center th {
 	height: 14px !important;
 	background: #fff;
 	padding: 3px 4px 0;
-	border-radius: 4px;
+	border-radius: 0;
 	margin-right: 4px;
 }
 
@@ -5658,7 +5658,7 @@ span#show_date_time {
 	width: calc((100%/3) - 7px);
 	padding: 10px 5px;
 	border: none;
-	border-radius: 3px;
+	border-radius: 0;
 	box-shadow: none;
 	background: #fff;
 	box-shadow: 0 0 3px #ccc;
@@ -5716,7 +5716,7 @@ span#show_date_time {
 .login-box .register form input {
 	width: 100%;
 	height: 40px;
-	border-radius: 5px;
+	border-radius: 0;
 	box-shadow: none;
 	background: #fff;
 	padding: 10px;
@@ -5891,7 +5891,7 @@ span#show_date_time {
   z-index: 9;
   opacity: 0.9;
   filter: alpha(opacity=90);
-  border-radius: 10px;
+  border-radius: 0;
 }
 .cls_vehicle li {
     list-style-type: none;
@@ -5910,7 +5910,7 @@ span#show_date_time {
 	padding: 6px 12px !important;
 	border: 1px solid #C7C7C7;
 	font-size: medium;
-    border-radius: 5px !important;
+    border-radius: 0 !important;
     background-color: #fff;
 }
 .form-control:focus, .form-control:hover , .form-control:active
@@ -5921,7 +5921,7 @@ span#show_date_time {
 button.dt-button, div.dt-button, a.dt-button
 {
 	border: 1px solid #C7C7C7 !important;
-    border-radius: 10px !important;
+    border-radius: 0 !important;
     background: #fff !important;
 }
  a.dt-button:active:not(.disabled)
@@ -5962,7 +5962,7 @@ input[type=file]
 }
 .newdesign .box.box-info {
     background-color: transparent;
-    border-radius: 48px;
+    border-radius: 0;
     padding: 3em 10em;
     margin-top: 3em;
 }
@@ -5972,7 +5972,7 @@ input[type=file]
 }
 .box-footer .btn {
     padding: 6px 30px;
-    border-radius: 5px;
+    border-radius: 0;
     color: #03090e;
     font-size: large;
     margin-left: 10px;
@@ -6010,7 +6010,7 @@ input[type=file]
     top: 0;
     right: 15px;
     z-index: 9;
-    border-radius: 0px 10px 10px 0px !important;
+    border-radius: 0 !important;
     border-color: #1FBAD6 !important;
     background-color: #1FBAD6 !important;
     padding: 9px 12px !important;
@@ -6034,7 +6034,7 @@ input[type=file]
     border-color: #1FBAD6;
     height: 32px;
     width: 32px;
-    border-radius: 10px;
+    border-radius: 0;
     font-size: 18px;
     color: #3A4750;
 }
@@ -6071,7 +6071,7 @@ span.immediate_request.btn.btn-primary , span.btn.btn-primary.cancel_button{
     height: auto;
     width: auto;
     font-size: inherit;
-    border-radius: 10px;
+    border-radius: 0;
 }
 .table .btn-primary i.fa.fa-eye {
 	text-align: center;

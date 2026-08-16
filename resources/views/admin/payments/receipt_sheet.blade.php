@@ -4,7 +4,7 @@
     $currencySymbol = optional($result->currency)->symbol ?: optional($result->currency)->original_symbol ?: ($result->currency_code ?? '$');
     $printMode = $printMode ?? false;
 @endphp
-<div style="max-width:860px;margin:24px auto;background:var(--color-white);border:1px solid var(--color-as-e5e7eb);border-radius:24px;padding:28px;box-shadow:{{ $printMode ? 'none' : '0 20px 40px var(--color-as-rgba-0-0-0-0-08)' }};">
+<div style="max-width:860px;margin:24px auto;background:var(--color-white);border:1px solid var(--color-as-e5e7eb);border-radius: 0;padding:28px;box-shadow:{{ $printMode ? 'none' : '0 20px 40px var(--color-as-rgba-0-0-0-0-08)' }};">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:1px solid var(--color-as-edf2f7);padding-bottom:18px;">
         <div>
             <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-as-6366f1);font-weight:700;">Trip Receipt</div>
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div style="width:280px;background:var(--color-as-f8fafc);border:1px solid var(--color-as-e2e8f0);border-radius:20px;padding:18px;">
+        <div style="width:280px;background:var(--color-as-f8fafc);border:1px solid var(--color-as-e2e8f0);border-radius: 0;padding:18px;">
             <div style="font-weight:800;color:var(--color-as-0f172a);margin-bottom:12px;">Fare Breakdown</div>
             @foreach($invoice_data as $invoice)
                 <div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--color-as-e5e7eb);">

@@ -1,6 +1,6 @@
 :host {
   /*
-  --swiper-scrollbar-border-radius: 10px;
+  --swiper-scrollbar-border-radius: 0;
   --swiper-scrollbar-top: auto;
   --swiper-scrollbar-bottom: 4px;
   --swiper-scrollbar-left: auto;
@@ -12,7 +12,7 @@
   */
 }
 .swiper-scrollbar {
-  border-radius: var(--swiper-scrollbar-border-radius, 10px);
+  border-radius: 0;
   position: relative;
   touch-action: none;
   background: var(--swiper-scrollbar-bg-color, rgba(0, 0, 0, 0.1));
@@ -46,7 +46,7 @@
   width: 100%;
   position: relative;
   background: var(--swiper-scrollbar-drag-bg-color, rgba(0, 0, 0, 0.5));
-  border-radius: var(--swiper-scrollbar-border-radius, 10px);
+  border-radius: 0;
   left: 0;
   top: 0;
 }

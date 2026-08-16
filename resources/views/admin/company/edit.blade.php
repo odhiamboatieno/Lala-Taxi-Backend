@@ -20,7 +20,7 @@
             position: relative;
             overflow: hidden;
             border: 0;
-            border-radius: 28px;
+            border-radius: 0;
             box-shadow: var(--company-shadow);
             background:
                 radial-gradient(circle at top right, var(--color-as-rgba-255-255-255-0-18), transparent 28rem),
@@ -34,7 +34,7 @@
             inset: auto -8% -42% auto;
             width: 280px;
             height: 280px;
-            border-radius: 50%;
+            border-radius: 0;
             background: var(--color-as-rgba-255-255-255-0-08);
             pointer-events: none;
         }
@@ -55,7 +55,7 @@
         .company-avatar {
             width: 92px;
             height: 92px;
-            border-radius: 26px;
+            border-radius: 0;
             overflow: hidden;
             background: var(--color-as-rgba-255-255-255-0-14);
             border: 1px solid var(--color-as-rgba-255-255-255-0-18);
@@ -100,7 +100,7 @@
             align-items: center;
             gap: .45rem;
             padding: .48rem .8rem;
-            border-radius: 999px;
+            border-radius: 0;
             font-size: .84rem;
             font-weight: 700;
             background: var(--color-as-rgba-255-255-255-0-12);
@@ -119,7 +119,7 @@
         }
 
         .company-actions .btn {
-            border-radius: 999px;
+            border-radius: 0;
             padding-inline: 1rem;
             font-weight: 700;
         }
@@ -132,7 +132,7 @@
         }
 
         .company-stat {
-            border-radius: 22px;
+            border-radius: 0;
             padding: 1rem 1.05rem;
             background: var(--color-as-rgba-255-255-255-0-12);
             border: 1px solid var(--color-as-rgba-255-255-255-0-12);
@@ -154,7 +154,7 @@
 
         .company-panel {
             border: 0;
-            border-radius: 24px;
+            border-radius: 0;
             box-shadow: var(--company-shadow);
         }
 
@@ -169,7 +169,7 @@
         .company-tabs .nav-link {
             border: 0;
             white-space: nowrap;
-            border-radius: 999px;
+            border-radius: 0;
             color: var(--color-as-475569);
             font-weight: 700;
             padding: .72rem 1rem;
@@ -185,7 +185,7 @@
         .company-section-card {
             height: 100%;
             border: 1px solid var(--company-border);
-            border-radius: 22px;
+            border-radius: 0;
             background: var(--color-white);
             box-shadow: 0 12px 30px var(--color-as-rgba-15-23-42-0-04);
         }
@@ -220,7 +220,7 @@
 
         .summary-item {
             padding: 1rem;
-            border-radius: 18px;
+            border-radius: 0;
             background: var(--color-as-f8fafc);
             border: 1px solid var(--color-as-rgba-148-163-184-0-14);
         }
@@ -252,7 +252,7 @@
             align-items: flex-start;
             gap: .85rem;
             padding: 1rem;
-            border-radius: 18px;
+            border-radius: 0;
             text-decoration: none;
             background: var(--color-as-f8fafc);
             border: 1px solid var(--color-as-rgba-148-163-184-0-14);
@@ -269,7 +269,7 @@
         .quick-action-card__icon {
             width: 44px;
             height: 44px;
-            border-radius: 14px;
+            border-radius: 0;
             background: var(--company-primary-soft);
             color: var(--company-primary);
             display: flex;
@@ -295,7 +295,7 @@
 
         .company-doc-card {
             border: 1px solid var(--company-border);
-            border-radius: 22px;
+            border-radius: 0;
             background: var(--color-white);
             padding: 1rem;
             box-shadow: 0 10px 24px var(--color-as-rgba-15-23-42-0-04);
@@ -304,7 +304,7 @@
         .company-doc-card__preview {
             width: 100%;
             min-height: 180px;
-            border-radius: 16px;
+            border-radius: 0;
             background: var(--color-as-f8fafc);
             border: 1px dashed var(--color-as-rgba-148-163-184-0-32);
             display: flex;
@@ -331,7 +331,7 @@
             display: inline-flex;
             align-items: center;
             gap: .35rem;
-            border-radius: 999px;
+            border-radius: 0;
             padding: .42rem .72rem;
             font-size: .8rem;
             font-weight: 700;
@@ -353,7 +353,7 @@
         }
 
         .company-empty {
-            border-radius: 18px;
+            border-radius: 0;
             padding: 1rem;
             text-align: center;
             background: var(--color-as-f8fafc);
@@ -371,7 +371,7 @@
         .company-profile-upload__image {
             width: 110px;
             height: 110px;
-            border-radius: 28px;
+            border-radius: 0;
             overflow: hidden;
             background: var(--color-as-f8fafc);
             border: 1px solid var(--color-as-rgba-148-163-184-0-18);
@@ -385,7 +385,7 @@
         }
 
         .company-placeholder-panel {
-            border-radius: 18px;
+            border-radius: 0;
             padding: 1rem;
             background: linear-gradient(135deg, var(--color-as-rgba-15-118-110-0-08), var(--color-as-rgba-37-99-235-0-08));
             border: 1px solid var(--color-as-rgba-37-99-235-0-12);
@@ -402,7 +402,7 @@
             bottom: 1rem;
             z-index: 6;
             margin-top: 1.25rem;
-            border-radius: 22px;
+            border-radius: 0;
             padding: .95rem 1rem;
             background: var(--color-as-rgba-255-255-255-0-92);
             backdrop-filter: blur(12px);
@@ -449,7 +449,7 @@
             .company-avatar {
                 width: 76px;
                 height: 76px;
-                border-radius: 22px;
+                border-radius: 0;
             }
         }
     </style>

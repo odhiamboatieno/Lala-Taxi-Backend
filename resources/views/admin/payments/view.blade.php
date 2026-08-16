@@ -203,7 +203,7 @@
         justify-content: space-between;
         gap: 1rem;
         padding: 1.6rem 1.8rem;
-        border-radius: 28px;
+        border-radius: 0;
         background: linear-gradient(135deg, var(--color-as-182848) 0%, var(--color-as-4f46e5) 100%);
         color: var(--color-white);
         box-shadow: 0 22px 40px var(--color-as-rgba-41-55-117-0-18);
@@ -245,7 +245,7 @@
     .payment-card {
         background: var(--color-white);
         border: 1px solid var(--color-as-e6ebf4);
-        border-radius: 24px;
+        border-radius: 0;
         padding: 1.35rem;
         box-shadow: 0 12px 30px var(--color-as-rgba-19-35-78-0-06);
     }
@@ -270,7 +270,7 @@
         align-items: center;
         justify-content: center;
         padding: .35rem .8rem;
-        border-radius: 999px;
+        border-radius: 0;
         font-size: .75rem;
         font-weight: 800;
     }
@@ -282,7 +282,7 @@
     .payment-route-map {
         position: relative;
         min-height: 260px;
-        border-radius: 20px;
+        border-radius: 0;
         overflow: hidden;
         background: var(--color-as-f8fafc);
         border: 1px solid var(--color-as-e8eef7);
@@ -307,7 +307,7 @@
         align-items: flex-start;
         gap: .75rem;
         padding: .95rem 1rem;
-        border-radius: 18px;
+        border-radius: 0;
         background: var(--color-as-f8fafc);
     }
 
@@ -315,7 +315,7 @@
         width: 12px;
         height: 12px;
         margin-top: .3rem;
-        border-radius: 999px;
+        border-radius: 0;
         flex: 0 0 auto;
     }
 
@@ -385,7 +385,7 @@
 
     .payment-review-actions .btn,
     .payment-card--footer .btn {
-        border-radius: 14px;
+        border-radius: 0;
         min-height: 44px;
         font-weight: 700;
     }

@@ -113,7 +113,7 @@ color: #377037;
 	left: 0;
 	top: 0;
 	box-shadow: 2px 0px 1px rgba(0,0,0,.06);
-	border-top-left-radius: 4px;
+	border-radius: 0;
 }
 .ui-slider-left-arrow div{
 	background-image: url('images/leftArrow.png');
@@ -129,15 +129,15 @@ color: #377037;
 	cursor: default;
 }
 .ui-slider-tabs-list-wrapper.bottom .ui-slider-left-arrow{
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 4px;
+	border-radius: 0;
+	border-radius: 0;
 }
 
 .ui-slider-right-arrow{
 	top: 0;
 	right: 0;
 	box-shadow: -2px 0px 1px rgba(0,0,0,.06);
-	border-top-right-radius: 4px;
+	border-radius: 0;
 }
 .ui-slider-right-arrow div{
 	background-image: url('images/rightArrow.png');
@@ -153,8 +153,8 @@ color: #377037;
 	cursor: default;
 }
 .ui-slider-tabs-list-wrapper.bottom .ui-slider-right-arrow{
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 4px;
+	border-radius: 0;
+	border-radius: 0;
 }
 
 .ui-slider-tabs-indicator-container{

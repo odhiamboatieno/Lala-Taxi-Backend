@@ -28,7 +28,7 @@
 	.manual-booking-page .dispatch-console-header {
 		background: var(--color-white);
 		border: 1px solid var(--dispatch-border);
-		border-radius: 1rem;
+		border-radius: 0;
 		padding: 1.25rem 1.35rem;
 		color: var(--dispatch-dark);
 		box-shadow: var(--dispatch-shadow);
@@ -60,7 +60,7 @@
 		align-items: center;
 		gap: .45rem;
 		padding: .45rem .8rem;
-		border-radius: 999px;
+		border-radius: 0;
 		background: var(--color-as-e7f1ff);
 		color: var(--color-as-0d6efd);
 		font-size: .78rem;
@@ -79,7 +79,7 @@
 	.manual-booking-page .dispatch-metric {
 		background: var(--color-as-f8f9fa);
 		border: 1px solid var(--dispatch-border);
-		border-radius: .95rem;
+		border-radius: 0;
 		padding: .95rem 1rem;
 	}
 
@@ -115,7 +115,7 @@
 	.manual-booking-page .dispatch-panel-card {
 		background: var(--dispatch-surface);
 		border: 1px solid var(--color-as-rgba-148-163-184-0-18);
-		border-radius: 1rem;
+		border-radius: 0;
 		box-shadow: var(--dispatch-shadow);
 		overflow: hidden;
 		height: 100%;
@@ -150,7 +150,7 @@
 	.manual-booking-page .dispatch-block {
 		background: var(--dispatch-soft);
 		border: 1px solid var(--color-as-e2e8f0);
-		border-radius: .95rem;
+		border-radius: 0;
 		padding: .95rem;
 		margin-bottom: .9rem;
 	}
@@ -192,7 +192,7 @@
 	.manual-booking-page .change_field,
 	.manual-booking-page .bootstrap-select > .dropdown-toggle {
 		min-height: 40px;
-		border-radius: .75rem !important;
+		border-radius: 0 !important;
 		border-color: var(--color-as-ced7e2);
 		box-shadow: none;
 		font-size: .92rem;
@@ -223,7 +223,7 @@
 		align-items: center;
 		gap: .35rem;
 		padding: .42rem .7rem;
-		border-radius: 999px;
+		border-radius: 0;
 		font-size: .74rem;
 		font-weight: 800;
 		letter-spacing: .03em;
@@ -290,7 +290,7 @@
 	.manual-booking-page .dispatch-preferences {
 		padding: .7rem .8rem;
 		border: 1px dashed var(--color-as-cbd5e1);
-		border-radius: .75rem;
+		border-radius: 0;
 		background: var(--color-white);
 		color: var(--dispatch-muted);
 		font-size: .83rem;
@@ -299,7 +299,7 @@
 	.manual-booking-page .soft-panel {
 		background: var(--color-white);
 		border: 1px solid var(--color-as-dbe4ee);
-		border-radius: .85rem;
+		border-radius: 0;
 		padding: .85rem;
 	}
 
@@ -317,7 +317,7 @@
 		gap: .35rem;
 		min-height: 40px;
 		padding: 0 .9rem;
-		border-radius: .75rem;
+		border-radius: 0;
 		border: 1px solid var(--color-as-dbe4ee);
 		background: var(--color-white);
 		color: var(--color-as-334155);
@@ -342,7 +342,7 @@
 	}
 
 	.manual-booking-page .assigned_driver .col-md-12 {
-		border-radius: .85rem;
+		border-radius: 0;
 		padding: .9rem 1rem;
 	}
 
@@ -373,7 +373,7 @@
 	.manual-booking-page .dispatch-map-stat {
 		background: var(--dispatch-soft);
 		border: 1px solid var(--color-as-e2e8f0);
-		border-radius: .85rem;
+		border-radius: 0;
 		padding: .75rem .8rem;
 	}
 
@@ -403,7 +403,7 @@
 		padding: .95rem;
 		background: var(--color-white);
 		border: 1px solid var(--color-as-e2e8f0);
-		border-radius: .95rem;
+		border-radius: 0;
 	}
 
 	.manual-booking-page .dispatch-map-tabs {
@@ -415,7 +415,7 @@
 	.manual-booking-page .dispatch-map-tab {
 		border: 0;
 		padding: .45rem .75rem;
-		border-radius: 999px;
+		border-radius: 0;
 		background: var(--color-as-eef2f7);
 		color: var(--color-as-334155);
 		font-size: .78rem;
@@ -443,14 +443,14 @@
 		position: relative;
 		background: var(--color-white);
 		border: 1px solid var(--color-as-e2e8f0);
-		border-radius: .95rem;
+		border-radius: 0;
 		padding: .75rem;
 	}
 
 	.manual-booking-page #map {
 		width: 100%;
 		height: 560px;
-		border-radius: .85rem;
+		border-radius: 0;
 		background: var(--color-as-f8fafc);
 	}
 
@@ -470,7 +470,7 @@
 
 	.manual-booking-page .driver_detail_popup {
 		border: 1px solid var(--color-as-e2e8f0);
-		border-radius: .8rem;
+		border-radius: 0;
 		padding: 1rem;
 		box-shadow: 0 18px 50px var(--color-as-rgba-15-23-42-0-08);
 	}
@@ -487,7 +487,7 @@
 		gap: .55rem;
 		padding: .7rem .8rem;
 		border: 1px solid var(--color-as-e2e8f0);
-		border-radius: .8rem;
+		border-radius: 0;
 		background: var(--color-white);
 		font-size: .82rem;
 		font-weight: 700;
@@ -497,7 +497,7 @@
 	.manual-booking-page .dispatch-check-dot {
 		width: 10px;
 		height: 10px;
-		border-radius: 999px;
+		border-radius: 0;
 		background: var(--color-as-cbd5e1);
 		flex-shrink: 0;
 	}
@@ -512,14 +512,14 @@
 
 	.manual-booking-page .dispatch-driver-recommended {
 		padding: .95rem;
-		border-radius: .95rem;
+		border-radius: 0;
 		background: var(--color-as-f8f9fa);
 		border: 1px solid var(--dispatch-border);
 	}
 
 	.manual-booking-page .dispatch-driver-card {
 		padding: 0;
-		border-radius: .95rem;
+		border-radius: 0;
 		border: 1px solid var(--color-as-e2e8f0);
 		background: var(--color-white);
 		box-shadow: 0 10px 24px var(--color-as-rgba-15-23-42-0-04);
@@ -575,7 +575,7 @@
 	.manual-booking-page .dispatch-driver-avatar {
 		width: 64px;
 		height: 64px;
-		border-radius: .9rem;
+		border-radius: 0;
 		object-fit: cover;
 		background: var(--color-as-e2e8f0);
 	}
@@ -603,7 +603,7 @@
 
 	.manual-booking-page .dispatch-driver-actions .btn {
 		min-width: 112px;
-		border-radius: .75rem;
+		border-radius: 0;
 	}
 
 	.manual-booking-page .dispatch-driver-status {
@@ -611,7 +611,7 @@
 		align-items: center;
 		gap: .35rem;
 		padding: .32rem .55rem;
-		border-radius: 999px;
+		border-radius: 0;
 		font-size: .72rem;
 		font-weight: 800;
 	}
@@ -636,7 +636,7 @@
 	.manual-booking-page .fare-table {
 		background: var(--color-white);
 		border: 1px solid var(--color-as-e2e8f0);
-		border-radius: .95rem;
+		border-radius: 0;
 		padding: 1rem 1.05rem;
 	}
 
@@ -669,7 +669,7 @@
 		gap: .3rem;
 		margin-bottom: .75rem;
 		padding: .35rem .6rem;
-		border-radius: 999px;
+		border-radius: 0;
 		background: var(--color-as-fff3cd);
 		color: var(--color-as-856404);
 		font-size: .72rem;
@@ -679,7 +679,7 @@
 	.manual-booking-page .dispatch-total-fare {
 		margin-top: .8rem;
 		padding: .95rem 1rem;
-		border-radius: .95rem;
+		border-radius: 0;
 		background: var(--color-as-f8f9fa);
 		border: 1px solid var(--dispatch-border);
 	}
@@ -703,7 +703,7 @@
 
 	.manual-booking-page .dispatch-validation-area {
 		padding: .75rem .85rem;
-		border-radius: .85rem;
+		border-radius: 0;
 		border: 1px dashed var(--color-as-f5c2c7);
 		background: var(--color-as-f8d7da);
 		color: var(--color-as-842029);
@@ -724,7 +724,7 @@
 		justify-content: space-between;
 		gap: .8rem;
 		padding: .9rem 1rem;
-		border-radius: 1rem;
+		border-radius: 0;
 		background: var(--color-white);
 		color: var(--dispatch-dark);
 		border: 1px solid var(--dispatch-border);
@@ -763,7 +763,7 @@
 
 	.manual-booking-page .dispatch-sticky-bar .btn {
 		min-width: 136px;
-		border-radius: .8rem;
+		border-radius: 0;
 	}
 
 	.manual-booking-page .dispatch-sticky-bar .btn-primary {
@@ -785,7 +785,7 @@
 
 	.manual-booking-page .dispatch-queue-panel .nav-link {
 		border: 1px solid var(--color-as-dbe4ee);
-		border-radius: 999px;
+		border-radius: 0;
 		color: var(--color-as-334155);
 		font-size: .78rem;
 		font-weight: 800;
@@ -808,7 +808,7 @@
 	.manual-booking-page .dispatch-queue-empty {
 		padding: 1.1rem;
 		border: 1px dashed var(--color-as-cbd5e1);
-		border-radius: .95rem;
+		border-radius: 0;
 		background: var(--color-as-f8fafc);
 		color: var(--dispatch-muted);
 		text-align: center;
@@ -858,12 +858,12 @@
 	}
 
 	.manual-booking-page .dispatch-form-alert {
-		border-radius: .9rem;
+		border-radius: 0;
 	}
 
 	.loader {
 		border: 2px solid var(--color-as-f3f3f3);
-		border-radius: 50%;
+		border-radius: 0;
 		border-top: 2px solid var(--color-as-0d6efd);
 		border-bottom: 2px solid var(--color-as-0d6efd);
 		width: 20px;

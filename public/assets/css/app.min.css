@@ -2221,7 +2221,7 @@ File: Main Css File
   color: #878787;
   font-size: 1rem;
   padding: 0;
-  border-radius: 50%;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2242,7 +2242,7 @@ File: Main Css File
   border-color: var(--pe-body-bg);
   font-size: 1.0625rem;
   padding: 2px;
-  border-radius: 20rem;
+  border-radius: 0;
   display: flex;
   align-items: center;
 }
@@ -2298,7 +2298,7 @@ File: Main Css File
 .dropdown-menu.dropdown-mega-md,
 .dropdown-menu,
 .dropdown-mega-sm) .dropdown-item {
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 .app-header .pe-dropdown-mega .header-dropdown-menu {
   top: 24px !important;
@@ -2491,7 +2491,7 @@ File: Main Css File
   left: 30px;
   height: 5px;
   width: 5px;
-  border-radius: 50%;
+  border-radius: 0;
   background-color: var(--pe-app-sidebar-border-color);
 }
 .pe-app-sidebar .pe-app-sidebar-menu .pe-slide-menu .pe-nav-content1,
@@ -2643,7 +2643,7 @@ File: Main Css File
     left: 0;
     width: 11.7rem;
     background: var(--pe-app-sidebar-bg);
-    border-radius: var(--pe-border-radius);
+    border-radius: 0;
     box-shadow: var(--pe-box-shadow-sm);
     list-style: none;
   }
@@ -2723,11 +2723,11 @@ File: Main Css File
 [data-layout=semibox] .pe-app-sidebar {
   margin: var(--pe-semibox-width);
   border-right: 0;
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
 }
 [data-layout=semibox] .app-header {
   border-bottom: 0;
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
   top: var(--pe-semibox-width);
   right: var(--pe-semibox-width);
   left: var(--pe-semibox-width);
@@ -2769,7 +2769,7 @@ File: Main Css File
 [data-layout=semibox] .footer {
   margin-inline-start: var(--pe-semibox-width);
   margin-inline-end: var(--pe-semibox-width);
-  border-radius: var(--pe-border-radius) var(--pe-border-radius) 0 0;
+  border-radius: 0;
 }
 @media (min-width: 992px) {
   [data-layout=semibox] .footer {
@@ -2894,7 +2894,7 @@ File: Main Css File
   left: var(--pe-app-sidebar-sm-width);
   width: 11.7rem;
   background: var(--pe-app-sidebar-bg);
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
   box-shadow: var(--pe-box-shadow-sm);
   list-style: none;
 }
@@ -3157,17 +3157,17 @@ File: Main Css File
 
 .accordion-border-box .accordion-item {
   border-top: var(--pe-border-width) solid var(--pe-border-color);
-  border-radius: var(--pe-border-radius-sm);
+  border-radius: 0;
 }
 .accordion-border-box .accordion-item:not(:first-of-type) {
   margin-top: 8px;
 }
 .accordion-border-box .accordion-item .accordion-button {
-  border-radius: var(--pe-border-radius-sm);
+  border-radius: 0;
 }
 .accordion-border-box .accordion-item .accordion-button:not(.collapsed) {
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
 }
 
 .alert hr {
@@ -3203,10 +3203,10 @@ File: Main Css File
   justify-content: center;
   border: 2px solid var(--pe-secondary-bg);
   position: relative;
-  border-radius: 50%;
+  border-radius: 0;
 }
 .avatar-item img {
-  border-radius: 50%;
+  border-radius: 0;
   overflow: hidden;
   -o-object-fit: cover;
      object-fit: cover;
@@ -3220,7 +3220,7 @@ File: Main Css File
   height: 18px;
   font-size: 0.5rem;
   border: 2px solid #fff;
-  border-radius: 50%;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3232,8 +3232,8 @@ File: Main Css File
   content: "";
   width: 10px;
   height: 10px;
-  border-radius: 50%;
-  border-radius: 50%;
+  border-radius: 0;
+  border-radius: 0;
   inset-inline-end: 0;
   inset-block-end: 0;
   border: 2px solid #fff;
@@ -3362,7 +3362,7 @@ File: Main Css File
   --pe-breadcrumb-divider-color: var(--pe-white);
   --pe-breadcrumb-item-active-color: var(--pe-white);
   padding: 12px 16px;
-  border-radius: 4px;
+  border-radius: 0;
 }
 .colored-breadcrumb .breadcrumb-item > a {
   color: var(--pe-white);
@@ -3488,7 +3488,7 @@ File: Main Css File
 }
 
 .carousel .carousel-indicators-dots button {
-  border-radius: 50%;
+  border-radius: 0;
   background-color: transparent !important;
   height: 12px;
   width: 12px;
@@ -3500,7 +3500,7 @@ File: Main Css File
 }
 .carousel .carousel-indicators-dots button:after {
   content: " ";
-  border-radius: 100%;
+  border-radius: 0;
   background-color: var(--pe-gray-300);
   height: 10px;
   width: 10px;
@@ -3516,7 +3516,7 @@ File: Main Css File
 .carousel .carousel-indicators-bullet button {
   background-color: transparent !important;
   transition: all 0.2s ease-in-out;
-  border-radius: 6px;
+  border-radius: 0;
   height: 10px;
   width: 10px;
   display: flex;
@@ -3534,7 +3534,7 @@ File: Main Css File
   content: " ";
   background-color: var(--pe-gray-300);
   transition: all 0.2s ease-in-out;
-  border-radius: 6px;
+  border-radius: 0;
   height: 10px;
   width: 10px;
 }
@@ -3689,7 +3689,7 @@ File: Main Css File
 .dropdown-menu .dropdown-item {
   display: flex;
   align-items: center;
-  border-radius: var(--pe-dropdown-border-radius);
+  border-radius: 0;
   line-height: 1.5;
 }
 .dropdown-menu .dropdown-item i {
@@ -3720,7 +3720,7 @@ File: Main Css File
   border-inline-start: 5px solid;
   position: relative;
   padding: 1rem;
-  border-radius: 0.3125rem;
+  border-radius: 0;
   background-color: var(--pe-blockquote-bg);
   border-color: var(--pe-blockquote-border, var(--pe-border-color));
 }
@@ -3939,7 +3939,7 @@ File: Main Css File
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 0.625rem;
+  border-radius: 0;
   border: 2px solid transparent;
 }
 .main-img-checkbox input:checked + .form-check-label img {
@@ -3950,7 +3950,7 @@ File: Main Css File
   border: 0;
   background: var(--pe-tertiary-bg);
   box-shadow: none;
-  border-radius: 1rem;
+  border-radius: 0;
 }
 .noUi-target .noUi-handle {
   background: var(--pe-primary);
@@ -3991,7 +3991,7 @@ File: Main Css File
   bottom: -0.5rem;
 }
 .noUi-target .noUi-connects {
-  border-radius: 1rem;
+  border-radius: 0;
 }
 .noUi-target .noUi-connect {
   background: var(--pe-primary);
@@ -4003,10 +4003,10 @@ File: Main Css File
   display: none;
 }
 .noUi-target.no-handle-rounded .noUi-handle {
-  border-radius: 50%;
+  border-radius: 0;
 }
 .noUi-target.no-handle-square .noUi-handle {
-  border-radius: 0%;
+  border-radius: 0;
 }
 
 .large-slider.noUi-horizontal {
@@ -4044,7 +4044,7 @@ File: Main Css File
   color: var(--pe-tooltip-color);
   font-size: 0.765625rem;
   padding: 0.4rem 0.75rem;
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
   background-color: var(--pe-body-bg);
   border: 1px solid var(--pe-border-color);
 }
@@ -4076,7 +4076,7 @@ File: Main Css File
 
 .dropzone {
   border: 1px dashed var(--pe-border-color);
-  border-radius: 0.3125rem;
+  border-radius: 0;
   background-color: rgba(var(--pe-light-bg-subtle), 0.8);
   width: 100%;
   padding: 0;
@@ -4107,7 +4107,7 @@ File: Main Css File
   border: 1px solid var(--pe-border-color);
   background: var(--pe-secondary-bg);
   color: var(--pe-body-color);
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
   width: 85px;
   height: 34px;
   padding: 3px;
@@ -4125,7 +4125,7 @@ File: Main Css File
   background: var(--pe-light);
   color: var(--pe-body-color);
   border: none;
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
 }
 .qty-input button:hover {
   opacity: 0.9;
@@ -4138,12 +4138,12 @@ File: Main Css File
   border-radius: 0;
 }
 .qty-input-rounded button.qty-input-plus {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
 }
 .qty-input-rounded button.qty-input-minus {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
 }
 
 .qty-input-primary button {
@@ -4285,7 +4285,7 @@ File: Main Css File
 .bullet {
   display: inline-block;
   background-color: var(--pe-primary);
-  border-radius: 6px;
+  border-radius: 0;
   width: 7px;
   height: 7px;
 }
@@ -4325,7 +4325,7 @@ File: Main Css File
   position: relative;
   overflow: hidden;
   border: 1px dashed var(--pe-border-color);
-  border-radius: 0.625rem;
+  border-radius: 0;
 }
 .custom-verti-nav-pills .nav-link::after {
   content: "";
@@ -4562,7 +4562,7 @@ File: Main Css File
 }
 
 .pagination-rounded .page-link {
-  border-radius: 50rem;
+  border-radius: 0;
 }
 
 .progress {
@@ -4669,7 +4669,7 @@ File: Main Css File
 .placeholder-body .placeholder-start.circle {
   width: 60px;
   height: 60px;
-  border-radius: 50rem;
+  border-radius: 0;
   overflow: hidden;
 }
 .placeholder-body .placeholder-end {
@@ -4856,7 +4856,7 @@ File: Main Css File
   background: var(--pe-ribbon-bg);
   box-shadow: rgba(222, 226, 230, 0.4) 0 0 15px 4px;
   left: 0;
-  border-radius: 0 0.3125rem 0.3125rem 0;
+  border-radius: 0;
 }
 .ribbon .ribbon1::before, .ribbon .ribbon1::after {
   content: "";
@@ -4869,7 +4869,7 @@ File: Main Css File
   left: -6.5px;
   padding: 0 0 7px;
   background: inherit;
-  border-radius: 0.3125rem 0 0 0.3125rem;
+  border-radius: 0;
 }
 .ribbon .ribbon1:after {
   width: 5px;
@@ -4877,7 +4877,7 @@ File: Main Css File
   bottom: -5px;
   left: -4.5px;
   background: var(--pe-ribbon-sub-bg);
-  border-radius: 0.3125rem 0 0 0.3125rem;
+  border-radius: 0;
 }
 .ribbon .ribbon2 {
   position: absolute;
@@ -4908,23 +4908,23 @@ File: Main Css File
   justify-content: center;
   color: var(--pe-ribbon-color);
   background-color: var(--pe-ribbon-bg);
-  border-radius: 50rem;
+  border-radius: 0;
   font-size: 13px;
 }
 .ribbon.right .ribbon1 {
   right: 0;
   left: auto;
-  border-radius: 0.3125rem 0 0 0.3125rem;
+  border-radius: 0;
 }
 .ribbon.right .ribbon1:before {
   left: auto;
   right: -6.5px;
-  border-radius: 0 0.3125rem 0.3125rem 0;
+  border-radius: 0;
 }
 .ribbon.right .ribbon1:after {
   left: auto;
   right: -4.5px;
-  border-radius: 0 0.3125rem 0.3125rem 0;
+  border-radius: 0;
 }
 .ribbon.right .ribbon2 {
   right: -3px;
@@ -4952,7 +4952,7 @@ File: Main Css File
 .progress-wrap {
   right: 25px;
   bottom: 25px;
-  border-radius: 50rem;
+  border-radius: 0;
   -webkit-backdrop-filter: blur(6px);
           backdrop-filter: blur(6px);
   background: rgba(var(--pe-body-bg-rgb), 0.5);
@@ -5004,7 +5004,7 @@ File: Main Css File
   color: var(--pe-body-color);
   background-color: var(--pe-secondary-bg);
   padding: 10px 16px;
-  border-radius: 0.3125rem;
+  border-radius: 0;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -5040,7 +5040,7 @@ File: Main Css File
   color: #fff;
   display: inline-block;
   padding: 8px 14px;
-  border-radius: 0.3125rem;
+  border-radius: 0;
   position: relative;
 }
 .sitemap-wrapper .sitemap-wrapper-ul {
@@ -5134,7 +5134,7 @@ File: Main Css File
   box-sizing: content-box;
   color: var(--pe-primary);
   background-color: currentColor;
-  border-radius: 50%;
+  border-radius: 0;
   z-index: 500;
 }
 .horizontal.timeline3 .steps .step:first-child {
@@ -5160,7 +5160,7 @@ File: Main Css File
   transform: translate(-50%, -50%);
   padding: 1em;
   background-color: currentColor;
-  border-radius: 50%;
+  border-radius: 0;
   opacity: 0;
   z-index: -1;
   animation-name: animation-timeline-current;
@@ -5183,7 +5183,7 @@ File: Main Css File
   }
 }
 .logistics-service {
-  border-radius: 0.4375rem;
+  border-radius: 0;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
@@ -5222,7 +5222,7 @@ File: Main Css File
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 100%;
+  border-radius: 0;
 }
 .day-item.active {
   color: #fff;
@@ -5303,7 +5303,7 @@ File: Main Css File
 .swal2-container .swal2-popup {
   background-color: var(--pe-secondary-bg);
   padding: 1rem 2rem;
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
 }
 .swal2-container .swal2-popup .swal2-html-container,
 .swal2-container .swal2-popup .swal2-content {
@@ -5429,7 +5429,7 @@ File: Main Css File
   background-color: var(--pe-secondary-bg);
   padding: 0.5rem 0.9rem;
   border-color: var(--pe-border-color);
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
   font-size: 0.875rem;
   min-height: auto;
 }
@@ -5485,7 +5485,7 @@ File: Main Css File
 .choices .choices__list.choices__list--dropdown {
   border-color: var(--pe-border-color);
   box-shadow: 0 4px 24px 0 rgba(62, 57, 107, 0.18);
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 .choices .choices__list[aria-expanded] {
   border-color: var(--pe-border-color);
@@ -5495,7 +5495,7 @@ File: Main Css File
   padding: 0.5rem 0.5rem;
 }
 .choices .choices__list[aria-expanded] .choices__list .choices__item {
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
   padding: 0.5rem 1rem;
 }
 .choices .choices__list[aria-expanded] .choices__list .choices__item.is-highlighted {
@@ -5599,7 +5599,7 @@ File: Main Css File
   height: 10px !important;
   width: 10px !important;
   stroke: none;
-  border-radius: 50rem;
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -5698,7 +5698,7 @@ body .apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
   color: var(--pe-secondary-color);
   background-color: transparent;
   border: var(--pe-border-width) solid var(--pe-border-color);
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 .listjs-pagination li.active .page {
   color: #fff;
@@ -5713,7 +5713,7 @@ body .apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
   padding: 0.35rem 0.75rem;
   background-color: transparent;
   border: var(--pe-border-width) solid var(--pe-border-color);
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 .pagination-next:hover,
 .pagination-prev:hover {
@@ -5784,8 +5784,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 }
 .ql-toolbar.ql-snow {
   border: 1px solid var(--pe-border-color);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-radius: 0;
+  border-radius: 0;
 }
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
   border-color: transparent;
@@ -5796,7 +5796,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   box-shadow: var(--pe-box-shadow);
   color: var(--pe-body-color);
   padding: 0.5rem 1rem;
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
   margin-top: 8px;
 }
 .ql-toolbar.ql-snow button .ql-stroke {
@@ -5820,8 +5820,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   background-color: var(--pe-input-bg-custom);
   border: 1px solid var(--pe-border-color);
   border-top: 0;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-radius: 0;
+  border-radius: 0;
 }
 .ql-container.ql-snow .ql-picker .ql-picker-label.ql-active, .ql-container.ql-snow .ql-picker .ql-picker-label:hover {
   color: var(--pe-primary);
@@ -5836,7 +5836,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 }
 .ql-container.ql-bubble {
   border: var(--pe-border-width) solid var(--pe-border-color);
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
 }
 
 .ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
@@ -5853,7 +5853,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   box-shadow: var(--pe-box-shadow);
   color: var(--pe-body-color);
   padding: 0.5rem 0.9rem;
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
 }
 .ql-snow .ql-tooltip input[type=text] {
   padding: 0.5rem 0.9rem;
@@ -5865,7 +5865,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   padding: 0.5rem 0.5rem;
   box-shadow: var(--pe-box-shadow);
   background-color: var(--pe-secondary-bg);
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 
 body {
@@ -5917,7 +5917,7 @@ body {
 .fc .fc-button {
   padding: 0.25rem 0.5rem;
   box-shadow: none !important;
-  border-radius: var(--pe-border-radius-sm);
+  border-radius: 0;
   vertical-align: middle;
   font-weight: 500;
   text-transform: capitalize;
@@ -5980,19 +5980,19 @@ body {
   }
 }
 .fc .fc-scrollgrid {
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 .fc .fc-scrollgrid thead > tr td:first-child {
-  border-top-left-radius: 0.3125rem;
+  border-radius: 0;
 }
 .fc .fc-scrollgrid thead > tr td:last-child {
-  border-top-right-radius: 0.3125rem;
+  border-radius: 0;
 }
 .fc .fc-scrollgrid tbody > tr:last-child td:first-child {
-  border-bottom-left-radius: 0.3125rem;
+  border-radius: 0;
 }
 .fc .fc-scrollgrid tbody > tr:last-child td:last-child {
-  border-bottom-right-radius: 0.3125rem;
+  border-radius: 0;
 }
 .fc .fc-daygrid-event {
   margin-top: 3px;
@@ -6021,7 +6021,7 @@ body {
   font-weight: 600;
   color: var(--pe-primary);
   border: 1px solid var(--pe-primary);
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
 }
 @media (max-width: 767.98px) {
   .fc .fc-more-link {
@@ -6283,7 +6283,7 @@ body {
 }
 
 .fc-event {
-  border-radius: 0.4375rem;
+  border-radius: 0;
   font-size: 0.8125rem;
   font-weight: 600;
   padding: 3px 5px;
@@ -6305,11 +6305,11 @@ body {
   border: 0 !important;
   background-color: var(--pe-secondary-bg);
   box-shadow: 0 0.25rem 1.125rem 0 rgba(47, 43, 61, 0.1);
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
 }
 .fc-theme-standard .fc-popover .fc-popover-header {
-  border-top-left-radius: var(--pe-border-radius);
-  border-top-right-radius: var(--pe-border-radius);
+  border-radius: 0;
+  border-radius: 0;
   padding: 0.65rem 0.75rem;
   background-color: #e9ecef;
 }
@@ -6328,7 +6328,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.4375rem;
+  border-radius: 0;
 }
 .fc-theme-standard .fc-popover .fc-popover-header .fc-popover-close:hover {
   color: var(--pe-primary);
@@ -6341,7 +6341,7 @@ body {
 
 .fc-scrollgrid {
   border: 1px solid var(--pe-border-color) !important;
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 
 .fc-theme-standard td,
@@ -6364,7 +6364,7 @@ body {
 .gridjs-container .gridjs-wrapper {
   box-shadow: none;
   border: 1px solid var(--pe-border-color);
-  border-radius: 0px;
+  border-radius: 0;
 }
 .gridjs-container .gridjs-footer {
   border: none;
@@ -6398,7 +6398,7 @@ th.gridjs-th {
 }
 .gridjs-pagination .gridjs-pages button {
   margin-left: 0.3rem;
-  border-radius: 0.3125rem !important;
+  border-radius: 0 !important;
   border: 1px solid var(--pe-border-color);
   background-color: transparent;
   color: var(--pe-secondary-color);
@@ -6451,7 +6451,7 @@ input.gridjs-input {
   color: var(--pe-body-color);
   line-height: 1.5;
   padding: 0.5rem 0.9rem 0.5rem 2.025rem;
-  border-radius: var(--pe-border-radius);
+  border-radius: 0;
   font-size: 0.875rem;
 }
 input.gridjs-input:focus {
@@ -6515,7 +6515,7 @@ button.gridjs-sort-asc, button.gridjs-sort-desc {
   }
 }
 .gridjs-td .gridjs-checkbox[type=checkbox] {
-  border-radius: 0.35em;
+  border-radius: 0;
 }
 
 .gridjs-loading-bar {
@@ -6545,7 +6545,7 @@ th.gridjs-th-sort:hover {
   position: relative;
   color: #6c757d;
   transition: all 0.2s ease-in-out;
-  border-radius: 8px;
+  border-radius: 0;
 }
 @media (prefers-reduced-motion: reduce) {
   .icon-list .icon-box {
@@ -6628,7 +6628,7 @@ th.gridjs-th-sort:hover {
   background-color: rgba(233, 236, 239, 0.3);
   -webkit-backdrop-filter: blur(2px);
           backdrop-filter: blur(2px);
-  border-radius: 100px;
+  border-radius: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .swiper-button-next::after,
@@ -6749,7 +6749,7 @@ th.gridjs-th-sort:hover {
   grid-area: avatar;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 0;
   overflow: hidden;
   background: #EEE;
   transition: 0.1s ease-out;
@@ -6784,7 +6784,7 @@ th.gridjs-th-sort:hover {
   justify-self: self-end;
   font-size: 0.8em;
   padding: 0.2em 0.3em;
-  border-radius: 3px;
+  border-radius: 0;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -6810,7 +6810,7 @@ th.gridjs-th-sort:hover {
   width: 20px;
   height: 20px;
   white-space: normal;
-  border-radius: 50%;
+  border-radius: 0;
   background: silver;
   margin-right: 5px;
   transition: 0.12s ease-out;
@@ -6827,7 +6827,7 @@ th.gridjs-th-sort:hover {
   padding: 4px 6px;
   margin: var(--tagify-dd-item-pad);
   font-style: italic;
-  border-radius: 4px;
+  border-radius: 0;
   background: #00ce8d;
   color: white;
   font-weight: 600;
@@ -6875,10 +6875,10 @@ th.gridjs-th-sort:hover {
   margin: 0;
   line-height: 1;
   border: 1px solid var(--pe-primary);
-  border-radius: 50rem;
+  border-radius: 0;
 }
 .tagify .tagify__tag div {
-  border-radius: inherit;
+  border-radius: 0;
   padding: 0;
   align-items: center;
 }
@@ -6962,11 +6962,11 @@ th.gridjs-th-sort:hover {
   padding: 0.75rem 0;
   z-index: 1000;
   background-color: var(--pe-body-bg);
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 .tagify__dropdown ._wrapper {
   max-height: none;
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 .modal-open .tagify__dropdown {
   z-index: 1056;
@@ -6999,7 +6999,7 @@ th.gridjs-th-sort:hover {
   margin: 0.25rem 0.5rem 0.25rem 0;
   background-color: var(--pe-gray-200);
   color: var(--pe-gray-700);
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 .tagify__dropdown.tagify__inline__suggestions .tagify__dropdown__item:hover, .tagify__dropdown.tagify__inline__suggestions .tagify__dropdown__item.tagify__dropdown__item--active {
   background-color: var(--pe-component-hover-bg);
@@ -7119,7 +7119,7 @@ pre[class*=language-] > code {
   border: 1px solid var(--pe-border-color);
   background-color: var(--pe-body-bg);
   box-shadow: none;
-  border-radius: 8px;
+  border-radius: 0;
   padding: 16px;
 }
 
@@ -7177,7 +7177,7 @@ code[class*=language-] {
   height: 15px;
   margin-top: -8px;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 0;
   border: 4px solid var(--pe-primary);
   z-index: 10;
 }
@@ -7204,7 +7204,7 @@ code[class*=language-] {
   height: 25px;
   margin-top: -13px;
   background: #fff;
-  border-radius: 20px;
+  border-radius: 0;
   border: 5px solid #f37334;
   z-index: 10;
 }
@@ -7223,7 +7223,7 @@ code[class*=language-] {
   height: 15px;
   margin-top: -8px;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 0;
   border: 4px solid #f37334;
   z-index: 10;
 }
@@ -7299,7 +7299,7 @@ code[class*=language-] {
   margin-bottom: 20px;
   padding: 0px 10px;
   position: relative;
-  border-radius: 5px;
+  border-radius: 0;
   box-sizing: border-box;
 }
 .timeline2 ul .box:last-child {
@@ -7319,7 +7319,7 @@ code[class*=language-] {
   border: 2px solid var(--pe-body-bg);
   background: var(--pe-primary);
   outline: 1px solid rgba(var(--pe-primary-rgb), 0.5);
-  border-radius: 100%;
+  border-radius: 0;
 }
 .timeline2 ul .title {
   font-weight: 700;
@@ -7346,7 +7346,7 @@ code[class*=language-] {
 
 .gallery-card-body {
   position: relative;
-  border-radius: 0.5rem;
+  border-radius: 0;
   overflow: hidden;
 }
 .gallery-card-body::before {
@@ -7379,7 +7379,7 @@ code[class*=language-] {
 .gallery .gallery-card .gallery-body {
   position: relative;
   overflow: hidden;
-  border-radius: 0.5rem;
+  border-radius: 0;
 }
 .gallery .gallery-card .gallery-body:hover .card-bottom {
   opacity: 100;
@@ -7420,7 +7420,7 @@ code[class*=language-] {
   color: #fff;
   display: inline-block;
   padding: 8px 14px;
-  border-radius: 0.3125rem;
+  border-radius: 0;
   position: relative;
 }
 .sitemap-wrapper .sitemap-wrapper-ul {
@@ -7500,7 +7500,7 @@ code[class*=language-] {
   position: relative;
   overflow: hidden;
   background-color: var(--pe-secondary-bg);
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 .chat-wrapper .app-chat-sidebar {
   background-color: var(--pe-secondary-bg);
@@ -7549,7 +7549,7 @@ code[class*=language-] {
   width: 0.75rem;
   background-color: var(--pe-success);
   border: 2px solid var(--pe-secondary-bg);
-  border-radius: 100%;
+  border-radius: 0;
   position: absolute;
   bottom: 0;
   right: 0;
@@ -7595,7 +7595,7 @@ code[class*=language-] {
   padding: 10px 14px;
   background-color: var(--pe-light-bg-subtle);
   position: relative;
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 .chat-wrapper .chat-conversation .chat-conversation-list .chat-list .conversation-list .ctext-wrap .ctext-wrap-content .ctext-content {
   word-wrap: break-word;
@@ -7608,7 +7608,7 @@ code[class*=language-] {
   align-items: center;
 }
 .chat-wrapper .chat-conversation .chat-conversation-list .chat-list .conversation-list .message-img {
-  border-radius: 0.2rem;
+  border-radius: 0;
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -7644,7 +7644,7 @@ code[class*=language-] {
   position: relative;
   overflow: hidden;
   background-color: var(--pe-secondary-bg);
-  border-radius: 0.3125rem;
+  border-radius: 0;
 }
 .mail-wrapper .mail-sidebar {
   width: 350px;
@@ -7672,7 +7672,7 @@ code[class*=language-] {
 }
 .mail-wrapper .mail-sidebar .email-menu-sidebar-scroll .mail-list a {
   padding: 10px 12px;
-  border-radius: 0.3125rem;
+  border-radius: 0;
   transition: all 0.2s ease-in-out;
 }
 .mail-wrapper .mail-sidebar .email-menu-sidebar-scroll .mail-list a.active, .mail-wrapper .mail-sidebar .email-menu-sidebar-scroll .mail-list a:hover {
@@ -7710,7 +7710,7 @@ code[class*=language-] {
   gap: 20px;
   padding: 16px;
   border: 1px solid var(--pe-border-color);
-  border-radius: 7px;
+  border-radius: 0;
   cursor: pointer;
 }
 .mail-wrapper .mail-preview .attachment:hover {
@@ -7745,14 +7745,14 @@ code[class*=language-] {
   position: relative;
   height: 5px;
   background: var(--pe-body-bg);
-  border-radius: 5px;
+  border-radius: 0;
 }
 .filter-accordion .slider .progress {
   height: 100%;
   left: 25%;
   right: 25%;
   position: absolute;
-  border-radius: 5px;
+  border-radius: 0;
   background: #f37334;
 }
 .filter-accordion .range-input input {
@@ -7767,7 +7767,7 @@ code[class*=language-] {
 .filter-accordion .range-input input[type=range]::-webkit-slider-thumb {
   height: 17px;
   width: 17px;
-  border-radius: 50%;
+  border-radius: 0;
   background: #f37334;
   pointer-events: auto;
   -webkit-appearance: none;
@@ -7868,7 +7868,7 @@ code[class*=language-] {
 }
 .address-content.selected {
   border: 1px solid #f37334 !important;
-  border-radius: 6px;
+  border-radius: 0;
 }
 
 /*# sourceMappingURL=app.min.css.map*/

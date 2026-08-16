@@ -25,7 +25,7 @@
     #map {
         height: 360px;
         width: 100%;
-        border-radius: 1rem;
+        border-radius: 0;
         border: 1px solid var(--color-as-rgba-20-33-61-0-08);
     }
     .controls.hide {
@@ -33,7 +33,7 @@
     }
     .zone-guide-media {
         width: 100%;
-        border-radius: 1rem;
+        border-radius: 0;
         border: 1px solid var(--color-as-rgba-20-33-61-0-08);
         overflow: hidden;
         background: var(--color-as-f8fbff);
@@ -44,7 +44,7 @@
     }
     .zone-action-menu .dropdown-menu {
         min-width: 220px;
-        border-radius: 1rem;
+        border-radius: 0;
         padding: .5rem;
     }
     .zone-extra-popover {
@@ -53,7 +53,7 @@
         top: -7.75rem;
         z-index: 3;
         width: 225px;
-        border-radius: 1rem;
+        border-radius: 0;
         background: var(--color-white);
         border: 1px solid var(--color-as-rgba-20-33-61-0-12);
         box-shadow: 0 16px 40px var(--color-as-rgba-15-23-42-0-12);
@@ -467,7 +467,7 @@ function initLocationMap() {
 
     // Drawing & editing toolbar
     var toolbar = document.createElement('div');
-    toolbar.style.cssText = 'display:flex;gap:6px;background:var(--color-white);padding:6px 10px;border-radius:8px;box-shadow:0 2px 8px var(--color-as-rgba-0-0-0-0-18);margin:10px 0 0 10px;';
+    toolbar.style.cssText = 'display:flex;gap:6px;background:var(--color-white);padding:6px 10px;border-radius: 0;box-shadow:0 2px 8px var(--color-as-rgba-0-0-0-0-18);margin:10px 0 0 10px;';
     toolbar.innerHTML =
         '<button id="draw-btn" class="btn btn-sm btn-outline-primary" title="Draw zone boundary" type="button"><i class="bi bi-bezier2"></i> Draw</button>' +
         '<button id="finish-btn" class="btn btn-sm btn-success" style="display:none" type="button"><i class="bi bi-check-lg"></i> Finish</button>' +

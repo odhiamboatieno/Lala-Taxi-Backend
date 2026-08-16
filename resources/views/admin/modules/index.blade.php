@@ -132,7 +132,7 @@
 </div>
 
 <style>
-.module-card { border-radius: 14px; transition: transform .15s ease, box-shadow .15s ease; }
+.module-card { border-radius: 0; transition: transform .15s ease, box-shadow .15s ease; }
 .module-card:hover { transform: translateY(-2px); box-shadow: 0 18px 30px var(--color-as-rgba-15-23-42-0-08); }
 .module-card.is-enabled { border-left: 4px solid var(--color-as-10b981); }
 .module-card.is-disabled { border-left: 4px solid var(--color-as-f59e0b); }

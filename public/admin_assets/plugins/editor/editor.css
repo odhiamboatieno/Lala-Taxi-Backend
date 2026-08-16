@@ -89,7 +89,7 @@ h2.demo-text{font-family: 'Roboto', sans-serif!important; font-size:45px; font-w
       }
   
 #menuBarDiv{
-  border-radius:10px 10px 0 0;
+  border-radius: 0;
   border-bottom:none;
   min-height:25px;
   padding:5px 0;
@@ -104,7 +104,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   
 #statusbar{
   min-height:30px;
-  border-radius:0 0 10px 10px;
+  border-radius: 0;
   border-top:none;
   line-height:30px;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
@@ -122,7 +122,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     height:300px;
     padding:1%;  
   border:1px solid #C7C7C7;
-  border-radius:0;
+  border-radius: 0;
     word-wrap: break-word;
   }
 #paletteCntr ul
@@ -214,9 +214,9 @@ pre {
 }
 .tabs-left > .nav-tabs > li > a {
   margin-right: -1px;
-  -webkit-border-radius: 4px 0 0 4px;
-     -moz-border-radius: 4px 0 0 4px;
-          border-radius: 4px 0 0 4px;
+  border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
 }
 .tabs-left > .nav-tabs > li > a:hover,
 .tabs-left > .nav-tabs > li > a:focus {
@@ -282,11 +282,11 @@ h1{
 /*** Drop Down Menu***/
 .dropdown-submenu
 {position:relative;}
-.dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
+.dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;border-radius: 0;-moz-border-radius: 0;border-radius: 0;}
 .dropdown-submenu:hover>.dropdown-menu{display:block;}
 .dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}
 .dropdown-submenu:hover>a:after{border-left-color:#ffffff;}
-.dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
+.dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;border-radius: 0;-moz-border-radius: 0;border-radius: 0;}
 .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-submenu:hover>a, .dropdown-submenu:focus>a {
   color: #fff;
   text-decoration: none;

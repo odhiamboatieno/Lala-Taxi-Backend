@@ -12,7 +12,7 @@
         .template-surface {
             background: var(--bs-card-bg, var(--bs-body-bg, var(--color-white)));
             border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
-            border-radius: 22px;
+            border-radius: 0;
             box-shadow: 0 14px 30px var(--color-as-rgba-16-67-79-0-08);
             padding: 22px;
         }
@@ -41,7 +41,7 @@
         .template-tab {
             background: var(--bs-card-bg, var(--bs-body-bg, var(--color-white)));
             border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
-            border-radius: 12px;
+            border-radius: 0;
             color: var(--bs-body-color, inherit);
             font-weight: 700;
             padding: 10px 16px;
@@ -57,7 +57,7 @@
         .template-section {
             background: var(--bs-card-bg, var(--bs-body-bg, var(--color-white)));
             border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
-            border-radius: 20px;
+            border-radius: 0;
             margin-bottom: 24px;
             overflow: hidden;
         }
@@ -89,7 +89,7 @@
         .template-item {
             background: var(--bs-tertiary-bg, var(--color-as-rgba-127-127-127-0-08));
             border: 1px solid var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
-            border-radius: 18px;
+            border-radius: 0;
             padding: 16px;
         }
 
@@ -130,7 +130,7 @@
         .template-placeholders {
             background: var(--bs-body-bg, var(--color-as-rgba-127-127-127-0-04));
             border: 1px dashed var(--bs-border-color, var(--color-as-rgba-0-0-0-0-125));
-            border-radius: 14px;
+            border-radius: 0;
             color: var(--bs-secondary-color, var(--color-as-6c757d));
             font-size: 12px;
             margin-top: 12px;

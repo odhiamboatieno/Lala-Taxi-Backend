@@ -126,12 +126,7 @@
                  <span class="icon icon_down-arrow milli">
                  </span>
              </a>
-             <div class="flyout__content" style="margin:-1px 0px 0px 0px !important;padding:0px;border-radius: 30px !important">
-                <ul class="site-nav site-nav--flush" style="margin-right: 0">
-                    <li>
-                        <div class="grid displayflex">
-                            <div class="grid__item one-quarter">
-                                <img src="{{ @Auth::user()->profile_picture->src }}" class="img--bordered img--full head_profile profile_picture">
+             <div class="flyout__content" style="margin:-1px 0px 0px 0px !important;padding:0px;border-radius: 0 !important}}" class="img--bordered img--full head_profile profile_picture">
                             </div>
                             <div class="grid__item three-quarters">
                                 <h3 class="push-half--bottom"> {{ @Auth::user()->first_name }} {{ @Auth::user()->last_name }} </h3>

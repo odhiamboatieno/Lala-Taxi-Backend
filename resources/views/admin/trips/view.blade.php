@@ -333,7 +333,7 @@
     .detail-card {
         background: linear-gradient(145deg, var(--color-as-f9fafb), var(--color-white));
         padding: 1rem;
-        border-radius: 0.5rem;
+        border-radius: 0;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 

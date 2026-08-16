@@ -32,7 +32,7 @@
 
     .dashboard-feedback-card {
         width: min(100%, 460px);
-        border-radius: 16px;
+        border-radius: 0;
         background: var(--color-white);
         box-shadow: 0 24px 60px var(--color-as-rgba-15-23-42-0-24);
         overflow: hidden;

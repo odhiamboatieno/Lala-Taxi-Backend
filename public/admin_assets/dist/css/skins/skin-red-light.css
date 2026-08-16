@@ -113,7 +113,7 @@
   font-weight: 600;
 }
 .skin-red-light .sidebar-form {
-  border-radius: 3px;
+  border-radius: 0;
   border: 1px solid #d2d6de;
   margin: 10px 10px;
 }
@@ -129,10 +129,10 @@
 }
 .skin-red-light .sidebar-form input[type="text"] {
   color: #666;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 2px;
+  border-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
 }
 .skin-red-light .sidebar-form input[type="text"]:focus,
 .skin-red-light .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
@@ -144,10 +144,10 @@
 }
 .skin-red-light .sidebar-form .btn {
   color: #999;
-  border-top-left-radius: 0;
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
-  border-bottom-left-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
+  border-radius: 0;
 }
 @media (min-width: 768px) {
   .skin-red-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .treeview-menu {

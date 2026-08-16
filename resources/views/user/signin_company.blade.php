@@ -31,7 +31,7 @@
             width: 100%;
             max-width: 430px;
             background: var(--color-white);
-            border-radius: 18px;
+            border-radius: 0;
             box-shadow: 0 22px 60px var(--color-as-rgba-2-6-23-0-28);
             overflow: hidden;
         }
@@ -43,7 +43,7 @@
         .brand-mark {
             width: 58px;
             height: 58px;
-            border-radius: 16px;
+            border-radius: 0;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -78,7 +78,7 @@
             gap: .45rem;
             margin-bottom: 1rem;
             padding: .45rem .75rem;
-            border-radius: 999px;
+            border-radius: 0;
             background: var(--color-as-ecfeff);
             color: var(--color-as-0f766e);
             font-size: .85rem;
@@ -101,7 +101,7 @@
             width: 100%;
             padding: .9rem 1rem;
             border: 1px solid var(--color-as-dbe3ef);
-            border-radius: 12px;
+            border-radius: 0;
             color: var(--color-as-0f172a);
             font-size: .96rem;
             transition: border-color .2s ease, box-shadow .2s ease;
@@ -139,7 +139,7 @@
         .login-submit {
             width: 100%;
             border: 0;
-            border-radius: 12px;
+            border-radius: 0;
             padding: .95rem 1rem;
             font-size: 1rem;
             font-weight: 700;
@@ -164,7 +164,7 @@
 
         .alert {
             padding: 1rem;
-            border-radius: 12px;
+            border-radius: 0;
             font-size: .92rem;
             display: flex;
             gap: .5rem;

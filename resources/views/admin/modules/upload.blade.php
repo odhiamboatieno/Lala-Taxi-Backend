@@ -65,7 +65,7 @@
                     <h5 class="card-title"><i class="bi bi-info-circle"></i> Module package format</h5>
                     <p class="text-muted small">A valid module zip must include a <code>module.json</code> at the root or inside a top-level folder.</p>
 
-<pre class="mb-3" style="background:var(--color-as-0f172a);color:var(--color-as-e2e8f0);padding:14px;border-radius:10px;font-size:12px;">
+<pre class="mb-3" style="background:var(--color-as-0f172a);color:var(--color-as-e2e8f0);padding:14px;border-radius: 0;font-size:12px;">
 MyModule.zip
 └── MyModule/
     ├── module.json
@@ -78,7 +78,7 @@ MyModule.zip
 </pre>
 
                     <p class="small text-muted">Example <code>module.json</code>:</p>
-<pre style="background:var(--color-as-0f172a);color:var(--color-as-e2e8f0);padding:14px;border-radius:10px;font-size:12px;">
+<pre style="background:var(--color-as-0f172a);color:var(--color-as-e2e8f0);padding:14px;border-radius: 0;font-size:12px;">
 {
   "name": "MyModule",
   "alias": "mymodule",
@@ -100,7 +100,7 @@ MyModule.zip
 .upload-drop {
     position: relative;
     border: 2px dashed var(--color-as-cbd5e1);
-    border-radius: 16px;
+    border-radius: 0;
     padding: 36px 20px;
     text-align: center;
     transition: border-color .15s ease, background .15s ease;

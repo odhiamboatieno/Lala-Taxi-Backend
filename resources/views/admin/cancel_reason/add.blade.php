@@ -11,7 +11,7 @@
         .translation-item {
             background: var(--color-as-f8f9fa);
             border: 1px solid var(--color-as-e3e6f0);
-            border-radius: 0.375rem;
+            border-radius: 0;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             position: relative;

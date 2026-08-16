@@ -8,7 +8,7 @@
     #map {
         height: 560px;
         width: 100%;
-        border-radius: 1rem;
+        border-radius: 0;
         border: 1px solid var(--color-as-rgba-20-33-61-0-08);
     }
     .controls.hide {

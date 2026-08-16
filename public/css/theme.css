@@ -932,3 +932,13 @@ body.admin-app [class$="-title"], body.admin-app [class^="heading"],
 body.admin-app [class*=" heading"], body.admin-app .font-heading {
   font-family: var(--font-body) !important;
 }
+
+/* ==========================================================================
+   Sharp corners: zero border radius app-wide (cards, buttons, form fields...).
+   Safety net for any inline/runtime radius not covered by the source edits.
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+}

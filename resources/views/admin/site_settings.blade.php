@@ -31,7 +31,7 @@
             bottom: 0;
             background-color: var(--color-as-cccccc);
             transition: .4s;
-            border-radius: 20px;
+            border-radius: 0;
         }
         .slider:before {
             position: absolute;
@@ -42,7 +42,7 @@
             bottom: 2px;
             background-color: white;
             transition: .4s;
-            border-radius: 50%;
+            border-radius: 0;
         }
         input:checked + .slider {
             background-color: var(--color-as-1fbad6);
@@ -55,12 +55,12 @@
         }
         .input-group-text {
             background-color: var(--color-as-f8f9fa);
-            border-radius: 6px 0 0 6px;
+            border-radius: 0;
         }
         .image-preview {
             max-width: 140px;
             margin-top: 8px;
-            border-radius: 6px;
+            border-radius: 0;
             box-shadow: 0 2px 8px var(--color-as-rgba-0-0-0-0-08);
         }
     </style>

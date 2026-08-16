@@ -14,7 +14,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
   position: absolute;
   color: white;
   border: 2px solid white;
-  border-radius: 16px;
+  border-radius: 0;
   text-align: center;
   line-height: 14px;
   box-shadow: 0 0 3px #444;
@@ -44,7 +44,7 @@ table.dataTable.dtr-inline.collapsed.compact > tbody > tr > th:first-child:befor
   left: 4px;
   height: 14px;
   width: 14px;
-  border-radius: 14px;
+  border-radius: 0;
   line-height: 12px;
 }
 table.dataTable.dtr-column > tbody > tr > td.control,
@@ -64,7 +64,7 @@ table.dataTable.dtr-column > tbody > tr > th.control:before {
   position: absolute;
   color: white;
   border: 2px solid white;
-  border-radius: 16px;
+  border-radius: 0;
   text-align: center;
   line-height: 14px;
   box-shadow: 0 0 3px #444;

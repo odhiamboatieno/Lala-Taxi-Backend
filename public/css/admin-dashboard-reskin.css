@@ -74,7 +74,7 @@ body.admin-dashboard-shell .sidebar .logo {
   margin: 0 0 18px;
   min-height: auto;
   height: auto;
-  border-radius: 22px;
+  border-radius: 0;
   padding: 18px 16px;
   text-align: left;
   background: linear-gradient(135deg, var(--color-as-rgba-255-255-255-0-12), var(--color-as-rgba-255-255-255-0-04)) !important;
@@ -86,7 +86,7 @@ body.admin-dashboard-shell .sidebar-menu > li {
 }
 
 body.admin-dashboard-shell .sidebar-menu > li > a {
-  border-radius: 16px;
+  border-radius: 0;
   padding: 13px 16px;
   color: var(--color-as-rgba-245-244-240-0-82) !important;
   font-size: 14px;
@@ -120,7 +120,7 @@ body.admin-dashboard-shell .treeview-menu {
 body.admin-dashboard-shell .treeview-menu > li > a {
   padding: 10px 14px 10px 16px;
   margin: 4px 0;
-  border-radius: 14px;
+  border-radius: 0;
   color: var(--color-as-rgba-228-232-236-0-75) !important;
 }
 
@@ -178,7 +178,7 @@ body.admin-dashboard-shell .box,
 body.admin-dashboard-shell .small-box,
 body.admin-dashboard-shell .modal-content {
   border: 1px solid var(--admin-line) !important;
-  border-radius: var(--admin-radius-lg) !important;
+  border-radius: 0 !important;
   background: var(--admin-surface) !important;
   box-shadow: var(--admin-shadow) !important;
   overflow: hidden;
@@ -273,7 +273,7 @@ body.admin-dashboard-shell .btn.btn-info,
 body.admin-dashboard-shell .btn.btn-success,
 body.admin-dashboard-shell .btn.btn-primary,
 body.admin-dashboard-shell .btn.btn-danger {
-  border-radius: 999px !important;
+  border-radius: 0 !important;
   border: 1px solid transparent !important;
   padding: 10px 18px;
   font-weight: 700;
@@ -308,7 +308,7 @@ body.admin-dashboard-shell .form-control,
 body.admin-dashboard-shell .selectize-input,
 body.admin-dashboard-shell .bootstrap-select > .dropdown-toggle {
   min-height: 46px;
-  border-radius: 14px !important;
+  border-radius: 0 !important;
   border: 1px solid var(--color-as-rgba-111-88-60-0-16) !important;
   background: var(--color-as-rgba-255-255-255-0-82) !important;
   color: var(--admin-ink) !important;
@@ -335,7 +335,7 @@ body.admin-dashboard-shell table.dataTable,
 body.admin-dashboard-shell .recent_rides_table {
   width: 100% !important;
   background: var(--admin-surface-strong);
-  border-radius: 18px;
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -368,7 +368,7 @@ body.admin-dashboard-shell .recent_rides_table tr:hover {
 
 body.admin-dashboard-shell .dataTables_wrapper .dataTables_filter input,
 body.admin-dashboard-shell .dataTables_wrapper .dataTables_length select {
-  border-radius: 12px;
+  border-radius: 0;
   border: 1px solid var(--color-as-rgba-111-88-60-0-16);
   padding: 8px 12px;
   background: var(--color-white);
@@ -378,7 +378,7 @@ body.admin-dashboard-shell .pagination > li > a,
 body.admin-dashboard-shell .pagination > li > span {
   margin: 0 4px;
   border: 0;
-  border-radius: 999px !important;
+  border-radius: 0 !important;
   color: var(--admin-ink);
   background: var(--color-as-rgba-31-36-48-0-06);
 }
@@ -391,7 +391,7 @@ body.admin-dashboard-shell .pagination > .active > span {
 
 body.admin-dashboard-shell .alert {
   border: 0;
-  border-radius: 18px;
+  border-radius: 0;
   box-shadow: 0 16px 30px var(--color-as-rgba-31-36-48-0-08);
 }
 
@@ -417,7 +417,7 @@ body.admin-dashboard-shell .dash_status {
   justify-content: center;
   min-width: 108px;
   padding: 8px 12px;
-  border-radius: 999px;
+  border-radius: 0;
   background: var(--color-as-rgba-28-107-114-0-1);
   color: var(--color-as-1c6b72);
   font-weight: 700;

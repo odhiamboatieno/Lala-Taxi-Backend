@@ -37,7 +37,7 @@
     background-color: var(--color-as-02172d);
     padding: 15px;
     box-shadow: 0px 3px 6px var(--color-as-00000029);
-    border-radius: 10px;
+    border-radius: 0;
     margin-right: 20px;
 }
 .displayflex
@@ -48,7 +48,7 @@
 }
 .alllogin {
     background-color: var(--color-as-02172d);
-   /* border-radius: 92px 92px 0px 0px; */
+   /* border-radius: 0; */
     padding: 4em 0;
 }
 .alllogin .alllogintop {
@@ -131,7 +131,7 @@
 }
 .cls_sectionone .cls_sectiononeimg img {
     height: 80%;
-    border-radius: 15%;
+    border-radius: 0;
 }
 .cls_sectionone .cls_sectiononetxt {
     padding: 0 2em;
@@ -168,7 +168,7 @@
 }
 .cls_arrivingin {
     background: var(--color-as-ddf2ff) 0% 0% no-repeat padding-box;
-    border-radius: 10px;
+    border-radius: 0;
     display: inline-block;
     padding: 3em;
 }
@@ -209,7 +209,7 @@
 {
     background-color: var(--color-as-ddf2ff);
     padding: 3em;
-    border-radius: 15px;
+    border-radius: 0;
 }
 
 .cls_driveronetwo h4
@@ -233,7 +233,7 @@
     width: 48px;
     text-align: center;
     background-color: var(--color-as-1fbad6);
-    border-radius: 100px;
+    border-radius: 0;
     font-size: 31px;
     line-height: 47px;
     color: var(--color-as-02172d);
@@ -262,7 +262,7 @@
 .cls_signin .cls_signintext {
     background-color: var(--color-as-ddf2ff);
     padding: 4em;
-    border-radius: 15px;
+    border-radius: 0;
 }
 
 .cls_signin .title {
@@ -342,7 +342,7 @@ h1.cls_profiletitle {
 }
 .pay_period_details .bor-left {
     background-color: var(--color-as-ddf2ff);
-    border-radius: 10px;
+    border-radius: 0;
     padding:2em 3em;
     border: unset;
     display: inline-block;
@@ -381,7 +381,7 @@ h1.cls_profiletitle {
     background-color: var(--color-as-ddf2ff);
     color: var(--color-as-3a4750);
     border-color: var(--color-as-ddf2ff) !important;
-    border-radius: 10px !important;
+    border-radius: 0 !important;
     font-size: 17px;
 }
 .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus
@@ -395,7 +395,7 @@ h1.cls_profiletitle {
     position: relative;
     padding: 7px 20px 7px 7px;
     background-color: var(--color-as-f6c90f);
-    border-radius: 10px;
+    border-radius: 0;
 }
 .cls_litags .filter-checked {
     font-size: 17px;
@@ -420,17 +420,17 @@ img
 }
 .signup-wrapper.cls_signuprider {
     background-color: var(--color-as-ddf2ff);
-    border-radius: 5px;
+    border-radius: 0;
     padding-bottom: 1em;
 }
 .cls_signuprider .form-control {
     background-color: var(--color-white) !important;
-    border-radius: 5px !important;
+    border-radius: 0 !important;
 }
 .cls_signuprider .select.select--xl
 {
     background-color: var(--color-white) !important;
-    border-radius: 10px !important;
+    border-radius: 0 !important;
 }
 .cls_signuprider i 
 {
@@ -439,7 +439,7 @@ img
 .cls_driversignup .driverform {
     background-color: var(--color-white);
     padding: 1em 2em;
-    border-radius: 10px;
+    border-radius: 0;
     display: inline-block;
 }
 .cls_lefttext h1 {
@@ -471,7 +471,7 @@ img
     border: 1px solid var(--color-as-c7c7c7) !important;
     border-right: none;
     width: 100%;
-    border-radius: 5px;
+    border-radius: 0;
 }
 .cls_arrivinginatag
 {

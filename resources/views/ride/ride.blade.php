@@ -208,7 +208,7 @@ body {
 .sub-header li a:hover {
   color: var(--color-as-0288d1);
   background: var(--color-as-e3f2fd);
-  border-radius: 4px;
+  border-radius: 0;
 }
 
 /* Hero Section (ride-div-main) */
@@ -255,7 +255,7 @@ body {
 
 .green-mini-div {
   background: var(--color-as-0288d1) !important;
-  border-radius: 12px;
+  border-radius: 0;
   padding: 24px;
   box-shadow: 0 4px 12px var(--color-as-rgba-0-0-0-0-2);
   width: 240px;
@@ -333,7 +333,7 @@ body {
 
 .arrive-content {
   background: var(--color-white);
-  border-radius: 12px;
+  border-radius: 0;
   padding: 24px;
   box-shadow: 0 2px 8px var(--color-as-rgba-0-0-0-0-1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -389,7 +389,7 @@ body {
   display: block;
   padding: 12px 24px;
   background: var(--color-white);
-  border-radius: 8px;
+  border-radius: 0;
   text-decoration: none;
   color: var(--color-as-212121);
   font-size: 16px;
@@ -408,7 +408,7 @@ body {
   width: 100%;
   max-width: 600px;
   height: auto;
-  border-radius: 12px;
+  border-radius: 0;
   margin: 0 auto;
   display: block;
   box-shadow: 0 4px 12px var(--color-as-rgba-0-0-0-0-1);
@@ -489,7 +489,7 @@ body {
   gap: 24px;
   padding: 40px 20px;
   background: var(--color-white);
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: 0 4px 12px var(--color-as-rgba-0-0-0-0-1);
 }
 
@@ -504,7 +504,7 @@ body {
   background: var(--color-as-0288d1);
   color: var(--color-white);
   border: none;
-  border-radius: 8px;
+  border-radius: 0;
   padding: 12px 24px;
   font-size: 16px;
   font-weight: 500;
@@ -542,7 +542,7 @@ body {
 
 .ride-three .arrive-content {
   background: var(--color-white);
-  border-radius: 12px;
+  border-radius: 0;
   padding: 24px;
   box-shadow: 0 2px 8px var(--color-as-rgba-0-0-0-0-1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;

@@ -16,7 +16,7 @@
         align-items: center;
         justify-content: center;
         z-index: 10;
-        border-radius: 6px;
+        border-radius: 0;
     }
     .card-stat {
         transition: transform 0.2s ease;

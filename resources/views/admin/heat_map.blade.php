@@ -6,7 +6,7 @@
 @section('css')
 <style>
     .heatmap-card {
-        border-radius: 18px;
+        border-radius: 0;
         overflow: hidden;
     }
     .heatmap-header {
@@ -30,12 +30,12 @@
         display: inline-flex;
         background: var(--color-as-f3f4f6);
         padding: 4px;
-        border-radius: 10px;
+        border-radius: 0;
         gap: 4px;
     }
     .heatmap-tab {
         padding: 10px 22px;
-        border-radius: 8px;
+        border-radius: 0;
         font-weight: 700;
         color: var(--color-as-334155);
     }
@@ -86,7 +86,7 @@
     .heatmap-search .btn,
     .heatmap-filter-stack .form-control,
     .heatmap-filter-stack .btn {
-        border-radius: 10px;
+        border-radius: 0;
     }
     .heatmap-zone-list {
         display: flex;
@@ -116,7 +116,7 @@
     .heatmap-zone-check {
         width: 18px;
         height: 18px;
-        border-radius: 6px;
+        border-radius: 0;
         background: var(--color-as-27b7a8);
         color: var(--color-white);
         display: inline-flex;
@@ -137,7 +137,7 @@
         width: 100%;
         min-height: 46px;
         border: 1px solid var(--color-as-rgba-16-24-40-0-12);
-        border-radius: 12px;
+        border-radius: 0;
         padding: 0 14px;
         display: flex;
         align-items: center;
@@ -150,7 +150,7 @@
         display: none;
         margin-top: 10px;
         border: 1px solid var(--color-as-rgba-16-24-40-0-12);
-        border-radius: 14px;
+        border-radius: 0;
         background: var(--color-white);
         overflow: hidden;
         box-shadow: 0 18px 34px var(--color-as-rgba-15-23-42-0-12);
@@ -195,7 +195,7 @@
     .heatmap-map-shell {
         position: relative;
         min-height: 540px;
-        border-radius: 14px;
+        border-radius: 0;
         overflow: hidden;
         border: 1px solid var(--color-as-rgba-16-24-40-0-08);
         background: var(--color-as-f4f7fb);
@@ -208,7 +208,7 @@
         z-index: 9;
     }
     .heatmap-map-toolbar .form-control {
-        border-radius: 10px;
+        border-radius: 0;
         height: 44px;
     }
     .heatmap-map-actions {
@@ -220,7 +220,7 @@
     .heatmap-map-actions .btn {
         width: 42px;
         height: 42px;
-        border-radius: 10px;
+        border-radius: 0;
         background: var(--color-white);
         border: 0;
         box-shadow: 0 10px 24px var(--color-as-rgba-15-23-42-0-14);
@@ -244,7 +244,7 @@
     }
     .heatmap-compare-card {
         border: 1px solid var(--color-as-rgba-16-24-40-0-08);
-        border-radius: 14px;
+        border-radius: 0;
         padding: 0;
         overflow: hidden;
         background: var(--color-white);
@@ -261,7 +261,7 @@
     }
     .heatmap-chart-card {
         border: 1px solid var(--color-as-rgba-16-24-40-0-08);
-        border-radius: 14px;
+        border-radius: 0;
         background: var(--color-white);
     }
     .heatmap-chart-head {
@@ -296,7 +296,7 @@
     }
     .heatmap-filter-actions .btn {
         min-width: 130px;
-        border-radius: 10px;
+        border-radius: 0;
     }
     /* Ensure the compare cards have visible maps */
     .heatmap-compare-grid {
@@ -313,8 +313,8 @@
         height: 360px;
         min-height: 360px;
         background: var(--color-as-eef2f6);
-        border-bottom-left-radius: 12px;
-        border-bottom-right-radius: 12px;
+        border-radius: 0;
+        border-radius: 0;
     }
     /* Ensure the overview map has a height even before init */
     #heatmap-overview {

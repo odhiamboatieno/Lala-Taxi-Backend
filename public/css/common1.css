@@ -197,7 +197,7 @@ img.footer-logo {
 }
 
 .sr_radio {
-    border-radius: 10px !important;
+    border-radius: 0 !important;
 }
 
 img.white_logo {
@@ -283,7 +283,7 @@ img.white_logo {
 
 .poppayout .panel-header {
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 0;
 }
 
 .poppayout .panel-body {
@@ -401,7 +401,7 @@ img.white_logo {
 }
 
 .otp-input .form-control {
-    border-radius: 2px;
+    border-radius: 0;
     height: 40px;
 }
 .layout--join.driver_banner_join{

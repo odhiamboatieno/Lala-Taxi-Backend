@@ -6,7 +6,7 @@
   .cls_signin .cls_signintext {
     background-color: var(--color-as-ddf2ff);
     padding: 3em;
-    border-radius: 56px;
+    border-radius: 0;
 }
 </style>
 <div class="cls_signin">

@@ -33,7 +33,7 @@
     .spinner {
         border: 4px solid var(--color-as-f3f3f3);
         border-top: 4px solid var(--color-as-28a745);
-        border-radius: 50%;
+        border-radius: 0;
         width: 40px;
         height: 40px;
         animation: spin 1s linear infinite;
@@ -46,14 +46,14 @@
         max-width: 500px;
         margin: 100px auto;
         padding: 20px;
-        border-radius: 8px;
+        border-radius: 0;
     }
     .form-control {
         width: 100%;
         padding: 10px;
         margin-bottom: 10px;
         border: 1px solid var(--color-as-cccccc);
-        border-radius: 4px;
+        border-radius: 0;
     }
     .form-outline.mb-9 {
         margin-bottom: 20px; /* Adjusted to add 20px space between textbox and button */
@@ -64,7 +64,7 @@
         background: var(--color-as-28a745);
         color: white;
         border: none;
-        border-radius: 4px;
+        border-radius: 0;
         cursor: pointer;
     }
     button:hover {

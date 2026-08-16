@@ -26,7 +26,7 @@
     border:none
 }
 .air-datepicker-cell{
-    border-radius:var(--adp-cell-border-radius);
+    border-radius: 0;
     box-sizing:border-box;
     cursor:pointer;
     display:flex;
@@ -62,24 +62,20 @@
 }
 .air-datepicker-cell.-in-range-{
     background:var(--adp-cell-background-color-in-range);
-    border-radius:0
-}
+    border-radius: 0}
 .air-datepicker-cell.-in-range-:hover,.air-datepicker-cell.-in-range-.-focus-{
     background:var(--adp-cell-background-color-in-range-hover)
 }
 .air-datepicker-cell.-range-from-{
     border:1px solid var(--adp-cell-border-color-in-range);
     background-color:var(--adp-cell-background-color-in-range);
-    border-radius:var(--adp-cell-border-radius) 0 0 var(--adp-cell-border-radius)
-}
+    border-radius: 0}
 .air-datepicker-cell.-range-to-{
     border:1px solid var(--adp-cell-border-color-in-range);
     background-color:var(--adp-cell-background-color-in-range);
-    border-radius:0 var(--adp-cell-border-radius) var(--adp-cell-border-radius) 0
-}
+    border-radius: 0}
 .air-datepicker-cell.-range-to-.-range-from-{
-    border-radius:var(--adp-cell-border-radius)
-}
+    border-radius: 0}
 .air-datepicker-cell.-selected-{
     color:#fff;
     border:none;
@@ -155,7 +151,7 @@
 }
 .air-datepicker-nav--action{
     width:var(--adp-nav-action-size);
-    border-radius:var(--adp-border-radius);
+    border-radius: 0;
     -webkit-user-select:none;
     -moz-user-select:none;
     user-select:none
@@ -179,7 +175,7 @@
     stroke-width:2px
 }
 .air-datepicker-nav--title{
-    border-radius:var(--adp-border-radius);
+    border-radius: 0;
     padding:0 8px
 }
 .air-datepicker-nav--title i{
@@ -206,7 +202,7 @@
 .air-datepicker-button{
     display:inline-flex;
     color:var(--adp-btn-color);
-    border-radius:var(--adp-btn-border-radius);
+    border-radius: 0;
     cursor:pointer;
     height:var(--adp-btn-height);
     border:none;
@@ -265,7 +261,7 @@
 .air-datepicker-time--current-hours:after,.air-datepicker-time--current-minutes:after{
     content:"";
     background:var(--adp-background-color-hover);
-    border-radius:var(--adp-border-radius);
+    border-radius: 0;
     position:absolute;
     left:-2px;
     top:-3px;
@@ -339,7 +335,7 @@
     box-sizing:border-box;
     height:12px;
     width:12px;
-    border-radius:3px;
+    border-radius: 0;
     border:1px solid var(--adp-time-track-color);
     background:#fff;
     cursor:pointer;
@@ -350,7 +346,7 @@
     box-sizing:border-box;
     height:12px;
     width:12px;
-    border-radius:3px;
+    border-radius: 0;
     border:1px solid var(--adp-time-track-color);
     background:#fff;
     cursor:pointer;
@@ -361,7 +357,7 @@
     box-sizing:border-box;
     height:12px;
     width:12px;
-    border-radius:3px;
+    border-radius: 0;
     border:1px solid var(--adp-time-track-color);
     background:#fff;
     cursor:pointer;
@@ -426,7 +422,7 @@
     --adp-color-other-month-hover: #c5c5c5;
     --adp-border-color: #dbdbdb;
     --adp-border-color-inner: #efefef;
-    --adp-border-radius: 4px;
+    --adp-border-radius: 0;
     --adp-border-color-inline: #d7d7d7;
     --adp-nav-height: 32px;
     --adp-nav-arrow-color: var(--adp-color-secondary);
@@ -439,9 +435,9 @@
     --adp-month-cell-height: 42px;
     --adp-year-cell-height: 56px;
     --adp-pointer-size: 10px;
-    --adp-poiner-border-radius: 2px;
+    --adp-poiner-border-radius: 0;
     --adp-pointer-offset: 14px;
-    --adp-cell-border-radius: 4px;
+    --adp-cell-border-radius: 0;
     --adp-cell-background-color-hover: var(--adp-background-color-hover);
     --adp-cell-background-color-selected: #5cc4ef;
     --adp-cell-background-color-selected-hover: #45bced;
@@ -451,7 +447,7 @@
     --adp-btn-height: 32px;
     --adp-btn-color: var(--adp-accent-color);
     --adp-btn-color-hover: var(--adp-color);
-    --adp-btn-border-radius: var(--adp-border-radius);
+    --adp-btn-border-radius: 0;
     --adp-btn-background-color-hover: var(--adp-background-color-hover);
     --adp-btn-background-color-active: var(--adp-background-color-active);
     --adp-time-track-height: 1px;
@@ -478,7 +474,7 @@
     background:var(--adp-background-color);
     border:1px solid var(--adp-border-color);
     box-shadow:0 4px 12px rgba(0,0,0,.15);
-    border-radius:var(--adp-border-radius);
+    border-radius: 0;
     box-sizing:content-box;
     display:grid;
     grid-template-columns:1fr;
@@ -570,7 +566,7 @@
     background:#fff;
     border-top:1px solid var(--adp-border-color-inline);
     border-right:1px solid var(--adp-border-color-inline);
-    border-top-right-radius:var(--adp-poiner-border-radius);
+    border-radius: 0;
     width:var(--adp-pointer-size);
     height:var(--adp-pointer-size);
     box-sizing:border-box

@@ -32,7 +32,7 @@
             align-items: center;
             background: var(--color-as-f6fbfd);
             border: 1px solid var(--color-as-dfeff3);
-            border-radius: 16px;
+            border-radius: 0;
             box-shadow: 0 8px 18px var(--color-as-rgba-27-65-93-0-05);
             display: flex;
             justify-content: space-between;
@@ -56,7 +56,7 @@
         .ops-welcome__badge {
             background: var(--color-as-rgba-56-189-178-0-12);
             border: 1px solid var(--color-as-rgba-56-189-178-0-24);
-            border-radius: 999px;
+            border-radius: 0;
             color: var(--color-as-17a398);
             font-size: 12px;
             font-weight: 700;
@@ -66,7 +66,7 @@
         }
 
         .dashboard-card {
-            border-radius: 14px;
+            border-radius: 0;
             margin-bottom: 20px;
             min-height: 130px;
             overflow: hidden;
@@ -78,7 +78,7 @@
 
         .dashboard-card__icon {
             align-items: center;
-            border-radius: 12px;
+            border-radius: 0;
             color: var(--color-white);
             display: inline-flex;
             font-size: 18px;
@@ -111,7 +111,7 @@
         }
 
         .ops-card {
-            border-radius: 16px;
+            border-radius: 0;
             margin-bottom: 24px;
             overflow: hidden;
         }
@@ -149,7 +149,7 @@
         }
 
         .ops-stat {
-            border-radius: 16px;
+            border-radius: 0;
             min-height: 170px;
             padding: 20px 22px;
             position: relative;
@@ -157,7 +157,7 @@
 
         .ops-stat__icon {
             align-items: center;
-            border-radius: 16px;
+            border-radius: 0;
             color: var(--color-white);
             display: inline-flex;
             font-size: 24px;
@@ -227,7 +227,7 @@
 
         .ops-zone__track {
             background: var(--color-as-edf3f8);
-            border-radius: 999px;
+            border-radius: 0;
             height: 12px;
             overflow: hidden;
             position: relative;
@@ -235,7 +235,7 @@
         }
 
         .ops-zone__bar {
-            border-radius: 999px;
+            border-radius: 0;
             height: 100%;
         }
 
@@ -258,7 +258,7 @@
         .morris-hover.morris-default-style {
             background: var(--color-white);
             border: 1px solid var(--color-as-d8e8ef);
-            border-radius: 14px;
+            border-radius: 0;
             box-shadow: 0 16px 34px var(--color-as-rgba-15-23-42-0-16);
             color: var(--color-as-16375a);
             padding: 12px 14px;
@@ -288,7 +288,7 @@
         .ops-select {
             background: var(--color-white);
             border: 1px solid var(--color-as-dcecf1);
-            border-radius: 12px;
+            border-radius: 0;
             color: var(--color-as-1f3554);
             font-size: 13px;
             font-weight: 700;
@@ -308,7 +308,7 @@
         .ops-board__tab {
             background: transparent;
             border: 0;
-            border-radius: 999px;
+            border-radius: 0;
             color: var(--color-as-1f3554);
             font-size: 14px;
             font-weight: 700;
@@ -344,7 +344,7 @@
         }
 
         .ops-podium__item {
-            border-radius: 18px 18px 10px 10px;
+            border-radius: 0;
             color: var(--color-white);
             min-height: 120px;
             padding: 16px 10px 14px;
@@ -370,7 +370,7 @@
 
         .ops-podium__avatar {
             border: 4px solid var(--color-white);
-            border-radius: 50%;
+            border-radius: 0;
             height: 72px;
             left: 50%;
             object-fit: cover;
@@ -400,7 +400,7 @@
             align-items: center;
             background: var(--color-as-rgba-255-255-255-0-18);
             border: 3px solid var(--color-as-rgba-255-255-255-0-7);
-            border-radius: 50%;
+            border-radius: 0;
             bottom: 16px;
             display: inline-flex;
             font-size: 18px;
@@ -455,7 +455,7 @@
         }
 
         .ops-board__thumb {
-            border-radius: 50%;
+            border-radius: 0;
             height: 44px;
             object-fit: cover;
             width: 44px;
@@ -496,7 +496,7 @@
         .ops-floating-tooltip {
             background: var(--color-white);
             border: 1px solid var(--color-as-d8e8ef);
-            border-radius: 14px;
+            border-radius: 0;
             box-shadow: 0 16px 34px var(--color-as-rgba-15-23-42-0-16);
             color: var(--color-as-16375a);
             display: none;
@@ -559,7 +559,7 @@
         .ops-feed__avatar {
             background: var(--color-white);
             border: 2px solid var(--color-white);
-            border-radius: 50%;
+            border-radius: 0;
             box-shadow: 0 6px 14px var(--color-as-rgba-15-23-42-0-12);
             height: 28px;
             object-fit: cover;
@@ -591,7 +591,7 @@
         }
 
         .ops-feed__badge {
-            border-radius: 999px;
+            border-radius: 0;
             display: inline-block;
             font-size: 11px;
             font-weight: 800;
@@ -637,7 +637,7 @@
         .ops-activity__icon {
             align-items: center;
             background: var(--color-as-f2f8fb);
-            border-radius: 14px;
+            border-radius: 0;
             color: var(--color-as-69839c);
             display: inline-flex;
             flex: 0 0 48px;
@@ -648,7 +648,7 @@
         }
 
         .ops-activity__vehicle-image {
-            border-radius: 12px;
+            border-radius: 0;
             height: 32px;
             object-fit: contain;
             width: 32px;

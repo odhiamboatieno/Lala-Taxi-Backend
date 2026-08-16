@@ -65,7 +65,7 @@
         </div>
         <div class="page-form push-small--top clearfix"  ng-if="{{ $all_invoice == true }}">
             <div class="select float--left push-tiny--right"  style="margin-left: 10px;"><br>
-                <select name="per_page" id="per_page" class="" ng-init="selectedItem='10'" ng-model="selectedItem" ng-change="getInvoice()" style="border-radius:10px;">
+                <select name="per_page" id="per_page" class="" ng-init="selectedItem='10'" ng-model="selectedItem" ng-change="getInvoice()" style="border-radius: 0;">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>

@@ -28,7 +28,7 @@
 }
 
 .apexcharts-canvas ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
+  border-radius: 0;
   background-color: rgba(0, 0, 0, .5);
   box-shadow: 0 0 1px rgba(255, 255, 255, .5);
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5)
@@ -63,7 +63,7 @@ rect.legend-mouseover-inactive,
 }
 
 .apexcharts-tooltip {
-  border-radius: 5px;
+  border-radius: 0;
   box-shadow: 2px 2px 6px -4px #999;
   cursor: default;
   font-size: 14px;
@@ -281,7 +281,7 @@ rect.legend-mouseover-inactive,
   color: #373d3f;
   font-size: 13px;
   text-align: center;
-  border-radius: 2px;
+  border-radius: 0;
   position: absolute;
   z-index: 10;
   background: #eceff1;
@@ -597,7 +597,7 @@ rect.legend-mouseover-inactive,
   z-index: 11;
   max-width: 176px;
   text-align: right;
-  border-radius: 3px;
+  border-radius: 0;
   padding: 0 6px 2px;
   display: flex;
   justify-content: space-between;
@@ -609,7 +609,7 @@ rect.legend-mouseover-inactive,
   position: absolute;
   top: 100%;
   border: 1px solid #ddd;
-  border-radius: 3px;
+  border-radius: 0;
   padding: 3px;
   right: 10px;
   opacity: 0;
