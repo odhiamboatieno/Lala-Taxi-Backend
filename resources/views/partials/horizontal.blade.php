@@ -224,7 +224,7 @@
                     <ul class="pe-slide-menu collapse" id="collapseBookings">
                         @if($manualBookingMenuVisible)
                             <li class="pe-slide-item {{ $currentUri == $first_segment . '/manual_booking/{id?}' ? 'active' : '' }}">
-                                <a href="{{ url($first_segment . '/manual_booking') }}" class="pe-nav-link">Dispatch Console / Manual Booking</a>
+                                <a href="{{ url($first_segment . '/manual_booking') }}" class="pe-nav-link">Manual Bookingoking</a>
                             </li>
                         @endif
                         @if($laterBookingMenuVisible)

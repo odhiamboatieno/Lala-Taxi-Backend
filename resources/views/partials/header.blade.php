@@ -165,7 +165,7 @@
                                             <p class="mb-1 text-uppercase text-muted fs-12">{{ __('messages.blade_static.trips_d82b7e45') }}</p>
                                             <ul class="list-unstyled mb-0">
                                                 @if($manualBookingMenuVisible)
-                                                    <li><a class="dropdown-item" href="{{ url($first_segment . '/manual_booking') }}">Dispatch Console / Manual Booking</a></li>
+                                                    <li><a class="dropdown-item" href="{{ url($first_segment . '/manual_booking') }}">Manual Bookingoking</a></li>
                                                 @endif
                                                 @if($laterBookingMenuVisible)
                                                     <li><a class="dropdown-item" href="{{ url($first_segment . '/later_booking') }}">Scheduled / Later Bookings</a></li>
