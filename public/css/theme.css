@@ -1005,3 +1005,13 @@ body.admin-app [class*=" heading"], body.admin-app .font-heading {
 :root .users-list > li img { border-radius: 50% !important; }
 :root input[type='radio'] { border-radius: 50% !important; }
 :root input[type='radio']:before { border-radius: 50% !important; }
+:root .ops-podium__rank { border-radius: 50% !important; }
+:root .ops-activity__icon { border-radius: 14px !important; }
+:root .ops-activity__vehicle-image { border-radius: 12px !important; }
+
+/* Dashboard left sidebar widened 5% (240px -> 252px); all dependent
+   offsets (content margin, collapse) follow via the shared variable. */
+:root:root {
+  --pe-app-sidebar-width: 15.75rem;
+}
+
