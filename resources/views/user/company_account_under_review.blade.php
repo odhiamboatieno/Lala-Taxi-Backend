@@ -13,7 +13,7 @@
     ][$status] ?? 'Company onboarding status';
 @endphp
 <style>
-    .review-shell{min-height:100vh;background:linear-gradient(180deg,var(--color-as-081321),var(--color-as-0f172a) 42%,var(--color-as-111827));color:var(--color-white);display:flex;align-items:center;padding:32px 0}
+    .review-shell{min-height:100vh;background:var(--color-as-081321);color:var(--color-white);display:flex;align-items:center;padding:32px 0}
     .review-wrap{width:min(920px,calc(100% - 32px));margin:0 auto}
     .review-card{background:var(--color-as-rgba-255-255-255-0-08);border:1px solid var(--color-as-rgba-255-255-255-0-14);border-radius: 0;padding:34px;backdrop-filter:blur(16px);box-shadow:0 28px 70px var(--color-as-rgba-0-0-0-0-25)}
     .review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:28px 0}

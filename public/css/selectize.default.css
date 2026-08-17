@@ -345,11 +345,11 @@
   -moz-border-radius: 0;
   border-radius: 0;
   background-color: #1FBAD6;
-  background-image: -moz-linear-gradient(top, #1FBAD6, #1FBAD6);
+  background-image: none;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1FBAD6), to(#1FBAD6));
-  background-image: -webkit-linear-gradient(top, #1FBAD6, #1FBAD6);
-  background-image: -o-linear-gradient(top, #1FBAD6, #1FBAD6);
-  background-image: linear-gradient(to bottom, #1FBAD6, #1FBAD6);
+  background-image: none;
+  background-image: none;
+  background-image: none;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff1da7ee', endColorstr='#ff178ee9', GradientType=0);
   -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),inset 0 1px rgba(255,255,255,0.03);
@@ -357,11 +357,11 @@
 }
 .selectize-control.multi .selectize-input [data-value].active {
   background-color: #0085d4;
-  background-image: -moz-linear-gradient(top, #008fd8, #0075cf);
+  background-image: none;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#008fd8), to(#0075cf));
-  background-image: -webkit-linear-gradient(top, #008fd8, #0075cf);
-  background-image: -o-linear-gradient(top, #008fd8, #0075cf);
-  background-image: linear-gradient(to bottom, #008fd8, #0075cf);
+  background-image: none;
+  background-image: none;
+  background-image: none;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff008fd8', endColorstr='#ff0075cf', GradientType=0);
 }
@@ -369,11 +369,11 @@
   -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8);
   box-shadow: 0 1px 0 rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8);
   background-color: #f9f9f9;
-  background-image: -moz-linear-gradient(top, #fefefe, #f2f2f2);
+  background-image: none;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fefefe), to(#f2f2f2));
-  background-image: -webkit-linear-gradient(top, #fefefe, #f2f2f2);
-  background-image: -o-linear-gradient(top, #fefefe, #f2f2f2);
-  background-image: linear-gradient(to bottom, #fefefe, #f2f2f2);
+  background-image: none;
+  background-image: none;
+  background-image: none;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffefefe', endColorstr='#fff2f2f2', GradientType=0);
 }

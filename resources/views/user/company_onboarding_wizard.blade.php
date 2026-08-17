@@ -11,9 +11,9 @@
     $uploadedDocumentsById = collect($uploadedDocuments ?? [])->keyBy('id');
 @endphp
 <style>
-    .onboarding-shell{min-height:100vh;background:linear-gradient(180deg,var(--color-as-f5f7fb) 0%,var(--color-as-eef3f8) 100%);color:var(--color-as-0f172a)}
+    .onboarding-shell{min-height:100vh;background:var(--color-as-f5f7fb);color:var(--color-as-0f172a)}
     .onboarding-wrap{width:min(1180px,calc(100% - 32px));margin:0 auto}
-    .onboarding-hero{padding:32px 0 120px;background:radial-gradient(circle at top right,var(--color-as-rgba-255-255-255-0-15),transparent 26rem),linear-gradient(135deg,var(--color-as-081321) 0%,var(--color-as-0f766e) 42%,var(--color-info) 100%);color:var(--color-white)}
+    .onboarding-hero{padding:32px 0 120px;background:var(--color-as-081321);color:var(--color-white)}
     .onboarding-top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:42px}
     .onboarding-top a{color:var(--color-white);text-decoration:none;font-weight:800}
     .onboarding-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius: 0;background:var(--color-as-rgba-255-255-255-0-14);border:1px solid var(--color-as-rgba-255-255-255-0-18);font-size:13px;font-weight:700}
@@ -23,7 +23,7 @@
     .onboarding-card{background:var(--color-white);border:1px solid var(--color-as-rgba-148-163-184-0-16);border-radius: 0;box-shadow:0 24px 70px var(--color-as-rgba-15-23-42-0-10)}
     .onboarding-sidebar{padding:26px;position:sticky;top:24px}
     .onboarding-progress{height:10px;border-radius: 0;background:var(--color-as-e2e8f0);overflow:hidden;margin:18px 0 24px}
-    .onboarding-progress span{display:block;height:100%;background:linear-gradient(90deg,var(--color-as-0f766e),var(--color-info))}
+    .onboarding-progress span{display:block;height:100%;background:var(--color-as-0f766e)}
     .onboarding-step{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--color-as-rgba-226-232-240-0-75)}
     .onboarding-step:last-child{border-bottom:0}
     .onboarding-step__dot{width:34px;height:34px;border-radius: 0;display:flex;align-items:center;justify-content:center;background:var(--color-as-e2e8f0);color:var(--color-as-475569);font-weight:800;flex:0 0 auto}
@@ -50,7 +50,7 @@
     .otp-actions,.wizard-actions{display:flex;gap:12px;flex-wrap:wrap}
     .wizard-actions{justify-content:space-between;align-items:center;margin-top:28px;padding-top:22px;border-top:1px solid var(--color-as-e2e8f0)}
     .wizard-btn{display:inline-flex;align-items:center;justify-content:center;border-radius: 0;border:1px solid var(--color-as-cbd5e1);padding:13px 18px;font-weight:800;background:var(--color-white);color:var(--color-as-0f172a);text-decoration:none}
-    .wizard-btn--primary{background:linear-gradient(90deg,var(--color-as-0f766e),var(--color-info));border:0;color:var(--color-white)}
+    .wizard-btn--primary{background:var(--color-as-0f766e);border:0;color:var(--color-white)}
     .wizard-btn--soft{background:var(--color-as-eff6ff);border-color:var(--color-as-bfdbfe);color:var(--color-as-1d4ed8)}
     .otp-card h3,.review-card h3,.doc-card h3,.upload-card h3{margin:0 0 10px}
     .review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}

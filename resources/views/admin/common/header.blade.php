@@ -12,7 +12,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, var(--color-as-1e3c72), var(--color-as-2a5298)); /* Carpooling-themed gradient */
+        background: var(--color-as-1e3c72); /* Carpooling-themed gradient */
         display: flex;
         flex-direction: column;
         justify-content: center;

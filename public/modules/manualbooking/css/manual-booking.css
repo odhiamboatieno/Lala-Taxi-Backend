@@ -366,7 +366,7 @@
 	margin-bottom: .9rem;
 	border: 1px solid #dbe4ee;
 	border-radius: .9rem;
-	background: linear-gradient(135deg, #f8fbff 0%, #eef5ff 100%);
+	background: #f8fbff;
 }
 
 .manual-booking-page .dispatch-default-locale-copy {
@@ -1509,7 +1509,7 @@
 	border: 1px solid #ececf6;
 	border-radius: 18px;
 	padding: 12px;
-	background: linear-gradient(180deg, #fff 0%, #fafaff 100%);
+	background: #fff;
 	cursor: pointer;
 	min-height: 118px;
 }
@@ -1808,7 +1808,7 @@ body.manual-booking-screen .page-content {
 	width: 24px;
 	height: 24px;
 	border-radius: 999px;
-	background: linear-gradient(135deg, #5b55ff 0%, #3e2fd8 100%);
+	background: #5b55ff;
 	color: #fff;
 	font-size: .76rem;
 	font-weight: 800;

@@ -22,9 +22,7 @@
             justify-content: center;
             align-items: center;
             padding: 1.5rem;
-            background:
-                radial-gradient(circle at top left, var(--color-as-rgba-20-184-166-0-24), transparent 36rem),
-                linear-gradient(135deg, var(--color-as-07111f) 0%, var(--color-as-123454) 100%);
+            background: var(--color-as-07111f);
         }
 
         .login-shell {
@@ -48,7 +46,7 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--color-as-0f766e) 0%, var(--color-info) 100%);
+            background: var(--color-as-0f766e);
             color: var(--color-white);
             font-size: 1.2rem;
             font-weight: 800;
@@ -145,7 +143,7 @@
             font-weight: 700;
             cursor: pointer;
             color: var(--color-white);
-            background: linear-gradient(90deg, var(--color-as-0f766e) 0%, var(--color-info) 100%);
+            background: var(--color-as-0f766e);
             transition: transform .2s ease, box-shadow .2s ease;
         }
 

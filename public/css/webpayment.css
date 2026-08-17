@@ -232,11 +232,11 @@ body {
   --color-selection-edge-hover: var(--color-as-rgba-127-215-255-1);
   --input-border-focus: 1px solid var(--color-as-rgba-226-231-237-1);
   --input-shadow-focus: inset -5px -5px 10px 0 var(--color-bg-level1), inset 5px 5px 10px 0 var(--color-as-rgba-200-204-207-1);
-  --switch-handle-gradient: linear-gradient(115deg, var(--color-as-rgba-100-100-100-0-02), var(--color-as-rgba-255-255-255-0-5)), var(--color-bg-level3);
+  --switch-handle-gradient: var(--color-bg-level3);
   --switch-handle-shadow: 2px 2px 5px var(--color-as-rgba-200-204-207-1);
   --switch-handle-shadow-hover: 5px 5px 10px var(--color-as-rgba-200-204-207-1);
-  --switch-background-gradient: linear-gradient(115deg, var(--color-as-rgba-100-100-100-0-02), var(--color-as-rgba-255-255-255-0-5)), var(--color-selection-outline);
-  --button-background-hover: linear-gradient(115deg, var(--color-as-rgba-100-100-100-0-02), var(--color-as-rgba-255-255-255-0-5)), var(--color-bg-level3);
+  --switch-background-gradient: var(--color-selection-outline);
+  --button-background-hover: var(--color-bg-level3);
   --button-shadow-hover: -10px -10px 20px var(--color-bg-level1), 10px 10px 20px var(--color-as-rgba-200-204-207-1);
   --button-shadow-active: -2px -2px 10px var(--color-bg-level1), 2px 2px 5px var(--color-as-rgba-200-204-207-1);
 }
@@ -260,11 +260,11 @@ body {
   --color-selection-edge-hover: var(--color-as-rgba-0-103-150-1);
   --input-border-focus: 1px solid var(--color-as-rgba-29-24-18-0-15);
   --input-shadow-focus: inset -5px -5px 10px 0 var(--color-bg-level3-accent), inset 5px 5px 10px 0 var(--color-as-rgba-0-0-0-0-3);
-  --switch-handle-gradient: linear-gradient(115deg, var(--color-as-rgba-155-155-155-0-02), var(--color-as-rgba-0-0-0-0-1)), var(--color-bg-level3);
+  --switch-handle-gradient: var(--color-bg-level3);
   --switch-handle-shadow: 2px 2px 5px var(--color-as-rgba-0-0-0-0-3);
   --switch-handle-shadow-hover: 5px 5px 10px var(--color-as-rgba-0-0-0-0-3);
-  --switch-background-gradient: linear-gradient(115deg, var(--color-as-rgba-155-155-155-0-02), var(--color-bg-level3)), var(--color-selection-outline);
-  --button-background-hover: linear-gradient(115deg, var(--color-as-rgba-155-155-155-0-02), var(--color-as-rgba-0-0-0-0-1)), var(--color-bg-level3);
+  --switch-background-gradient: var(--color-selection-outline);
+  --button-background-hover: var(--color-bg-level3);
   --button-shadow-hover: -10px -10px 20px var(--color-bg-level3-accent), 10px 10px 20px var(--color-as-rgba-0-0-0-0-3);
   --button-shadow-active: -2px -2px 10px var(--color-bg-level3-accent), 2px 2px 5px var(--color-as-rgba-0-0-0-0-3);
 }

@@ -19,9 +19,7 @@
             border: 0;
             border-radius: 0;
             color: var(--color-white);
-            background:
-                radial-gradient(circle at top right, var(--color-as-rgba-255-255-255-0-18), transparent 28rem),
-                linear-gradient(135deg, var(--color-as-0f172a) 0%, var(--color-as-0f766e) 48%, var(--color-info) 100%);
+            background: var(--color-as-0f172a);
             box-shadow: var(--trip-ops-shadow);
         }
 
@@ -243,7 +241,7 @@
         .trip-map-canvas {
             width: 100%;
             min-height: 560px;
-            background: linear-gradient(135deg, var(--color-as-rgba-15-118-110-0-06), var(--color-as-rgba-37-99-235-0-08));
+            background: var(--color-as-rgba-15-118-110-0-06);
         }
 
         .trip-map-empty {
@@ -283,7 +281,7 @@
             border-radius: 0;
             padding: 2rem;
             text-align: center;
-            background: linear-gradient(135deg, var(--color-as-rgba-15-118-110-0-07), var(--color-as-rgba-37-99-235-0-07));
+            background: var(--color-as-rgba-15-118-110-0-07);
             border: 1px dashed var(--color-as-rgba-37-99-235-0-24);
         }
 

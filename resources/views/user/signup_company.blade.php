@@ -7,7 +7,7 @@
         color: var(--color-as-111827);
     }
     .wizard-hero {
-        background: linear-gradient(120deg, var(--color-as-rgba-15-118-110-0-92), var(--color-as-rgba-37-99-235-0-84)), url("{{ url('images/icon/become_company.png') }}") center/cover no-repeat;
+        background: var(--color-as-rgba-15-118-110-0-92) url("{{ url('images/icon/become_company.png') }}") center/cover no-repeat;
         color: var(--color-white);
         padding: 32px 0 88px;
     }

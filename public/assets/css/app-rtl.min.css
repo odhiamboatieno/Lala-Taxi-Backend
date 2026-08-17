@@ -4658,7 +4658,7 @@ File: Main Css File
   gap: 14px;
 }
 .placeholder-body .placeholder-start {
-  background-image: linear-gradient(-90deg, var(--pe-gray-100) 0%, var(--pe-gray-100) 40%, var(--pe-gray-200) 50%, var(--pe-gray-200) 55%, var(--pe-gray-100) 65%, var(--pe-gray-100) 100%);
+  background-image: none;
   background-size: 400%;
   animation: skeleton 2000ms infinite;
 }
@@ -4676,7 +4676,7 @@ File: Main Css File
   flex: 1;
 }
 .placeholder-body .placeholder-end .placeholder-line {
-  background-image: linear-gradient(-90deg, var(--pe-gray-100) 0%, var(--pe-gray-100) 40%, var(--pe-gray-200) 50%, var(--pe-gray-200) 55%, var(--pe-gray-100) 65%, var(--pe-gray-100) 100%);
+  background-image: none;
   background-size: 400%;
   animation: skeleton 2000ms infinite;
   background-color: transparent;
@@ -5201,19 +5201,19 @@ File: Main Css File
 }
 
 .webGradient {
-  background: linear-gradient(-130deg, var(--pe-info), rgba(var(--pe-info-rgb), 0.6), var(--pe-info));
+  background: var(--pe-info);
 }
 
 .datascienceGradient {
-  background: linear-gradient(-130deg, var(--pe-primary), rgba(var(--pe-primary-rgb), 0.6), var(--pe-primary));
+  background: var(--pe-primary);
 }
 
 .IntelligenceGradient {
-  background: linear-gradient(-130deg, var(--pe-success), rgba(var(--pe-success-rgb), 0.6), var(--pe-success));
+  background: var(--pe-success);
 }
 
 .addGradient {
-  background: linear-gradient(-130deg, var(--pe-secondary), rgba(var(--pe-secondary-rgb), 0.6), var(--pe-secondary));
+  background: var(--pe-secondary);
 }
 
 .day-item {
@@ -5250,7 +5250,7 @@ File: Main Css File
 }
 
 .upgrade-card {
-  background: linear-gradient(-130deg, var(--pe-secondary), rgba(var(--pe-secondary-rgb), 0.5));
+  background: var(--pe-secondary);
 }
 
 .datepicker-container .air-datepicker {
@@ -5274,7 +5274,7 @@ File: Main Css File
 }
 
 .card-gradient {
-  background: linear-gradient(-130deg, rgba(var(--pe-primary-rgb), 0.9), rgba(var(--pe-primary-rgb), 0.1));
+  background: rgba(var(--pe-primary-rgb), 0.9);
 }
 
 .crmactivity-height {
@@ -7088,12 +7088,12 @@ th.gridjs-th-sort:hover {
 }
 
 .custom-rating::-moz-range-track {
-  background: linear-gradient(to left, var(--fill) 0 var(--x), var(--fillbg) 0 var(--x));
+  background: var(--fill);
   block-size: 100%;
   mask: repeat left center/var(--starsize) var(--symbol);
 }
 .custom-rating::-webkit-slider-runnable-track {
-  background: linear-gradient(to left, var(--fill) 0 var(--x), var(--fillbg) 0 var(--x));
+  background: var(--fill);
   block-size: 100%;
   mask: repeat left center/var(--starsize) var(--symbol);
   -webkit-mask: repeat left center/var(--starsize) var(--symbol);
@@ -7148,7 +7148,7 @@ code[class*=language-] {
   margin-right: -3px;
   width: 6px;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(242, 117, 56, 0) 0%, rgb(242, 117, 56) 50%, rgba(242, 117, 56, 0) 100%);
+  background: rgb(242, 117, 56);
   z-index: 5;
 }
 .timeline li {

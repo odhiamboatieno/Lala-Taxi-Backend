@@ -26,9 +26,7 @@
 .map-grid {
     position: absolute;
     inset: 0;
-    background-image:
-        linear-gradient(var(--color-as-rgba-255-255-255-0-05) 1px, transparent 1px),
-        linear-gradient(90deg, var(--color-as-rgba-255-255-255-0-05) 1px, transparent 1px);
+    background-image: none;
     background-size: 20px 20px;
 }
 
@@ -38,11 +36,7 @@
     width: 100%;
     height: 100%;
     border-radius: 0;
-    background: conic-gradient(
-        from 0deg,
-        var(--color-as-rgba-34-197-94-0-4),
-        var(--color-as-rgba-34-197-94-0) 60%
-    );
+    background: var(--color-as-rgba-34-197-94-0.4);
     animation: radar-spin 1.5s linear infinite;
 }
 

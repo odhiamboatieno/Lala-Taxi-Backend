@@ -22,9 +22,7 @@
             border: 0;
             border-radius: 0;
             box-shadow: var(--company-shadow);
-            background:
-                radial-gradient(circle at top right, var(--color-as-rgba-255-255-255-0-18), transparent 28rem),
-                linear-gradient(135deg, var(--color-as-0f172a) 0%, var(--color-as-0f766e) 48%, var(--color-info) 100%);
+            background: var(--color-as-0f172a);
             color: var(--color-white);
         }
 
@@ -177,7 +175,7 @@
         }
 
         .company-tabs .nav-link.active {
-            background: linear-gradient(90deg, var(--company-primary) 0%, var(--company-accent) 100%);
+            background: var(--company-primary);
             color: var(--color-white);
             box-shadow: 0 14px 24px var(--color-as-rgba-37-99-235-0-14);
         }
@@ -387,7 +385,7 @@
         .company-placeholder-panel {
             border-radius: 0;
             padding: 1rem;
-            background: linear-gradient(135deg, var(--color-as-rgba-15-118-110-0-08), var(--color-as-rgba-37-99-235-0-08));
+            background: var(--color-as-rgba-15-118-110-0-08);
             border: 1px solid var(--color-as-rgba-37-99-235-0-12);
         }
 

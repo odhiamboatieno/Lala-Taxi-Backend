@@ -84,7 +84,7 @@
 	.payment-gateway-page .box-header {
 		padding: 24px;
 		border-bottom: 1px solid var(--color-as-rgba-148-163-184-0-22);
-		background: linear-gradient(135deg, var(--color-as-rgba-20-184-166-0-12), var(--color-as-rgba-37-99-235-0-10));
+		background: var(--color-as-rgba-20-184-166-0-12);
 	}
 	.payment-gateway-page .box-title {
 		font-weight: 700;

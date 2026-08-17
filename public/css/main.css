@@ -1486,10 +1486,10 @@ table {
     user-select: none;
     background-color: var(--color-white);
     background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0,var(--color-as-eeeeee)),color-stop(0.5,var(--color-white)));
-    background-image: -webkit-linear-gradient(center bottom,var(--color-as-eeeeee) 0,var(--color-white) 50%);
-    background-image: -moz-linear-gradient(center bottom,var(--color-as-eeeeee) 0,var(--color-white) 50%);
+    background-image: none;
+    background-image: none;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--color-white)', endColorstr='var(--color-as-ddf2ff)', GradientType=0);
-    background-image: linear-gradient(to top,var(--color-as-eeeeee) 0,var(--color-white) 50%);
+    background-image: none;
 }
 #no-more-tables .table-condensed>tbody>tr>td{
     border: 0px;
@@ -1528,10 +1528,10 @@ table {
     user-select: none;
     background-color: var(--color-white);
     background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0,var(--color-as-eeeeee)),color-stop(0.5,var(--color-white)));
-    background-image: -webkit-linear-gradient(center bottom,var(--color-as-eeeeee) 0,var(--color-white) 50%);
-    background-image: -moz-linear-gradient(center bottom,var(--color-as-eeeeee) 0,var(--color-white) 50%);
+    background-image: none;
+    background-image: none;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--color-white)', endColorstr='var(--color-as-ddf2ff)', GradientType=0);
-    background-image: linear-gradient(to top,var(--color-as-eeeeee) 0,var(--color-white) 50%);
+    background-image: none;
 }
 .select2-container .select2-choice>.select2-chosen {
     margin-right: 26px;
@@ -1567,10 +1567,10 @@ table {
     border-radius: 0;
     background: var(--color-as-cccccc);
     background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0,var(--color-as-cccccc)),color-stop(0.6,var(--color-as-eeeeee)));
-    background-image: -webkit-linear-gradient(center bottom,var(--color-as-cccccc) 0,var(--color-as-eeeeee) 60%);
-    background-image: -moz-linear-gradient(center bottom,var(--color-as-cccccc) 0,var(--color-as-eeeeee) 60%);
+    background-image: none;
+    background-image: none;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--color-as-ddf2ff)', endColorstr='var(--color-as-cccccc)', GradientType=0);
-    background-image: linear-gradient(to top,var(--color-as-cccccc) 0,var(--color-as-eeeeee) 60%);
+    background-image: none;
 }
 .select2-container .select2-choice .select2-arrow b {
     display: block;

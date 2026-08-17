@@ -79,7 +79,7 @@
   --bs-black-rgb: 0, 0, 0;
   --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --bs-gradient: linear-gradient(180deg, var(--color-as-rgba-255-255-255-0-15), var(--color-as-rgba-255-255-255-0));
+  --bs-gradient: var(--color-as-rgba-255-255-255-0-15);
   --bs-body-font-family: "DM Sans", sans-serif;
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
@@ -5843,7 +5843,7 @@ textarea.form-control-lg {
 }
 
 .progress-bar-striped {
-  background-image: linear-gradient(45deg, var(--color-as-rgba-255-255-255-0-15) 25%, transparent 25%, transparent 50%, var(--color-as-rgba-255-255-255-0-15) 50%, var(--color-as-rgba-255-255-255-0-15) 75%, transparent 75%, transparent);
+  background-image: none;
   background-size: var(--bs-progress-height) var(--bs-progress-height);
 }
 
@@ -7952,8 +7952,8 @@ textarea.form-control-lg {
   }
 }
 .placeholder-wave {
-  -webkit-mask-image: linear-gradient(130deg, var(--color-black) 55%, var(--color-as-rgba-0-0-0-0-8) 75%, var(--color-black) 95%);
-          mask-image: linear-gradient(130deg, var(--color-black) 55%, var(--color-as-rgba-0-0-0-0-8) 75%, var(--color-black) 95%);
+  -webkit-mask-image: none;
+          mask-image: none;
   -webkit-mask-size: 200% 100%;
           mask-size: 200% 100%;
   -webkit-animation: placeholder-wave 2s linear infinite;
@@ -17524,7 +17524,7 @@ a.badge:hover {
   width: 100%;
   bottom: 0;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(var(--color-as-rgb-0-0-0)));
-  background-image: linear-gradient(180deg, transparent, var(--color-as-rgb-0-0-0));
+  background-image: none;
   z-index: 1;
 }
 .card-metro:hover .card-text {
@@ -19504,8 +19504,8 @@ small,
 }
 
 .bg-instagram-gradient {
-  background: radial-gradient(circle at 20% 130%, var(--color-as-fdf497) 0%, var(--color-as-fdf497) 5%, var(--color-as-fd5949) 45%, var(--color-as-d6249f) 60%, var(--color-as-285aeb) 90%);
-  background: -webkit-radial-gradient(circle at 20% 130%, var(--color-as-fdf497) 0%, var(--color-as-fdf497) 5%, var(--color-as-fd5949) 45%, var(--color-as-d6249f) 60%, var(--color-as-285aeb) 90%);
+  background: var(--color-as-285aeb);
+  background: var(--color-as-285aeb);
   color: var(--color-white);
   background-size: 120% 120%;
   background-position: right bottom;
@@ -19514,8 +19514,8 @@ small,
   border: 0;
 }
 .bg-instagram-gradient:hover, .bg-instagram-gradient:active, .bg-instagram-gradient:focus {
-  background: radial-gradient(circle at 20% 130%, var(--color-as-fdf497) 0%, var(--color-as-fdf497) 5%, var(--color-as-fd5949) 45%, var(--color-as-d6249f) 60%, var(--color-as-285aeb) 90%);
-  background: -webkit-radial-gradient(circle at 20% 130%, var(--color-as-fdf497) 0%, var(--color-as-fdf497) 5%, var(--color-as-fd5949) 45%, var(--color-as-d6249f) 60%, var(--color-as-285aeb) 90%);
+  background: var(--color-as-285aeb);
+  background: var(--color-as-285aeb);
   color: var(--color-white);
   background-size: 100% 100%;
   -webkit-transition: all 0.3s ease-in-out;
@@ -19525,8 +19525,8 @@ small,
 
 .text-instagram-gradient {
   color: transparent;
-  background: radial-gradient(circle at 20% 130%, var(--color-as-fdf497) 0%, var(--color-as-fdf497) 5%, var(--color-as-fd5949) 45%, var(--color-as-d6249f) 60%, var(--color-as-285aeb) 90%);
-  background: -webkit-radial-gradient(circle at 20% 130%, var(--color-as-fdf497) 0%, var(--color-as-fdf497) 5%, var(--color-as-fd5949) 45%, var(--color-as-d6249f) 60%, var(--color-as-285aeb) 90%);
+  background: var(--color-as-285aeb);
+  background: var(--color-as-285aeb);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-transition: all 0.3s ease-in-out;
@@ -19535,8 +19535,8 @@ small,
 }
 .text-instagram-gradient:hover {
   color: transparent;
-  background: radial-gradient(circle at 20% 130%, var(--color-as-fdf497) 0%, var(--color-as-fdf497) 5%, var(--color-as-fd5949) 45%, var(--color-as-d6249f) 60%, var(--color-as-285aeb) 90%);
-  background: -webkit-radial-gradient(circle at 20% 130%, var(--color-as-fdf497) 0%, var(--color-as-fdf497) 5%, var(--color-as-fd5949) 45%, var(--color-as-d6249f) 60%, var(--color-as-285aeb) 90%);
+  background: var(--color-as-285aeb);
+  background: var(--color-as-285aeb);
   background-clip: text;
   -webkit-background-clip: text;
   background-size: 100% 100%;
@@ -19562,7 +19562,7 @@ small,
 }
 
 .text-google-icon {
-  background: conic-gradient(from -45deg, var(--color-as-ea4335) 110deg, var(--color-as-4285f4) 90deg 180deg, var(--color-as-34a853) 180deg 270deg, var(--color-as-fbbc05) 270deg) 73% 55%/150% 150% no-repeat;
+  background: var(--color-as-4285f4);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

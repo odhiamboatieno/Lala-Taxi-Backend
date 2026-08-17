@@ -204,7 +204,7 @@
         gap: 1rem;
         padding: 1.6rem 1.8rem;
         border-radius: 0;
-        background: linear-gradient(135deg, var(--color-as-182848) 0%, var(--color-as-4f46e5) 100%);
+        background: var(--color-as-182848);
         color: var(--color-white);
         box-shadow: 0 22px 40px var(--color-as-rgba-41-55-117-0-18);
         margin: 18px 0 20px;

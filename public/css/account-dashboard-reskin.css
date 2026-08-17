@@ -1,8 +1,5 @@
 .dashboard-shell-body {
-  background:
-    radial-gradient(circle at top left, var(--color-as-rgba-197-95-54-0-16), transparent 26%),
-    radial-gradient(circle at top right, var(--color-as-rgba-31-108-125-0-14), transparent 24%),
-    linear-gradient(180deg, var(--color-as-f7f4ee) 0%, var(--color-as-ece6db) 100%);
+  background: var(--color-as-f7f4ee);
   color: var(--color-as-20262f);
   font-family: "Gill Sans", "Trebuchet MS", sans-serif;
 }
@@ -11,8 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 20;
-  background:
-    linear-gradient(135deg, var(--color-as-rgba-24-33-45-0-92), var(--color-as-rgba-31-62-79-0-9)) !important;
+  background: var(--color-as-rgba-24-33-45-0-92) !important;
   backdrop-filter: blur(14px);
   box-shadow: 0 18px 36px var(--color-as-rgba-24-33-45-0-16);
 }
@@ -41,7 +37,7 @@
 
 .dashboard-shell-body .flyout__content,
 .dashboard-shell-body .nav-div {
-  background: linear-gradient(180deg, var(--color-as-213344) 0%, var(--color-as-1a2430) 100%) !important;
+  background: var(--color-as-213344) !important;
   border: 1px solid var(--color-as-rgba-255-255-255-0-08);
   box-shadow: 0 20px 40px var(--color-as-rgba-0-0-0-0-18);
 }
@@ -66,8 +62,7 @@
   top: 110px;
   border-radius: 0;
   padding: 26px 18px !important;
-  background:
-    linear-gradient(180deg, var(--color-as-rgba-32-48-64-0-96), var(--color-as-rgba-23-33-44-0-96)) !important;
+  background: var(--color-as-rgba-32-48-64-0-96) !important;
   box-shadow: 0 30px 60px var(--color-as-rgba-28-35-46-0-2);
 }
 
@@ -97,7 +92,7 @@
 .dashboard-shell-body .page-sidebar .side-nav-a:hover,
 .dashboard-shell-body .page-sidebar .sidenav-item:hover,
 .dashboard-shell-body .page-sidebar a[aria-selected="true"] {
-  background: linear-gradient(135deg, var(--color-as-c55f36), var(--color-as-8f3e16));
+  background: var(--color-as-c55f36);
   color: var(--color-white) !important;
   box-shadow: 0 16px 30px var(--color-as-rgba-143-62-22-0-22);
 }
@@ -205,7 +200,7 @@
 .dashboard-shell-body input[type="button"] {
   border: 0 !important;
   border-radius: 0 !important;
-  background: linear-gradient(135deg, var(--color-as-c55f36), var(--color-as-8f3e16)) !important;
+  background: var(--color-as-c55f36) !important;
   color: var(--color-white) !important;
   font-weight: 700;
   box-shadow: 0 18px 34px var(--color-as-rgba-143-62-22-0-2);
@@ -220,7 +215,7 @@
 
 .dashboard-shell-body .trip-filter__origin-link,
 .dashboard-shell-body .trip-filter__origin-btn {
-  background: linear-gradient(135deg, var(--color-as-1c6c7c), var(--color-as-174956)) !important;
+  background: var(--color-as-1c6c7c) !important;
 }
 
 .dashboard-shell-body table,
@@ -295,7 +290,7 @@
 
 .dashboard-shell-body .panel-header {
   border-radius: 0;
-  background: linear-gradient(135deg, var(--color-as-1c6c7c), var(--color-as-174956));
+  background: var(--color-as-1c6c7c);
   color: var(--color-white);
 }
 

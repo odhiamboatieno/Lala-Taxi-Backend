@@ -17,10 +17,7 @@
 }
 
 body.admin-dashboard-shell {
-  background:
-    radial-gradient(circle at top left, var(--color-as-rgba-199-104-54-0-18), transparent 28%),
-    radial-gradient(circle at top right, var(--color-as-rgba-28-107-114-0-16), transparent 24%),
-    linear-gradient(180deg, var(--color-as-f7f1e8) 0%, var(--color-as-efe6db) 100%) !important;
+  background: var(--color-as-f7f1e8) !important;
   color: var(--admin-ink);
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
@@ -62,7 +59,7 @@ body.admin-dashboard-shell .sidebar-toggle {
 body.admin-dashboard-shell .main-sidebar,
 body.admin-dashboard-shell .left-side {
   padding-top: 74px;
-  background: linear-gradient(180deg, var(--color-as-1f2a36) 0%, var(--color-as-24384a) 55%, var(--color-as-1f2832) 100%) !important;
+  background: var(--color-as-1f2a36) !important;
   box-shadow: 18px 0 40px var(--color-as-rgba-25-32-40-0-24);
 }
 
@@ -77,7 +74,7 @@ body.admin-dashboard-shell .sidebar .logo {
   border-radius: 0;
   padding: 18px 16px;
   text-align: left;
-  background: linear-gradient(135deg, var(--color-as-rgba-255-255-255-0-12), var(--color-as-rgba-255-255-255-0-04)) !important;
+  background: var(--color-as-rgba-255-255-255-0-12) !important;
   border: 1px solid var(--color-as-rgba-255-255-255-0-1);
 }
 
@@ -106,7 +103,7 @@ body.admin-dashboard-shell .sidebar-menu > li > a > .ion {
 body.admin-dashboard-shell .sidebar-menu > li:hover > a,
 body.admin-dashboard-shell .sidebar-menu > li.active > a,
 body.admin-dashboard-shell .sidebar-menu > li.menu-open > a {
-  background: linear-gradient(135deg, var(--color-as-rgba-199-104-54-0-92), var(--color-as-rgba-143-62-22-0-92)) !important;
+  background: var(--color-as-rgba-199-104-54-0-92) !important;
   color: var(--color-white) !important;
   border-color: var(--color-as-rgba-255-255-255-0-14);
   box-shadow: 0 14px 28px var(--color-as-rgba-143-62-22-0-24);
@@ -230,33 +227,24 @@ body.admin-dashboard-shell .small-box .icon {
 
 body.admin-dashboard-shell .small-box:nth-child(odd),
 body.admin-dashboard-shell .row > div:nth-child(4n + 1) .small-box {
-  background:
-    radial-gradient(circle at top right, var(--color-as-rgba-199-104-54-0-18), transparent 34%),
-    linear-gradient(135deg, var(--color-as-rgba-255-255-255-0-96), var(--color-as-rgba-255-246-237-0-92)) !important;
+  background: var(--color-as-rgba-255-246-237-0-92) !important;
 }
 
 body.admin-dashboard-shell .row > div:nth-child(4n + 2) .small-box {
-  background:
-    radial-gradient(circle at top right, var(--color-as-rgba-28-107-114-0-14), transparent 32%),
-    linear-gradient(135deg, var(--color-as-rgba-255-255-255-0-96), var(--color-as-rgba-242-249-248-0-92)) !important;
+  background: var(--color-as-rgba-242-249-248-0-92) !important;
 }
 
 body.admin-dashboard-shell .row > div:nth-child(4n + 3) .small-box {
-  background:
-    radial-gradient(circle at top right, var(--color-as-rgba-114-94-161-0-14), transparent 32%),
-    linear-gradient(135deg, var(--color-as-rgba-255-255-255-0-96), var(--color-as-rgba-247-243-255-0-92)) !important;
+  background: var(--color-as-rgba-247-243-255-0-92) !important;
 }
 
 body.admin-dashboard-shell .row > div:nth-child(4n + 4) .small-box {
-  background:
-    radial-gradient(circle at top right, var(--color-as-rgba-63-133-82-0-14), transparent 32%),
-    linear-gradient(135deg, var(--color-as-rgba-255-255-255-0-96), var(--color-as-rgba-243-250-245-0-92)) !important;
+  background: var(--color-as-rgba-243-250-245-0-92) !important;
 }
 
 body.admin-dashboard-shell .bg-teal-gradient,
 body.admin-dashboard-shell .bg-green-gradient {
-  background:
-    linear-gradient(135deg, var(--color-as-rgba-33-77-91-0-95), var(--color-as-rgba-23-46-57-0-96)) !important;
+  background: var(--color-as-rgba-33-77-91-0-95) !important;
   color: var(--color-white) !important;
 }
 
@@ -294,13 +282,13 @@ body.admin-dashboard-shell .btn.btn-default {
 body.admin-dashboard-shell .btn.btn-info,
 body.admin-dashboard-shell .btn.btn-primary,
 body.admin-dashboard-shell .btn.btn-success {
-  background: linear-gradient(135deg, var(--admin-accent), var(--admin-accent-strong)) !important;
+  background: var(--admin-accent) !important;
   color: var(--color-white) !important;
   box-shadow: 0 16px 30px var(--color-as-rgba-143-62-22-0-24);
 }
 
 body.admin-dashboard-shell .btn.btn-danger {
-  background: linear-gradient(135deg, var(--color-as-b64646), var(--color-as-7d2222)) !important;
+  background: var(--color-as-b64646) !important;
   color: var(--color-white) !important;
 }
 
@@ -385,7 +373,7 @@ body.admin-dashboard-shell .pagination > li > span {
 
 body.admin-dashboard-shell .pagination > .active > a,
 body.admin-dashboard-shell .pagination > .active > span {
-  background: linear-gradient(135deg, var(--admin-accent), var(--admin-accent-strong)) !important;
+  background: var(--admin-accent) !important;
   color: var(--color-white) !important;
 }
 

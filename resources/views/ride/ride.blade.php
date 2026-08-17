@@ -214,7 +214,7 @@ body {
 /* Hero Section (ride-div-main) */
 .ride-div-main {
   position: relative;
-  background: linear-gradient(135deg, var(--color-as-0288d1) 0%, var(--color-as-4fc3f7) 100%);
+  background: var(--color-as-0288d1);
   padding: 0;
   overflow: hidden;
 }

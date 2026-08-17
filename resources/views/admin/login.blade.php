@@ -24,9 +24,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background:
-                radial-gradient(circle at top left, var(--color-as-rgba-20-184-166-0-24), transparent 36rem),
-                linear-gradient(135deg, var(--color-as-07111f) 0%, var(--color-as-123454) 100%);
+            background: var(--color-as-07111f);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -130,7 +128,7 @@
         button[type="submit"] {
             width: 100%;
             padding: 0.9rem;
-            background: linear-gradient(90deg, var(--color-as-0f766e) 0%, var(--color-info) 100%);
+            background: var(--color-as-0f766e);
             border: none;
             border-radius: 0;
             color: var(--color-white);
@@ -141,7 +139,7 @@
         }
 
         button[type="submit"]:hover {
-            background: linear-gradient(90deg, var(--color-as-115e59) 0%, var(--color-as-1d4ed8) 100%);
+            background: var(--color-as-115e59);
             transform: translateY(-2px);
         }
 
