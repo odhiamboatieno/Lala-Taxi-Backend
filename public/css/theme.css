@@ -1023,3 +1023,21 @@ body.admin-app [class*=" heading"], body.admin-app .font-heading {
   --pe-app-sidebar-width: 15.75rem;
 }
 
+/* ==========================================================================
+   Active sidebar menu: clear highlight so the current page is obvious, and
+   a subtle tint on the section that owns the active item.
+   ========================================================================== */
+.pe-app-sidebar .pe-app-sidebar-menu .pe-slide.active > .pe-nav-link,
+.pe-app-sidebar .pe-app-sidebar-menu .pe-slide-item.active > .pe-nav-link,
+.pe-app-sidebar .pe-app-sidebar-menu .pe-nav-link.active {
+  background: color-mix(in srgb, var(--pe-app-sidebar-menu-item-color-active) 16%, transparent) !important;
+  box-shadow: inset 3px 0 0 var(--pe-app-sidebar-menu-item-color-active) !important;
+  color: var(--pe-app-sidebar-menu-item-color-active) !important;
+  font-weight: 600 !important;
+}
+
+.pe-app-sidebar .pe-app-sidebar-menu .pe-slide:has(.pe-slide-menu.show) > .pe-nav-link {
+  color: var(--pe-app-sidebar-menu-item-color-active) !important;
+  font-weight: 600 !important;
+}
+

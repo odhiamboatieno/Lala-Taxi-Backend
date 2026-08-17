@@ -596,3 +596,47 @@
         </ul>
     </nav>
 </aside>
+
+@push('scripts')
+    <script>
+        (function () {
+            function revealAndFocusActive() {
+                var scroller = document.querySelector('#sidebar-simplebar .simplebar-content-wrapper');
+                if (!scroller) {
+                    return false;
+                }
+
+                var active = document.querySelector('#sidebar-simplebar .pe-slide-item.active')
+                    || document.querySelector('#sidebar-simplebar .pe-slide.active')
+                    || document.querySelector('#sidebar-simplebar .pe-nav-link.active');
+                if (!active) {
+                    return true;
+                }
+
+                var parentMenu = active.closest('.pe-slide-menu');
+                if (parentMenu && !parentMenu.classList.contains('show')) {
+                    parentMenu.classList.add('show');
+                    var parentLink = parentMenu.parentElement.querySelector(':scope > .pe-nav-link');
+                    if (parentLink) {
+                        parentLink.classList.remove('collapsed');
+                        parentLink.setAttribute('aria-expanded', 'true');
+                    }
+                }
+
+                var link = active.querySelector(':scope > .pe-nav-link') || active;
+                var top = link.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop;
+                scroller.scrollTop = Math.max(0, top - 100);
+
+                return true;
+            }
+
+            var attempts = 0;
+            var timer = setInterval(function () {
+                attempts++;
+                if (revealAndFocusActive() || attempts > 30) {
+                    clearInterval(timer);
+                }
+            }, 120);
+        })();
+    </script>
+@endpush
