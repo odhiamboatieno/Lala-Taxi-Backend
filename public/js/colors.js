@@ -846,6 +846,5 @@ window.LalaColors = {
   "primary800": "#850C27",
   "primary900": "#59081A",
   "warning": "#A66E1A",
-};
-
   "ase7eef5": "#e7eef5",
+};
