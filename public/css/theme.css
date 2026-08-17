@@ -62,6 +62,7 @@ so the whole UI now renders in the LalaTaxi brand while remaining editable.
   --color-as-166534: #166534;
   --color-as-16965d: var(--color-success);
   --color-as-17202b: var(--color-neutral-800);
+  --color-as-17232d: #17232d;
   --color-as-174956: var(--color-primary-800);
   --color-as-17a2b8: var(--color-primary-500);
   --color-as-17a398: #17a398;
@@ -85,6 +86,7 @@ so the whole UI now renders in the LalaTaxi brand while remaining editable.
   --color-as-1d3d67: var(--color-neutral-700);
   --color-as-1d4ed8: var(--color-info);
   --color-as-1dd1a1: #1dd1a1;
+  --color-as-1e2d38: #1e2d38;
   --color-as-1e3c72: var(--color-neutral-700);
   --color-as-1f2430: var(--color-neutral-800);
   --color-as-1f2832: var(--color-neutral-800);
@@ -124,6 +126,7 @@ so the whole UI now renders in the LalaTaxi brand while remaining editable.
   --color-as-2a5298: #2a5298;
   --color-as-2b2a2a: var(--color-neutral-800);
   --color-as-2b3035: var(--color-neutral-800);
+  --color-as-2b3d4b: #2b3d4b;
   --color-as-2b78c7: var(--color-info);
   --color-as-2c0b0e: var(--color-neutral-900);
   --color-as-2c3034: var(--color-neutral-800);
@@ -186,6 +189,7 @@ so the whole UI now renders in the LalaTaxi brand while remaining editable.
   --color-as-5143d9: var(--color-primary-500);
   --color-as-5475bc: var(--color-info);
   --color-as-555555: var(--color-neutral-600);
+  --color-as-55b9ad: #55b9ad;
   --color-as-565a5c: var(--color-neutral-600);
   --color-as-5875f5: var(--color-info);
   --color-as-596171: var(--color-neutral-600);
@@ -224,6 +228,7 @@ so the whole UI now renders in the LalaTaxi brand while remaining editable.
   --color-as-747579: var(--color-neutral-500);
   --color-as-757575: var(--color-neutral-500);
   --color-as-75b798: var(--color-neutral-400);
+  --color-as-79d5ca: #79d5ca;
   --color-as-7a3f3f: var(--color-amber-900);
   --color-as-7a6deb: #7a6deb;
   --color-as-7b88a8: var(--color-neutral-400);
@@ -233,6 +238,7 @@ so the whole UI now renders in the LalaTaxi brand while remaining editable.
   --color-as-8196aa: var(--color-neutral-400);
   --color-as-828282: var(--color-neutral-500);
   --color-as-82888a: var(--color-neutral-500);
+  --color-as-82a9d6: #82a9d6;
   --color-as-842029: var(--color-primary-800);
   --color-as-856404: var(--color-amber-900);
   --color-as-85878a: var(--color-neutral-500);
@@ -245,6 +251,7 @@ so the whole UI now renders in the LalaTaxi brand while remaining editable.
   --color-as-92400e: var(--color-amber-900);
   --color-as-929292: var(--color-neutral-400);
   --color-as-939393: var(--color-neutral-400);
+  --color-as-93a4b5: #93a4b5;
   --color-as-94a3b8: var(--color-neutral-400);
   --color-as-95959529: #95959529;
   --color-as-961d2b: var(--color-primary-800);
@@ -382,6 +389,7 @@ so the whole UI now renders in the LalaTaxi brand while remaining editable.
   --color-as-e6dbb9: var(--color-amber-100);
   --color-as-e6ebf4: var(--color-neutral-200);
   --color-as-e7e7e8: var(--color-neutral-200);
+  --color-as-e7eef5: #e7eef5;
   --color-as-e7f1ff: var(--color-primary-100);
   --color-as-e83e8c: var(--color-primary-500);
   --color-as-e8eef7: var(--color-neutral-100);

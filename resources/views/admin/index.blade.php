@@ -825,12 +825,12 @@
 
         /* Dashboard dark mode: one quiet neutral surface system with a teal accent. */
         [data-bs-theme="dark"] {
-            --ops-surface: #17232d;
-            --ops-surface-soft: #1e2d38;
-            --ops-border: #2b3d4b;
-            --ops-text: #e7eef5;
-            --ops-muted: #93a4b5;
-            --ops-accent: #55b9ad;
+            --ops-surface: var(--color-as-17232d);
+            --ops-surface-soft: var(--color-as-1e2d38);
+            --ops-border: var(--color-as-2b3d4b);
+            --ops-text: var(--color-as-e7eef5);
+            --ops-muted: var(--color-as-93a4b5);
+            --ops-accent: var(--color-as-55b9ad);
         }
 
         [data-bs-theme="dark"] .ops-dashboard {
@@ -922,7 +922,7 @@
         [data-bs-theme="dark"] .ops-dashboard .ops-welcome__badge {
             background: rgba(85, 185, 173, .14);
             border-color: rgba(85, 185, 173, .28);
-            color: #79d5ca;
+            color: var(--color-as-79d5ca);
         }
 
         [data-bs-theme="dark"] .ops-dashboard .ops-podium__item--first {
@@ -1395,7 +1395,7 @@
                 var chartData = [];
                 var isDarkMode = document.documentElement.getAttribute('data-bs-theme') === 'dark';
                 var chartLineColors = isDarkMode
-                    ? ['#55b9ad', '#82a9d6']
+                    ? [LalaColors.as55b9ad, LalaColors.as82a9d6]
                     : [LalaColors.as35c5a8, LalaColors.as5c97ff];
 
                 for (var i = 0; i < labels.length; i++) {
@@ -1421,8 +1421,8 @@
                     pointFillColors: chartLineColors,
                     pointStrokeColors: chartLineColors,
                     hideHover: false,
-                    gridTextColor: isDarkMode ? '#93a4b5' : LalaColors.as658098,
-                    gridLineColor: isDarkMode ? '#2b3d4b' : LalaColors.asEdf3f8,
+                    gridTextColor: isDarkMode ? LalaColors.as93a4b5 : LalaColors.as658098,
+                    gridLineColor: isDarkMode ? LalaColors.as2b3d4b : LalaColors.asEdf3f8,
                     parseTime: false,
                     hoverCallback: function (index, options, content, row) {
                         return '<div class="morris-hover-row-label">' + row.label + '</div>'
