@@ -43,6 +43,11 @@
         border-radius: 0 !important;
     }
 
+    /* Increase Quick Access mega menu width by 15% */
+    .app-header .pe-dropdown-mega .dropdown-menu.dropdown-mega-lg {
+        width: 43.7rem;
+    }
+
     /* Align action columns with the filter controls used above every data table. */
     .admin-app form.row.align-items-end > [class*="col-"].d-flex {
         align-self: stretch;

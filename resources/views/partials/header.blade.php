@@ -124,7 +124,7 @@
 
                         <div class="dropdown pe-dropdown-mega pe-dropdown-hover">
                             <button class="btn pe-dropdown-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ __('messages.blade_static.quick_actions_c40810f5') }}
+                                {{ __('messages.blade_static.quick_access_menu_6ff56d27') }}
                             </button>
                             <div class="dropdown-menu dropdown-mega-lg p-0">
                                 <div class="p-4 d-flex align-items-center gap-4 bg-primary">
