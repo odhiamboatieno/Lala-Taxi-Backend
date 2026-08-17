@@ -1048,7 +1048,7 @@ body.admin-app [class*=" heading"], body.admin-app .font-heading {
    gradient variants keep their intent. Dark mode uses the dashboard
    surfaces.
    ========================================================================== */
-.card:not(.border-0):not([class*="bg-gradient"]),
+.card:not([class*="bg-gradient"]),
 .box:not(.box-transparent),
 .panel {
   background: var(--color-white) !important;
@@ -1056,12 +1056,12 @@ body.admin-app [class*=" heading"], body.admin-app .font-heading {
   box-shadow: 0 6px 18px var(--color-as-rgba-27-65-93-0-05) !important;
 }
 
-.card-header,
-.card-footer,
-.box-header,
-.box-footer,
-.panel-header,
-.panel-footer {
+.card-header:not(.border-0),
+.card-footer:not(.border-0),
+.box-header:not(.border-0),
+.box-footer:not(.border-0),
+.panel-header:not(.border-0),
+.panel-footer:not(.border-0) {
   background: transparent !important;
   border-color: var(--color-as-rgba-216-241-244-0-9) !important;
 }
@@ -1087,12 +1087,12 @@ body.admin-app [class*=" heading"], body.admin-app .font-heading {
   box-shadow: 0 10px 28px rgba(0, 0, 0, .24) !important;
 }
 
-[data-bs-theme="dark"] .card-header,
-[data-bs-theme="dark"] .card-footer,
-[data-bs-theme="dark"] .box-header,
-[data-bs-theme="dark"] .box-footer,
-[data-bs-theme="dark"] .panel-header,
-[data-bs-theme="dark"] .panel-footer {
+[data-bs-theme="dark"] .card-header:not(.border-0),
+[data-bs-theme="dark"] .card-footer:not(.border-0),
+[data-bs-theme="dark"] .box-header:not(.border-0),
+[data-bs-theme="dark"] .box-footer:not(.border-0),
+[data-bs-theme="dark"] .panel-header:not(.border-0),
+[data-bs-theme="dark"] .panel-footer:not(.border-0) {
   background: transparent !important;
   border-color: var(--color-as-2b3d4b) !important;
 }
