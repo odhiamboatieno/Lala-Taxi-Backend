@@ -1041,3 +1041,67 @@ body.admin-app [class*=" heading"], body.admin-app .font-heading {
   font-weight: 600 !important;
 }
 
+/* ==========================================================================
+   Global card redesign: every .card (plus AdminLTE .box and legacy .panel)
+   adopts the /admin/dashboard stat-card design — white surface, 1px light
+   border, soft shadow, sharp corners and symmetric spacing. Borderless and
+   gradient variants keep their intent. Dark mode uses the dashboard
+   surfaces.
+   ========================================================================== */
+.card:not(.border-0):not([class*="bg-gradient"]),
+.box:not(.box-transparent),
+.panel {
+  background: var(--color-white) !important;
+  border: 1px solid var(--color-as-dfeff3) !important;
+  box-shadow: 0 6px 18px var(--color-as-rgba-27-65-93-0-05) !important;
+}
+
+.card-header,
+.card-footer,
+.box-header,
+.box-footer,
+.panel-header,
+.panel-footer {
+  background: transparent !important;
+  border-color: var(--color-as-rgba-216-241-244-0-9) !important;
+}
+
+.card-title,
+.box-title {
+  color: var(--color-as-1d3d67) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+}
+
+.card-body,
+.box-body,
+.panel-body {
+  color: var(--color-as-16375a) !important;
+}
+
+[data-bs-theme="dark"] .card,
+[data-bs-theme="dark"] .box,
+[data-bs-theme="dark"] .panel {
+  background: var(--color-as-17232d) !important;
+  border-color: var(--color-as-2b3d4b) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .24) !important;
+}
+
+[data-bs-theme="dark"] .card-header,
+[data-bs-theme="dark"] .card-footer,
+[data-bs-theme="dark"] .box-header,
+[data-bs-theme="dark"] .box-footer,
+[data-bs-theme="dark"] .panel-header,
+[data-bs-theme="dark"] .panel-footer {
+  background: transparent !important;
+  border-color: var(--color-as-2b3d4b) !important;
+}
+
+[data-bs-theme="dark"] .card-title,
+[data-bs-theme="dark"] .box-title,
+[data-bs-theme="dark"] .card-body,
+[data-bs-theme="dark"] .box-body,
+[data-bs-theme="dark"] .panel-body {
+  color: var(--color-as-e7eef5) !important;
+}
+
