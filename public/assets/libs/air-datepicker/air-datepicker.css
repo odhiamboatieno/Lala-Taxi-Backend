@@ -286,7 +286,7 @@
     align-items:center;
     font-size:11px;
     height:17px;
-    background:linear-gradient(to right, var(--adp-time-track-color), var(--adp-time-track-color)) left 50%/100% var(--adp-time-track-height) no-repeat
+    background: var(--adp-time-track-color) left 50%/100% var(--adp-time-track-height) no-repeat
 }
 .air-datepicker-time--row:first-child{
     margin-bottom:4px

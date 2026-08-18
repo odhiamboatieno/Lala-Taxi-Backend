@@ -272,9 +272,9 @@
   border: 1px solid #aaa;
   border-radius: 0;
   outline: 0;
-  background-image: -webkit-linear-gradient(top, #ffffff 50%, #ddf2ff 100%);
-  background-image: -o-linear-gradient(top, #ffffff 50%, #ddf2ff 100%);
-  background-image: linear-gradient(to bottom, #ffffff 50%, #ddf2ff 100%);
+  background-image: none;
+  background-image: none;
+  background-image: none;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ddf2ff', GradientType=0); }
   .select2-container--classic .select2-selection--single:focus {
@@ -300,9 +300,9 @@
     top: 1px;
     right: 1px;
     width: 20px;
-    background-image: -webkit-linear-gradient(top, #ddf2ff 50%, #cccccc 100%);
-    background-image: -o-linear-gradient(top, #ddf2ff 50%, #cccccc 100%);
-    background-image: linear-gradient(to bottom, #ddf2ff 50%, #cccccc 100%);
+    background-image: none;
+    background-image: none;
+    background-image: none;
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddf2ff', endColorstr='#cccccc', GradientType=0); }
     .select2-container--classic .select2-selection--single .select2-selection__arrow b {
@@ -338,18 +338,18 @@
   border-top: none;
   border-radius: 0;
   border-radius: 0;
-  background-image: -webkit-linear-gradient(top, #ffffff 0%, #ddf2ff 50%);
-  background-image: -o-linear-gradient(top, #ffffff 0%, #ddf2ff 50%);
-  background-image: linear-gradient(to bottom, #ffffff 0%, #ddf2ff 50%);
+  background-image: none;
+  background-image: none;
+  background-image: none;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ddf2ff', GradientType=0); }
 .select2-container--classic.select2-container--open.select2-container--below .select2-selection--single {
   border-bottom: none;
   border-radius: 0;
   border-radius: 0;
-  background-image: -webkit-linear-gradient(top, #ddf2ff 50%, #ffffff 100%);
-  background-image: -o-linear-gradient(top, #ddf2ff 50%, #ffffff 100%);
-  background-image: linear-gradient(to bottom, #ddf2ff 50%, #ffffff 100%);
+  background-image: none;
+  background-image: none;
+  background-image: none;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddf2ff', endColorstr='#ffffff', GradientType=0); }
 .select2-container--classic .select2-selection--multiple {
