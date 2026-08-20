@@ -1105,3 +1105,97 @@ body.admin-app [class*=" heading"], body.admin-app .font-heading {
   color: var(--color-as-e7eef5) !important;
 }
 
+/* ==========================================================================
+   Global dashboard-card component: the reusable stat card from
+   /admin/dashboard, made global so list pages (vehicle, roles, etc.) render
+   identical cards. Sharp corners are enforced by the universal radius rule.
+   ========================================================================== */
+.dashboard-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-as-dfeff3);
+  box-shadow: 0 6px 18px var(--color-as-rgba-27-65-93-0-05);
+  margin-bottom: 20px;
+  min-height: 126px;
+  overflow: hidden;
+}
+
+.dashboard-card__inner {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  justify-content: flex-start;
+  min-height: 126px;
+  padding: 18px;
+}
+
+.dashboard-card__icon {
+  align-items: center;
+  background: var(--color-as-f6fbfd);
+  border: 1px solid var(--color-as-dfeff3);
+  color: var(--color-as-68809b);
+  display: inline-flex;
+  flex: 0 0 46px;
+  font-size: 18px;
+  height: 46px;
+  justify-content: center;
+  margin: 0;
+  overflow: hidden;
+  width: 46px;
+}
+
+.dashboard-card__icon--img img {
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.dashboard-card__content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.dashboard-card__label {
+  color: var(--color-as-6b8096);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+}
+
+.dashboard-card__value {
+  color: var(--color-as-16375a);
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.dashboard-card__secondary {
+  color: var(--color-as-68809b);
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+[data-bs-theme="dark"] .dashboard-card {
+  background: var(--color-as-17232d);
+  border-color: var(--color-as-2b3d4b);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .24);
+}
+
+[data-bs-theme="dark"] .dashboard-card__icon {
+  background: var(--color-as-1e2d38);
+  border-color: var(--color-as-2b3d4b);
+  color: var(--color-as-55b9ad);
+}
+
+[data-bs-theme="dark"] .dashboard-card__value {
+  color: var(--color-as-e7eef5);
+}
+
+[data-bs-theme="dark"] .dashboard-card__label,
+[data-bs-theme="dark"] .dashboard-card__secondary {
+  color: var(--color-as-93a4b5) !important;
+}
+

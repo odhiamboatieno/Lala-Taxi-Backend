@@ -9,34 +9,32 @@
 
         @forelse($vehicleTypeStats as $stat)
             <div class="col-xl-6">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body d-flex align-items-start justify-content-between">
-                        <div>
-                            <div class="fs-4 fw-semibold text-primary mb-3">{{ $stat['name'] }}</div>
-                            <div class="display-6 fw-bold mb-0">{{ $stat['total'] }}</div>
-                        </div>
-                        <div class="text-end">
+                <div class="dashboard-card card h-100">
+                    <div class="dashboard-card__inner">
+                        <div class="dashboard-card__icon {{ $stat['image'] ? 'dashboard-card__icon--img' : '' }}">
                             @if($stat['image'])
-                                <img src="{{ $stat['image'] }}" alt="{{ $stat['name'] }}" style="width:56px;height:56px;object-fit:contain;">
+                                <img src="{{ $stat['image'] }}" alt="{{ $stat['name'] }}">
                             @else
-                                <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center" style="width:56px;height:56px;">
-                                    <i class="bi bi-truck-front fs-3 text-primary"></i>
-                                </div>
+                                <i class="bi bi-truck-front"></i>
                             @endif
+                        </div>
+                        <div class="dashboard-card__content">
+                            <div class="dashboard-card__label">{{ $stat['name'] }}</div>
+                            <div class="dashboard-card__value">{{ $stat['total'] }}</div>
                         </div>
                     </div>
                 </div>
             </div>
         @empty
             <div class="col-12">
-                <div class="card">
+                <div class="dashboard-card card">
                     <div class="card-body text-muted">{{ __('messages.admin.manage_vehicle_page.no_vehicle_type_stats') }}</div>
                 </div>
             </div>
         @endforelse
     </div>
 
-    <div class="card border-0 shadow-sm">
+    <div class="card">
         <div class="card-body">
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
                 <div>

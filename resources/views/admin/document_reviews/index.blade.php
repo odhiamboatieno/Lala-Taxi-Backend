@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div class="card shadow-sm border-0 mb-4">
+        <div class="card mb-4">
             <div class="card-body">
                 <form method="GET" class="row g-3 align-items-end">
                     <div class="col-lg-5">
@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="card shadow-sm border-0">
+        <div class="card">
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">

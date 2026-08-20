@@ -8,7 +8,7 @@
         </div>
 
         <div class="col-12">
-            <div class="card border-0 shadow-sm">
+            <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                         <div>
