@@ -124,16 +124,32 @@ class FirebaseService
 	/**
 	 * Create Custom Token
 	 *
-	 * @param User unique id
-	 * @return token
+	 * Returns null when Firebase is unavailable. The SDK bootstrap in the
+	 * constructor already degrades to null when the service account is
+	 * missing, so callers must not treat this as a fatal condition: push
+	 * notification tokens are an enhancement, not a ride-workflow
+	 * dependency.
+	 *
+	 * @param string $user_id
+	 * @return string|null
 	 */
 	public function createCustomToken($user_id)
 	{
-		\Log::error('user_id' . $user_id);
-		$auth = $this->firebase->createAuth();
-		$customToken = $auth->createCustomToken($user_id);
-		$customTokenString = $customToken->toString();
-		return $customTokenString;
+		if ($this->firebase === null) {
+			\Log::warning('Firebase unavailable; skipping custom token creation');
+			return null;
+		}
+
+		try {
+			$auth = $this->firebase->createAuth();
+			$customToken = $auth->createCustomToken($user_id);
+			return $customToken->toString();
+		} catch (Throwable $e) {
+			\Log::error('Failed to create Firebase custom token', [
+				'message' => $e->getMessage(),
+			]);
+			return null;
+		}
 	}
 
 
@@ -188,7 +204,7 @@ class FirebaseService
 				]));
 
 			return  $this->messaging->send($message);
-		} catch (\Exception $e) {
+		} catch (\Throwable $e) {
             $this->handleMessagingFailure($device_id, $e, 'android');
             return false;
 		}
@@ -248,7 +264,7 @@ class FirebaseService
 				]));
 
 			return  $this->messaging->send($message);
-		} catch (\Exception $e) {
+		} catch (\Throwable $e) {
             $this->handleMessagingFailure($device_id, $e, 'ios');
             return false;
 		}

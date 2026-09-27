@@ -34,11 +34,11 @@ class HomeController extends Controller
             'status_message'    => __('messages.api.listed_successfully'),
         ];
 
-        $heat_map = $site_settings->where('name','heat_map')->first()->value;
+        $heat_map = optional($site_settings->where('name','heat_map')->first())->value;
         $heat_map = ($heat_map == 'On') ? 1:0;
 
-        $sinch_key = $api_credentials->where('name','sinch_key')->first()->value;
-        $sinch_secret_key = $api_credentials->where('name','sinch_secret_key')->first()->value;
+        $sinch_key = optional($api_credentials->where('name','sinch_key')->first())->value;
+        $sinch_secret_key = optional($api_credentials->where('name','sinch_secret_key')->first())->value;
 
         $braintree_env = payment_gateway('mode','Braintree');
         $braintree_public_key = payment_gateway('public_key','Braintree');
@@ -158,9 +158,13 @@ if($request->user_type == 'Rider') {
         $firebase = resolve(\App\Services\FirebaseService::class);
         $firebase_token = $firebase->createCustomToken($user->email.' - '.$user->user_type);
 
-        // save token
-        $user->firebase_token = $firebase_token;
-        $user->save();
+        // Persist and return the token only when Firebase is actually
+        // configured. A missing service account must not fail the endpoint,
+        // because this response also feeds home, ride options and fares.
+        if ($firebase_token !== null) {
+            $user->firebase_token = $firebase_token;
+            $user->save();
+        }
 
         // return token
         $return_data['firebase_token'] = $firebase_token;
