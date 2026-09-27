@@ -29,6 +29,11 @@ class OtpManager
         $normalized = $this->normalizeCountryCode($country_code);
         $otp = $this->generateOtp();
 
+        $this->logOtp('sent', $mobile_number, $otp, $purpose, [
+            'demo' => $this->isDemoModeEnabled(),
+            'dial' => $normalized['dial_code'],
+        ]);
+
         $record = $this->storeOtp($mobile_number, $normalized['key'], $otp, $purpose);
 
         session([
@@ -125,12 +130,19 @@ class OtpManager
 
         $normalized = $this->normalizeCountryCode($country_code);
 
-        $record = OtpVerification::where('mobile_number', $mobile_number)
-            ->where('country_code', $normalized['key'])
+        $query = OtpVerification::where('mobile_number', $mobile_number)
             ->where('purpose', $purpose)
             ->whereNull('verified_at')
-            ->latest('id')
-            ->first();
+            ->latest('id');
+
+        $record = (clone $query)->where('country_code', $normalized['key'])->first();
+
+        // The apps send the ISO short name to one endpoint and the dialling code
+        // to another, so the stored country_code may not match this lookup key.
+        // Fall back to the most recent unverified code for the number.
+        if (!$record) {
+            $record = (clone $query)->first();
+        }
 
         if (!$record) {
             return [
@@ -147,6 +159,21 @@ class OtpManager
         }
 
         if ((string) $record->otp !== (string) $otp) {
+            $attempts = $this->registerFailedAttempt($record);
+
+            $this->logOtp('verify-mismatch', $mobile_number, $record->otp, $purpose, [
+                'submitted' => (string) $otp,
+                'attempts'  => $attempts,
+                'remaining' => max(0, $this->maxAttempts() - $attempts),
+            ]);
+
+            if ($attempts >= $this->maxAttempts()) {
+                return [
+                    'status_code' => 0,
+                    'message' => 'Too many incorrect attempts. Please request a new code.',
+                ];
+            }
+
             return [
                 'status_code' => 0,
                 'message' => 'OTP verification failed. Please try again.',
@@ -220,6 +247,72 @@ class OtpManager
             'purpose' => $purpose,
             'expires_at' => Carbon::now()->addMinutes(10),
         ]);
+    }
+
+    /**
+     * Record a wrong OTP against the issued record and return the new count.
+     *
+     * @param \App\Models\OtpVerification $record
+     * @return int
+     */
+    protected function registerFailedAttempt($record)
+    {
+        $attempts = (int) ($record->attempts ?? 0) + 1;
+
+        $record->attempts = $attempts;
+        $record->save();
+
+        // Burn the code once the allowance is used up so the remaining window
+        // cannot be brute forced.
+        if ($attempts >= $this->maxAttempts()) {
+            $record->delete();
+        }
+
+        return $attempts;
+    }
+
+    /**
+     * Maximum wrong attempts tolerated per issued OTP.
+     *
+     * @return int
+     */
+    protected function maxAttempts()
+    {
+        return max(1, (int) config('otp.max_attempts', 5));
+    }
+
+    /**
+     * Write the OTP to the application log so it can be read from container
+     * output (`docker compose logs app`). No-op unless OTP_LOG_ENABLED is true.
+     *
+     * @param string $event
+     * @param string $mobile_number
+     * @param string|null $otp
+     * @param string $purpose
+     * @param array $context
+     * @return void
+     */
+    protected function logOtp($event, $mobile_number, $otp = null, $purpose = 'general', array $context = [])
+    {
+        if (!config('otp.log_enabled')) {
+            return;
+        }
+
+        $parts = [
+            'event'   => $event,
+            'mobile'  => $mobile_number,
+            'purpose' => $purpose,
+        ];
+
+        if ($otp !== null) {
+            $parts['otp'] = $otp;
+        }
+
+        foreach ($context as $key => $value) {
+            $parts[$key] = $value;
+        }
+
+        \Log::info('[OTP] ' . json_encode($parts));
     }
 
     /**

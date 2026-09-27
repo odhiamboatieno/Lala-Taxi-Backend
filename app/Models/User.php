@@ -133,13 +133,13 @@ class User extends Authenticatable implements JWTSubject
     // Join with profile_picture table
     public function profile_picture()
     {
-        return $this->belongsTo(\App\Models\ProfilePicture::class,'id','user_id');
+        return $this->belongsTo(\App\Models\ProfilePicture::class,'user_id','id');
     }
 
-    // Join with profile_picture table
+    // Join with wallet table
     public function wallet()
     {
-        return $this->belongsTo(\App\Models\Wallet::class,'id','user_id');
+        return $this->belongsTo(\App\Models\Wallet::class,'user_id','id');
     }
 
     // Join with vehicle table
@@ -155,19 +155,26 @@ class User extends Authenticatable implements JWTSubject
     }
 
     // Join with driver_documents table
+    // A user has one row per uploaded document, so this is a hasOne rather
+    // than a belongsTo. The type filter selects Driver (licence) vs Vehicle
+    // (insurance/rc/permit) rows. Ordered newest first so the singular
+    // relation resolves deterministically.
     public function driver_documents($type=false)
     {
-        $driver_documents = $this->belongsTo(\App\Models\DriverDocuments::class,'id','user_id');
+        $driver_documents = $this->hasOne(\App\Models\DriverDocuments::class,'user_id','id')
+            ->orderByDesc('id');
+
         if($type) {
-            $driver_documents->whereType($type);
+            $driver_documents->where('type', $type);
         }
+
         return $driver_documents;
     }
 
     // Join with driver_location table
     public function driver_location()
     {
-        return $this->belongsTo(\App\Models\DriverLocation::class,'id','user_id');
+        return $this->belongsTo(\App\Models\DriverLocation::class,'user_id','id');
     }
 
     public function driver_locations()
@@ -175,16 +182,16 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(\App\Models\DriverLocation::class, 'user_id', 'id');
     }
 
-    // Join with driver_documents table
+    // Join with driver_address table
     public function driver_address()
     {
-        return $this->belongsTo(\App\Models\DriverAddress::class,'id','user_id');
+        return $this->belongsTo(\App\Models\DriverAddress::class,'user_id','id');
     }
 
-    // Join with driver_documents table
+    // Join with rider_location table
     public function rider_location()
     {
-        return $this->belongsTo(\App\Models\RiderLocation::class,'id','user_id');
+        return $this->belongsTo(\App\Models\RiderLocation::class,'user_id','id');
     }
 
     // Join with trips table

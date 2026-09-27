@@ -115,8 +115,6 @@ class StartServiceProvider extends ServiceProvider
                 }
             }
         }
-                    \Log::error('Start provider start');
-
     }
 	
     // Share Static Pages data to whole software

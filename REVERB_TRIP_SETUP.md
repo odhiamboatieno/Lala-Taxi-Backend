@@ -33,13 +33,13 @@ For production, replace `localhost`, keys, and secrets with real values and swit
 Production example for a public domain:
 
 ```env
-APP_URL=https://lalataxi.wilaso.com
+APP_URL=https://taxi.lalacabs.co.ke
 
 REVERB_APP_ID=taxi-dispatch
 REVERB_APP_KEY=taxi-dispatch-key
 REVERB_APP_SECRET=taxi-dispatch-secret
 
-REVERB_HOST=lalataxi.wilaso.com
+REVERB_HOST=taxi.lalacabs.co.ke
 REVERB_PORT=443
 REVERB_SCHEME=https
 REVERB_SERVER_HOST=0.0.0.0

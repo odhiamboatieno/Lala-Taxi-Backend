@@ -79,43 +79,49 @@ class TokenAuthController extends Controller
 
         // Also sent for rider because mobile team also handle these parameters in rider
 
-        $rider_details = [];
-        if($user->user_type == 'Rider' || true) {
+        // Both key sets are always returned because the rider and driver apps
+        // read the same response shape. The relations are only eager loaded for
+        // the matching user_type, which avoids two pointless queries per login.
+        $rider_location = null;
+        if (strcasecmp((string) $user->user_type, 'Rider') === 0) {
             $user->load('rider_location');
             $rider_location = $user->rider_location;
-            $rider_details = [
-                //'home'          => optional($rider_location)->home ?? '',
-                //'work'          => optional($rider_location)->work ?? '',
-                //'home_latitude' => optional($rider_location)->home_latitude ?? '',
-               // 'home_longitude'=> optional($rider_location)->home_longitude ?? '',
-                //'work_latitude' => optional($rider_location)->work_latitude ?? '',
-               // 'work_longitude'=> optional($rider_location)->work_longitude ?? '',
-            ];
         }
 
-        $driver_details = [];
-        if($user->user_type == 'Driver' || true) {
-            $user->load(['driver_documents','driver_address']);
+        $rider_details = [
+            //'home'          => optional($rider_location)->home ?? '',
+            //'work'          => optional($rider_location)->work ?? '',
+            //'home_latitude' => optional($rider_location)->home_latitude ?? '',
+           // 'home_longitude'=> optional($rider_location)->home_longitude ?? '',
+            //'work_latitude' => optional($rider_location)->work_latitude ?? '',
+           // 'work_longitude'=> optional($rider_location)->work_longitude ?? '',
+        ];
+
+        $driver_documents = null;
+        $driver_address = null;
+        if (strcasecmp((string) $user->user_type, 'Driver') === 0) {
+            $user->load(['driver_documents', 'driver_address']);
             $driver_documents = $user->driver_documents;
             $driver_address = $user->driver_address;
-            $driver_details = [
-                'car_details'       => CarType::active()->get(),
-                'vehicle_id'        => optional($driver_documents)->vehicle_id ?? '',
-                'vehicle_number'    => optional($driver_documents)->vehicle_number ?? '',
-                'vehicle_type'      => optional($driver_documents)->vehicle_type ?? '',
-                'license_front'     => optional($driver_documents)->license_front ?? '',
-                'license_back'      => optional($driver_documents)->license_back ?? '',
-                'insurance'         => optional($driver_documents)->insurance ?? '',
-                'rc'                => optional($driver_documents)->rc ?? '',
-                'permit'            => optional($driver_documents)->permit ?? '',
-                'address_line1'     => optional($driver_address)->address_line1 ?? '',
-                'address_line2'     => optional($driver_address)->address_line2 ?? '',
-                'state'             => optional($driver_address)->state ?? '',
-                'postal_code'       => optional($driver_address)->postal_code ?? '',
-                'company_id'        => $user->company_id ?? '',
-                'company_name'      => optional($user->company)->name ?? $user->company_name ?? '',
-            ];
         }
+
+        $driver_details = [
+            'car_details'       => CarType::active()->get(),
+            'vehicle_id'        => optional($driver_documents)->vehicle_id ?? '',
+            'vehicle_number'    => optional($driver_documents)->vehicle_number ?? '',
+            'vehicle_type'      => optional($driver_documents)->vehicle_type ?? '',
+            'license_front'     => optional($driver_documents)->license_front ?? '',
+            'license_back'      => optional($driver_documents)->license_back ?? '',
+            'insurance'         => optional($driver_documents)->insurance ?? '',
+            'rc'                => optional($driver_documents)->rc ?? '',
+            'permit'            => optional($driver_documents)->permit ?? '',
+            'address_line1'     => optional($driver_address)->address_line1 ?? '',
+            'address_line2'     => optional($driver_address)->address_line2 ?? '',
+            'state'             => optional($driver_address)->state ?? '',
+            'postal_code'       => optional($driver_address)->postal_code ?? '',
+            'company_id'        => $user->company_id ?? '',
+            'company_name'      => optional($user->company)->name ?? $user->company_name ?? '',
+        ];
 
         return array_merge($user_data,$rider_details,$driver_details);
     }
@@ -722,32 +728,47 @@ class TokenAuthController extends Controller
 
     public function otp_verification()
     {
-        $otp = new App\Http\Helper\OtpHelperMobile;
-        $response = $otp->checkOtp(request()->otp, request()->mobile_number, request()->country_code);
-        $response['status_message'] = $response['message'];
-        $response['status_code'] = strval($response['status_code']);
+        // An auth endpoint must never surface an opaque 500 to the client. The
+        // previous version could die inside checkOtp() and return a bare
+        // {"message":"Server Error"} with no usable context in the app log.
+        try {
+            $otp = new App\Http\Helper\OtpHelperMobile;
+            $response = $otp->checkOtp(request()->otp, request()->mobile_number, request()->country_code);
 
-        if ($response['status_code'] == '1') {
-            $country_code = request()->country_code;
-            $country_id = Country::whereShortName($country_code)->value('id');
+            $response['status_message'] = $response['message'] ?? '';
+            $response['status_code'] = strval($response['status_code'] ?? 0);
 
-            if (!$country_id) {
-                $country_id = Country::where('phone_code', ltrim($country_code, '+'))->value('id');
-            }
+            if ($response['status_code'] == '1') {
+                $country_code = request()->country_code;
+                $country_id = Country::whereShortName($country_code)->value('id');
 
-            $user_type = request()->user_type ?? 'Rider';
-            if (ucfirst($user_type) === 'Rider') {
-                $user_type = 'Rider';
-            } elseif (ucfirst($user_type) === 'Driver') {
-                $user_type = 'Driver';
-            }
+                if (!$country_id) {
+                    $country_id = Country::where('phone_code', ltrim($country_code, '+'))->value('id');
+                }
 
-            $user = User::where('mobile_number', request()->mobile_number)
-                ->where('user_type', $user_type)
-                ->whereCountryId($country_id)
-                ->first();
+                $user_type = request()->user_type ?? 'Rider';
+                if (ucfirst($user_type) === 'Rider') {
+                    $user_type = 'Rider';
+                } elseif (ucfirst($user_type) === 'Driver') {
+                    $user_type = 'Driver';
+                }
 
-            if ($user) {
+                $user = User::where('mobile_number', request()->mobile_number)
+                    ->where('user_type', $user_type)
+                    ->whereCountryId($country_id)
+                    ->first();
+
+                // The OTP was valid but no account matches this number and role.
+                // Returning status_code 1 here would hand the app a success with
+                // no access_token, so fail explicitly instead.
+                if (!$user) {
+                    return [
+                        'status_code'    => '0',
+                        'message'        => 'No account found for this mobile number. Please register first.',
+                        'status_message' => 'No account found for this mobile number. Please register first.',
+                    ];
+                }
+
                 $token = JWTAuth::fromUser($user);
 
                 User::whereId($user->id)->update([
@@ -761,9 +782,22 @@ class TokenAuthController extends Controller
                 $response['access_token'] = $token;
                 $response = array_merge($response, $user_data);
             }
-        }
 
-        return $response;
+            return $response;
+        } catch (\Throwable $e) {
+            \Log::error('otp_verification failed: ' . $e->getMessage(), [
+                'mobile_number' => request()->mobile_number,
+                'country_code'  => request()->country_code,
+                'user_type'     => request()->user_type,
+                'exception'     => get_class($e),
+            ]);
+
+            return response()->json([
+                'status_code'    => '0',
+                'message'        => 'Unable to verify OTP right now. Please try again.',
+                'status_message' => 'Unable to verify OTP right now. Please try again.',
+            ], 500);
+        }
     }
 
     /**

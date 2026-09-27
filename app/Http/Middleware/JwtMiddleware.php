@@ -19,14 +19,11 @@ class JwtMiddleware extends BaseMiddleware
 	*/
 	public function handle($request, Closure $next)
 	{
-		    		\Log::error('token validate start');
-
 		$validate_token = $this->validateToken($request);
 
 		if($validate_token) {
 			return $validate_token;
 		}
-		    		\Log::error('token validate end');
 
 		return $next($request);
 	}

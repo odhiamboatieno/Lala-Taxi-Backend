@@ -75,9 +75,6 @@ Route::get('help/articles', 'HelpController@articles');
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => 'jwt.verify'], function () {
-    // Debugging Log
-    \Log::error('Authenticated route accessed');
-
     // Common Data APIs
     Route::match(['get', 'post'], 'common_data', 'HomeController@commonData');
     Route::match(['get', 'post'], 'get_payment_list', 'HomeController@getPaymentList');
