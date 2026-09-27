@@ -692,7 +692,20 @@ class TokenAuthController extends Controller
 
         $country_id = Country::whereShortName($request->country_code)->value('id');
 
-        $user = User::where('mobile_number', $mobile_number)->where('user_type', $request->user_type)->whereCountryId($country_id)->get();
+        // Match either stored spelling (with or without the trunk '0').
+        $withoutZero = ltrim((string) $mobile_number, '0');
+        $user = User::where(function ($query) use ($mobile_number, $withoutZero) {
+                $query->where('mobile_number', $mobile_number);
+                if ($withoutZero !== '' && $withoutZero !== $mobile_number) {
+                    $query->orWhere('mobile_number', $withoutZero);
+                }
+                if (strlen($withoutZero) === 9) {
+                    $query->orWhere('mobile_number', '0' . $withoutZero);
+                }
+            })
+            ->where('user_type', $request->user_type)
+            ->whereCountryId($country_id)
+            ->get();
         if($user->count() && $request->forgotpassword != 1 && !$request->is_login) {
             return response()->json([
                 'status_message'  => trans('messages.mobile_number_exist'),
@@ -753,7 +766,19 @@ class TokenAuthController extends Controller
                     $user_type = 'Driver';
                 }
 
-                $user = User::where('mobile_number', request()->mobile_number)
+                // Numbers are stored inconsistently (some with the trunk '0',
+                // some without), so match either spelling.
+                $rawNumber = (string) request()->mobile_number;
+                $withoutZero = ltrim($rawNumber, '0');
+                $user = User::where(function ($query) use ($rawNumber, $withoutZero) {
+                        $query->where('mobile_number', $rawNumber);
+                        if ($withoutZero !== '' && $withoutZero !== $rawNumber) {
+                            $query->orWhere('mobile_number', $withoutZero);
+                        }
+                        if (strlen($withoutZero) === 9) {
+                            $query->orWhere('mobile_number', '0' . $withoutZero);
+                        }
+                    })
                     ->where('user_type', $user_type)
                     ->whereCountryId($country_id)
                     ->first();
