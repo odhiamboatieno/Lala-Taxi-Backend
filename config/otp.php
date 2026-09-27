@@ -3,6 +3,28 @@
 return [
     /*
     |--------------------------------------------------------------------------
+    | OTP Demo Mode
+    |--------------------------------------------------------------------------
+    |
+    | Switches OTP delivery between demo and live without touching the admin
+    | panel. In demo mode every issued code is OTP_DEMO_CODE and the SMS
+    | gateway is never called, so logins work on a deployment that has no
+    | working Twilio credentials.
+    |
+    | Defaults to null so OtpManager can tell "not set in .env" (fall back to
+    | the site_settings toggles) apart from an explicit "false".
+    |
+    | SECURITY: while this is true, anyone who knows a registered mobile number
+    | can sign in with the fixed code. Keep it false on any public deployment.
+    |
+    */
+    'demo_mode' => env('OTP_DEMO_MODE'),
+
+    // The code issued while demo_mode is on.
+    'demo_code' => env('OTP_DEMO_CODE', '123456'),
+
+    /*
+    |--------------------------------------------------------------------------
     | OTP Logging
     |--------------------------------------------------------------------------
     |

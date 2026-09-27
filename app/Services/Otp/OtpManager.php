@@ -18,7 +18,7 @@ class OtpManager
      */
     public function sendOtp($mobile_number, $country_code, $purpose = 'general')
     {
-        if (!$this->isOtpVerificationEnabled()) {
+        if (!$this->isDemoModeEnabled() && !$this->isOtpVerificationEnabled()) {
             return [
                 'status_code' => 1,
                 'message' => 'success',
@@ -28,6 +28,11 @@ class OtpManager
 
         $normalized = $this->normalizeCountryCode($country_code);
         $otp = $this->generateOtp();
+
+        if ($this->isDemoModeEnabled()) {
+            \Log::warning('[OTP] DEMO MODE ACTIVE — SMS gateway skipped, every code is '
+                . $this->demoCode() . '. Do not leave this on in production.');
+        }
 
         $this->logOtp('sent', $mobile_number, $otp, $purpose, [
             'demo' => $this->isDemoModeEnabled(),
@@ -51,9 +56,19 @@ class OtpManager
         }
 
         $to = '+' . $normalized['dial_code'] . $mobile_number;
-        $sms_gateway = resolve(\App\Contracts\SMSInterface::class);
         $sms_message = 'Your OTP number is ' . $otp;
-        $response = $sms_gateway->send($to, $sms_message);
+
+        // A gateway that is misconfigured or misbehaving must not turn the
+        // login endpoint into a 500: Twilio raises TypeError when credentials
+        // are absent, which is a Throwable rather than an Exception.
+        try {
+            $sms_gateway = resolve(\App\Contracts\SMSInterface::class);
+            $response = $sms_gateway->send($to, $sms_message);
+        } catch (\Throwable $e) {
+            \Log::error('[OTP] SMS gateway threw: ' . get_class($e) . ' ' . $e->getMessage());
+
+            $response = ['status_code' => 0, 'message' => $e->getMessage()];
+        }
 
         if (($response['status_code'] ?? 0) != 1) {
             $record->delete();
@@ -111,7 +126,7 @@ class OtpManager
      */
     public function checkOtp($otp, $mobile_number = null, $country_code = null, $purpose = 'general')
     {
-        if (!$this->isOtpVerificationEnabled()) {
+        if (!$this->isDemoModeEnabled() && !$this->isOtpVerificationEnabled()) {
             return [
                 'status_code' => 1,
                 'message' => 'success',
@@ -202,11 +217,37 @@ class OtpManager
     /**
      * Determine if demo mode is enabled.
      *
+     * The OTP_DEMO_MODE env switch wins when it is explicitly present, so a
+     * deployment can be flipped from the command line or .env without an admin
+     * panel round trip. When it is absent the legacy site_settings toggles are
+     * still honoured.
+     *
      * @return bool
      */
     protected function isDemoModeEnabled()
     {
+        // Read through config() rather than env() so the value survives
+        // `php artisan config:cache`. null means the key is absent from .env,
+        // in which case the legacy site_settings toggles still apply.
+        $configured = config('otp.demo_mode');
+
+        if ($configured !== null && $configured !== '') {
+            return filter_var($configured, FILTER_VALIDATE_BOOLEAN);
+        }
+
         return site_settings('demo_mode') == '1' || site_settings('otp_sandbox') == '1';
+    }
+
+    /**
+     * The code issued while demo mode is on.
+     *
+     * @return string
+     */
+    protected function demoCode()
+    {
+        $code = trim((string) config('otp.demo_code', '123456'));
+
+        return $code !== '' ? $code : '123456';
     }
 
     /**
@@ -217,7 +258,7 @@ class OtpManager
     protected function generateOtp()
     {
         if ($this->isDemoModeEnabled()) {
-            return '123456';
+            return $this->demoCode();
         }
 
         return str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT);

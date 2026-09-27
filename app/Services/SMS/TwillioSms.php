@@ -31,9 +31,23 @@ class TwillioSms implements SMSInterface
      */
 	public function initialize()
 	{
-		$this->client = new Client(api_credentials('sid','Twillo'), api_credentials('token','Twillo'));
-		$this->verify = $this->client->verify->v2->services(api_credentials('service_sid','Twillo'));
+		// Twilio throws a TypeError (not an Exception) when the credentials are
+		// missing, which escaped the catch(\Exception) blocks below and turned a
+		// send failure into an opaque 500. Fail with a normal result instead.
+		$sid    = api_credentials('sid','Twillo');
+		$token  = api_credentials('token','Twillo');
+		$from   = api_credentials('from','Twillo');
+		$svcSid = api_credentials('service_sid','Twillo');
 
+		if (!$sid || !$token) {
+			throw new \RuntimeException('Twilio is not configured: missing API credentials.');
+		}
+
+		$this->client = new Client($sid, $token);
+
+		if ($svcSid) {
+			$this->verify = $this->client->verify->v2->services($svcSid);
+		}
 	}
 
 	/**
@@ -48,7 +62,7 @@ class TwillioSms implements SMSInterface
 			$data = $this->verify->verifications->create($phone_number, "sms");
 			return ['status_code' => 1,'message'=>'Success','status'=>true];
 		} 
-		catch(\Exception $e) {
+		catch(\Throwable $e) {
 			return ['status_code' => 0,'message'=>$e->getMessage() ,'status'=>false];
 		}
 	}
@@ -70,7 +84,7 @@ class TwillioSms implements SMSInterface
 			else 
 				return ['status_code' => 0,'message'=>__('messages.signup.wrong_otp'),'status'=>false];
 		} 
-		catch(\Exception $e) {
+		catch(\Throwable $e) {
 			return ['status_code' => 0,'message'=>__('messages.signup.wrong_otp'),'status'=>false];
 		}
 	}
@@ -83,7 +97,19 @@ class TwillioSms implements SMSInterface
      */
 	public function send($phone_number, $text='',$verification_code=false)
 	{
-		$this->initialize();
+		// initialize() and the SDK both throw \Throwable (TypeError included),
+		// so catch broadly or a misconfigured gateway becomes a 500.
+		try {
+			$this->initialize();
+		}
+		catch(\Throwable $e) {
+			return ['status_code' => 0, 'message' => $e->getMessage(), 'status' => false];
+		}
+
+		if(!$text && !$verification_code && !$this->verify) {
+			return ['status_code' => 0, 'message' => 'Twilio Verify service is not configured.', 'status' => false];
+		}
+
 		if($text){
 			$result = $this->SendTextMessage($phone_number,$text);
 		}
@@ -118,7 +144,7 @@ class TwillioSms implements SMSInterface
 			return ['status_code' => 1,'message'=>'Success','status'=>true];
 		} 
 
-		catch(\Exception $e) {
+		catch(\Throwable $e) {
 			return ['status_code' => 0,'message'=>$e->getMessage(),'status'=>false];
 		}
 		return ['status_code' => 1,'message'=>'Success','status'=>true];
