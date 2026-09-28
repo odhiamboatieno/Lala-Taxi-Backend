@@ -1369,7 +1369,7 @@ class RiderController extends Controller
 
     private function getNearbySuggestions($latitude, $longitude)
     {
-        $apiKey = api_credentials('server_key', 'GoogleMap');
+        $apiKey = $this->googleMapsServerKey();
         if (empty($apiKey)) {
             Log::error('Google Maps API key missing');
             // Return fallback suggestions without API
@@ -1461,6 +1461,48 @@ class RiderController extends Controller
         return array_slice($suggestions, 0, 3);
     }
 
+    /**
+     * Prefer GOOGLE_MAPS_SERVER_KEY from the environment so a working key can
+     * be supplied without editing the api_credentials table.
+     */
+    private function googleMapsServerKey()
+    {
+        $fromEnv = trim((string) env('GOOGLE_MAPS_SERVER_KEY', ''));
+
+        return $fromEnv !== '' ? $fromEnv : api_credentials('server_key', 'GoogleMap');
+    }
+
+    /**
+     * Google returns HTTP 200 even when it refuses a request, so a plain
+     * $response->successful() check hides REQUEST_DENIED / OVER_QUERY_LIMIT
+     * behind an empty result. Surface those instead of faking success.
+     */
+    private function googleMapsFailure($payload, $subject)
+    {
+        $status = $payload['status'] ?? 'UNKNOWN_ERROR';
+
+        if (in_array($status, ['OK', 'ZERO_RESULTS'], true)) {
+            return null;
+        }
+
+        $message = $payload['error_message'] ?? null;
+
+        if ($status === 'REQUEST_DENIED') {
+            $message = $message
+                ? $message.' '
+                : '';
+            $message .= 'Check that the Google Maps server key is valid and that the Places API and Geocoding API are enabled for it.';
+        } elseif (!$message) {
+            $message = 'Google Maps returned '.$status.'.';
+        }
+
+        return response()->json([
+            'status_code' => '0',
+            'status_message' => trim('Unable to load '.$subject.': '.$message),
+            'google_status' => $status,
+        ]);
+    }
+
     public function place_autocomplete(Request $request)
     {
         JWTAuth::parseToken()->authenticate();
@@ -1476,7 +1518,7 @@ class RiderController extends Controller
             ]);
         }
 
-        $serverKey = api_credentials('server_key', 'GoogleMap');
+        $serverKey = $this->googleMapsServerKey();
         if (empty($serverKey)) {
             return response()->json([
                 'status_code' => '0',
@@ -1493,9 +1535,9 @@ class RiderController extends Controller
             $query['sessiontoken'] = $request->session_token;
         }
 
-        if ($request->filled('components')) {
-            $query['components'] = $request->components;
-        }
+        $query['components'] = $request->filled('components')
+            ? $request->components
+            : 'country:ke';
 
         $response = Http::get('https://maps.googleapis.com/maps/api/place/autocomplete/json', $query);
 
@@ -1507,6 +1549,10 @@ class RiderController extends Controller
         }
 
         $payload = $response->json();
+        if ($error = $this->googleMapsFailure($payload, 'places')) {
+            return $error;
+        }
+
         $predictions = collect($payload['predictions'] ?? [])->map(function ($item) {
             return [
                 'place_id' => $item['place_id'] ?? '',
@@ -1538,7 +1584,7 @@ class RiderController extends Controller
             ]);
         }
 
-        $serverKey = api_credentials('server_key', 'GoogleMap');
+        $serverKey = $this->googleMapsServerKey();
         if (empty($serverKey)) {
             return response()->json([
                 'status_code' => '0',
@@ -1559,7 +1605,12 @@ class RiderController extends Controller
             ]);
         }
 
-        $place = $response->json('result') ?? [];
+        $payload = $response->json();
+        if ($error = $this->googleMapsFailure($payload, 'place details')) {
+            return $error;
+        }
+
+        $place = $payload['result'] ?? [];
 
         return response()->json([
             'status_code' => '1',
@@ -1590,7 +1641,7 @@ class RiderController extends Controller
             ]);
         }
 
-        $serverKey = api_credentials('server_key', 'GoogleMap');
+        $serverKey = $this->googleMapsServerKey();
         if (empty($serverKey)) {
             return response()->json([
                 'status_code' => '0',
@@ -1610,7 +1661,12 @@ class RiderController extends Controller
             ]);
         }
 
-        $result = collect($response->json('results') ?? [])->first() ?? [];
+        $payload = $response->json();
+        if ($error = $this->googleMapsFailure($payload, 'this map location')) {
+            return $error;
+        }
+
+        $result = collect($payload['results'] ?? [])->first() ?? [];
 
         return response()->json([
             'status_code' => '1',
