@@ -130,16 +130,16 @@ class User extends Authenticatable implements JWTSubject
         $this->attributes['password'] = bcrypt($input);
     }
 
-    // Join with profile_picture table
+    // Join with profile_picture table (keyed by user_id, no id column)
     public function profile_picture()
     {
-        return $this->belongsTo(\App\Models\ProfilePicture::class,'user_id','id');
+        return $this->hasOne(\App\Models\ProfilePicture::class, 'user_id', 'id');
     }
 
     // Join with wallet table
     public function wallet()
     {
-        return $this->belongsTo(\App\Models\Wallet::class,'user_id','id');
+        return $this->hasOne(\App\Models\Wallet::class,'user_id','id');
     }
 
     // Join with vehicle table
@@ -174,7 +174,7 @@ class User extends Authenticatable implements JWTSubject
     // Join with driver_location table
     public function driver_location()
     {
-        return $this->belongsTo(\App\Models\DriverLocation::class,'user_id','id');
+        return $this->hasOne(\App\Models\DriverLocation::class,'user_id','id');
     }
 
     public function driver_locations()
@@ -185,13 +185,13 @@ class User extends Authenticatable implements JWTSubject
     // Join with driver_address table
     public function driver_address()
     {
-        return $this->belongsTo(\App\Models\DriverAddress::class,'user_id','id');
+        return $this->hasOne(\App\Models\DriverAddress::class,'user_id','id');
     }
 
     // Join with rider_location table
     public function rider_location()
     {
-        return $this->belongsTo(\App\Models\RiderLocation::class,'user_id','id');
+        return $this->hasOne(\App\Models\RiderLocation::class,'user_id','id');
     }
 
     // Join with trips table

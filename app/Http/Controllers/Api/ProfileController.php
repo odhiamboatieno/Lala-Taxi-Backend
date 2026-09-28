@@ -347,13 +347,15 @@ class ProfileController extends Controller
 	{
 		$user_details = JWTAuth::parseToken()->authenticate();
 
+		// Every field is optional so a caller that only changes the profile
+		// photo does not have to resend the whole profile.
 		$rules = [
-			'profile_image' => 'required',
-			'first_name' => 'required',
-			'last_name' => 'required',
-			'country_code' => 'required',
-			'mobile_number' => 'required',
-			'email_id' => 'required',
+			'profile_image' => 'sometimes|required',
+			'first_name' => 'sometimes|required|string',
+			'last_name' => 'sometimes|required|string',
+			'country_code' => 'sometimes|required',
+			'mobile_number' => 'sometimes|required',
+			'email_id' => 'sometimes|required|email',
 		];
 
 		$messages = [
@@ -369,27 +371,53 @@ class ProfileController extends Controller
 
 		if ($validator->fails()) {
 			return response()->json([
-                'status_code'     => '0',
-                'status_message' => $validator->messages()->first(),
-            ]);
+				'status_code'     => '0',
+				'status_message' => $validator->messages()->first(),
+			]);
 		}
 
-		$country = Country::whereShortName($request->country_code)->first();
-		$country_code = $country->phone_code;
-		$country_id = $country->id;
+		$updates = [];
+		if ($request->filled('first_name')) {
+			$updates['first_name'] = $request->first_name;
+		}
+		if ($request->filled('last_name')) {
+			$updates['last_name'] = $request->last_name;
+		}
+		if ($request->filled('mobile_number')) {
+			$updates['mobile_number'] = $request->mobile_number;
+		}
+		if ($request->filled('email_id')) {
+			$updates['email'] = $request->email_id;
+		}
 
-		User::where('id', $user_details->id)->update([
-			'first_name' => $request->first_name,
-			'last_name' => $request->last_name,
-			'mobile_number' => $request->mobile_number,
-			'email' => $request->email_id,
-			'country_code' => $country_code,
-			'country_id' => $country_id
-		]);
+		$country = null;
+		if ($request->filled('country_code')) {
+			$country = Country::whereShortName($request->country_code)->first();
+			if (!$country) {
+				$country = Country::where('phone_code', ltrim($request->country_code, '+'))->first();
+			}
+			if ($country) {
+				$updates['country_code'] = $country->phone_code;
+				$updates['country_id'] = $country->id;
+			}
+		}
 
-		ProfilePicture::where('user_id', $user_details->id)->update(['src' => html_entity_decode($request->profile_image)]);
+		if (!empty($updates)) {
+			User::where('id', $user_details->id)->update($updates);
+		}
+
+		if ($request->filled('profile_image')) {
+			$image = html_entity_decode($request->profile_image);
+			$profilePicture = ProfilePicture::firstOrNew(['user_id' => $user_details->id]);
+			$profilePicture->photo_source = $profilePicture->photo_source ?: 'Local';
+			$profilePicture->src = $image;
+			$profilePicture->save();
+		}
 
 		$user = User::where('id', $user_details->id)->first();
+		if (!$country) {
+			$country = Country::where('id', $user->country_id)->first();
+		}
 
 		return response()->json([
 			'status_code' => '1',
@@ -397,22 +425,14 @@ class ProfileController extends Controller
 			'first_name' => $user->first_name,
 			'last_name' => $user->last_name,
 			'mobile_number' => $user->mobile_number,
-			'country_code' => $country->short_name,
+			'country_code' => $country->short_name ?? '',
 			'email_id' => $user->email,
-			'profile_image' => $user->profile_picture->src,
+			'profile_image' => @$user->profile_picture->src ?? '',
 			'home' => @$user->rider_location->home ?? '',
 			'work' => @$user->rider_location->work ??'',
 		]);
 	}
 
-	
-
-	/**
-	 * Display Driver  Profile
-	 * @param  Get method request inputs
-	 *
-	 * @return Response Json
-	 */
 	public function get_driver_profile(Request $request)
 	{
 		$user_details = JWTAuth::parseToken()->authenticate();
