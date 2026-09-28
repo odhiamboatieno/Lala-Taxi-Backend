@@ -152,25 +152,46 @@ class LocalImageHandler implements ImageHandlerInterface
 
         $dir_name = $dirname . $options['target_dir'];
 
-        if (!file_exists($dir_name)) {
-            mkdir($dir_name, 0777, true);
-        }
-
         if (isset($options['file_name'])) {
             $file_name = $options['file_name'];
         } else {
             $file_name = 'image-' . time() . '.' . $ext;
         }
+
         try {
-            if (!$image->move($dir_name, $file_name)) {
-                $return_data['status'] = false;
-                $return_data['status_message'] = 'Failed To Upload Image';
-                return $return_data;
+            // Recreate missing directories and repair loose permissions so a
+            // container that lost ownership of public/images still accepts
+            // uploads instead of raising a fatal warning (HTTP 500).
+            if (!is_dir($dir_name)) {
+                @mkdir($dir_name, 0775, true);
             }
-        } catch (\Exception $e) {
-            $return_data['status'] = false;
-            $return_data['status_message'] = 'Unable to Upload. Permission Denied.';
-            return $return_data;
+            if (is_dir($dir_name) && !is_writable($dir_name)) {
+                @chmod($dir_name, 0775);
+            }
+
+            if (!is_dir($dir_name) || !is_writable($dir_name)) {
+                return [
+                    'status' => false,
+                    'status_message' => 'Unable to Upload. Permission Denied.',
+                ];
+            }
+
+            if (!$image->move($dir_name, $file_name)) {
+                return [
+                    'status' => false,
+                    'status_message' => 'Failed To Upload Image',
+                ];
+            }
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Image upload failed', [
+                'dir' => $dir_name,
+                'error' => $e->getMessage(),
+            ]);
+
+            return [
+                'status' => false,
+                'status_message' => 'Unable to Upload. Permission Denied.',
+            ];
         }
 
 
