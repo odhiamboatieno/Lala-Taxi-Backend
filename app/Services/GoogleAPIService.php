@@ -56,32 +56,22 @@ class GoogleAPIService
 	 */
 	public function GetDrivingDistance($lat1, $lat2, $long1, $long2)
 	{
-		$url = $this->base_url."/distancematrix/json?origins=" . $lat1 . "," . $long1 . "&destinations=" . $lat2 . "," . $long2 . "&mode=driving&language=pl-PL&key=" . MAP_SERVER_KEY;
+		$route = $this->GetRoutePolyline($lat1.','.$long1, $lat2.','.$long2);
 
-		$geocode = file_get_contents_curl($url);
-		if(!$geocode) {
-			return ['status' => "fail", 'msg' => trans('messages.api.something_went_wrong'), 'time' => '0', 'distance' => "0"];
+		if(($route['status'] ?? '') !== 'success') {
+			return [
+				'status' => 'fail',
+				'msg' => $route['status_message'] ?? trans('messages.api.something_went_wrong'),
+				'time' => '0',
+				'distance' => '0',
+			];
 		}
-		$response_a = json_decode($geocode);
-		if ($response_a->status == "REQUEST_DENIED" || $response_a->status == "OVER_QUERY_LIMIT") {
-			return ['status' => "fail", 'msg' => $response_a->error_message, 'time' => '0', 'distance' => "0"];
-		}
-		elseif (isset($response_a->rows[0]->elements[0]->status) && $response_a->rows[0]->elements[0]->status == 'ZERO_RESULTS') {
-			return ['status' => "fail", 'msg' => 'No Route Found', 'time' => '0', 'distance' => "0"];
-		}
-		elseif ($response_a->status == "OK" ) {
-			$dist_find = $response_a->rows[0]->elements[0]->distance->value;
-			$time_find = $response_a->rows[0]->elements[0]->duration->value;
 
-			$dist = @$dist_find != '' ? $dist_find : '';
-			$time = @$time_find != '' ? $time_find : '';
-			$return_data = ['status' => 'success', 'distance' => $dist, 'time' => (int) $time];
-
-			return $return_data;
-		}
-		else {
-			return ['status' => 'success', 'distance' => "1", 'time' => "1"];
-		}
+		return [
+			'status' => 'success',
+			'distance' => (int) ($route['distance_meters'] ?? 0),
+			'time' => (int) ($route['duration_seconds'] ?? 0),
+		];
 	}
 
 	/**
@@ -95,24 +85,9 @@ class GoogleAPIService
 	 */
 	public function GetPolyline($lat1, $lat2, $long1, $long2)
 	{
-		$cache_key = 'polyline_'.$lat1.'_'.$lat2.'_'.$long1.'_'.$long2;
-		$cacheExpireAt = Carbon::now()->addHours(CACHE_HOURS);
-		
-		if(Cache::has($cache_key)) {
-			return Cache::get($cache_key);
-		}
+		$route = $this->GetRoutePolyline($lat1.','.$long1, $lat2.','.$long2);
 
-		$url = $this->base_url."/directions/json?origin=" . $lat1 . "," . $long1 . "&destination=" . $lat2 . "," . $long2 . "&mode=driving&units=metric&sensor=true&&language=pl-PL&key=" . MAP_SERVER_KEY;
-
-		$geocode = @file_get_contents($url);
-		$response_a = json_decode($geocode);
-		$polyline_find = @$response_a->routes[0]->overview_polyline->points;
-
-		$polyline = @$polyline_find != '' ? $polyline_find : '';
-
-		Cache::put($cache_key, $polyline , $cacheExpireAt);
-
-		return $polyline;
+		return $route['polyline'] ?? '';
 	}
 
 	/**
