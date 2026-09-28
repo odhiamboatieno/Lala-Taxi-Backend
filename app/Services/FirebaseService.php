@@ -188,20 +188,29 @@ class FirebaseService
                 || isset($data['trip_request_uuid']);
 
 			//userId vai ser o topic (TODO: mudar para token)
+			$androidConfig = [
+				'ttl' => $isIncomingRide ? '0s' : '15s',
+				'priority' => 'high',
+			];
+
+			// Incoming ride requests are sent data-only so the driver app's
+			// background handler always runs and can post its own full-screen
+			// intent notification. A notification payload would let the system
+			// tray swallow it and the app would never be brought forward.
+			if (!$isIncomingRide) {
+				$androidConfig['notification'] = [
+					'channel_id' => 'lalataxi_driver_updates',
+					'notification_priority' => 'PRIORITY_HIGH',
+					'default_sound' => true,
+					'default_vibrate_timings' => true,
+					'visibility' => 'PUBLIC',
+				];
+			}
+
 			$message = CloudMessage::withTarget('token', $device_id)
 				->withData(['custom' => json_encode($data)])
 				->withDefaultSounds()
-				->withAndroidConfig(AndroidConfig::fromArray([
-					'ttl' => $isIncomingRide ? '0s' : '15s',
-					'priority' => 'high',
-                    'notification' => [
-                        'channel_id' => $isIncomingRide ? 'lalataxi_incoming_ride' : 'lalataxi_driver_updates',
-                        'notification_priority' => $isIncomingRide ? 'PRIORITY_MAX' : 'PRIORITY_HIGH',
-                        'default_sound' => true,
-                        'default_vibrate_timings' => true,
-                        'visibility' => 'PUBLIC',
-                    ],
-				]));
+				->withAndroidConfig(AndroidConfig::fromArray($androidConfig));
 
 			return  $this->messaging->send($message);
 		} catch (\Throwable $e) {
