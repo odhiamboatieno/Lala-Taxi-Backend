@@ -68,16 +68,26 @@ class ModuleManager
 
     /**
      * Read all registered modules from the database (with cache).
+     *
+     * Caches plain attribute arrays rather than an Eloquent Collection: caching
+     * a Collection lets the store unserialize it into an "incomplete object"
+     * when the class is not loaded yet, which broke /admin/modules.
      */
     public function allFromRegistry()
     {
-        return Cache::remember('modules.registry', 60, function () {
+        $rows = Cache::remember('modules.registry.v2', 60, function () {
             try {
-                return Module::orderBy('name')->get();
+                return Module::orderBy('name')
+                    ->get()
+                    ->map(fn ($module) => $module->getAttributes())
+                    ->values()
+                    ->all();
             } catch (Throwable $e) {
-                return collect();
+                return [];
             }
         });
+
+        return Module::hydrate(is_array($rows) ? $rows : []);
     }
 
     public function enabledModules()
