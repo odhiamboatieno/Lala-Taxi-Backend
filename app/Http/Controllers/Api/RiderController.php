@@ -1420,9 +1420,9 @@ class RiderController extends Controller
             $url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={$latitude},{$longitude}&radius=5000&type={$type}&key={$apiKey}";
             Log::error('Calling Google Places API', ['url' => $url]);
 
-            $response = Http::get($url);
+            $response = $this->googleGet($url, []);
 
-            if ($response->successful()) {
+            if ($response !== null && $response->successful()) {
                 $results = $response->json()['results'] ?? [];
                 Log::error('Google Places API response', ['results_count' => count($results)]);
                 if (!empty($results)) {
@@ -1440,7 +1440,10 @@ class RiderController extends Controller
                     ];
                 }
             } else {
-                Log::error('Google Places API failed', ['status' => $response->status(), 'body' => $response->body()]);
+                Log::error('Google Places API failed', [
+                    'status' => $response?->status(),
+                    'body' => $response?->body(),
+                ]);
             }
         }
 
@@ -1462,14 +1465,30 @@ class RiderController extends Controller
     }
 
     /**
-     * Prefer GOOGLE_MAPS_SERVER_KEY from the environment so a working key can
-     * be supplied without editing the api_credentials table.
+     * The Google Maps server key configured in the admin panel
+     * (api_credentials table) is the single source of truth.
      */
     private function googleMapsServerKey()
     {
-        $fromEnv = trim((string) env('GOOGLE_MAPS_SERVER_KEY', ''));
+        return api_credentials('server_key', 'GoogleMap');
+    }
 
-        return $fromEnv !== '' ? $fromEnv : api_credentials('server_key', 'GoogleMap');
+    /**
+     * Never let a Google Maps connection/timeout error become a 500. A null
+     * return means the request could not be completed at all.
+     */
+    private function googleGet(string $url, array $query)
+    {
+        try {
+            return Http::timeout(12)->get($url, $query);
+        } catch (\Throwable $e) {
+            Log::error('Google Maps request failed', [
+                'url' => $url,
+                'error' => $e->getMessage(),
+            ]);
+
+            return null;
+        }
     }
 
     /**
@@ -1539,9 +1558,9 @@ class RiderController extends Controller
             ? $request->components
             : 'country:ke';
 
-        $response = Http::get('https://maps.googleapis.com/maps/api/place/autocomplete/json', $query);
+        $response = $this->googleGet('https://maps.googleapis.com/maps/api/place/autocomplete/json', $query);
 
-        if (!$response->successful()) {
+        if ($response === null || !$response->successful()) {
             return response()->json([
                 'status_code' => '0',
                 'status_message' => 'Unable to fetch places right now',
@@ -1592,13 +1611,13 @@ class RiderController extends Controller
             ]);
         }
 
-        $response = Http::get('https://maps.googleapis.com/maps/api/place/details/json', [
+        $response = $this->googleGet('https://maps.googleapis.com/maps/api/place/details/json', [
             'place_id' => $request->place_id,
             'fields' => 'formatted_address,geometry/location,name,place_id',
             'key' => $serverKey,
         ]);
 
-        if (!$response->successful()) {
+        if ($response === null || !$response->successful()) {
             return response()->json([
                 'status_code' => '0',
                 'status_message' => 'Unable to fetch place details right now',
@@ -1649,12 +1668,12 @@ class RiderController extends Controller
             ]);
         }
 
-        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json', [
+        $response = $this->googleGet('https://maps.googleapis.com/maps/api/geocode/json', [
             'latlng' => $request->latitude.','.$request->longitude,
             'key' => $serverKey,
         ]);
 
-        if (!$response->successful()) {
+        if ($response === null || !$response->successful()) {
             return response()->json([
                 'status_code' => '0',
                 'status_message' => 'Unable to resolve this map location right now',
