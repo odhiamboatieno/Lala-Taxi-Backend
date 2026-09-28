@@ -1,7 +1,10 @@
 <?php
 
 return [
+	'no_documents_in_section' => 'इस अनुभाग में कोई दस्तावेज़ उपलब्ध नहीं है।',
+	'registration_number' => 'पंजीकरण संख्या',
 	'admin' => [
+		'user_type_driver' => 'ड्राइवर',
 		'dashboard' => 'डैशबोर्ड',
 		'copyright' => 'कॉपीराइट',
 		'all_rights_reserved' => 'सभी अधिकार सुरक्षित हैं',
@@ -657,6 +660,9 @@ return [
 			],
 		],
 		'manage_drivers_page' => [
+			'phone_label' => 'फ़ोन:',
+			'email_label' => 'ईमेल:',
+			'no_comment' => 'कोई टिप्पणी नहीं दी गई।',
 			'title' => 'ड्राइवर प्रबंधन',
 			'drivers' => 'ड्राइवर',
 			'add_driver' => 'ड्राइवर जोड़ें',
@@ -815,6 +821,25 @@ return [
 			'auto_assign_level_hint' => 'If left empty, the system will assign the default or best matching level for this driver.',
 		],
 		'manage_riders_page' => [
+			'recent_trips' => 'हाल की यात्राएँ',
+			'recent_transactions' => 'हाल के लेन-देन',
+			'highest_price_trip' => 'सबसे महँगी यात्रा',
+			'lowest_price_trip' => 'सबसे सस्ती यात्रा',
+			'cancellation_rate' => 'रद्दीकरण दर',
+			'success_rate' => 'सफलता दर',
+			'total_active_hour' => 'कुल सक्रिय घंटे',
+			'total_cancel_trip' => 'कुल रद्द यात्राएँ',
+			'total_completed_trip' => 'कुल पूर्ण यात्राएँ',
+			'total_level_point' => 'कुल स्तर अंक',
+			'total_review_given' => 'कुल दी गई समीक्षाएँ',
+			'auto_assign_based_on_rules' => 'नियमों के अनुसार स्वतः असाइन',
+			'no_pickup' => 'कोई पिकअप नहीं',
+			'no_trips_found' => 'कोई यात्रा नहीं मिली।',
+			'no_transactions_found' => 'कोई लेन-देन नहीं मिला।',
+			'profile_image' => 'प्रोफ़ाइल छवि',
+			'wallet_money' => 'वॉलेट राशि',
+			'unassigned' => 'अनअसाइन्ड',
+			'uploaded' => 'अपलोड किया गया',
 			'title' => 'राइडर प्रबंधन',
 			'riders' => 'राइडर',
 			'add_rider' => 'राइडर जोड़ें',
@@ -1488,6 +1513,7 @@ return [
 			'no_roles_found' => 'No roles found.',
 		],
 		'manage_map_page' => [
+			'search' => 'खोजें',
 			'fleet_view' => 'Fleet View',
 			'on_trip_driver_list' => 'On-Trip Driver List',
 			'idle_driver_list' => 'Idle Driver List',
@@ -2472,6 +2498,7 @@ return [
 		'trip_cancelled_by_rider' => 'Trip Cancelled by Rider',
 	],
 	'blade_static' => [
+		'active_ea35693d' => 'सक्रिय',
 		'07xxxxxxxx_89a2e30b' => '07XXXXXXXX',
 		'1_connection_00e32f08' => '1 connection',
 		'2_connections_or_more_be12a8b6' => '2 connections or more',

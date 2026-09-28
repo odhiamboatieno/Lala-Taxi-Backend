@@ -1,7 +1,10 @@
 <?php
 
 return [
+	'no_documents_in_section' => 'لا توجد مستندات متاحة في هذا القسم.',
+	'registration_number' => 'رقم التسجيل',
 	'admin' => [
+		'user_type_driver' => 'سائق',
 		'dashboard' => 'لوحة القيادة',
 		'copyright' => 'حقوق الطبع والنشر',
 		'all_rights_reserved' => 'كل الحقوق محفوظة',
@@ -656,6 +659,9 @@ return [
 			],
 		],
 		'manage_drivers_page' => [
+			'phone_label' => 'الهاتف:',
+			'email_label' => 'البريد الإلكتروني:',
+			'no_comment' => 'لم يتم تقديم أي تعليق.',
 			'title' => 'إدارة السائقين',
 			'add_driver' => 'إضافة سائق',
 			'add_driver_form' => 'نموذج إضافة سائق',
@@ -814,6 +820,25 @@ return [
 			'auto_assign_level_hint' => 'If left empty, the system will assign the default or best matching level for this driver.',
 		],
 		'manage_riders_page' => [
+			'recent_trips' => 'الرحلات الأخيرة',
+			'recent_transactions' => 'المعاملات الأخيرة',
+			'highest_price_trip' => 'أعلى رحلة سعراً',
+			'lowest_price_trip' => 'أقل رحلة سعراً',
+			'cancellation_rate' => 'معدل الإلغاء',
+			'success_rate' => 'معدل النجاح',
+			'total_active_hour' => 'إجمالي الساعات النشطة',
+			'total_cancel_trip' => 'إجمالي الرحلات الملغاة',
+			'total_completed_trip' => 'إجمالي الرحلات المكتملة',
+			'total_level_point' => 'إجمالي نقاط المستوى',
+			'total_review_given' => 'إجمالي التقييمات المقدمة',
+			'auto_assign_based_on_rules' => 'التعيين التلقائي وفقاً للقواعد',
+			'no_pickup' => 'لا يوجد التقاط',
+			'no_trips_found' => 'لم يتم العثور على رحلات.',
+			'no_transactions_found' => 'لم يتم العثور على معاملات.',
+			'profile_image' => 'صورة الملف الشخصي',
+			'wallet_money' => 'رصيد المحفظة',
+			'unassigned' => 'غير معيّن',
+			'uploaded' => 'تم الرفع',
 			'title' => 'إدارة الدراجين',
 			'riders' => 'الدراجين',
 			'add_rider' => 'إضافة دراج',
@@ -1488,6 +1513,7 @@ return [
 			'no_roles_found' => 'No roles found.',
 		],
 		'manage_map_page' => [
+			'search' => 'بحث',
 			'fleet_view' => 'Fleet View',
 			'on_trip_driver_list' => 'On-Trip Driver List',
 			'idle_driver_list' => 'Idle Driver List',
@@ -2472,6 +2498,7 @@ return [
 	'driver_or_company_commission' => 'Driver or Company Commission',
 	'additional_rider_amount' => '2nd Rider Amount',
 	'blade_static' => [
+		'active_ea35693d' => 'نشط',
 		'07xxxxxxxx_89a2e30b' => '07XXXXXXXX',
 		'1_connection_00e32f08' => '1 connection',
 		'2_connections_or_more_be12a8b6' => '2 connections or more',

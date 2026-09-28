@@ -1,7 +1,10 @@
 <?php
 
 return [
+	'no_documents_in_section' => 'No hay documentos disponibles en esta sección.',
+	'registration_number' => 'Número de registro',
 	'admin' => [
+		'user_type_driver' => 'Conductor',
 		'dashboard' => 'Tablero',
 		'copyright' => 'Derechos de autor',
 		'all_rights_reserved' => 'Todos los derechos reservados',
@@ -656,6 +659,9 @@ return [
 			],
 		],
 		'manage_drivers_page' => [
+			'phone_label' => 'Teléfono:',
+			'email_label' => 'Correo electrónico:',
+			'no_comment' => 'No se proporcionó ningún comentario.',
 			'title' => 'Administrar Conductores',
 			'drivers' => 'Conductores',
 			'add_driver' => 'Añadir Conductor',
@@ -814,6 +820,25 @@ return [
 			'auto_assign_level_hint' => 'If left empty, the system will assign the default or best matching level for this driver.',
 		],
 		'manage_riders_page' => [
+			'recent_trips' => 'Viajes recientes',
+			'recent_transactions' => 'Transacciones recientes',
+			'highest_price_trip' => 'Viaje de mayor precio',
+			'lowest_price_trip' => 'Viaje de menor precio',
+			'cancellation_rate' => 'Tasa de cancelación',
+			'success_rate' => 'Tasa de éxito',
+			'total_active_hour' => 'Horas activas totales',
+			'total_cancel_trip' => 'Viajes cancelados totales',
+			'total_completed_trip' => 'Viajes completados totales',
+			'total_level_point' => 'Puntos de nivel totales',
+			'total_review_given' => 'Reseñas totales dadas',
+			'auto_assign_based_on_rules' => 'Asignación automática según reglas',
+			'no_pickup' => 'Sin recogida',
+			'no_trips_found' => 'No se encontraron viajes.',
+			'no_transactions_found' => 'No se encontraron transacciones.',
+			'profile_image' => 'Imagen de perfil',
+			'wallet_money' => 'Saldo de la cartera',
+			'unassigned' => 'Sin asignar',
+			'uploaded' => 'Subido',
 			'title' => 'Gestionar Conductores',
 			'riders' => 'Conductores',
 			'add_rider' => 'Agregar Conductor',
@@ -1488,6 +1513,7 @@ return [
 			'no_roles_found' => 'No roles found.',
 		],
 		'manage_map_page' => [
+			'search' => 'Buscar',
 			'fleet_view' => 'Fleet View',
 			'on_trip_driver_list' => 'On-Trip Driver List',
 			'idle_driver_list' => 'Idle Driver List',
@@ -2472,6 +2498,7 @@ return [
 	'driver_or_company_commission' => 'Driver or Company Commission',
 	'additional_rider_amount' => '2nd Rider Amount',
 	'blade_static' => [
+		'active_ea35693d' => 'Activo',
 		'07xxxxxxxx_89a2e30b' => '07XXXXXXXX',
 		'1_connection_00e32f08' => '1 connection',
 		'2_connections_or_more_be12a8b6' => '2 connections or more',

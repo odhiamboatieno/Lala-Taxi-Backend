@@ -1,7 +1,10 @@
 <?php
 
 return [
+	'no_documents_in_section' => 'Nenhum documento disponível nesta seção.',
+	'registration_number' => 'Número de registro',
 	'admin' => [
+		'user_type_driver' => 'Motorista',
 		'dashboard' => 'Painel de Controlo',
 		'manage_setting' => 'Gerenciar configurações',
 		'copyright' => 'Direitos autorais',
@@ -655,6 +658,9 @@ return [
 			],
 		],
 		'manage_drivers_page' => [
+			'phone_label' => 'Telefone:',
+			'email_label' => 'E-mail:',
+			'no_comment' => 'Nenhum comentário fornecido.',
 			'title' => 'Gerir Motoristas',
 			'add_driver' => 'Adicionar Motorista',
 			'add_driver_form' => 'Formulário de Adição de Motorista',
@@ -813,6 +819,25 @@ return [
 			'auto_assign_level_hint' => 'If left empty, the system will assign the default or best matching level for this driver.',
 		],
 		'manage_riders_page' => [
+			'recent_trips' => 'Viagens recentes',
+			'recent_transactions' => 'Transações recentes',
+			'highest_price_trip' => 'Viagem de maior valor',
+			'lowest_price_trip' => 'Viagem de menor valor',
+			'cancellation_rate' => 'Taxa de cancelamento',
+			'success_rate' => 'Taxa de sucesso',
+			'total_active_hour' => 'Total de horas ativas',
+			'total_cancel_trip' => 'Total de viagens canceladas',
+			'total_completed_trip' => 'Total de viagens concluídas',
+			'total_level_point' => 'Total de pontos de nível',
+			'total_review_given' => 'Total de avaliações dadas',
+			'auto_assign_based_on_rules' => 'Atribuição automática com base em regras',
+			'no_pickup' => 'Sem recolha',
+			'no_trips_found' => 'Nenhuma viagem encontrada.',
+			'no_transactions_found' => 'Nenhuma transação encontrada.',
+			'profile_image' => 'Imagem de perfil',
+			'wallet_money' => 'Saldo da carteira',
+			'unassigned' => 'Não atribuído',
+			'uploaded' => 'Enviado',
 			'title' => 'Gerenciar Motociclistas',
 			'riders' => 'Motociclistas',
 			'add_rider' => 'Adicionar Motociclista',
@@ -1488,6 +1513,7 @@ return [
 			'no_roles_found' => 'No roles found.',
 		],
 		'manage_map_page' => [
+			'search' => 'Pesquisar',
 			'fleet_view' => 'Fleet View',
 			'on_trip_driver_list' => 'On-Trip Driver List',
 			'idle_driver_list' => 'Idle Driver List',
@@ -2473,6 +2499,7 @@ return [
 	'toll_command' => 'Toll Fee Command',
 	'additional_rider_amount' => '2nd Rider Amount',
 	'blade_static' => [
+		'active_ea35693d' => 'Ativo',
 		'07xxxxxxxx_89a2e30b' => '07XXXXXXXX',
 		'1_connection_00e32f08' => '1 connection',
 		'2_connections_or_more_be12a8b6' => '2 connections or more',

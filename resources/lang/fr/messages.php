@@ -1,7 +1,10 @@
 <?php
 
 return [
+	'no_documents_in_section' => 'Aucun document disponible dans cette section.',
+	'registration_number' => 'Numéro d\'enregistrement',
 	'admin' => [
+		'user_type_driver' => 'Conducteur',
 		'dashboard' => 'Tableau de bord',
 		'copyright' => 'Droits d\'auteur',
 		'all_rights_reserved' => 'Tous droits réservés',
@@ -655,6 +658,9 @@ return [
 			],
 		],
 		'manage_drivers_page' => [
+			'phone_label' => 'Téléphone :',
+			'email_label' => 'E-mail :',
+			'no_comment' => 'Aucun commentaire fourni.',
 			'title' => 'Gérer les chauffeurs',
 			'add_driver' => 'Ajouter un chauffeur',
 			'add_driver_form' => 'Formulaire d\'ajout de chauffeur',
@@ -813,6 +819,25 @@ return [
 			'auto_assign_level_hint' => 'If left empty, the system will assign the default or best matching level for this driver.',
 		],
 		'manage_riders_page' => [
+			'recent_trips' => 'Trajets récents',
+			'recent_transactions' => 'Transactions récentes',
+			'highest_price_trip' => 'Trajet le plus cher',
+			'lowest_price_trip' => 'Trajet le moins cher',
+			'cancellation_rate' => 'Taux d\'annulation',
+			'success_rate' => 'Taux de réussite',
+			'total_active_hour' => 'Heures actives totales',
+			'total_cancel_trip' => 'Trajets annulés totaux',
+			'total_completed_trip' => 'Trajets terminés totaux',
+			'total_level_point' => 'Points de niveau totaux',
+			'total_review_given' => 'Avis donnés au total',
+			'auto_assign_based_on_rules' => 'Attribution automatique selon les règles',
+			'no_pickup' => 'Aucune prise en charge',
+			'no_trips_found' => 'Aucun trajet trouvé.',
+			'no_transactions_found' => 'Aucune transaction trouvée.',
+			'profile_image' => 'Photo de profil',
+			'wallet_money' => 'Solde du portefeuille',
+			'unassigned' => 'Non attribué',
+			'uploaded' => 'Téléversé',
 			'title' => 'Gérer les Coureurs',
 			'riders' => 'Coureurs',
 			'add_rider' => 'Ajouter un Coureur',
@@ -1488,6 +1513,7 @@ return [
 			'no_roles_found' => 'No roles found.',
 		],
 		'manage_map_page' => [
+			'search' => 'Rechercher',
 			'fleet_view' => 'Fleet View',
 			'on_trip_driver_list' => 'On-Trip Driver List',
 			'idle_driver_list' => 'Idle Driver List',
@@ -2519,6 +2545,7 @@ accessible  tous maintenant',
 		'second' => 'second',
 	],
 	'blade_static' => [
+		'active_ea35693d' => 'Actif',
 		'07xxxxxxxx_89a2e30b' => '07XXXXXXXX',
 		'1_connection_00e32f08' => '1 connection',
 		'2_connections_or_more_be12a8b6' => '2 connections or more',

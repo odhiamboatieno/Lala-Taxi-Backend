@@ -1,7 +1,10 @@
 <?php
 
 return [
+	'no_documents_in_section' => 'No documents available in this section.',
+	'registration_number' => 'Registration Number',
 	'admin' => [
+		'user_type_driver' => 'Driver',
 		'dashboard' => 'Dashboard',
 		'copyright' => 'Copyright',
 		'all_rights_reserved' => 'All rights reserved',
@@ -687,6 +690,9 @@ return [
 			],
 		],
 		'manage_drivers_page' => [
+			'phone_label' => 'Phone:',
+			'email_label' => 'E-mail:',
+			'no_comment' => 'No comment provided.',
 			'title' => 'Manage Drivers',
 			'drivers' => 'Drivers',
 			'add_driver' => 'Add Driver',
@@ -845,6 +851,25 @@ return [
 			'auto_assign_level_hint' => 'If left empty, the system will assign the default or best matching level for this driver.',
 		],
 		'manage_riders_page' => [
+			'recent_trips' => 'Recent Trips',
+			'recent_transactions' => 'Recent Transactions',
+			'highest_price_trip' => 'Highest Price Trip',
+			'lowest_price_trip' => 'Lowest Price Trip',
+			'cancellation_rate' => 'Cancellation Rate',
+			'success_rate' => 'Success Rate',
+			'total_active_hour' => 'Total Active Hours',
+			'total_cancel_trip' => 'Total Cancelled Trips',
+			'total_completed_trip' => 'Total Completed Trips',
+			'total_level_point' => 'Total Level Points',
+			'total_review_given' => 'Total Reviews Given',
+			'auto_assign_based_on_rules' => 'Auto assign based on rules',
+			'no_pickup' => 'No pickup',
+			'no_trips_found' => 'No trips found.',
+			'no_transactions_found' => 'No transactions found.',
+			'profile_image' => 'Profile Image',
+			'wallet_money' => 'Wallet Money',
+			'unassigned' => 'Unassigned',
+			'uploaded' => 'Uploaded',
 			'title' => 'Manage Riders',
 			'riders' => 'Riders',
 			'add_rider' => 'Add Rider',
@@ -1486,6 +1511,7 @@ return [
 			'no_roles_found' => 'No roles found.',
 		],
 		'manage_map_page' => [
+			'search' => 'Search',
 			'fleet_view' => 'Fleet View',
 			'on_trip_driver_list' => 'On-Trip Driver List',
 			'idle_driver_list' => 'Idle Driver List',
@@ -2470,6 +2496,7 @@ return [
 		'trip_cancelled_by_rider' => 'Trip Cancelled by Rider',
 	],
 	'blade_static' => [
+		'active_ea35693d' => 'Active',
 		'07xxxxxxxx_89a2e30b' => '07XXXXXXXX',
 		'1_connection_00e32f08' => '1 connection',
 		'2_connections_or_more_be12a8b6' => '2 connections or more',

@@ -1,6 +1,8 @@
 <?php
 
 return [
+	'no_documents_in_section' => 'هیچ مدرکی در این بخش موجود نیست.',
+	'registration_number' => 'شماره ثبت',
 	'home' => [
 		'title' => 'دریافت وجود دارد',
 		'desc' => 'وارد محل سوار شدن و رها کردن شوید و از هزینه سواری ارزان قیمت لذت ببرید',
@@ -891,6 +893,7 @@ return [
 		'trip_cancelled_by_rider' => 'Trip Cancelled by Rider',
 	],
 	'admin' => [
+		'user_type_driver' => 'راننده',
 		'dashboard' => 'Dashboard',
 		'copyright' => 'Copyright',
 		'all_rights_reserved' => 'All rights reserved',
@@ -1576,6 +1579,9 @@ return [
 			],
 		],
 		'manage_drivers_page' => [
+			'phone_label' => 'تلفن:',
+			'email_label' => 'ایمیل:',
+			'no_comment' => 'هیچ نظری ارائه نشده است.',
 			'title' => 'Manage Drivers',
 			'drivers' => 'Drivers',
 			'add_driver' => 'Add Driver',
@@ -1734,6 +1740,25 @@ return [
 			'auto_assign_level_hint' => 'If left empty, the system will assign the default or best matching level for this driver.',
 		],
 		'manage_riders_page' => [
+			'recent_trips' => 'سفرهای اخیر',
+			'recent_transactions' => 'تراکنش‌های اخیر',
+			'highest_price_trip' => 'گران‌ترین سفر',
+			'lowest_price_trip' => 'ارزان‌ترین سفر',
+			'cancellation_rate' => 'نرخ لغو',
+			'success_rate' => 'نرخ موفقیت',
+			'total_active_hour' => 'مجموع ساعات فعال',
+			'total_cancel_trip' => 'مجموع سفرهای لغوشده',
+			'total_completed_trip' => 'مجموع سفرهای تکمیل‌شده',
+			'total_level_point' => 'مجموع امتیاز سطح',
+			'total_review_given' => 'مجموع نظرات داده‌شده',
+			'auto_assign_based_on_rules' => 'تخصیص خودکار بر اساس قوانین',
+			'no_pickup' => 'بدون سوار شدن',
+			'no_trips_found' => 'سفری یافت نشد.',
+			'no_transactions_found' => 'تراکنشی یافت نشد.',
+			'profile_image' => 'تصویر پروفایل',
+			'wallet_money' => 'موجودی کیف پول',
+			'unassigned' => 'تخصیص‌نیافته',
+			'uploaded' => 'بارگذاری شد',
 			'title' => 'Manage Riders',
 			'riders' => 'Riders',
 			'add_rider' => 'Add Rider',
@@ -2375,6 +2400,7 @@ return [
 			'no_roles_found' => 'No roles found.',
 		],
 		'manage_map_page' => [
+			'search' => 'جستجو',
 			'fleet_view' => 'Fleet View',
 			'on_trip_driver_list' => 'On-Trip Driver List',
 			'idle_driver_list' => 'Idle Driver List',
@@ -2470,6 +2496,7 @@ return [
 	'driver_or_company_commission' => 'Driver or Company Commission',
 	'additional_rider_amount' => '2nd Rider Amount',
 	'blade_static' => [
+		'active_ea35693d' => 'فعال',
 		'07xxxxxxxx_89a2e30b' => '07XXXXXXXX',
 		'1_connection_00e32f08' => '1 connection',
 		'2_connections_or_more_be12a8b6' => '2 connections or more',
