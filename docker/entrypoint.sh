@@ -27,16 +27,19 @@ mkdir -p \
     storage/framework/views \
     storage/logs \
     bootstrap/cache \
-    public/trip_file
+    public/trip_file \
+    public/images
 
 touch storage/logs/laravel.log
 
 # The web installer is bypassed: we provision the database from the CLI instead.
 touch storage/installed
 
-# Give the FPM user ownership of writable paths.
-chown -R www-data:www-data storage bootstrap/cache public/trip_file 2>/dev/null || true
-chmod -R 775 storage bootstrap/cache public/trip_file 2>/dev/null || true
+# Give the FPM user ownership of writable paths. public/images holds every
+# upload (profile photos, documents, payout files, trip maps), so it has to be
+# writable or uploads fail with a permission error.
+chown -R www-data:www-data storage bootstrap/cache public/trip_file public/images 2>/dev/null || true
+chmod -R 775 storage bootstrap/cache public/trip_file public/images 2>/dev/null || true
 
 # Link storage -> public/storage for uploaded files.
 if [ ! -L public/storage ] && [ -d storage/app/public ]; then
