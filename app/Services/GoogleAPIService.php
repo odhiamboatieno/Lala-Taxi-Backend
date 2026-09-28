@@ -15,6 +15,7 @@ namespace App\Services;
 
 use Cache;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class GoogleAPIService
 {
@@ -127,44 +128,59 @@ class GoogleAPIService
 		$waypoints = array_values(array_filter($waypoints));
 		$cache_key = 'route_polyline_'.md5($origin.'_'.$destination.'_'.implode('|', $waypoints));
 		$cacheExpireAt = Carbon::now()->addHours(CACHE_HOURS);
-		
+
 		if(Cache::has($cache_key)) {
 			return Cache::get($cache_key);
 		}
 
-		$query = [
-			'origin' => $origin,
-			'destination' => $destination,
-			'mode' => 'driving',
-			'units' => 'metric',
-			'key' => MAP_SERVER_KEY,
+		$point = function ($value) {
+			if(preg_match('/^\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*$/', (string) $value, $matches)) {
+				return ['location' => ['latLng' => [
+					'latitude' => (float) $matches[1],
+					'longitude' => (float) $matches[2],
+				]]];
+			}
+
+			return ['address' => (string) $value];
+		};
+
+		$body = [
+			'origin' => $point($origin),
+			'destination' => $point($destination),
+			'travelMode' => 'DRIVE',
+			'units' => 'METRIC',
 		];
 
-		if(count($waypoints)) {
-			$query['waypoints'] = implode('|', $waypoints);
+		$intermediates = array_values(array_filter(array_map($point, $waypoints)));
+		if(count($intermediates)) {
+			$body['intermediates'] = $intermediates;
 		}
 
-		$url = $this->base_url.'/directions/json?'.http_build_query($query);
-		$geocode = file_get_contents_curl($url);
-
-		if(!$geocode) {
+		try {
+			$response = Http::timeout(15)
+				->withHeaders([
+					'X-Goog-Api-Key' => MAP_SERVER_KEY,
+					'X-Goog-FieldMask' => 'routes.duration,routes.distanceMeters,routes.polyline.encodedPolyline',
+				])
+				->post('https://routes.googleapis.com/directions/v2:computeRoutes', $body);
+		} catch (\Throwable $e) {
 			return ['status' => 'fail', 'status_message' => trans('messages.api.something_went_wrong'), 'polyline' => ''];
 		}
 
-		$response = json_decode($geocode);
-		$polyline = @$response->routes[0]->overview_polyline->points ?: '';
-		$distance_meters = 0;
-		$duration_seconds = 0;
-		if(isset($response->routes[0]->legs) && is_array($response->routes[0]->legs)) {
-			foreach($response->routes[0]->legs as $leg) {
-				$distance_meters += (int) (@$leg->distance->value ?: 0);
-				$duration_seconds += (int) (@$leg->duration->value ?: 0);
-			}
+		if(!$response->successful()) {
+			$message = $response->json('error.message') ?: trans('messages.api.something_went_wrong');
+
+			return ['status' => 'fail', 'status_message' => $message, 'polyline' => ''];
 		}
+
+		$route = $response->json('routes.0') ?? [];
+		$polyline = data_get($route, 'polyline.encodedPolyline', '');
+		$distance_meters = (int) ($route['distanceMeters'] ?? 0);
+		$duration_seconds = (int) rtrim((string) ($route['duration'] ?? '0'), 's');
 
 		$result = [
 			'status' => $polyline != '' ? 'success' : 'fail',
-			'status_message' => $polyline != '' ? 'Success' : (@$response->error_message ?: 'No route found'),
+			'status_message' => $polyline != '' ? 'Success' : ($response->json('error.message') ?: 'No route found'),
 			'polyline' => $polyline,
 			'distance_meters' => $distance_meters,
 			'duration_seconds' => $duration_seconds,
