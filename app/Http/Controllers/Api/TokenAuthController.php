@@ -752,6 +752,14 @@ class TokenAuthController extends Controller
             $response['status_code'] = strval($response['status_code'] ?? 0);
 
             if ($response['status_code'] == '1') {
+                // Account creation and password recovery need to validate the
+                // code without attempting to create a session for an account
+                // that does not exist yet. Login does not send this flag and
+                // continues through the token-issuing path below.
+                if (filter_var(request()->verification_only, FILTER_VALIDATE_BOOLEAN)) {
+                    return $response;
+                }
+
                 $country_code = request()->country_code;
                 $country_id = Country::whereShortName($country_code)->value('id');
 
