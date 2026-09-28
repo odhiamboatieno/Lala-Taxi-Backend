@@ -46,7 +46,7 @@ class Helpers
             return $metas->first()->$field;
         else if($url == 'app/{type}'){
             if(request()->type=='user')
-                return 'LalaTaxi Driver App';
+                return 'Lala Driver App';
             else
                 return 'LalaTaxi User App';
         }
