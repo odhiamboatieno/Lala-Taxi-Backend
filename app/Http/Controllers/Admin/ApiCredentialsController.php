@@ -86,13 +86,13 @@ class ApiCredentialsController extends Controller
             }
 
         $image_uploader = resolve(\App\Contracts\ImageHandlerInterface::class);
-		$dir_name = resource_path();
+		$dir_name = base_path();
 		
         if ($request->hasFile('apple_key_file')) {
             $key_file = $request->file('apple_key_file');
             $dir_name = base_path();
-            $target_dir = '/public';
-            $file_name = "key.txt";
+            $target_dir = '/credentials/';
+            $file_name = "apple_key.txt";
             $extensions = ['txt','p8'];
             $options = compact('dir_name','target_dir','file_name','extensions');
 
@@ -109,6 +109,7 @@ class ApiCredentialsController extends Controller
 
         if ($request->hasFile('service_account')) {
             $service_account = $request->file('service_account');
+            $dir_name = base_path();
             $target_dir = '/credentials/';
             $file_name = "service_account.json";
             $extensions = ['json'];
