@@ -1,51 +1,81 @@
-@extends('template')
-
+@extends('marketing.layout')
+@section('title', $site_name.' '.trans('messages.home.fare'))
 @section('main')
-	<div class="container-fluid" id="pad-sm-zero" style="padding:0px !important;">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="pad-sm-zero" style="padding:0px 0px;">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0px 0px;" id="pad-sm-zero">
-<div id="map_wrapper" style="width:100% !important;    height: 100% !important;">
-    <div id="map_canvas" class="mapping"></div>
-</div>
+<section class="center-hero">
+	<p class="site-eyebrow">{{ __('website.ride_from_here_to_there') }}</p>
+	<h1>{{ $site_name }} {{ trans('messages.home.fare') }}</h1>
+	<p class="site-lead">{{ trans('messages.home.how_much') }}{{ $site_name }}{{ trans('messages.home.cost') }}</p>
+</section>
+<section class="site-section">
+	<div class="site-container feature-split feature-split--compact">
+		<div class="feature-split__copy estimate-card">
+			<h2>{{ trans('messages.home.get_started') }}</h2>
+			<div class="position--relative inline-estimate__route-entry" data-reactid="285">
+				<div class="site-field">
+					<label for="fare_pickup">{{ __('messages.blade_static.enter_pickup_location_ce4420ab') }}</label>
+					<input id="fare_pickup" value="" placeholder="{{ __('messages.blade_static.enter_pickup_location_ce4420ab') }}" autocomplete="off" aria-label="{{ __('messages.blade_static.enter_a_pickup_location_address_city_and_state_required_92bd2b8b') }}" data-reactid="297">
+					<i class="icon icon_location fare-estimate__location-icon position--absolute" tabindex="0" role="button" aria-label="{{ __('messages.blade_static.locate_me_b89c3714') }}" data-reactid="298"></i>
+				</div>
+				<div class="fare-estimate__destination-row" data-reactid="299">
+					<div class="fare-estimate__destination" data-reactid="300">
+						<div class="site-field">
+							<label for="fare_destination">{{ __('messages.blade_static.enter_destination_990155df') }}</label>
+							<input id="fare_destination" value="" placeholder="{{ __('messages.blade_static.enter_destination_990155df') }}" autocomplete="off" aria-label="{{ __('messages.blade_static.enter_a_destination_address_city_and_state_required_e15d3d5d') }}" data-reactid="305">
+						</div>
+					</div>
+					<button tabindex="-1" class="btn btn--bit position--absolute right transition fare-estimate__button--inactive pointer-events--none" aria-label="{{ __('messages.blade_static.request_estimate_24789618') }}" data-reactid="306"><i class="icon_right-arrow-thin icon" data-reactid="307"></i></button>
+				</div>
+			</div>
+			<div class="site-actions">
+				<a class="site-btn site-btn--gold btn--primary btn--arrow position--relative error-retry-btn get-started" href="{{ url('ride') }}">
+					<span class="block-context">{{ trans('messages.home.get_started') }}</span>
+					<i data-lucide="arrow-right" aria-hidden="true"></i>
+				</a>
+			</div>
+		</div>
+		<div class="estimate-map">
+			<div id="map_wrapper">
+				<div id="map_canvas" class="mapping"></div>
+			</div>
+		</div>
 	</div>
-	<div class="pos-abs-map">
-	<div class=" col-lg-4 col-md-5 col-sm-6 col-xs-12 lap-one-half hard--left soft--right" data-reactid="284">
-	<div class="position--relative inline-estimate__route-entry" data-reactid="285">
-	<div class="bg-primary-layer-color pointer-events--all locate-content" style="padding:30px; display: block;   margin-bottom: 20px;">
-	<h2 class="_style_3zaJwR" style="    margin: 0px 0px 10px 0px !important;
-">{{$site_name}} {{trans('messages.home.fare')}}</h2>
-	<p class="cmln__paragraph">{{trans('messages.home.how_much')}}{{$site_name}}{{trans('messages.home.cost')}} </p>
-	</div>
-	<div class="bg-primary-layer-color pointer-events--all locate-pin" style="padding:15px;">
-	<div class="position--relative" data-reactid="290">
-	<div class="fare-estimate__input-connector z-10" data-reactid="291"></div>
-	<div class="fare-estimate__pickup push-tiny--bottom" data-reactid="292">
-	<div class="autocomplete-container" data-reactid="293">
-	<div class="autocomplete position--relative" data-reactid="294">
-	<div class="autocomplete__input hard flush--bottom autocomplete__input--icon" data-reactid="295">
-	<div style="height:100% !important;" data-reactid="296">
-	<input style="height:100% !important;" value="" placeholder="{{ __('messages.blade_static.enter_pickup_location_ce4420ab') }}" autocomplete="off" aria-label="{{ __('messages.blade_static.enter_a_pickup_location_address_city_and_state_required_92bd2b8b') }}" data-reactid="297">
-	</div></div></div></div>
-	<i class="icon icon_location fare-estimate__location-icon position--absolute" tabindex="0" role="button" aria-label="{{ __('messages.blade_static.locate_me_b89c3714') }}" data-reactid="298"></i></div>
-	<div class="fare-estimate__destination-row" data-reactid="299">
-	<div class="fare-estimate__destination" data-reactid="300">
-	<div class="autocomplete-container" data-reactid="301">
-	<div class="autocomplete position--relative" data-reactid="302">
-	<div class="autocomplete__input hard flush--bottom autocomplete__input--icon" data-reactid="303"><div style="height:100% !important;" data-reactid="304">
-	<input style="height:100% !important;" value="" placeholder="{{ __('messages.blade_static.enter_destination_990155df') }}" autocomplete="off" aria-label="{{ __('messages.blade_static.enter_a_destination_address_city_and_state_required_e15d3d5d') }}" data-reactid="305"></div></div></div></div></div><button tabindex="-1" class="btn btn--bit position--absolute right transition fare-estimate__button--inactive pointer-events--none" aria-label="{{ __('messages.blade_static.request_estimate_24789618') }}" data-reactid="306"><i class="icon_right-arrow-thin icon" data-reactid="307"></i></button></div></div></div>
-<a class="btn btn--primary btn--arrow position--relative error-retry-btn get-started">
-<div class="block-context soft-small--right" style="    width: 180px;">{{trans('messages.home.get_started')}} Get Started</div>
-<i class="icon_right-arrow-thin icon transition delta position--absolute"></i>
-</a>
-	</div></div>
-</div>
-	</div>
-	</div>
-</main>
-@stop
+</section>
+@endsection
+@push('styles')
+@include('marketing.partials.legacy-styles')
 <style type="text/css">
-	body{
-		position: fixed;
-		height: 100% !important;
-	}
+	.estimate-card .site-field { position: relative; }
+	.estimate-card .icon_location { position: absolute; right: 18px; bottom: 18px; cursor: pointer; }
+	.estimate-map { border-radius: var(--site-radius-image); overflow: hidden; background: var(--site-surface); }
+	.estimate-map #map_wrapper, .estimate-map #map_canvas { width: 100% !important; min-height: 420px; height: 100%; }
 </style>
+@endpush
+@push('scripts')
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ $map_key }}&libraries=places"></script>
+<script type="text/javascript">
+	if(document.getElementById("map_canvas")){
+		google.maps.event.addDomListener(window, 'load', initialize);
+	}
+
+	function initialize() {
+		var map;
+		var myLatlng = new google.maps.LatLng(51.503454,-0.119562);
+		var mapOptions = {
+			center: myLatlng,
+			zoom: 14,
+			mapTypeId: 'roadmap'
+		};
+		var styles = [{
+			"stylers": [
+				{ "saturation": -100 },
+				{ "lightness": 40 }
+			]
+		}];
+		var styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
+		map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+		map.setTilt(45);
+		map.mapTypes.set('map_style', styledMap);
+		map.setMapTypeId('map_style');
+	}
+</script>
+@endpush

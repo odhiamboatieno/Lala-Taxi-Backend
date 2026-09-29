@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/marketing-tokens.css') }}?v={{ filemtime(public_path('css/marketing-tokens.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/marketing.css') }}?v={{ filemtime(public_path('css/marketing.css')) }}">
     @stack('styles')
+    <link rel="stylesheet" href="{{ asset('css/marketing-compat.css') }}?v={{ filemtime(public_path('css/marketing-compat.css')) }}">
     <script defer src="{{ asset('js/lucide.min.js') }}"></script>
     <script defer src="{{ asset('js/marketing.js') }}?v={{ filemtime(public_path('js/marketing.js')) }}"></script>
 </head>

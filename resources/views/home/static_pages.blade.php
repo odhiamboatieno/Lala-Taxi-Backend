@@ -1,13 +1,24 @@
-@extends('templatesign')
-   
+@extends('marketing.layout')
+
+@if(!empty($title))
+@section('title', $title)
+@endif
+
 @section('main')
-<main role="main" id="site-content">
-	<div class="container">
-	  <div class="mt-5 text-wrap" style="margin: 3em 0;">
-	    {!! $content !!}
-	  </div>
+<section class="site-section">
+	<div class="site-container">
+		<div class="rich-content text-wrap" id="site-content">
+			{!! $content !!}
+		</div>
 	</div>
-</main>
+</section>
+@endsection
+@push('styles')
+<style type="text/css">
+	.rich-content { max-width: 860px; margin-inline: auto; }
+	.rich-content img { max-width: 100%; height: auto; border-radius: var(--site-radius-field); }
+</style>
+@endpush
 @push('scripts')
 <script type="text/javascript">
 $( document ).ready(function() {
@@ -24,4 +35,3 @@ $( document ).ready(function() {
 
 </script>
 @endpush
-@stop

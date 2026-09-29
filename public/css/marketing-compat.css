@@ -1,0 +1,228 @@
+/* ==========================================================================
+   marketing-compat.css
+   Component styles for redesigned pages that still carry legacy hooks.
+   Loaded after marketing.css so these always win the cascade.
+   ========================================================================== */
+
+.marketing-page .forward { margin: 0; }
+.marketing-page .push--top-small { margin-top: 18px; }
+.marketing-page .push-small--top { margin-top: 10px; }
+.marketing-page .push-small--right { margin-right: 8px; display: inline-block; }
+.marketing-page .push-small--bottom { margin-bottom: 10px; }
+
+/* ---- fields ------------------------------------------------------------ */
+.marketing-page .field-grid { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.marketing-page .field-grid .field-grid__full { grid-column: 1 / -1; }
+.marketing-page .phone-grid { display: grid; gap: 12px; grid-template-columns: 150px 1fr; align-items: end; }
+.marketing-page .field-hint { display: block; font-size: .78rem; color: var(--ink-muted, #6b7280); margin-top: 6px; }
+.marketing-page .one-column-form__input--text,
+.marketing-page .field__input { width: 100%; }
+.marketing-page .autocomplete-shell { position: relative; }
+.marketing-page .autocomplete-results { position: absolute; inset-inline: 0; top: calc(100% + 4px); z-index: 30; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 18px 40px rgba(15, 23, 42, .14); overflow: hidden; }
+.marketing-page .autocomplete-results:empty { display: none; }
+.marketing-page .autocomplete-item { display: block; width: 100%; text-align: start; padding: 10px 14px; font-size: .9rem; background: none; border: 0; cursor: pointer; }
+.marketing-page .autocomplete-item:hover,
+.marketing-page .autocomplete-item:focus-visible { background: #f8fafc; }
+.marketing-page .company-address-results { position: absolute; inset-inline: 0; top: calc(100% + 4px); z-index: 40; max-height: 240px; overflow: auto; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 18px 40px rgba(15, 23, 42, .14); }
+.marketing-page .flash-container { margin-bottom: 12px; }
+.marketing-page .flash-container:empty { display: none; }
+.marketing-page .is-active { color: #b8860b; }
+
+/* ---- inline validation spans (server + angular) ------------------------- */
+.marketing-page .first_name_error,
+.marketing-page .last_name_error,
+.marketing-page .name_error,
+.marketing-page .email_error,
+.marketing-page .mobile_number_error,
+.marketing-page .country_code_error,
+.marketing-page .password_error,
+.marketing-page .home_address_error,
+.marketing-page .referral_code_error,
+.marketing-page .email-error,
+.marketing-page .signin-email-error,
+.marketing-page .email_phone-sec-1,
+.marketing-page .mobile-text-danger,
+.marketing-page .text-danger:empty,
+.marketing-page .otp_error:empty { display: none; }
+.marketing-page .first_name_error.ng-show,
+.marketing-page .last_name_error.ng-show,
+.marketing-page .name_error.ng-show,
+.marketing-page .email_error.ng-show,
+.marketing-page .mobile_number_error.ng-show,
+.marketing-page .country_code_error.ng-show,
+.marketing-page .password_error.ng-show,
+.marketing-page .home_address_error.ng-show,
+.marketing-page .referral_code_error.ng-show,
+.marketing-page .email-error.ng-show,
+.marketing-page .signin-email-error.ng-show,
+.marketing-page .otp_error.ng-show { display: block; }
+
+/* ---- auth legacy buttons / social -------------------------------------- */
+.marketing-page .btn.site-btn { border: 0; }
+.marketing-page .btn--full { width: 100%; justify-content: center; }
+.marketing-page .btn--large { padding: 15px 26px; font-size: 1rem; }
+.marketing-page .blue-signin-btn,
+.marketing-page .violet-btn,
+.marketing-page .white-btn,
+.marketing-page .black-btn { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; font-weight: 600; }
+.marketing-page .social-login { display: grid; gap: 10px; margin: 18px 0; }
+.marketing-page .google_login,
+.marketing-page .g-signin2 { width: 100%; }
+.marketing-page .btn-facebook { background: #1877f2; color: #fff; border: 0; }
+.marketing-page .or-text { display: flex; align-items: center; gap: 12px; color: #6b7280; font-size: .82rem; }
+.marketing-page .or-text::before,
+.marketing-page .or-text::after { content: ""; flex: 1; height: 1px; background: #e5e7eb; }
+.marketing-page .password_btn { background: none; border: 0; color: #b8860b; font-weight: 600; cursor: pointer; padding: 0; }
+.marketing-page .ux-content { color: #475569; }
+.marketing-page .text-copy { color: #475569; line-height: 1.7; }
+.marketing-page .signup-riders,
+.marketing-page .singin_rider { width: 100%; }
+.marketing-page .ae-button,
+.marketing-page .search-button { border: 0; cursor: pointer; }
+.marketing-page .ae-form-field { width: 100%; }
+.marketing-page .form-inline { display: flex; gap: 10px; align-items: center; }
+.marketing-page .btn-primary,
+.marketing-page .btn--primary { display: inline-flex; align-items: center; gap: 8px; }
+
+/* ---- help centre -------------------------------------------------------- */
+.marketing-page .help-search-hero { padding: clamp(48px, 8vw, 88px) 0 clamp(32px, 5vw, 56px); background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%); color: #fff; }
+.marketing-page .help-search-hero .site-lead { color: rgba(255, 255, 255, .78); }
+.marketing-page .help-search-form { display: flex; gap: 10px; margin-top: 24px; max-width: 620px; }
+.marketing-page .help-search-form input { flex: 1; min-height: 52px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .1); color: #fff; padding: 0 20px; }
+.marketing-page .help-search-form input::placeholder { color: rgba(255, 255, 255, .6); }
+.marketing-page .help-search-form .site-btn { flex: none; }
+.marketing-page .help-wrap { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 36px; align-items: start; }
+.marketing-page .help-nav { position: sticky; top: 96px; }
+.marketing-page .sidenav-list,
+.marketing-page .subnav-list,
+.marketing-page .navtree-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.marketing-page .sidenav-item,
+.marketing-page .subnav-item,
+.marketing-page .navtree-list li { display: block; }
+.marketing-page .sidenav-item a,
+.marketing-page .subnav-item a,
+.marketing-page .navtree-list a { display: block; padding: 9px 12px; border-radius: 10px; font-size: .9rem; color: #334155; text-decoration: none; }
+.marketing-page .sidenav-item a:hover,
+.marketing-page .sidenav-item a.is-active,
+.marketing-page .subnav-item a:hover,
+.marketing-page .subnav-item a.is-active,
+.marketing-page .navtree-list a:hover,
+.marketing-page .navtree-list a.is-active { background: #fff8e1; color: #b8860b; font-weight: 600; }
+.marketing-page .navtree-back,
+.marketing-page .sub_menu_header,
+.marketing-page .link-reset,
+.marketing-page .icon-arrow-left { display: inline-flex; align-items: center; gap: 6px; font-size: .85rem; color: #b8860b; text-decoration: none; }
+.marketing-page .help-content { min-width: 0; }
+.marketing-page .help-section { margin-bottom: 40px; }
+.marketing-page .breadcrumbs-content { font-size: .8rem; color: #64748b; margin-bottom: 14px; }
+.marketing-page .help-article-list { display: grid; gap: 12px; }
+.marketing-page .help-article { display: block; padding: 16px 18px; border: 1px solid #e5e7eb; border-radius: 14px; background: #fff; text-decoration: none; color: inherit; }
+.marketing-page .help-article:hover { border-color: #e2b95b; box-shadow: 0 14px 30px rgba(15, 23, 42, .07); }
+.marketing-page .help-article h3 { margin: 0 0 6px; font-size: 1rem; }
+.marketing-page .article-link-panel { display: block; }
+.marketing-page .article-link-right { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.marketing-page .img-alignment { display: block; max-width: 100%; height: auto; }
+.marketing-page .space-8 { height: 32px; }
+.marketing-page .row-space-6 { margin-bottom: 24px; }
+.marketing-page .text-wrap,
+.marketing-page .rich-content { line-height: 1.75; color: #334155; }
+.marketing-page .rich-content h1,
+.marketing-page .rich-content h2,
+.marketing-page .rich-content h3 { color: #0f172a; line-height: 1.25; margin: 1.6em 0 .6em; }
+.marketing-page .rich-content h1 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
+.marketing-page .rich-content h2 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); }
+.marketing-page .rich-content a { color: #b8860b; }
+.marketing-page .rich-content img { max-width: 100%; height: auto; border-radius: 14px; }
+.marketing-page .rich-content ul,
+.marketing-page .rich-content ol { padding-inline-start: 1.2em; }
+.marketing-page .help-center-sm { font-size: .85rem; color: #64748b; }
+.marketing-page .search-container { position: relative; }
+.marketing-page .search-input { width: 100%; }
+.marketing-page .fa-bars { margin-inline-end: 6px; }
+.marketing-page .order-list { counter-reset: step; list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.marketing-page .order-list > li { position: relative; counter-increment: step; padding-inline-start: 52px; }
+.marketing-page .order-list > li::before { content: counter(step); position: absolute; inset-inline-start: 0; top: 0; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: #0f172a; color: #e2b95b; font-weight: 700; }
+
+/* ---- fare estimate ------------------------------------------------------ */
+.marketing-page .estimate-map { min-height: 420px; border-radius: 18px; overflow: hidden; border: 1px solid #e5e7eb; }
+.marketing-page .map-canvas,
+.marketing-page #map_canvas { width: 100%; height: 100%; min-height: 420px; }
+.marketing-page .estimate-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 18px; padding: 24px; box-shadow: 0 18px 40px rgba(15, 23, 42, .07); }
+.marketing-page .fare-estimate__destination { margin-bottom: 14px; }
+.marketing-page .fare-estimate__destination-row { display: flex; align-items: center; gap: 10px; }
+.marketing-page .fare-estimate__location-icon { color: #b8860b; flex: none; }
+.marketing-page .fare-estimate__button--inactive { opacity: .55; pointer-events: none; }
+.marketing-page .inline-estimate__route-entry { display: grid; gap: 4px; }
+.marketing-page .block-context { background: #f8fafc; border-radius: 14px; padding: 16px; }
+.marketing-page .error-retry-btn { border: 0; cursor: pointer; }
+.marketing-page .mapping { color: #64748b; }
+.marketing-page .pointer-events--none { pointer-events: none; }
+.marketing-page .position--relative { position: relative; }
+.marketing-page .position--absolute { position: absolute; }
+.marketing-page .transition { transition: all .2s ease; }
+
+/* ---- company onboarding wizard ----------------------------------------- */
+.marketing-page .onboarding-wrap { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 36px; align-items: start; }
+.marketing-page .onboarding-shell { background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(15, 23, 42, .08); }
+.marketing-page .onboarding-top { padding: 28px 32px; background: linear-gradient(120deg, #0f172a, #1e293b); color: #fff; }
+.marketing-page .onboarding-hero { display: grid; gap: 10px; }
+.marketing-page .onboarding-pill { align-self: start; display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: rgba(226, 185, 91, .16); color: #e2b95b; font-size: .8rem; font-weight: 600; }
+.marketing-page .onboarding-main { padding: 32px; }
+.marketing-page .onboarding-copy { color: #475569; line-height: 1.7; }
+.marketing-page .onboarding-progress { display: grid; gap: 8px; margin-bottom: 26px; }
+.marketing-page .onboarding-step { display: flex; align-items: center; gap: 12px; font-size: .9rem; color: #64748b; }
+.marketing-page .onboarding-step__dot { width: 30px; height: 30px; flex: none; display: grid; place-items: center; border-radius: 50%; border: 2px solid #cbd5e1; font-weight: 700; font-size: .8rem; }
+.marketing-page .onboarding-step.is-active { color: #0f172a; font-weight: 600; }
+.marketing-page .onboarding-step.is-active .onboarding-step__dot { border-color: #e2b95b; background: #e2b95b; color: #0f172a; }
+.marketing-page .onboarding-sidebar { padding: 24px; background: #f8fafc; border-inline-start: 1px solid #e5e7eb; }
+.marketing-page .onboarding-sidebar__head { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: #64748b; margin-bottom: 12px; }
+.marketing-page .onboarding-grid { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.marketing-page .onboarding-card { border: 1px solid #e5e7eb; border-radius: 14px; padding: 16px; }
+.marketing-page .doc-grid,
+.marketing-page .review-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.marketing-page .doc-card,
+.marketing-page .review-card,
+.marketing-page .upload-card { border: 1px dashed #cbd5e1; border-radius: 14px; padding: 16px; background: #fff; text-align: center; }
+.marketing-page .doc-card__meta { font-size: .8rem; color: #64748b; margin-top: 6px; }
+.marketing-page .doc-chip,
+.marketing-page .badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.marketing-page .doc-chip { padding: 5px 12px; border-radius: 999px; background: #f1f5f9; font-size: .78rem; color: #334155; }
+.marketing-page .review-item { border-inline-start: 3px solid #e2b95b; padding-inline-start: 14px; }
+.marketing-page .timeline { display: grid; gap: 18px; }
+.marketing-page .otp-card { background: #fff8e1; border: 1px solid #f0d89a; border-radius: 16px; padding: 22px; }
+.marketing-page .otp-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.marketing-page .map-modal[hidden] { display: none; }
+.marketing-page .map-modal { position: fixed; inset: 0; z-index: 1200; display: grid; place-items: center; padding: 20px; background: rgba(15, 23, 42, .55); }
+.marketing-page .map-modal__card { width: min(720px, 100%); background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 70px rgba(2, 6, 23, .4); }
+.marketing-page .map-modal__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 22px; border-bottom: 1px solid #e5e7eb; }
+.marketing-page .map-modal__body { height: 380px; }
+.marketing-page .map-modal__actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; padding: 16px 22px; border-top: 1px solid #e5e7eb; }
+
+/* ---- signup company wizard --------------------------------------------- */
+.marketing-page .company-wizard,
+.marketing-page .wizard-shell { background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(15, 23, 42, .08); }
+.marketing-page .wizard-side { padding: 24px; background: #f8fafc; border-inline-end: 1px solid #e5e7eb; }
+.marketing-page .wizard-panel { padding: 30px 32px; }
+.marketing-page .wizard-form { display: grid; gap: 18px; }
+.marketing-page .wizard-stepper { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+.marketing-page .wizard-stepper > * { display: inline-flex; align-items: center; gap: 8px; font-size: .85rem; color: #64748b; }
+.marketing-page .wizard-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; margin-top: 26px; }
+.marketing-page .wizard-note { font-size: .82rem; color: #64748b; }
+.marketing-page .mt-4 { margin-top: 16px; }
+
+.marketing-page .homepage-article-link-panel { display: block; }
+.marketing-page .navtree-content { min-width: 0; }
+.marketing-page .col-offset-1 { margin-inline-start: 8.3333%; }
+.marketing-page .btn-large { padding: 15px 28px; font-size: 1rem; }
+.marketing-page .home_address { width: 100%; }
+.marketing-page .gender_error { display: none; font-size: .8rem; color: #b91c1c; margin-top: 6px; }
+.marketing-page .gender_error.ng-show { display: block; }
+
+@media (max-width: 900px) {
+    .marketing-page .help-wrap,
+    .marketing-page .onboarding-wrap { grid-template-columns: minmax(0, 1fr); }
+    .marketing-page .help-nav { position: static; }
+    .marketing-page .field-grid,
+    .marketing-page .onboarding-grid { grid-template-columns: minmax(0, 1fr); }
+    .marketing-page .phone-grid { grid-template-columns: 120px 1fr; }
+}

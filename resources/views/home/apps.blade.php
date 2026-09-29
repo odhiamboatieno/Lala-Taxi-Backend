@@ -1,14 +1,22 @@
-@extends('templatesign')
+@extends('marketing.layout')
+@section('title', trans('messages.home.title'))
 @section('main')
-<div class="" ng-controller="user">
-	<div class="container" >
-		<div class="pad-44">
-			<h1 class="slide-head">{{trans('messages.home.title')}}</h1>
-			<p class="slide-content">{{trans('messages.home.desc')}}</p>
-		</div>
-	</div>
-</div>
-@stop
+<section class="center-hero" ng-controller="user">
+    <p class="site-eyebrow">{{ __('website.get_app') }}</p>
+    <h1>{{ trans('messages.home.title') }}</h1>
+    <p class="site-lead">{{ trans('messages.home.desc') }}</p>
+    <div class="site-actions">
+        <a class="site-btn site-btn--gold" href="{{ url('app/rider') }}" data-app-open>{{ __('website.get_app') }} <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        <a class="site-link" href="{{ url('signup_rider') }}">{{ __('website.create_rider_account') }}</a>
+    </div>
+</section>
+@endsection
+@push('styles')
+@include('marketing.partials.legacy-styles')
+<style type="text/css">
+    .page-footer-back { background: var(--site-surface); }
+</style>
+@endpush
 @push('scripts')
 <script type="text/javascript">
 	/**
@@ -46,18 +54,4 @@
 		window.location.href = '{!! url("/") !!}';
 	}
 </script>
-
-<style type="text/css">
-	.page-footer-back{
-		background: var(--color-as-f8f8f9);
-	}
-	.btn-input:hover, .btn:hover, .file-input:hover, .tooltip:hover , .btn, .btn-input, .file-input, .tooltip{
-		background:transparent !important;
-		border: none !important
-	}
-	.btn.btn--primary:hover{
-		background:transparent !important;
-		color: var(--color-white) !important;
-	}
-</style>
 @endpush

@@ -1,4 +1,5 @@
-@extends('template_footeronly')
+@extends('marketing.auth-layout')
+@section('title', 'Company onboarding · ' . $site_name)
 
 @section('main')
 @php
@@ -10,82 +11,13 @@
     $countryValue = old('country_id', $company->country_id ?? ($draft['country_id'] ?? $defaultCountryId));
     $uploadedDocumentsById = collect($uploadedDocuments ?? [])->keyBy('id');
 @endphp
-<style>
-    .onboarding-shell{min-height:100vh;background:var(--color-as-f5f7fb);color:var(--color-as-0f172a)}
-    .onboarding-wrap{width:min(1180px,calc(100% - 32px));margin:0 auto}
-    .onboarding-hero{padding:32px 0 120px;background:var(--color-as-081321);color:var(--color-white)}
-    .onboarding-top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:42px}
-    .onboarding-top a{color:var(--color-white);text-decoration:none;font-weight:800}
-    .onboarding-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius: 0;background:var(--color-as-rgba-255-255-255-0-14);border:1px solid var(--color-as-rgba-255-255-255-0-18);font-size:13px;font-weight:700}
-    .onboarding-hero h1{font-size:clamp(2.5rem,6vw,4.8rem);line-height:1.02;margin:0 0 16px;max-width:760px}
-    .onboarding-hero p{max-width:720px;color:var(--color-as-rgba-255-255-255-0-84);font-size:18px;line-height:1.7;margin:0}
-    .onboarding-grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:24px;margin-top:-80px;align-items:start}
-    .onboarding-card{background:var(--color-white);border:1px solid var(--color-as-rgba-148-163-184-0-16);border-radius: 0;box-shadow:0 24px 70px var(--color-as-rgba-15-23-42-0-10)}
-    .onboarding-sidebar{padding:26px;position:sticky;top:24px}
-    .onboarding-progress{height:10px;border-radius: 0;background:var(--color-as-e2e8f0);overflow:hidden;margin:18px 0 24px}
-    .onboarding-progress span{display:block;height:100%;background:var(--color-as-0f766e)}
-    .onboarding-step{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--color-as-rgba-226-232-240-0-75)}
-    .onboarding-step:last-child{border-bottom:0}
-    .onboarding-step__dot{width:34px;height:34px;border-radius: 0;display:flex;align-items:center;justify-content:center;background:var(--color-as-e2e8f0);color:var(--color-as-475569);font-weight:800;flex:0 0 auto}
-    .onboarding-step.is-active .onboarding-step__dot,.onboarding-step.is-complete .onboarding-step__dot{background:var(--color-as-ccfbf1);color:var(--color-as-0f766e)}
-    .onboarding-step small{display:block;color:var(--color-as-94a3b8);font-weight:700;margin-bottom:3px}
-    .onboarding-step strong{display:block;font-size:15px}
-    .onboarding-main{padding:30px}
-    .onboarding-main h2{margin:0 0 10px;font-size:34px;letter-spacing:-.03em}
-    .onboarding-copy{color:var(--color-as-64748b);line-height:1.75;margin:0 0 24px}
-    .field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-    .field{margin-bottom:18px}
-    .field label{display:block;margin-bottom:8px;font-weight:800;color:var(--color-as-334155)}
-    .field input,.field select,.field textarea{width:100%;border:1px solid var(--color-as-d9e2ec);border-radius: 0;min-height:52px;padding:12px 16px;font-size:15px;background:var(--color-white)}
-    .field textarea{min-height:120px;resize:vertical}
-    .field-hint{font-size:13px;color:var(--color-as-94a3b8);margin-top:6px}
-    .text-danger{display:block;font-size:13px;margin-top:6px}
-    .badge-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
-    .status-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius: 0;font-size:13px;font-weight:800}
-    .status-badge--ok{background:var(--color-as-dcfce7);color:var(--color-as-166534)}
-    .status-badge--warn{background:var(--color-as-fef3c7);color:var(--color-as-92400e)}
-    .status-badge--danger{background:var(--color-as-fee2e2);color:var(--color-as-b91c1c)}
-    .upload-card,.review-card,.otp-card,.doc-card{border:1px solid var(--color-as-rgba-148-163-184-0-18);border-radius: 0;padding:20px;background:var(--color-as-f8fafc)}
-    .upload-card img{width:120px;height:120px;border-radius: 0;object-fit:cover;border:1px solid var(--color-as-rgba-148-163-184-0-18);display:block;margin-bottom:16px}
-    .otp-actions,.wizard-actions{display:flex;gap:12px;flex-wrap:wrap}
-    .wizard-actions{justify-content:space-between;align-items:center;margin-top:28px;padding-top:22px;border-top:1px solid var(--color-as-e2e8f0)}
-    .wizard-btn{display:inline-flex;align-items:center;justify-content:center;border-radius: 0;border:1px solid var(--color-as-cbd5e1);padding:13px 18px;font-weight:800;background:var(--color-white);color:var(--color-as-0f172a);text-decoration:none}
-    .wizard-btn--primary{background:var(--color-as-0f766e);border:0;color:var(--color-white)}
-    .wizard-btn--soft{background:var(--color-as-eff6ff);border-color:var(--color-as-bfdbfe);color:var(--color-as-1d4ed8)}
-    .otp-card h3,.review-card h3,.doc-card h3,.upload-card h3{margin:0 0 10px}
-    .review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-    .review-item{padding:16px;border-radius: 0;background:var(--color-white);border:1px solid var(--color-as-rgba-148-163-184-0-14)}
-    .review-item span{display:block;color:var(--color-as-64748b);font-size:12px;text-transform:uppercase;font-weight:800;letter-spacing:.08em;margin-bottom:6px}
-    .doc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-    .doc-card__meta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
-    .doc-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius: 0;background:var(--color-as-e2e8f0);color:var(--color-as-334155);font-size:12px;font-weight:800}
-    .timeline{display:grid;gap:10px;margin-top:18px}
-    .timeline div{padding:12px 14px;border-radius: 0;background:var(--color-as-f8fafc);border:1px solid var(--color-as-rgba-148-163-184-0-14);font-weight:700;color:var(--color-as-475569)}
-    .autocomplete-shell{position:relative}
-    .autocomplete-results{display:none;position:absolute;z-index:30;top:calc(100% + 8px);left:0;right:0;list-style:none;margin:0;padding:8px;background:var(--color-white);border:1px solid var(--color-as-d9e2ec);border-radius: 0;box-shadow:0 18px 45px var(--color-as-rgba-15-23-42-0-12);max-height:260px;overflow:auto}
-    .autocomplete-item{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius: 0;cursor:pointer}
-    .autocomplete-item:hover{background:var(--color-as-f8fafc)}
-    .map-modal{display:none;position:fixed;inset:0;z-index:2000;background:var(--color-as-rgba-2-6-23-0-62);padding:20px;align-items:center;justify-content:center}
-    .map-modal.is-open{display:flex}
-    .map-modal__card{width:min(960px,100%);background:var(--color-white);border-radius: 0;overflow:hidden;box-shadow:0 28px 70px var(--color-as-rgba-15-23-42-0-26)}
-    .map-modal__head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid var(--color-as-e2e8f0)}
-    .map-modal__body{padding:22px}
-    .map-canvas{width:100%;height:420px;border-radius: 0;border:1px solid var(--color-as-d9e2ec)}
-    .map-modal__actions{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px}
-    @media (max-width:960px){.onboarding-grid,.field-grid,.review-grid,.doc-grid{grid-template-columns:1fr}.onboarding-sidebar{position:static}.onboarding-main{padding:22px}}
-</style>
 
 <div class="onboarding-shell">
     <section class="onboarding-hero">
         <div class="onboarding-wrap">
             <div class="onboarding-top">
-                <a href="{{ url('/') }}">
-                    <img src="{{ $logo_url }}" alt="{{ $site_name }}" style="height:48px;max-width:180px;object-fit:contain;filter:brightness(0) invert(1);">
-                </a>
-                <div class="d-flex align-items-center" style="gap:12px;flex-wrap:wrap;">
-                    <span class="onboarding-pill">{{ $company ? ($company->registration_reference ?: 'Draft account') : 'New operator onboarding' }}</span>
-                    <a class="onboarding-pill" href="{{ url('signin_company') }}">Company Sign In</a>
-                </div>
+                <a class="onboarding-pill" href="{{ url('signin_company') }}">{{ __('website.company_signin') }}</a>
+                <span class="onboarding-pill">{{ $company ? ($company->registration_reference ?: 'Draft account') : 'New operator onboarding' }}</span>
             </div>
             <h1>Register your company with a polished self-onboarding flow.</h1>
             <p>Set up your operator profile, verify contacts, upload your logo and compliance documents, then submit everything for approval without breaking the existing company workspace.</p>
@@ -94,7 +26,7 @@
 
     <div class="onboarding-wrap onboarding-grid">
         <aside class="onboarding-card onboarding-sidebar">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="onboarding-sidebar__head">
                 <strong>Onboarding Progress</strong>
                 <span>{{ $stepIndex + 1 }}/{{ count($wizardSteps) }}</span>
             </div>
@@ -126,9 +58,9 @@
 
         <section class="onboarding-card onboarding-main">
             @if($errors->any())
-                <div class="review-card" style="margin-bottom:20px;border-color:var(--color-as-fecaca);background:var(--color-as-fff7f7);">
-                    <h3 style="color:var(--color-as-b91c1c);">Please fix the highlighted issues</h3>
-                    <ul style="margin:0;padding-left:18px;color:var(--color-as-7f1d1d);">
+                <div class="site-alert" style="background: var(--site-danger-soft);" role="alert">
+                    <h3 style="color: var(--site-danger);">Please fix the highlighted issues</h3>
+                    <ul style="margin:8px 0 0;padding-left:18px;color: var(--site-danger);">
                         @foreach($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
@@ -140,68 +72,68 @@
                 <p class="onboarding-copy">Tell us about the operator account you are creating. These details shape the review experience and the company profile that appears inside LalaTaxi.</p>
                 {!! Form::open(['url' => 'company/onboarding/step/company-details']) !!}
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>Company legal name</label>
                             {!! Form::text('legal_name', old('legal_name', $company->legal_name ?? ($draft['legal_name'] ?? ''))) !!}
-                            <span class="text-danger">{{ $errors->first('legal_name') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('legal_name') }}</span>
                         </div>
-                        <div class="field">
+                        <div class="site-field">
                             <label>Trading name</label>
                             {!! Form::text('trading_name', old('trading_name', $company->trading_name ?? ($draft['trading_name'] ?? ''))) !!}
                         </div>
                     </div>
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>Company registration number</label>
                             {!! Form::text('registration_number', old('registration_number', $company->registration_number ?? ($draft['registration_number'] ?? ''))) !!}
-                            <span class="text-danger">{{ $errors->first('registration_number') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('registration_number') }}</span>
                         </div>
-                        <div class="field">
+                        <div class="site-field">
                             <label>Tax / VAT number</label>
                             {!! Form::text('vat_number', old('vat_number', $company->vat_number ?? ($draft['vat_number'] ?? ''))) !!}
                         </div>
                     </div>
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>Company type</label>
                             {!! Form::select('company_type', ['private_hire'=>'Private hire','taxi_operator'=>'Taxi operator','chauffeur'=>'Chauffeur','airport_transfer'=>'Airport transfer','fleet_operator'=>'Fleet operator','other'=>'Other'], old('company_type', $company->business_type ?? ($draft['company_type'] ?? '')), ['placeholder' => 'Select company type']) !!}
-                            <span class="text-danger">{{ $errors->first('company_type') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('company_type') }}</span>
                         </div>
-                        <div class="field">
+                        <div class="site-field">
                             <label>Operating city / region</label>
                             {!! Form::text('operating_city', old('operating_city', $company->city ?? ($draft['operating_city'] ?? ''))) !!}
-                            <span class="text-danger">{{ $errors->first('operating_city') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('operating_city') }}</span>
                         </div>
                     </div>
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>Number of vehicles</label>
                             {!! Form::number('vehicles_count', old('vehicles_count', $company->vehicles_count ?? ($draft['vehicles_count'] ?? 0)), ['min' => 0]) !!}
-                            <span class="text-danger">{{ $errors->first('vehicles_count') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('vehicles_count') }}</span>
                         </div>
-                        <div class="field">
+                        <div class="site-field">
                             <label>Number of drivers</label>
                             {!! Form::number('drivers_count', old('drivers_count', $company->drivers_count ?? ($draft['drivers_count'] ?? 0)), ['min' => 0]) !!}
-                            <span class="text-danger">{{ $errors->first('drivers_count') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('drivers_count') }}</span>
                         </div>
                     </div>
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>Main service area</label>
                             {!! Form::text('service_area', old('service_area', $company->service_area ?? ($draft['service_area'] ?? ''))) !!}
                         </div>
-                        <div class="field">
+                        <div class="site-field">
                             <label>Website URL</label>
                             {!! Form::text('website_url', old('website_url', $company->website_url ?? ($draft['website_url'] ?? '')), ['placeholder' => 'https://example.com']) !!}
                         </div>
                     </div>
-                    <div class="field">
+                    <div class="site-field">
                         <label>Short company description</label>
                         {!! Form::textarea('short_description', old('short_description', $company->short_description ?? ($draft['short_description'] ?? ''))) !!}
                     </div>
                     <div class="wizard-actions">
                         <span class="field-hint">We save your progress as you move through the wizard.</span>
-                        <button class="wizard-btn wizard-btn--primary" type="submit">Save and continue</button>
+                        <button class="site-btn site-btn--gold" type="submit">Save and continue</button>
                     </div>
                 {!! Form::close() !!}
             @elseif($currentStep === 'contact-person')
@@ -209,125 +141,125 @@
                 <p class="onboarding-copy">Add the primary operator contact and the credentials that will be used to access the company workspace and continue the onboarding journey later.</p>
                 {!! Form::open(['url' => 'company/onboarding/step/contact-person']) !!}
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>First name</label>
                             {!! Form::text('contact_first_name', old('contact_first_name', $company->contact_first_name ?? '')) !!}
-                            <span class="text-danger">{{ $errors->first('contact_first_name') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('contact_first_name') }}</span>
                         </div>
-                        <div class="field">
+                        <div class="site-field">
                             <label>Last name</label>
                             {!! Form::text('contact_last_name', old('contact_last_name', $company->contact_last_name ?? '')) !!}
-                            <span class="text-danger">{{ $errors->first('contact_last_name') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('contact_last_name') }}</span>
                         </div>
                     </div>
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>Position / title</label>
                             {!! Form::text('contact_position', old('contact_position', $company->contact_position ?? '')) !!}
-                            <span class="text-danger">{{ $errors->first('contact_position') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('contact_position') }}</span>
                         </div>
-                        <div class="field">
+                        <div class="site-field">
                             <label>Email address</label>
                             {!! Form::email('email', old('email', $company->email ?? '')) !!}
-                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('email') }}</span>
                         </div>
                     </div>
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>Phone country code</label>
                             {!! Form::text('phone_country_code', old('phone_country_code', $company->country_code ?? optional($countries->firstWhere('id', $countryValue))->phone_code)) !!}
-                            <span class="text-danger">{{ $errors->first('phone_country_code') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('phone_country_code') }}</span>
                         </div>
-                        <div class="field">
+                        <div class="site-field">
                             <label>Phone number</label>
                             {!! Form::text('phone_number', old('phone_number', $company->mobile_number ?? '')) !!}
-                            <span class="text-danger">{{ $errors->first('phone_number') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('phone_number') }}</span>
                         </div>
                     </div>
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>Alternative phone</label>
                             {!! Form::text('alternative_phone', old('alternative_phone', $company->alternative_phone ?? '')) !!}
                         </div>
-                        <div class="field"></div>
+                        <div class="site-field"></div>
                     </div>
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>Password</label>
                             {!! Form::password('password') !!}
-                            <span class="text-danger">{{ $errors->first('password') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('password') }}</span>
                         </div>
-                        <div class="field">
+                        <div class="site-field">
                             <label>Confirm password</label>
                             {!! Form::password('password_confirmation') !!}
                         </div>
                     </div>
                     <div class="wizard-actions">
-                        <a class="wizard-btn" href="{{ url(($company ? 'company/onboarding' : 'company/register').'?step=company-details') }}">Back</a>
-                        <button class="wizard-btn wizard-btn--primary" type="submit">{{ $company ? 'Save and continue' : 'Create draft account' }}</button>
+                        <a class="site-btn site-btn--outline" href="{{ url(($company ? 'company/onboarding' : 'company/register').'?step=company-details') }}">Back</a>
+                        <button class="site-btn site-btn--gold" type="submit">{{ $company ? 'Save and continue' : 'Create draft account' }}</button>
                     </div>
                 {!! Form::close() !!}
             @elseif($currentStep === 'address')
                 <h2>Business address</h2>
                 <p class="onboarding-copy">Set the company address that should appear on the operator profile. The country defaults from site settings when available, so companies are not forced into unnecessary manual re-selection.</p>
                 {!! Form::open(['url' => 'company/onboarding/step/address']) !!}
-                    <div class="field">
+                    <div class="site-field">
                         <label for="company_address_search">Search company address</label>
                         <div class="autocomplete-shell">
                             {!! Form::text('company_address_search', old('company_address_search', trim(($company->address ?? '').' '.($company->city ?? ''))), ['id' => 'company_address_search', 'placeholder' => 'Start typing your company address', 'autocomplete' => 'off']) !!}
                             <ul class="autocomplete-results company-address-results"></ul>
                         </div>
                         <div class="wizard-actions" style="margin-top:12px;padding-top:0;border-top:0;justify-content:flex-start;">
-                            <button class="wizard-btn wizard-btn--soft" type="button" id="open-map-picker">Pin on map</button>
+                            <button class="site-btn site-btn--outline" type="button" id="open-map-picker">Pin on map</button>
                         </div>
                         <div class="field-hint">Type the office address to autocomplete it, or open the map and drop a pin.</div>
                     </div>
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>Country</label>
                             <select name="country_id">
                                 @foreach($countries as $country)
                                     <option value="{{ $country->id }}" {{ (string) $countryValue === (string) $country->id ? 'selected' : '' }}>{{ $country->long_name }}</option>
                                 @endforeach
                             </select>
-                            <span class="text-danger">{{ $errors->first('country_id') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('country_id') }}</span>
                         </div>
-                        <div class="field">
+                        <div class="site-field">
                             <label>County / state / region</label>
                             {!! Form::text('state', old('state', $company->state ?? '')) !!}
                         </div>
                     </div>
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>City / town</label>
                             {!! Form::text('city', old('city', $company->city ?? '')) !!}
-                            <span class="text-danger">{{ $errors->first('city') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('city') }}</span>
                         </div>
-                        <div class="field">
+                        <div class="site-field">
                             <label>Postal code</label>
                             {!! Form::text('postal_code', old('postal_code', $company->postal_code ?? '')) !!}
-                            <span class="text-danger">{{ $errors->first('postal_code') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('postal_code') }}</span>
                         </div>
                     </div>
                     <div class="field-grid">
-                        <div class="field">
+                        <div class="site-field">
                             <label>Street address</label>
                             {!! Form::text('address', old('address', $company->address ?? ''), ['id' => 'company_street_address']) !!}
-                            <span class="text-danger">{{ $errors->first('address') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('address') }}</span>
                         </div>
-                        <div class="field">
+                        <div class="site-field">
                             <label>Office / building name</label>
                             {!! Form::text('office_building_name', old('office_building_name', $company->office_building_name ?? '')) !!}
                         </div>
                     </div>
-                    <div class="field">
+                    <div class="site-field">
                         <label>Map / GPS coordinates</label>
                         {!! Form::text('map_coordinates', old('map_coordinates', $company->map_coordinates ?? ''), ['id' => 'company_map_coordinates', 'readonly' => true]) !!}
                         <div class="field-hint">Coordinates are filled automatically when you select an address or pin a location.</div>
                     </div>
                     <div class="wizard-actions">
-                        <a class="wizard-btn" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex - 1]) }}">Back</a>
-                        <button class="wizard-btn wizard-btn--primary" type="submit">Save and continue</button>
+                        <a class="site-btn site-btn--outline" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex - 1]) }}">Back</a>
+                        <button class="site-btn site-btn--gold" type="submit">Save and continue</button>
                     </div>
                 {!! Form::close() !!}
 
@@ -338,13 +270,13 @@
                                 <h3 style="margin:0;">Pin company location</h3>
                                 <div class="field-hint">Drag the marker or click on the map to choose the exact office location.</div>
                             </div>
-                            <button class="wizard-btn" type="button" id="close-map-picker">Close</button>
+                            <button class="site-btn site-btn--outline" type="button" id="close-map-picker">Close</button>
                         </div>
                         <div class="map-modal__body">
                             <div id="company-map-canvas" class="map-canvas"></div>
                             <div class="map-modal__actions">
                                 <div class="field-hint" id="company-map-selection">No location pinned yet.</div>
-                                <button class="wizard-btn wizard-btn--primary" type="button" id="confirm-map-picker">Use this location</button>
+                                <button class="site-btn site-btn--gold" type="button" id="confirm-map-picker">Use this location</button>
                             </div>
                         </div>
                     </div>
@@ -360,18 +292,18 @@
                     <p class="onboarding-copy">We will send the OTP to +{{ $company->country_code }} {{ $company->mobile_number }}.</p>
                     <div class="otp-actions">
                         {!! Form::open(['url' => 'company/onboarding/send-phone-otp']) !!}
-                            <button class="wizard-btn wizard-btn--soft" type="submit">Send / resend OTP</button>
+                            <button class="site-btn site-btn--outline" type="submit">Send / resend OTP</button>
                         {!! Form::close() !!}
                     </div>
                     <hr>
                     {!! Form::open(['url' => 'company/onboarding/verify-phone-otp']) !!}
-                        <div class="field">
+                        <div class="site-field">
                             <label>Enter OTP</label>
                             {!! Form::text('otp', '', ['maxlength' => 6]) !!}
                         </div>
                         <div class="wizard-actions">
-                            <a class="wizard-btn" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex - 1]) }}">Back</a>
-                            <button class="wizard-btn wizard-btn--primary" type="submit">Verify phone</button>
+                            <a class="site-btn site-btn--outline" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex - 1]) }}">Back</a>
+                            <button class="site-btn site-btn--gold" type="submit">Verify phone</button>
                         </div>
                     {!! Form::close() !!}
                 </div>
@@ -386,18 +318,18 @@
                     <p class="onboarding-copy">Verification code destination: {{ $company->email }}</p>
                     <div class="otp-actions">
                         {!! Form::open(['url' => 'company/onboarding/send-email-verification']) !!}
-                            <button class="wizard-btn wizard-btn--soft" type="submit">Send / resend email code</button>
+                            <button class="site-btn site-btn--outline" type="submit">Send / resend email code</button>
                         {!! Form::close() !!}
                     </div>
                     <hr>
                     {!! Form::open(['url' => 'company/onboarding/verify-email-otp']) !!}
-                        <div class="field">
+                        <div class="site-field">
                             <label>Enter email OTP</label>
                             {!! Form::text('otp', '', ['maxlength' => 6]) !!}
                         </div>
                         <div class="wizard-actions">
-                            <a class="wizard-btn" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex - 1]) }}">Back</a>
-                            <button class="wizard-btn wizard-btn--primary" type="submit">Verify email</button>
+                            <a class="site-btn site-btn--outline" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex - 1]) }}">Back</a>
+                            <button class="site-btn site-btn--gold" type="submit">Verify email</button>
                         </div>
                     {!! Form::close() !!}
                 </div>
@@ -410,22 +342,22 @@
                         <img src="{{ $company->profile }}" alt="{{ $company->name }}">
                     @endif
                     {!! Form::open(['url' => 'company/onboarding/upload-logo', 'files' => true]) !!}
-                        <div class="field">
+                        <div class="site-field">
                             <label>Logo file</label>
                             <input type="file" name="logo" accept=".png,.jpg,.jpeg,.webp">
-                            <span class="text-danger">{{ $errors->first('logo') }}</span>
+                            <span class="field-error text-danger">{{ $errors->first('logo') }}</span>
                             <div class="field-hint">Accepted formats: png, jpg, jpeg, webp.</div>
                         </div>
                         <div class="wizard-actions">
-                            <a class="wizard-btn" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex - 1]) }}">Back</a>
-                            <button class="wizard-btn wizard-btn--primary" type="submit">{{ $company && $company->profile ? 'Replace logo' : 'Save logo' }}</button>
+                            <a class="site-btn site-btn--outline" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex - 1]) }}">Back</a>
+                            <button class="site-btn site-btn--gold" type="submit">{{ $company && $company->profile ? 'Replace logo' : 'Save logo' }}</button>
                         </div>
                     {!! Form::close() !!}
 
                     @if($company && $company->profile)
                         <div class="wizard-actions" style="margin-top:16px;padding-top:0;border-top:0;">
                             <span class="field-hint">Logo uploaded successfully. Continue to the next step when you are ready.</span>
-                            <a class="wizard-btn wizard-btn--primary" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex + 1]) }}">Continue</a>
+                            <a class="site-btn site-btn--gold" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex + 1]) }}">Continue</a>
                         </div>
                     @endif
                 </div>
@@ -451,29 +383,29 @@
                             @endif
                             {!! Form::open(['url' => 'company/onboarding/upload-document', 'files' => true]) !!}
                                 {!! Form::hidden('document_id', $requiredDocument->id) !!}
-                                <div class="field">
+                                <div class="site-field">
                                     <label>Upload or replace document</label>
                                     <input type="file" name="file_{{ $requiredDocument->id }}" accept=".pdf,.png,.jpg,.jpeg">
                                 </div>
                                 @if($requiredDocument->expiry_required)
-                                    <div class="field">
+                                    <div class="site-field">
                                         <label>Expiry date</label>
                                         {!! Form::date('expired_date_'.$requiredDocument->id, old('expired_date_'.$requiredDocument->id, $uploaded['expired_date'] ?? '')) !!}
                                     </div>
                                 @endif
-                                <button class="wizard-btn wizard-btn--soft" type="submit">Save document</button>
+                                <button class="site-btn site-btn--outline" type="submit">Save document</button>
                             {!! Form::close() !!}
                         </div>
                     @empty
-                        <div class="review-card">
+                        <div class="doc-card">
                             <h3>No document rules are configured</h3>
-                            <p class="onboarding-copy mb-0">This company does not currently have required onboarding documents for the selected country.</p>
+                            <p class="onboarding-copy" style="margin-bottom:0;">This company does not currently have required onboarding documents for the selected country.</p>
                         </div>
                     @endforelse
                 </div>
                 <div class="wizard-actions">
-                    <a class="wizard-btn" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex - 1]) }}">Back</a>
-                    <a class="wizard-btn wizard-btn--primary" href="{{ url('company/onboarding?step=review') }}">Continue to review</a>
+                    <a class="site-btn site-btn--outline" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex - 1]) }}">Back</a>
+                    <a class="site-btn site-btn--gold" href="{{ url('company/onboarding?step=review') }}">Continue to review</a>
                 </div>
             @else
                 <h2>Review and submit</h2>
@@ -501,23 +433,91 @@
                     </div>
                 </div>
                 {!! Form::open(['url' => 'company/onboarding/step/review']) !!}
-                    <div class="field mt-4">
+                    <div class="site-field mt-4">
                         <label style="display:flex;align-items:flex-start;gap:10px;font-weight:700;">
                             <input type="checkbox" name="declaration" value="1" style="margin-top:4px;min-height:auto;width:auto;">
                             <span>I confirm that the information provided is accurate and I am authorized to register this company.</span>
                         </label>
-                        <span class="text-danger">{{ $errors->first('declaration') }}</span>
+                        <span class="field-error text-danger">{{ $errors->first('declaration') }}</span>
                     </div>
                     <div class="wizard-actions">
-                        <a class="wizard-btn" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex - 1]) }}">Back</a>
-                        <button class="wizard-btn wizard-btn--primary" type="submit">Submit for approval</button>
+                        <a class="site-btn site-btn--outline" href="{{ url('company/onboarding?step='.collect($wizardSteps)->pluck('slug')[$stepIndex - 1]) }}">Back</a>
+                        <button class="site-btn site-btn--gold" type="submit">Submit for approval</button>
                     </div>
                 {!! Form::close() !!}
             @endif
         </section>
     </div>
 </div>
+@endsection
+
+@push('styles')
+<style>
+    .onboarding-shell { color: var(--site-ink); }
+    .onboarding-wrap { width: min(var(--site-container), calc(100% - var(--site-gutter) * 2)); margin-inline: auto; }
+    .onboarding-hero { padding: 56px 0 120px; background: var(--site-ink); color: var(--site-white); }
+    .onboarding-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 42px; }
+    .onboarding-pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--site-radius-button); background: rgb(255 255 255 / 14%); border: 1px solid rgb(255 255 255 / 20%); color: var(--site-white); font-size: 13px; font-weight: 700; }
+    .onboarding-hero h1 { font-size: clamp(36px, 6vw, 72px); line-height: 1.03; margin: 0 0 16px; max-width: 760px; }
+    .onboarding-hero p { max-width: 720px; color: rgb(255 255 255 / 84%); font-size: 18px; line-height: 1.7; margin: 0; }
+    .onboarding-grid { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 24px; margin-top: -80px; align-items: start; }
+    .onboarding-card { background: var(--site-white); border: 1px solid var(--site-line); border-radius: var(--site-radius-image); box-shadow: 0 24px 70px rgb(15 23 42 / 10%); }
+    .onboarding-sidebar { padding: 26px; position: sticky; top: 24px; }
+    .onboarding-sidebar__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .onboarding-progress { height: 10px; border-radius: 999px; background: var(--site-surface); overflow: hidden; margin: 18px 0 24px; }
+    .onboarding-progress span { display: block; height: 100%; background: var(--site-gold); }
+    .onboarding-step { display: flex; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--site-line); }
+    .onboarding-step:last-child { border-bottom: 0; }
+    .onboarding-step__dot { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--site-surface); color: var(--site-muted); font-weight: 800; flex: 0 0 auto; }
+    .onboarding-step.is-active .onboarding-step__dot, .onboarding-step.is-complete .onboarding-step__dot { background: var(--site-gold-soft); color: var(--site-ink); }
+    .onboarding-step small { display: block; color: var(--site-muted); font-weight: 700; margin-bottom: 3px; }
+    .onboarding-step strong { display: block; font-size: 15px; }
+    .onboarding-main { padding: 36px; }
+    .onboarding-main h2 { margin: 0 0 10px; font-size: 34px; letter-spacing: -.03em; }
+    .onboarding-copy { color: var(--site-muted); line-height: 1.75; margin: 0 0 24px; }
+    .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .field-hint { font-size: 13px; color: var(--site-muted); margin-top: 6px; display: block; }
+    .site-field textarea { width: 100%; border: 1px solid var(--site-line); border-radius: var(--site-radius-field); min-height: 120px; padding: 12px 16px; resize: vertical; color: var(--site-ink); background: var(--site-white); }
+    .site-field select { width: 100%; min-height: 54px; padding: 12px 16px; color: var(--site-ink); background: var(--site-white); border: 1px solid var(--site-line); border-radius: var(--site-radius-field); }
+    .badge-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .status-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: var(--site-radius-button); font-size: 13px; font-weight: 800; }
+    .status-badge--ok { background: var(--site-success-soft); color: var(--site-success); }
+    .status-badge--warn { background: var(--site-gold-soft); color: var(--site-ink); }
+    .status-badge--danger { background: var(--site-danger-soft); color: var(--site-danger); }
+    .upload-card, .review-card, .otp-card, .doc-card { border: 1px solid var(--site-line); border-radius: var(--site-radius-field); padding: 20px; background: var(--site-surface); }
+    .upload-card img { width: 120px; height: 120px; border-radius: var(--site-radius-field); object-fit: cover; border: 1px solid var(--site-line); display: block; margin-bottom: 16px; }
+    .otp-actions, .wizard-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .wizard-actions { justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--site-line); }
+    .review-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .review-item { padding: 16px; border-radius: var(--site-radius-field); background: var(--site-white); border: 1px solid var(--site-line); }
+    .review-item span { display: block; color: var(--site-muted); font-size: 12px; text-transform: uppercase; font-weight: 800; letter-spacing: .08em; margin-bottom: 6px; }
+    .doc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .doc-card__meta { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 16px; }
+    .doc-chip { display: inline-flex; align-items: center; padding: 7px 11px; border-radius: var(--site-radius-field); background: var(--site-white); border: 1px solid var(--site-line); color: var(--site-ink); font-size: 12px; font-weight: 800; }
+    .timeline { display: grid; gap: 10px; margin-top: 18px; }
+    .timeline div { padding: 12px 14px; border-radius: var(--site-radius-field); background: var(--site-surface); border: 1px solid var(--site-line); font-weight: 700; color: var(--site-muted); }
+    .autocomplete-shell { position: relative; }
+    .autocomplete-results { display: none; position: absolute; z-index: 30; top: calc(100% + 8px); left: 0; right: 0; list-style: none; margin: 0; padding: 8px; background: var(--site-white); border: 1px solid var(--site-line); border-radius: var(--site-radius-field); box-shadow: 0 18px 45px rgb(15 23 42 / 12%); max-height: 260px; overflow: auto; }
+    .autocomplete-item { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: var(--site-radius-field); cursor: pointer; }
+    .autocomplete-item:hover { background: var(--site-surface); }
+    .map-modal { display: none; position: fixed; inset: 0; z-index: 2000; background: var(--site-backdrop); padding: 20px; align-items: center; justify-content: center; }
+    .map-modal.is-open { display: flex; }
+    .map-modal__card { width: min(960px, 100%); background: var(--site-white); border-radius: var(--site-radius-image); overflow: hidden; box-shadow: 0 28px 70px rgb(15 23 42 / 26%); }
+    .map-modal__head { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 22px; border-bottom: 1px solid var(--site-line); }
+    .map-modal__body { padding: 22px; }
+    .map-canvas { width: 100%; height: 420px; border-radius: var(--site-radius-field); border: 1px solid var(--site-line); }
+    .map-modal__actions { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    @media (max-width: 960px) {
+        .onboarding-grid, .field-grid, .review-grid, .doc-grid { grid-template-columns: 1fr; }
+        .onboarding-sidebar { position: static; }
+        .onboarding-main { padding: 22px; }
+    }
+</style>
+@endpush
+
 @if($currentStep === 'address')
+@push('scripts')
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ $map_key }}&libraries=places"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         if (typeof google === 'undefined' || !google.maps || !google.maps.places) {
@@ -788,5 +788,5 @@
         }
     });
 </script>
+@endpush
 @endif
-@stop
