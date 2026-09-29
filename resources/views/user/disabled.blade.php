@@ -8,7 +8,7 @@
     <p class="site-lead">{{trans('messages.user.protect')}}</p>
     <div class="site-actions" style="justify-content:center;">
         <form action="mailto:{{ $admin_email }}" method="GET">
-            <button class="site-btn site-btn--gold search-button form-inline btn btn-primary btn-large">
+            <button class="site-btn site-btn--gold">
                 <i data-lucide="mail" aria-hidden="true"></i>
                 {{trans('messages.user.email_us')}}
             </button>

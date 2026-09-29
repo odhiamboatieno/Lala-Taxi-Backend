@@ -7,7 +7,7 @@
 
     <section class="auth-grid">
         <div class="auth-photo">
-            <img src="{{ asset('images/marketing/driver-window.webp') }}" alt="{{ __('messages.user.safe_reliable') }}" width="1200" height="1500" fetchpriority="high">
+            <img src="{{ asset('images/marketing/landing-hero.webp') }}" alt="{{ __('messages.user.safe_reliable') }}" width="1100" height="1239" fetchpriority="high">
             <h2>{{ __('messages.footer.siginup_ride') }}</h2>
         </div>
 
@@ -42,20 +42,20 @@
 
             <div class="site-field" ng-init="old_country_code={{ old('country_code') != null ? old('country_code') : '1' }}">
                 <label for="mobile_country">{{ trans('messages.profile.mobile') }}</label>
-                <div style="display:flex;gap:10px;">
-                    <select name="country_code" tabindex="-1" id="mobile_country" style="max-width:38%;">
+                <div class="site-field-row">
+                    <select name="country_code" id="mobile_country" aria-label="{{ trans('messages.profile.country') }}">
                         @foreach($country as $key => $value)
                             <option value="{{ $value->phone_code }}" {{ ($value->id == (old('country_id') != null ? old('country_id') : '1')) ? 'selected' : '' }} data-value="+{{ $value->phone_code }}" data-id="{{ $value->id }}">{{ $value->long_name }}</option>
                         @endforeach
                     </select>
-                    <div ng-init="old_mobile_number='{{ old('mobile_number') != null ? old('mobile_number') : '' }}'" style="flex:1;">
+                    <div class="site-field-grow" ng-init="old_mobile_number='{{ old('mobile_number') != null ? old('mobile_number') : '' }}'">
                         {!! Form::tel('mobile_number', '', ['placeholder' => trans('messages.profile.mobile'), 'id' => 'mobile', 'maxlength' => '15']) !!}
                     </div>
                 </div>
                 {!! Form::hidden('country_id', old('country_id'), array('id'=>'country_id')) !!}
                 <span class="field-error country_code_error">{{ $errors->first('country_code') }}</span>
                 <span class="field-error mobile_number_error">{{ $errors->first('mobile_number') }}</span>
-                <span class="field-error mobile-text-danger" style="display: none">{{ __('messages.blade_static.mobile_number_is_required_a8d2ac9f') }}</span>
+                <span class="field-error mobile-text-danger">{{ __('messages.blade_static.mobile_number_is_required_a8d2ac9f') }}</span>
             </div>
 
             <div class="site-field">
@@ -98,13 +98,13 @@
             </button>
             {{ Form::close() }}
 
-            <p style="margin-top:20px;font-size:14px;">
+            <p class="auth-terms">
                 {{ trans('messages.user.clicking_terms') }}
                 <a href="{{ url('terms_of_service') }}">{{ $site_name }}{{ trans('messages.user.terms') }}</a>
                 {{ trans('messages.user.and') }}
                 <a href="{{ url('privacy_policy') }}">{{ trans('messages.user.privacy') }}</a>.
             </p>
-            <p style="margin-top:14px;font-size:15px;">
+            <p class="auth-switch">
                 <a href="{{ url('signin_rider') }}">{{ trans('messages.ride.already_have_account') }}</a>
             </p>
         </div>

@@ -29,21 +29,25 @@
 .marketing-page .is-active { color: #b8860b; }
 
 /* ---- inline validation spans (server + angular) ------------------------- */
-.marketing-page .first_name_error,
-.marketing-page .last_name_error,
-.marketing-page .name_error,
-.marketing-page .email_error,
-.marketing-page .mobile_number_error,
-.marketing-page .country_code_error,
-.marketing-page .password_error,
-.marketing-page .home_address_error,
-.marketing-page .referral_code_error,
-.marketing-page .email-error,
-.marketing-page .signin-email-error,
-.marketing-page .email_phone-sec-1,
-.marketing-page .mobile-text-danger,
-.marketing-page .text-danger:empty,
+/* Empty by default; visible as soon as PHP or Angular fills them.          */
+.marketing-page .hide { display: none; }
+.marketing-page .first_name_error:empty,
+.marketing-page .last_name_error:empty,
+.marketing-page .name_error:empty,
+.marketing-page .email_error:empty,
+.marketing-page .mobile_number_error:empty,
+.marketing-page .country_code_error:empty,
+.marketing-page .password_error:empty,
+.marketing-page .home_address_error:empty,
+.marketing-page .referral_code_error:empty,
+.marketing-page .gender_error:empty,
+.marketing-page .email-error:empty,
+.marketing-page .signin-email-error:empty,
+.marketing-page .email_phone-sec-1:empty,
+.marketing-page .mobile-text-danger:empty,
 .marketing-page .otp_error:empty { display: none; }
+.marketing-page .field-error,
+.marketing-page .email-error { display: block; color: var(--site-danger, #b91c1c); margin-top: 6px; font-size: 14px; }
 .marketing-page .first_name_error.ng-show,
 .marketing-page .last_name_error.ng-show,
 .marketing-page .name_error.ng-show,
@@ -53,8 +57,8 @@
 .marketing-page .password_error.ng-show,
 .marketing-page .home_address_error.ng-show,
 .marketing-page .referral_code_error.ng-show,
+.marketing-page .gender_error.ng-show,
 .marketing-page .email-error.ng-show,
-.marketing-page .signin-email-error.ng-show,
 .marketing-page .otp_error.ng-show { display: block; }
 
 /* ---- auth legacy buttons / social -------------------------------------- */
