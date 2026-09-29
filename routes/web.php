@@ -89,6 +89,8 @@ Route::group(['middleware' =>'locale'], function () {
 	Route::view('login', 'user.login');
 	Route::view('safety', 'ride.safety');
 	Route::view('ride', 'ride.ride');
+	Route::view('business', 'marketing.business')->name('marketing.business');
+	Route::view('business/fleets', 'marketing.fleets')->name('marketing.fleets');
 
 	Route::view('drive', 'drive.drive');
 	Route::view('requirements', 'drive.requirements');

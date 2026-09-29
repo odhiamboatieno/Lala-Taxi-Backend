@@ -38,3 +38,6 @@ public/error_log
 
 # Logs
 *.log
+
+# Reproducible visual-review screenshots (keep the QA report in version control).
+/design-review/

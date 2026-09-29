@@ -26,9 +26,7 @@ class HomeController extends Controller
     **/
 	public function index()
     {
-        $carTypes = CarType::paginate(12);
-        return view('home.home', compact('carTypes'));
-    	return view('home.home');
+        return view('home.home');
     }
   
     /**

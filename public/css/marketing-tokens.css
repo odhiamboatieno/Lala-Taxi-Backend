@@ -24,5 +24,5 @@
   --site-gutter: clamp(24px, 5vw, 80px);
   --site-section: clamp(64px, 7vw, 108px);
   --site-display: clamp(48px, 5.9vw, 84px);
-  --site-heading: clamp(32px, 3.6vw, 52px);
+  --site-heading: clamp(32px, 4.3vw, 56px);
 }

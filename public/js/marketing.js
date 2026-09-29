@@ -7,12 +7,12 @@
     if (!menu || !menuButton) return;
     menu.hidden = true;
     menuButton.setAttribute('aria-expanded', 'false');
-    menuButton.setAttribute('aria-label', 'Open menu');
+    menuButton.setAttribute('aria-label', menuButton.dataset.openLabel);
   };
   menuButton?.addEventListener('click', () => {
     menu.hidden = !menu.hidden;
     menuButton.setAttribute('aria-expanded', String(!menu.hidden));
-    menuButton.setAttribute('aria-label', menu.hidden ? 'Open menu' : 'Close menu');
+    menuButton.setAttribute('aria-label', menu.hidden ? menuButton.dataset.openLabel : menuButton.dataset.closeLabel);
   });
   menu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
   matchMedia('(min-width: 851px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
