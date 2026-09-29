@@ -1,0 +1,28 @@
+/* Shared public-website design system. Keep brand values here, not in views. */
+:root {
+  --site-gold: #ffc21a;
+  --site-gold-hover: #efb30b;
+  --site-gold-soft: #fff3cf;
+  --site-ink: #111111;
+  --site-ink-hover: #303030;
+  --site-white: #ffffff;
+  --site-surface: #f8f7f3;
+  --site-muted: #676871;
+  --site-line: #e6e4df;
+  --site-danger: #bd1730;
+  --site-danger-soft: #fff0f2;
+  --site-success: #176545;
+  --site-success-soft: #eaf5ee;
+  --site-overlay: rgb(17 17 17 / 27%);
+  --site-backdrop: rgb(17 17 17 / 60%);
+  --site-focus: #805c00;
+  --site-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --site-radius-button: 14px;
+  --site-radius-image: 24px;
+  --site-radius-field: 12px;
+  --site-container: 1296px;
+  --site-gutter: clamp(24px, 5vw, 80px);
+  --site-section: clamp(64px, 7vw, 108px);
+  --site-display: clamp(48px, 5.9vw, 84px);
+  --site-heading: clamp(32px, 3.6vw, 52px);
+}
