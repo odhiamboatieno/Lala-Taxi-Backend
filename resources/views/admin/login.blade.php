@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}" class="admin-theme">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     @php
         $loginType = $login_type ?? 'Admin';
         $isCompanyLogin = $loginType === 'Company';
@@ -200,8 +200,9 @@
   <script src="{{ url('js/lucide.min.js?v='.filemtime(public_path('js/lucide.min.js'))) }}"></script>
   <script src="{{ url('js/lucide-loader.js?v='.filemtime(public_path('js/lucide-loader.js'))) }}"></script>
   <!-- /lalatokens -->
+    @include('admin.partials.appearance')
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page admin-login">
     <div class="flash-container">
         @if(Session::has('message') && !Auth::guard('admin')->check())
         <div class="alert {{ Session::get('alert-class') }}" role="alert">

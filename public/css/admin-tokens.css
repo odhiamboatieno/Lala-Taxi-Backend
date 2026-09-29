@@ -1,0 +1,102 @@
+/* Admin-only aliases to the website brand. Do not change public or mobile themes.
+   No radius tokens: existing square corners and explicit avatar exceptions stay intact. */
+.admin-theme:root:root {
+  --admin-accent: var(--site-gold);
+  --admin-accent-hover: var(--site-gold-hover);
+  --admin-accent-soft: var(--site-gold-soft);
+  --admin-on-accent: var(--site-ink);
+  --admin-canvas: var(--site-surface);
+  --admin-surface: var(--site-white);
+  --admin-surface-soft: #f3f2ed;
+  --admin-ink: var(--site-ink);
+  --admin-muted: #62636b;
+  --admin-border: var(--site-line);
+  --admin-field-border: #c8c6be;
+  --admin-link: #765400;
+  --admin-focus: var(--site-focus);
+  --admin-shadow: 0 2px 8px rgb(17 17 17 / 3%);
+  --admin-popover-shadow: 0 12px 32px rgb(17 17 17 / 12%);
+  --admin-overlay: rgb(17 17 17 / 40%);
+  --admin-disabled: #eeede8;
+  --admin-success: var(--site-success);
+  --admin-danger: var(--site-danger);
+  --admin-warning: #805800;
+  --admin-info: #225fa3;
+  --admin-success-soft: var(--site-success-soft);
+  --admin-danger-soft: var(--site-danger-soft);
+  --admin-warning-soft: var(--site-gold-soft);
+  --admin-info-soft: #edf4ff;
+  --admin-chart-primary: #a87500;
+  --admin-chart-secondary: #52525b;
+  --admin-space: 24px;
+  --admin-control-height: 42px;
+  --font-body: 'Lala Admin Inter', 'Inter', system-ui, sans-serif;
+  --font-heading: var(--font-body);
+  --pe-font-sans-serif: var(--font-body);
+  --pe-body-font-family: var(--font-body);
+  --bs-font-sans-serif: var(--font-body);
+  --bs-body-font-family: var(--font-body);
+  --pe-primary: var(--admin-accent);
+  --pe-primary-rgb: 255, 194, 26;
+  --bs-primary: var(--admin-accent);
+  --bs-primary-rgb: 255, 194, 26;
+  --pe-primary-bg-subtle: var(--admin-accent-soft);
+  --pe-primary-border-subtle: var(--admin-field-border);
+  --pe-primary-text-emphasis: var(--admin-link);
+  --pe-body-bg: var(--admin-canvas);
+  --pe-body-color: var(--admin-ink);
+  --pe-heading-color: var(--admin-ink);
+  --pe-secondary-color: var(--admin-muted);
+  --pe-secondary-bg: var(--admin-surface);
+  --pe-tertiary-bg: var(--admin-surface-soft);
+  --pe-border-color: var(--admin-border);
+  --pe-link-color: var(--admin-link);
+  --pe-link-hover-color: var(--admin-ink);
+  --bs-body-bg: var(--admin-canvas);
+  --bs-body-color: var(--admin-ink);
+  --bs-border-color: var(--admin-border);
+  --pe-app-header-bg: var(--admin-surface);
+  --pe-app-header-border-color: var(--admin-border) !important;
+  --pe-app-sidebar-bg: var(--admin-surface) !important;
+  --pe-app-sidebar-border-color: var(--admin-border) !important;
+  --pe-app-sidebar-caption-color: var(--admin-muted) !important;
+  --pe-app-sidebar-menu-item-color: var(--admin-muted) !important;
+  --pe-app-sidebar-menu-item-color-active: var(--admin-ink);
+  --pe-app-sidebar-menu-item-color-hover: var(--admin-ink);
+}
+
+/* Keep the existing theme toggle functional rather than forcing a light-only admin. */
+.admin-theme:root:root[data-bs-theme="dark"] {
+  --admin-canvas: #141414;
+  --admin-surface: #1d1d1d;
+  --admin-surface-soft: #272727;
+  --admin-ink: #f5f4ef;
+  --admin-muted: #b5b4ae;
+  --admin-border: #393936;
+  --admin-field-border: #66655e;
+  --admin-link: var(--site-gold);
+  --admin-focus: var(--site-gold);
+  --admin-accent-soft: #393119;
+  --admin-disabled: #2c2c2a;
+  --admin-success: #7ed6ad;
+  --admin-danger: #ff929f;
+  --admin-warning: #f3d27c;
+  --admin-info: #99c5ff;
+  --admin-success-soft: #173a2c;
+  --admin-danger-soft: #422129;
+  --admin-warning-soft: #393119;
+  --admin-info-soft: #1d3048;
+  --admin-chart-primary: var(--site-gold);
+  --admin-chart-secondary: #cecdc5;
+  --admin-shadow: none;
+}
+
+.admin-theme .admin-app {
+  --admin-table-bg: var(--admin-surface);
+  --admin-table-text: var(--admin-ink);
+  --admin-table-muted: var(--admin-muted);
+  --admin-table-border: var(--admin-border);
+  --admin-table-head: var(--admin-surface-soft);
+  --admin-table-hover: var(--admin-accent-soft);
+  --admin-preloader-bg: var(--admin-canvas);
+}

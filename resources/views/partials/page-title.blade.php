@@ -1,4 +1,4 @@
- <div class="d-flex align-items-center mt-2 mb-2">
+ <div class="admin-page-heading d-flex align-items-center mt-2 mb-2">
     <h6 class="mb-0 flex-grow-1">@yield('pagetitle')</h6>
     <div class="flex-shrink-0">
         <nav aria-label="{{ __('messages.blade_static.breadcrumb_6e5ce570') }}">

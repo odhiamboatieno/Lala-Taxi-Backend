@@ -1393,10 +1393,11 @@
                 var gross = periodPayload.gross || [];
                 var operator = periodPayload.operator || [];
                 var chartData = [];
-                var isDarkMode = document.documentElement.getAttribute('data-bs-theme') === 'dark';
-                var chartLineColors = isDarkMode
-                    ? [LalaColors.as55b9ad, LalaColors.as82a9d6]
-                    : [LalaColors.as35c5a8, LalaColors.as5c97ff];
+                var adminTheme = getComputedStyle(document.documentElement);
+                var chartLineColors = [
+                    adminTheme.getPropertyValue('--admin-chart-primary').trim(),
+                    adminTheme.getPropertyValue('--admin-chart-secondary').trim()
+                ];
 
                 for (var i = 0; i < labels.length; i++) {
                     chartData.push({
@@ -1421,8 +1422,8 @@
                     pointFillColors: chartLineColors,
                     pointStrokeColors: chartLineColors,
                     hideHover: false,
-                    gridTextColor: isDarkMode ? LalaColors.as93a4b5 : LalaColors.as658098,
-                    gridLineColor: isDarkMode ? LalaColors.as2b3d4b : LalaColors.asEdf3f8,
+                    gridTextColor: adminTheme.getPropertyValue('--admin-muted').trim(),
+                    gridLineColor: adminTheme.getPropertyValue('--admin-border').trim(),
                     parseTime: false,
                     hoverCallback: function (index, options, content, row) {
                         return '<div class="morris-hover-row-label">' + row.label + '</div>'

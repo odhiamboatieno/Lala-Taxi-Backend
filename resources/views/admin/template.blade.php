@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" class="admin-theme">
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,7 @@
 <meta name="description" content="{{ Helpers::meta((!isset($exception)) ? ucfirst(LOGIN_USER_TYPE) : '', 'description') }}">
 <meta name="keywords" content="{{ Helpers::meta((!isset($exception)) ? ucfirst(LOGIN_USER_TYPE) : '', 'keywords') }}">
 
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<meta content="width=device-width, initial-scale=1" name="viewport">
 
 
 <!-- layout setup -->
@@ -191,6 +191,7 @@
         padding-inline: .75rem !important;
     }
 </style>
+@include('admin.partials.appearance')
 
 <body class="admin-app" ng-app="App">
     <div id="admin-page-preloader" aria-hidden="true">

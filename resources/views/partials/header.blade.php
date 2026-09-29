@@ -34,10 +34,10 @@
                         <img height="30" width="30" class="header-sidebar-logo-small d-none" alt="{{ __('messages.blade_static.logo_83fce832') }}" src="{{ $headerFavicon }}">
                         <img height="30" width="30" class="header-sidebar-logo-small-light d-none" alt="{{ __('messages.blade_static.logo_83fce832') }}" src="{{ $headerFavicon }}">
                     </a>
-                    <button type="button" class="vertical-toggle btn btn-light-light text-muted icon-btn fs-5 rounded-pill" id="toggleSidebar">
+                    <button type="button" class="vertical-toggle btn btn-light-light text-muted icon-btn fs-5 rounded-pill" id="toggleSidebar" aria-label="{{ __('admin_design.toggle_sidebar') }}">
                         <i class="bi bi-arrow-bar-left header-icon"></i>
                     </button>
-                    <button type="button" class="horizontal-toggle btn btn-light-light text-muted icon-btn fs-5 rounded-pill d-none" id="toggleHorizontal">
+                    <button type="button" class="horizontal-toggle btn btn-light-light text-muted icon-btn fs-5 rounded-pill d-none" id="toggleHorizontal" aria-label="{{ __('admin_design.toggle_navigation') }}">
                         <i class="ri-menu-2-line header-icon"></i>
                     </button>
 
@@ -271,10 +271,10 @@
 
             <div class="flex-shrink-0 d-flex align-items-center gap-1">
                 <div class="dark-mode-btn" id="toggleMode">
-                    <button class="btn header-btn active" id="lightModeBtn">
+                    <button class="btn header-btn active" id="lightModeBtn" aria-label="{{ __('admin_design.toggle_theme') }}">
                         <i class="bi bi-brightness-high"></i>
                     </button>
-                    <button class="btn header-btn" id="darkModeBtn">
+                    <button class="btn header-btn" id="darkModeBtn" aria-label="{{ __('admin_design.toggle_theme') }}">
                         <i class="bi bi-moon-stars"></i>
                     </button>
                 </div>
