@@ -78,7 +78,7 @@
 
             <div class="site-field">
                 <label for="password">{{ trans('messages.user.paswrd') }}</label>
-                {!! Form::password('password', array(placeholder' => trans('messages.user.paswrd'),'id' => 'password') ) !!}
+                {!! Form::password('password', array('placeholder' => trans('messages.user.paswrd'),'id' => 'password') ) !!}
                 <span class="field-error password_error">{{ $errors->first('password') }}</span>
             </div>
 
@@ -116,6 +116,7 @@
             <p class="auth-terms">{{ trans('messages.user.proceed') }} {{ $site_name }} {{ trans('messages.user.contact') }}</p>
             <p class="auth-switch"><a href="{{ url('signin_driver') }}">{{ trans('messages.ride.already_have_account') }}</a></p>
             {{ Form::close() }}
+        </div>
         </div>
     </section>
 

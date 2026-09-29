@@ -52,6 +52,16 @@ jobs:
         run: |
           find app config database routes Modules tests -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
 
+      # Blade directives are not valid PHP, so views can only be checked after
+      # they are compiled. This catches malformed PHP inside a .blade.php file,
+      # which php artisan view:cache does not detect on its own.
+      - name: Lint compiled Blade views
+        run: |
+          php artisan view:clear
+          php artisan view:cache
+          find storage/framework/views -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
+          echo "compiled views linted OK"
+
       - name: Run tests
         run: vendor/bin/phpunit --no-coverage
 
