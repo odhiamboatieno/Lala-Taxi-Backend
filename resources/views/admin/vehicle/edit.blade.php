@@ -5,7 +5,7 @@
 
 @section('css')
     <!-- Select css -->
-    <link rel="stylesheet" href="assets/libs/choices.js/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/libs/choices.js/public/assets/styles/choices.min.css') }}">
     <!-- Datepicker css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
 @endsection
@@ -362,14 +362,14 @@
 
 @section('js')
     <!-- Select js -->
-    <script src="assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
-    <script src="assets/js/form/forms-select.init.js"></script>
+    <script src="{{ asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
+    <script src="{{ asset('assets/js/form/forms-select.init.js') }}"></script>
 
     <!-- Datepicker js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
 
     <!-- App js -->
-    <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="{{ asset('assets/js/app.js') }}"></script>
 
     <script>
         $("#year").datepicker({

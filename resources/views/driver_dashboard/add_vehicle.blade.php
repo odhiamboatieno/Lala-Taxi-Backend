@@ -57,7 +57,7 @@
   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6" style="padding:0px;">
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 <div class="img--circle img--bordered img--shadow driver-avatar ">
-<img src="images/car-user.png">
+<img src="{{ asset('images/car-user.png') }}">
 </div>
 </div>
 <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
@@ -84,7 +84,7 @@
   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6" style="padding:0px;">
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 <div class="img--circle img--bordered img--shadow driver-avatar ">
-<img src="images/car-user.png">
+<img src="{{ asset('images/car-user.png') }}">
 </div>
 </div>
 <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
@@ -111,7 +111,7 @@
   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6" style="padding:0px;">
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 <div class="img--circle img--bordered img--shadow driver-avatar ">
-<img src="images/car-user.png">
+<img src="{{ asset('images/car-user.png') }}">
 </div>
 </div>
 <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
@@ -138,7 +138,7 @@
   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6" style="padding:0px;">
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 <div class="img--circle img--bordered img--shadow driver-avatar ">
-<img src="images/car-user.png">
+<img src="{{ asset('images/car-user.png') }}">
 </div>
 </div>
 <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
@@ -208,7 +208,7 @@
        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 <div class="img--circle img--bordered img--shadow driver-avatar ">
-<img src="images/car-user.png">
+<img src="{{ asset('images/car-user.png') }}">
 </div>
 </div>
 <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">

@@ -56,6 +56,12 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    // null = detect from the request, true = always https, false = never.
+    // Set FORCE_HTTPS_SCHEME=true in production when TLS is terminated upstream.
+    'force_https_scheme' => env('FORCE_HTTPS_SCHEME') === null
+        ? null
+        : filter_var(env('FORCE_HTTPS_SCHEME'), FILTER_VALIDATE_BOOLEAN),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

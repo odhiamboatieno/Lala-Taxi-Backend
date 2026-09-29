@@ -19,6 +19,7 @@ use App\Models\Support;
 use App\Models\Banner;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\URL;
 use Config;
 use DB;
 use Session;
@@ -60,8 +61,8 @@ public function register()
 	 */
 	public function boot()
 	{
-	   //$this->app['request']->server->set('HTTPS', true);
-       	
+		$this->forceHttpsScheme();
+
 		if (!defined('EMAIL_LOGO_URL')) {
 			define('EMAIL_LOGO_URL', 'images/logo.png');
 		}
@@ -106,6 +107,11 @@ public function register()
 				$manualBookContact = optional($site_settings->where('name', 'admin_contact')->first())->value ?: '';
 				$manualBookCountryId = optional($site_settings->where('name', 'admin_country_code')->first())->value;
 				$siteUrl = optional($site_settings->where('name', 'site_url')->first())->value ?: url('/');
+				// A site_url saved as http:// produces mixed-content links once the
+				// site is on https, so upgrade it rather than trusting the stored value.
+				if (stripos($siteUrl, 'http://') === 0) {
+					$siteUrl = 'https://' . substr($siteUrl, 7);
+				}
 				$driverKm = optional($site_settings->where('name', 'driver_km')->first())->value ?: 0;
 				View::share('logo_url', url('images/logos/' . $logoFile).'?v='.str_random(4));
 				if (!defined('LOGO_URL')) {
@@ -347,6 +353,39 @@ public function register()
             
             return in_array($ext,$parameters);
         });
+	}
+
+	/**
+	 * Keep generated URLs (url(), asset(), route(), pagination) on https when the
+	 * site is actually served over https.
+	 *
+	 * The app sits behind nginx, which terminates TLS and talks plain http to
+	 * php-fpm. PHP therefore never sees HTTPS=on, so url() falls back to http and
+	 * the browser blocks the request as mixed content. TrustProxies::$proxies is
+	 * null, so the X-Forwarded-Proto header is not honoured either.
+	 *
+	 * FORCE_HTTPS_SCHEME in .env wins when set. Otherwise the scheme is detected
+	 * from the request, so local http development is left untouched.
+	 */
+	protected function forceHttpsScheme()
+	{
+		if ($this->app->runningInConsole()) {
+			return;
+		}
+
+		$configured = config('app.force_https_scheme');
+		if ($configured === true) {
+			URL::forceScheme('https');
+			return;
+		}
+		if ($configured === false) {
+			return;
+		}
+
+		$forwarded = strtolower((string) $this->app['request']->server->get('HTTP_X_FORWARDED_PROTO'));
+		if ($this->app['request']->isSecure() || strpos($forwarded, 'https') === 0) {
+			URL::forceScheme('https');
+		}
 	}
 
 	protected function bindModels()

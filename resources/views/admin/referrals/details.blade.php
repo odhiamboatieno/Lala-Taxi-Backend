@@ -81,7 +81,7 @@
 
 @section('js')
     <!-- App js -->
-    <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="{{ asset('assets/js/app.js') }}"></script>
 
 
 @endsection

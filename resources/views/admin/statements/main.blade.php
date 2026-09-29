@@ -6,7 +6,7 @@
 
 @section('css')
     <!-- Datepicker CSS -->
-    <link rel="stylesheet" href="assets/libs/air-datepicker/air-datepicker.css">
+    <link rel="stylesheet" href="{{ asset('assets/libs/air-datepicker/air-datepicker.css') }}">
 
     <style>
         .loading-overlay {

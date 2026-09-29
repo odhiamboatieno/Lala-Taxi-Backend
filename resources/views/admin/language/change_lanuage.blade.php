@@ -5,7 +5,7 @@
 
 @section('css')
     <!-- Select css -->
-    <link rel="stylesheet" href="assets/libs/choices.js/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/libs/choices.js/public/assets/styles/choices.min.css') }}">
     <!-- Custom css for tabs -->
     <style>
         .language-tabs .nav-tabs {

@@ -5,7 +5,7 @@
 @section('pagetitle', __('messages.admin.manage_admin_page.add_admin_user'))
 
 @section('css')
-    <link rel="stylesheet" href="assets/libs/choices.js/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/libs/choices.js/public/assets/styles/choices.min.css') }}">
 @endsection
 
 @section('main')
@@ -39,6 +39,6 @@
 @endsection
 
 @section('js')
-    <script src="assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
-    <script src="assets/js/form/forms-select.init.js"></script>
+    <script src="{{ asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
+    <script src="{{ asset('assets/js/form/forms-select.init.js') }}"></script>
 @endsection

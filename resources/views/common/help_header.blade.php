@@ -7,7 +7,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="{{ url('/') }}" class="pull-left logo-link"><img src="images/Cabme_logo.jpg"></a>
+        <a href="{{ url('/') }}" class="pull-left logo-link"><img src="{{ $logo_url }}"></a>
         <ul  class="header-left-link">
         
         </ul>

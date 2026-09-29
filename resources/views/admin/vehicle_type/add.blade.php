@@ -5,7 +5,7 @@
 
 @section('css')
     <!-- Select css -->
-    <link rel="stylesheet" href="assets/libs/choices.js/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/libs/choices.js/public/assets/styles/choices.min.css') }}">
 @endsection
 
 @section('main')
@@ -141,9 +141,9 @@
 
 @section('js')
     <!-- Select js -->
-    <script src="assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
-    <script src="assets/js/form/forms-select.init.js"></script>
+    <script src="{{ asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
+    <script src="{{ asset('assets/js/form/forms-select.init.js') }}"></script>
 
     <!-- App js -->
-    <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="{{ asset('assets/js/app.js') }}"></script>
 @endsection
