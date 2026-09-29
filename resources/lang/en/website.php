@@ -93,7 +93,7 @@ return [
     'ride_to_your_next_departure' => 'to your next departure.',
     'ride_set_the_airport_as_your_destination_check_your_pickup_point_and_l' => 'Set the airport as your destination, check your pickup point and leave time for the journey.',
     'ride_plan_your_ride' => 'Plan your ride',
-    'ride_a_rider_getting_into_a_lalataxi_in_nairobi' => 'A rider getting into a LalaTaxi in Kenya',
+    'ride_a_rider_getting_into_a_lalataxi_in_nairobi' => 'A passenger standing beside a LalaTaxi, with the driver at the wheel and a Kenyan city backdrop',
     'ride_a_passenger_travelling_comfortably_in_the_back_seat' => 'A passenger travelling comfortably in the back seat',
     'ride_ride_with_lalataxi_wherever_your_day_takes_you' => 'Ride with LalaTaxi — Wherever your day takes you',
     'drive_drive_with_lala' => 'Drive with Lala',
