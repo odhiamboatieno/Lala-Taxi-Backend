@@ -496,7 +496,10 @@ class DriverController extends Controller
         }
         
 		$trip = Trips::where('id', $request->trip_id)->first();
-
+        abort_unless((int) $trip->driver_id === (int) $user_details->id, 403);
+        if ($trip->isCorporate()) {
+            return response()->json(['status_code' => '0', 'status_message' => __('corporate.no_personal_collection')], 422);
+        }
 		if ($trip->status != 'Payment') {
 			return response()->json([
 				'status_code' => '0',

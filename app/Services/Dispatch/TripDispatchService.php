@@ -1246,8 +1246,15 @@ class TripDispatchService
     public function transitionTrip(Trips $trip, string $targetStatus, string $changedBy): Trips
     {
         return DB::transaction(function () use ($trip, $targetStatus, $changedBy) {
+            if ($trip->isCorporate()) {
+                \Modules\SaaSDispatch\Entities\CompanyCorporateAccount::query()->lockForUpdate()->findOrFail($trip->corporate_account_id);
+            }
             $trip = Trips::query()->lockForUpdate()->findOrFail($trip->id);
             $previousStatus = $trip->status;
+            if ($trip->isCorporate() && $targetStatus === TripWorkflow::STATUS_COMPLETED && $trip->completed_at
+                && in_array(strtolower((string) $trip->getRawOriginal('status')), ['payment', 'rating', 'completed'], true)) {
+                return app(\App\Http\Helper\InvoiceHelper::class)->calculation(['trip_id' => $trip->id, 'save_to_trip_table' => 1]);
+            }
 
             TripWorkflow::assertTransition($previousStatus, $targetStatus);
 
@@ -1266,6 +1273,9 @@ class TripDispatchService
 
             $trip->update($attributes);
 
+            if ($trip->isCorporate() && $targetStatus === TripWorkflow::STATUS_COMPLETED) {
+                $trip = app(\App\Http\Helper\InvoiceHelper::class)->calculation(['trip_id' => $trip->id, 'save_to_trip_table' => 1]);
+            }
             if ($targetStatus === TripWorkflow::STATUS_COMPLETED && $trip->driver_id) {
                 User::where('id', $trip->driver_id)->update([
                     'current_trip_id' => null,

@@ -95,6 +95,7 @@ class MpesaController extends Controller
             ]);
         }
 
+        app(\App\Services\Corporate\CorporateCollectionGuard::class)->validateEntry($request, $user);
         $payment_id = uniqid();
         $amount = floatval($request->amount);
         $data['currency_code'] = 'KES';
@@ -124,6 +125,7 @@ class MpesaController extends Controller
 
     public function customerMpesaSTKPush(Request $request)
     {
+        app(\App\Services\Corporate\CorporateCollectionGuard::class)->validateEntry($request);
         $user = User::find($request->user_id);
         set_payment_gateway_company_context($user->company_id ?? null);
 
@@ -649,6 +651,7 @@ class MpesaController extends Controller
                 ]);
             }
 
+            app(\App\Services\Corporate\CorporateCollectionGuard::class)->assertPersonalTrip($trip, $user);
             if ($trip->is_calculation == 0) {
                 $data = [
                     'trip_id' => $trip->id,

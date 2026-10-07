@@ -227,6 +227,9 @@ trait CurrencyConversion
      */
 	public function canConvert()
 	{
+        if (($this->attributes['billing_mode'] ?? null) === 'corporate') {
+            return false;
+        }
 		return ($this->getIsConvert() && (!$this->isAdminPanel() || !$this->disableAdminPanelConversion()));
   	}
 
@@ -265,6 +268,9 @@ trait CurrencyConversion
      */
 	public function getCurrencySymbolAttribute()
 	{
+        if (($this->attributes['billing_mode'] ?? null) === 'corporate') {
+            return Currency::original_symbol($this->attributes['currency_code']);
+        }
 		if($this->getSessionCurrencyAttribute()) {
 			return $this->getSessionCurrencyAttribute()->symbol;
 		}

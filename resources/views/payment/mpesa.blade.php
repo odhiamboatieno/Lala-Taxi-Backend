@@ -102,6 +102,8 @@
                     <span id="phoneError" style="display: none;">{{ __('messages.blade_static.please_enter_a_valid_phone_number_starting_with_07_and_1_0065897c') }}</span>
                     <input type="hidden" name="amount" value="{{ $amount }}">
                     <input type="hidden" name="user_id" value="{{ $user_id }}">
+                    <input type="hidden" name="token" value="{{ $token }}">
+                    <input type="hidden" name="trip_id" value="{{ request('trip_id') }}">
                     <input type="hidden" name="pay_for" value="{{ $pay_for }}">
                     <input type="hidden" name="currency_code" value="{{ $currency_code }}">
                 </div>

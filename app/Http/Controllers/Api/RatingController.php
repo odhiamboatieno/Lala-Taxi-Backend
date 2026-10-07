@@ -130,6 +130,17 @@ class RatingController extends Controller
 	public function getinvoice(Request $request)
 	{
 		$user_details = JWTAuth::parseToken()->authenticate();
+        $storedTrip = Trips::findOrFail($request->trip_id);
+        abort_unless((int) $storedTrip->user_id === (int) $user_details->id || (int) $storedTrip->driver_id === (int) $user_details->id, 403);
+        if ($storedTrip->isCorporate()) {
+            if ($request->is_wallet === 'Yes' || ($request->filled('payment_mode') && strtolower((string) $request->payment_mode) !== 'corporate')) {
+                return response()->json(['status_code' => '0', 'status_message' => __('corporate.no_personal_collection')], 422);
+            }
+            if (!$storedTrip->billing_finalized_at && $storedTrip->completed_at) {
+                $storedTrip = $this->invoice_helper->calculation(['trip_id' => $storedTrip->id, 'save_to_trip_table' => 1]);
+            }
+            return $this->invoice_helper->getInvoice($storedTrip, ['user_id' => $user_details->id, 'user_type' => strtolower($user_details->user_type)]);
+        }
 
 		$request->merge(['payment_mode' =>strtolower($request->payment_mode)]);
 		$rules = [
@@ -244,19 +255,19 @@ class RatingController extends Controller
 			]);
 		}
 
-		if (!in_array($trip->status, ['Rating', 'Payment', 'Completed'])) {
+		if (!in_array(strtolower((string) $trip->status), ['rating', 'payment', 'completed'], true)) {
 			return response()->json([
 				'status_code' => '0',
 				'status_message' => __('messages.api.something_went_wrong'),
 			]);
 		}
 
-		if (in_array($trip->status, ['Rating', 'Payment', 'Completed']) && $this->invoice_helper->needsRealtimeRecalculation($trip)) {
+		if ($this->invoice_helper->needsRealtimeRecalculation($trip)) {
 			$data = [
 				'trip_id' => $trip->id,
 				'user_type' => 'Driver',
 				'user_id' => $user_details->id,
-				'save_to_trip_table' => 0,
+				'save_to_trip_table' => $trip->isCorporate() ? 1 : 0,
 			];
 			$this->invoice_helper->calculation($data);
 			$trip = Trips::with(['driver.vehicle', 'users', 'currency'])->find($trip->id);
@@ -301,10 +312,17 @@ class RatingController extends Controller
 		if (!$isCashTrip && $withdrawablePayout <= 0) {
 			$withdrawablePayout = $netEarnings;
 		}
+		$isCorporate = $trip->isCorporate();
+		$pendingCompanyPayment = $isCorporate && $trip->payment_status !== 'Completed';
+		if ($isCorporate) {
+			$netEarnings = (float) $trip->getRawOriginal('driver_payout');
+			$withdrawablePayout = $pendingCompanyPayment ? 0 : $netEarnings;
+		}
+		$totalReceived = $isCorporate ? 0 : $totalFare;
 		$distanceKm = $this->invoice_helper->sanitizeTripDistanceKm($trip);
 		$serviceChargeRate = $grossDriverEarnings > 0 ? round(($serviceCharge / $grossDriverEarnings) * 100) : 0;
 		$driverRating = (float) optional(Rating::where('trip_id', $trip->id)->where('driver_rating', '>', 0)->first())->driver_rating;
-		$summaryPrimaryLabel = 'Total received from passenger';
+		$summaryPrimaryLabel = $isCorporate ? __('corporate.billed_to_company') : 'Total received from passenger';
 		$breakdown = [];
 
 		$breakdown[] = [
@@ -397,6 +415,9 @@ class RatingController extends Controller
 			'service_category' => $trip->service_category ?? 'ride',
 			'payment_mode' => $trip->payment_mode ?? '',
 			'payment_status' => $trip->payment_status ?? '',
+			'billing' => app(\App\Services\Corporate\CorporateBillingContext::class)->summary($trip),
+			'pending_company_payment' => $pendingCompanyPayment,
+			'pending_payout' => number_format($pendingCompanyPayment ? $netEarnings : 0, 2, '.', ''),
 			'currency_code' => $trip->currency_code ?? '',
 			'currency_symbol' => $currencySymbol,
 			'fare_mode' => $fareMode,
@@ -405,7 +426,7 @@ class RatingController extends Controller
 			'fare_estimation' => $trip->fare_estimation ?? null,
 			'live_total_fare' => data_get($trip, 'live_total_fare', null),
 			'total_fare' => number_format($totalFare, 2, '.', ''),
-			'total_received' => number_format($totalFare, 2, '.', ''),
+			'total_received' => number_format($totalReceived, 2, '.', ''),
 			'driver_gross_earnings' => number_format($grossDriverEarnings, 2, '.', ''),
 			'driver_net_earnings' => number_format($netEarnings, 2, '.', ''),
 			'driver_payout' => number_format($withdrawablePayout, 2, '.', ''),
@@ -417,8 +438,8 @@ class RatingController extends Controller
 			'driver_rating_submitted' => $driverRating > 0,
 			'invoice' => $invoice,
 			'summary' => [
-				'total_received' => number_format($totalFare, 2, '.', ''),
-				'total_received_display' => $this->formatCurrencyDisplay($currencySymbol, $totalFare),
+				'total_received' => number_format($totalReceived, 2, '.', ''),
+				'total_received_display' => $this->formatCurrencyDisplay($currencySymbol, $totalReceived),
 				'fare_earned' => number_format($grossDriverEarnings, 2, '.', ''),
 				'fare_earned_display' => $this->formatCurrencyDisplay($currencySymbol, $grossDriverEarnings),
 				'service_charge' => number_format($totalDriverDeductions, 2, '.', ''),

@@ -54,6 +54,9 @@ class BusinessLogic
             ];
         }
         $trip = Trips::find(request()->trip_id);
+        if (!$trip || (int) $trip->user_id !== (int) $user->id || $trip->isCorporate()) {
+            return ['status_code' => '0', 'status_message' => __('corporate.no_personal_collection')];
+        }
         if($trip->is_calculation == 0) {
 			$data = [
 				'trip_id' => $trip->id,
@@ -159,6 +162,10 @@ class BusinessLogic
 	{
 
 		$trip = Trips::find($payment_data['trip_id']); 
+        abort_unless($trip && (int) $trip->user_id === (int) $user->id, 403);
+        if ($trip->isCorporate()) {
+            throw \Illuminate\Validation\ValidationException::withMessages(['payment_mode' => __('corporate.no_personal_collection')]);
+        }
 
 		if($trip->is_calculation == 0) {
 			$data = [

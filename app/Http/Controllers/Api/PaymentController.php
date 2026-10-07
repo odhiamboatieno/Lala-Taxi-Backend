@@ -274,6 +274,7 @@ class PaymentController extends Controller
 public function paytm_payment(Request $request)
 {
     $user = $this->get_user_deatils();
+    app(\App\Services\Corporate\CorporateCollectionGuard::class)->validateEntry($request, $user);
     set_payment_gateway_company_context($user->company_id ?? null);
 
     // Resolve Paytm credentials through the centralized resolver so that
@@ -760,6 +761,7 @@ function callRefundAPI($refundApiURL, $requestParamList) {
     
     if ($trip_id) {
         $trip = Trips::find($trip_id->id);
+        app(\App\Services\Corporate\CorporateCollectionGuard::class)->assertPersonalTrip($trip, $user);
 
         if ($trip->is_calculation == 0) {
             $data = [
@@ -936,6 +938,7 @@ public function mpesa_callback( Request $request ) {
 			    }else if($paytm_payment->pay_for=="trip"){
 			        $trip_id = Trips::where('user_id',$user->id)->where('payment_status',"Pending")->where('payment_mode',"paytm")->latest();
 			        $trip = Trips::find($trip_id->id); 
+			        app(\App\Services\Corporate\CorporateCollectionGuard::class)->assertPersonalTrip($trip, $user);
 
             		if($trip->is_calculation == 0) {
             			$data = [
@@ -1021,6 +1024,7 @@ public function mpesa_callback( Request $request ) {
     }
     public function flutterwave_payment(Request $request)
 	{
+         app(\App\Services\Corporate\CorporateCollectionGuard::class)->validateEntry($request);
          $curl = curl_init();
          $email="gordonjohnao@gmail.com";
          $amount=1;
@@ -1185,6 +1189,7 @@ public function mpesa_callback( Request $request ) {
 			    }else if($paytm_payment->pay_for=="trip"){
 			        $trip_id = Trips::where('user_id',$user->id)->where('payment_status',"Pending")->where('payment_mode',"paytm")->latest();
 			        $trip = Trips::find($trip_id->id); 
+			        app(\App\Services\Corporate\CorporateCollectionGuard::class)->assertPersonalTrip($trip, $user);
 
             		if($trip->is_calculation == 0) {
             			$data = [

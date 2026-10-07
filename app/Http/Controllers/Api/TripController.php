@@ -784,6 +784,14 @@ class TripController extends Controller
 		$trip = Trips::find($request->trip_id);
 
 		$toll_fee = 0;
+        abort_unless((int) $trip->driver_id === (int) $user_details->id && $user_details->user_type === 'Driver', 403);
+        if ($trip->isCorporate() && $trip->billing_finalized_at) {
+            $trip_detail = $this->getTripDetails($trip->id, $user_details);
+            return response()->json(array_merge(['status_code' => '1', 'status_message' => __('corporate.trip_completed'), 'image_url' => ''], $trip_detail['data']));
+        }
+        if ($trip->isCorporate() && (!$trip->begin_trip || !in_array(strtolower((string) $trip->getRawOriginal('status')), ['started', 'begin trip', 'end trip', 'payment', 'rating'], true))) {
+            throw \Illuminate\Validation\ValidationException::withMessages(['trip_id' => __('corporate.finalization_invalid')]);
+        }
 		if($request->toll_fee) {
 			$toll_fee = $request->toll_fee;
 		}
@@ -848,17 +856,23 @@ class TripController extends Controller
 			$trip_data['toll_reason_id'] = $request->toll_reason_id;
 		}
 
-	  	Trips::where('id', $request->trip_id)->update($trip_data);
-	  	$trip = Trips::with(['users', 'driver.company', 'car_type', 'currency', 'ride_request'])->find($request->trip_id);
-	  	if($trip && $trip->is_calculation == 0) {
-	  		$this->invoice_helper->calculation([
-	  			'trip_id' => $trip->id,
-	  			'user_id' => $user_details->id,
-	  			'user_type' => 'Driver',
-	  			'save_to_trip_table' => 1,
-	  		]);
-	  		$trip = Trips::with(['users', 'driver.company', 'car_type', 'currency', 'ride_request'])->find($request->trip_id);
-	  	}
+        $trip = DB::transaction(function () use ($trip, $trip_data, $user_details) {
+            if ($trip->isCorporate()) {
+                \Modules\SaaSDispatch\Entities\CompanyCorporateAccount::query()->lockForUpdate()->findOrFail($trip->corporate_account_id);
+            }
+            $locked = Trips::query()->lockForUpdate()->findOrFail($trip->id);
+            if (!$locked->billing_finalized_at) {
+                if (!$locked->isCorporate() || !$locked->completed_at) {
+                    Trips::where('id', $locked->id)->update($trip_data);
+                }
+                $this->invoice_helper->calculation(['trip_id' => $locked->id, 'user_id' => $user_details->id, 'user_type' => 'Driver', 'save_to_trip_table' => 1]);
+            }
+            if ($locked->isCorporate()) {
+                User::where('id', $locked->driver_id)->update(['current_trip_id' => null, 'is_available' => true]);
+                DriverLocation::where('user_id', $locked->driver_id)->update(['status' => 'Online']);
+            }
+            return Trips::with(['users', 'driver.company', 'car_type', 'currency', 'ride_request'])->findOrFail($trip->id);
+        }, 3);
 	  	if ($request->toll_reason_id == 1 && $request->toll_reason) {
 	  		$trip_toll_reason = new TripTollReason();
 	  		$trip_toll_reason->trip_id = $request->trip_id;
@@ -887,6 +901,15 @@ class TripController extends Controller
 		];
 		$push_data['push_title'] = __('messages.api.trip_ended_by_driver');
 
+        if ($trip->isCorporate()) {
+            $this->request_helper->SendPushNotification($trip->users, [
+                'push_title' => __('corporate.trip_completed'),
+                'data' => ['end_trip' => [
+                    'trip_id' => $trip->id, 'status' => 'Completed', 'billing' => $trip->billing,
+                    'total_fare' => $trip->corporate_amount, 'payment_status' => 'Deferred',
+                ]],
+            ]);
+        } else {
 		resolve(NotificationManager::class)->sendEvent('regular.customer.trip_payment_due', $trip->users, [
             'trip' => $trip,
             'driver' => $trip->driver,
@@ -905,6 +928,7 @@ class TripController extends Controller
 					'view_file' => 'emails.custom_email',
 				]));
 		}
+        }
 
 		//if booking is manual booking then send "Trip Ended" SMS to rider
 		if (isset($schedule_ride) && $schedule_ride->booking_type == 'Manual Booking') {

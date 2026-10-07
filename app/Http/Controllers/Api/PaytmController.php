@@ -295,6 +295,7 @@ class PaytmController extends Controller
         }
 
         $user = $this->get_user_deatils();
+        app(\App\Services\Corporate\CorporateCollectionGuard::class)->validateEntry($request, $user);
         $order_id = uniqid();
         $amount = floatval($request->amount);
         $currency_code = 'INR'; // Paytm uses INR
@@ -558,6 +559,7 @@ class PaytmController extends Controller
                     ]);
                 }
 
+                app(\App\Services\Corporate\CorporateCollectionGuard::class)->assertPersonalTrip($trip, $user);
                 if ($trip->is_calculation == 0) {
                     $data = [
                         'trip_id' => $trip->id,

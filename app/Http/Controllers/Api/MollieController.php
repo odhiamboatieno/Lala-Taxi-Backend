@@ -85,6 +85,7 @@ class MollieController extends Controller
 	
 	 public static function mollie()
     {
+        app(\App\Services\Corporate\CorporateCollectionGuard::class)->validateEntry(request());
         if (request()->token) {
             $user = \JWTAuth::parseToken()->authenticate();
             set_payment_gateway_company_context($user->company_id ?? null);
@@ -236,6 +237,7 @@ class MollieController extends Controller
 			    }else if($paytm_payment->pay_for=="trip"){
 			        $trip_id = Trips::where('user_id',$user->id)->where('payment_status',"Pending")->where('payment_mode',"paytm")->latest();
 			        $trip = Trips::find($trip_id->id); 
+			        app(\App\Services\Corporate\CorporateCollectionGuard::class)->assertPersonalTrip($trip, $user);
 
             		if($trip->is_calculation == 0) {
             			$data = [

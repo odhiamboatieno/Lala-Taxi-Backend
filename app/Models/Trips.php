@@ -203,6 +203,7 @@ class Trips extends Model
 
     public function scopeDriverPayoutTripsOnly($query) {
         return $query->with(['payment'])
+            ->where(fn ($q) => $q->where('trips.billing_mode', '!=', 'corporate')->orWhere('trips.payment_status', 'Completed'))
             ->whereHas('driver_payment', function ($query) {
                 $query->where('driver_payout_status', 'Pending');
             })
@@ -224,6 +225,7 @@ class Trips extends Model
 
     public function scopeCompanyPayoutTripsOnly($query) {
         return $query->with(['payment'])
+            ->where(fn ($q) => $q->where('trips.billing_mode', '!=', 'corporate')->orWhere('trips.payment_status', 'Completed'))
             ->whereHas('driver_payment', function ($query) {
                 if(LOGIN_USER_TYPE == 'admin') {
                     $query->where('admin_payout_status','Pending');
@@ -287,6 +289,11 @@ class Trips extends Model
 
     public function getPayableDriverPayoutAttribute()
     {
+        if ($this->isCorporate()) {
+            return $this->payment_status === 'Completed'
+                ? \App\Services\Corporate\CorporateMoney::decimal(\App\Services\Corporate\CorporateMoney::minor((string) $this->getRawOriginal('driver_payout')))
+                : '0.00';
+        }
         if($this->attributes['payment_mode']=="Cash" && $this->attributes['wallet_amount']==0 && $this->attributes['promo_amount']==0){
             return 0;
         }
@@ -306,6 +313,9 @@ class Trips extends Model
 
     public function getRiderPaidAmountAttribute()
     {
+        if ($this->isCorporate()) {
+            return '0.00';
+        }
         return number_format(($this->attributes['total_fare'])-($this->attributes['wallet_amount']+$this->attributes['promo_amount']),2, '.', '');   
     }
     public function getCashCollectableAttribute()

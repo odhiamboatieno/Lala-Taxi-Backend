@@ -193,6 +193,14 @@ class CorporateBillingContext
     public function guardMutation(Model $model): void
     {
         $corporate = $model->getRawOriginal('billing_mode') === 'corporate';
+        if ($corporate && $model instanceof Trips && $model->getRawOriginal('billing_finalized_at')
+            && $model->isDirty(array_merge(CorporateTripFinalizer::FINANCIAL_FIELDS, [
+                'corporate_amount', 'corporate_currency_code', 'corporate_financial_snapshot', 'billing_finalized_at',
+                'payment_status', 'billing_status', 'status', 'is_calculation', 'completed_at', 'end_trip',
+                'cash_collected', 'driver_confirmed_cash', 'paykey',
+            ]))) {
+            $this->invalid('corporate.immutable_charge');
+        }
         if ($model instanceof ScheduleRide && $model->isDirty(['user_id', 'payment_method', 'schedule_date', 'schedule_time', 'scheduled_at'])) {
             $this->validatePending($model);
             if ($model->assignment_status === 'billing_blocked') {

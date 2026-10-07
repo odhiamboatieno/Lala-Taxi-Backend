@@ -102,6 +102,9 @@ class DriverRatingEligibilityService
 
     protected function paymentSettled(Trips $trip): bool
     {
+        if ($trip->isCorporate()) {
+            return $trip->billing_finalized_at !== null && in_array($trip->payment_status, ['Deferred', 'Completed'], true);
+        }
         $paymentMode = strtolower((string) $trip->payment_mode);
         $paymentStatus = strtolower((string) $trip->payment_status);
 

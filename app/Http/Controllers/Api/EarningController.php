@@ -241,6 +241,7 @@ class EarningController extends Controller
 		}
 
 		$trip = Trips::find($request->trip_id); 
+		app(\App\Services\Corporate\CorporateCollectionGuard::class)->assertPersonalTrip($trip, $user);
 		if($trip->status != 'Payment') {
 			return response()->json([
 				'status_code' => '0',

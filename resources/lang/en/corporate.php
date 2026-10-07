@@ -16,4 +16,9 @@ return [
     'active_trip' => 'This rider already has an active trip.',
     'payer_changed' => 'This booking was superseded because the agreed payer changed.',
     'schedule_blocked' => 'Your scheduled company ride needs attention. Corporate billing is unavailable; contact your account administrator before rescheduling. No personal payment has been charged.',
+    'finalization_invalid' => 'The corporate trip is not ready for financial finalization. No charge has been issued.',
+    'reconcile_payment' => 'Existing payout records require finance reconciliation before finalizing this trip.',
+    'immutable_charge' => 'Finalized corporate charges cannot be changed through trip updates.',
+    'no_personal_collection' => 'This trip is billed to the company. Personal cash, wallet and gateway collection are not permitted.',
+    'trip_completed' => 'Trip completed',
 ];

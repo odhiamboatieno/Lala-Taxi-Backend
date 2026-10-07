@@ -24,8 +24,10 @@ trait HasCorporateBilling
             'billing_finalized_at' => 'datetime',
             'corporate_settled_at' => 'datetime',
             'corporate_amount' => 'decimal:2',
+            'corporate_financial_snapshot' => 'array',
         ]);
         $this->makeHidden('billing_snapshot');
+        $this->makeHidden('corporate_financial_snapshot');
         $this->append('billing');
     }
 

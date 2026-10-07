@@ -58,6 +58,7 @@ class FlutterwaveController extends Controller
     public static function flutterwave(Request $request)
     {
         $user = JWTAuth::parseToken()->authenticate();
+        app(\App\Services\Corporate\CorporateCollectionGuard::class)->validateEntry($request, $user);
         set_payment_gateway_company_context($user->company_id ?? null);
         $payment_id = uniqid();
 
@@ -73,6 +74,7 @@ class FlutterwaveController extends Controller
 
     public function flutterwave_payment(Request $request)
     {
+        app(\App\Services\Corporate\CorporateCollectionGuard::class)->validateEntry($request);
         $user = User::find($request->user_id);
         set_payment_gateway_company_context($user->company_id ?? null);
         $curl = curl_init();
@@ -337,6 +339,7 @@ class FlutterwaveController extends Controller
                         return $this->returnView($paymentData);
                     }
 
+                    app(\App\Services\Corporate\CorporateCollectionGuard::class)->assertPersonalTrip($trip, $user);
                     if ($trip->is_calculation == 0) {
                         $data = [
                             'trip_id' => $trip->id,

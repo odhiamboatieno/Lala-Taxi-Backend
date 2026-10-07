@@ -101,7 +101,7 @@ class DashboardController extends Controller
     **/
     public function trip_detail(Request $request)
     {
-        $trip = Trips::findOrFail($request->id);
+        $trip = Trips::where('user_id', Auth::id())->findOrFail($request->id);
 
         $invoice_data = $this->invoice_helper->getWebInvoice($trip);
 
@@ -113,10 +113,13 @@ class DashboardController extends Controller
     **/
     public function rider_rating(Request $request)
     {
-        $rating = Rating::where('trip_id',$request->trip_id)->first();
-        $trips = Trips::where('id',$request->trip_id)->first();
+        $request->validate(['trip_id' => 'required|integer', 'rating' => 'required|numeric|min:1|max:5']);
+        $trips = Trips::where('user_id', Auth::id())->findOrFail($request->trip_id);
         if(Auth::user()->user_type != 'Rider') {
             return ['success' => 'false'];            
+        }
+        if ($trips->isCorporate() && !$trips->billing_finalized_at) {
+            throw \Illuminate\Validation\ValidationException::withMessages(['trip_id' => __('corporate.finalization_invalid')]);
         }
         $data = [   
             'trip_id'       => $request->trip_id,
@@ -126,7 +129,9 @@ class DashboardController extends Controller
         ];
         $rating = Rating::updateOrCreate(['trip_id' => $request->trip_id], $data);
 
-        Trips::where('id',$request->trip_id)->update(['status'   => 'Payment']);
+        if (!$trips->isCorporate()) {
+            Trips::where('id',$request->trip_id)->update(['status' => 'Payment']);
+        }
         return [
             'success' => 'true',
             'user_rating' => $rating->rider_rating
@@ -138,7 +143,7 @@ class DashboardController extends Controller
     **/
     public function trip_invoice(Request $request)
     {
-        $trip = Trips::findOrFail($request->id);
+        $trip = Trips::where('user_id', Auth::id())->findOrFail($request->id);
 
         $invoice_data = $this->invoice_helper->getWebInvoice($trip);
 
@@ -150,7 +155,7 @@ class DashboardController extends Controller
     **/
     public function download_rider_invoice(Request $request)
     {
-        $trip = Trips::findOrFail($request->id);
+        $trip = Trips::where('user_id', Auth::id())->findOrFail($request->id);
 
         $invoice_data = $this->invoice_helper->getWebInvoice($trip);
         $pdf = PDF::loadView('dashboard.download_rider_invoice', compact('trip','invoice_data'));

@@ -50,7 +50,7 @@ class TripObserver
             $this->syncUserLevels($trip, $driver, $rider);
         }
 
-        if($trip->status == 'Completed') {
+        if($trip->status == 'Completed' && !$trip->isCorporate()) {
 
             // Driver Referral Functionality
             $driver = $driver ?? User::where('id', $trip->driver_id)->first();

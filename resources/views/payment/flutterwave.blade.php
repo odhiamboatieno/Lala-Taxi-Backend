@@ -49,6 +49,8 @@
       </div>
         <input type="hidden" name="amount" value="{{$amount}}"> 
         <input type="hidden" name="user_id" value="{{$user_id}}"> 
+        <input type="hidden" name="token" value="{{ $token }}">
+        <input type="hidden" name="trip_id" value="{{ request('trip_id') }}">
         <input type="hidden" name="pay_for" value="{{$pay_for}}">
         <input type="hidden" name="currency_code" value="{{$currency_code}}"> 
       <!-- Email Address -->

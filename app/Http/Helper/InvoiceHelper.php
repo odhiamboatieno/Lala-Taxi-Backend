@@ -64,6 +64,9 @@ class InvoiceHelper
 		if (!$trip) {
 			return false;
 		}
+        if ($trip->isCorporate() && $trip->billing_finalized_at) {
+            return false;
+        }
 
 		$status = strtolower((string) $trip->status);
 		if (!in_array($status, ['rating', 'payment', 'completed'], true)) {
@@ -174,10 +177,37 @@ class InvoiceHelper
 	 */
 	public function calculation($data)
 	{
+        $trip = Trips::findOrFail($data['trip_id']);
+        if (!$trip->isCorporate()) {
+            return $this->calculateFare($data);
+        }
+        if ($trip->billing_finalized_at) {
+            return $trip;
+        }
+        if ((int) $data['save_to_trip_table'] !== 1) {
+            return $this->calculateFare($data);
+        }
+        return DB::transaction(function () use ($data, $trip) {
+            \Modules\SaaSDispatch\Entities\CompanyCorporateAccount::query()->lockForUpdate()->findOrFail($trip->corporate_account_id);
+            $locked = Trips::query()->lockForUpdate()->findOrFail($trip->id);
+            if ($locked->billing_finalized_at) {
+                return $locked;
+            }
+            $calculated = $this->calculateFare($data);
+            return app(\App\Services\Corporate\CorporateTripFinalizer::class)->finalize($calculated);
+        }, 3);
+	}
+
+	protected function calculateFare($data)
+	{
 		$save = $data['save_to_trip_table'];
 
 		$trips = Trips::where('id', $data['trip_id'])->first();
 		$user = User::where('id', $trips->user_id)->firstOrFail();
+        if ($trips->isCorporate()) {
+            // Accepted bill-to currency survives later profile currency changes.
+            $user->currency_code = $trips->getRawOriginal('currency_code');
+        }
 
 		//Time calculation
 		$arrive_time = new DateTime($trips->arrive_time);
@@ -191,6 +221,9 @@ class InvoiceHelper
 		$request_details = RideRequest::with('schedule_ride')->where('id',$trips->request_id)->first();
 
 		$fare_details = ManageFare::where('location_id',$request_details->location_id)->where('vehicle_id',$trips->car_id)->first();
+        if ($trips->isCorporate()) {
+            $fare_details->convert_currency_code = $trips->getRawOriginal('currency_code');
+        }
 		$fare_mode = strtolower((string) data_get($trips->fare_estimation, 'fare_mode', site_settings('fare_mode') ?: 'taximeter'));
 		$is_pre_calculated = $fare_mode === 'pre-calculated';
 		$estimated_fare = (float) data_get($trips->fare_estimation, 'estimated_fare', 0);
@@ -325,7 +358,7 @@ class InvoiceHelper
 			$total_fare = $total_fare + $trips->tips + $trips->toll_fee + $waiting_charge;
 
 			//Apply promo code if promocode is available
-			$promo_codes = UsersPromoCode::whereUserId($trips->user_id)->whereTripId(0)->with('promo_code_many')->whereHas('promo_code_many')->orderBy('created_at', 'asc')->first();
+			$promo_codes = $trips->isCorporate() ? null : UsersPromoCode::whereUserId($trips->user_id)->whereTripId(0)->with('promo_code_many')->whereHas('promo_code_many')->orderBy('created_at', 'asc')->first();
 			if ($promo_codes) {
 				if ($save == 1) {
 					UsersPromoCode::whereId($promo_codes->id)->update(['trip_id' => $data['trip_id']]);
@@ -341,7 +374,7 @@ class InvoiceHelper
 
 			// Wallet Amount
 			$wallet_amount = 0;
-			$wallet = Wallet::whereUserId($trips->user_id)->first();
+			$wallet = $trips->isCorporate() ? null : Wallet::whereUserId($trips->user_id)->first();
 
 			if($wallet) {
 				$wallet_amount = $wallet->original_amount;
@@ -398,7 +431,10 @@ class InvoiceHelper
 				$amount = $total_fare;
 			}
 
-            if($trips->payment_mode != 'Cash' && $trips->payment_mode != 'Cash & Wallet') {
+            if ($trips->isCorporate()) {
+                // Existing debt-netting is disabled in oweAmount; do not create collection debt.
+                $driver_payout_result = ['applied' => 0, 'remaining' => 0, 'driver_payout' => $driver_payout];
+            } elseif($trips->payment_mode != 'Cash' && $trips->payment_mode != 'Cash & Wallet') {
 		       $driver_payout_result = $this->oweAmount($driver_payout,$trips->driver_id,$trips->id,$save,$user->currency->code);
 		       $driver_payout = $driver_payout_result['driver_payout'];
 		    }
@@ -428,7 +464,7 @@ class InvoiceHelper
 		    $trips->promo_amount = $promo_amount;
 		    $trips->tips = $trips->tips;
 		    $trips->toll_fee = $trips->toll_fee;
-		    $trips->currency_code = $user->currency->code;
+		    $trips->currency_code = $trips->isCorporate() ? $trips->getRawOriginal('currency_code') : $user->currency->code;
 		    $trips->schedule_fare = $schedule_fare_amount;
 		    $trips->peak_amount = $peak_amount;
 		    $trips->extra_fare_percentage = $extra_fare_percentage;
@@ -446,7 +482,7 @@ class InvoiceHelper
 
 		    if ($save == 1) {
 		    	$trips->is_calculation = 1;
-		    	if ($amount <= 0) {  //If toatal amount taken from wallet then trip status changed to completed
+                if ($amount <= 0 && !$trips->isCorporate()) {  //If total amount taken from wallet then trip status changed to completed
 		    		$trips->status = 'Completed';
 		    	}
 		    	$trips->save();
@@ -459,7 +495,7 @@ class InvoiceHelper
 
 			//Send payment detail as SMS to manual booking user
 			$schedule_ride = optional($trips->ride_request)->schedule_ride;
-			if(isset($schedule_ride) && $schedule_ride->booking_type == 'Manual Booking') {
+			if(!$trips->isCorporate() && isset($schedule_ride) && $schedule_ride->booking_type == 'Manual Booking') {
 				$push_title = __('messages.sms_payment_detail');
 		        $text 		= __('messages.api.trip_total_fare',['total_fare' => $trips->total_fare, 'currency' => $trips->currency_code]);
 
@@ -526,6 +562,9 @@ class InvoiceHelper
 	public static function formatInvoice($trips,$data,$is_web = false,$user='',$symbol = '')
 	{
 		$user_type = strtolower($data['user_type']);
+        if ($trips->isCorporate()) {
+            $symbol = $trips->getRawOriginal('currency_code').' ';
+        }
 		
 		if(!$user)
 			$user = User::where('id', $data['user_id'])->first();
@@ -903,9 +942,10 @@ class InvoiceHelper
 	public function getInvoice($trips,$data)
 	{
 		$invoice = $this->formatInvoice($trips,$data);
-		$user_promo_details = $this->getUserPromoDetails($trips->user_id);
+		$user_promo_details = $trips->isCorporate() ? [] : $this->getUserPromoDetails($trips->user_id);
 
 		$payment_details = [
+            'billing' => $trips->billing,
 			'currency_code' 	=> $trips->currency_code ?? '',
 			'total_time' 		=> $trips->total_time ?? '0.00',
 			//'pickup_location' 	=> $trips->pickup_location ?? '',
@@ -943,6 +983,7 @@ class InvoiceHelper
 			//'is_calculation' 	=> $trips->is_calculation,
 			'invoice' 			=> $invoice,
 			'payment_details' 	=> $payment_details,
+            'billing' => $trips->billing,
 			//'currency_code' 	=> $trips->currency_code,
 			'total_fare' 		=> $trips->total_fare,
 			//'driver_payout' 	=> $trips->driver_payout,

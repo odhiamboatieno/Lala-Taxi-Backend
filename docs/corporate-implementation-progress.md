@@ -38,9 +38,20 @@ Validation includes SQLite regressions and a dedicated `phpunit.corporate-mysql.
 
 Verification: dedicated booking regressions on SQLite and MySQL, complete existing PHPUnit suite, additive full MySQL migration, PHP/Blade syntax and isolated route cache. Detailed final counts are recorded in the corresponding commit verification output.
 
+## Phase 3a — Finalization and collection safeguards
+
+- Account-first transactional fare finalization freezes amounts/currency and driver earnings once, links one retained pending payout record, and records Deferred/unbilled completion without fake personal gateway transactions. Conflicting legacy payouts require explicit reconciliation rather than destructive cleanup.
+- Corporate calculation bypasses personal promotions, wallet deductions, referral consumption and cash-collection debt. Accepted billing currency remains fixed after affiliation, configuration or rider currency changes.
+- Realtime completion rolls back if accounting fails; retry finalizes before releasing the driver or broadcasting completion. Legacy completion validates the assigned driver and preserves finalized physical/financial metadata on retries.
+- Cash, main payment service and gateway-specific entry/callback paths reject corporate collection before charging or creating payment transactions. Gateway trip requests bind authenticated identity and explicit trip; existing payment forms forward these identifiers.
+- Driver checkout distinguishes earned, pending and withdrawable funds; payout scopes exclude deferred obligations. Finalized corporate trips allow rating and cannot be reopened by web rating. Rider web receipts/details are ownership-scoped.
+- Shared safe finance fixtures exercise the real fare engine without personal wallet/promotion/debt tables, financial immutability, duplicate payout recovery, rejected gateways and atomic completion/retry.
+
+Verification: full PHPUnit suite 87 tests / 353 assertions; PHP syntax, isolated route cache, compiled Blade syntax, additive full MySQL migration and dedicated corporate MySQL regressions. Invoice generation, lifecycle, delivery and settlement remain Phase 3b; this milestone is not end-to-end finance completion.
+
 ## Remaining phases
 
-3. Idempotent finalization, Deferred compatibility, invoices/settlement.
+3b. Invoices, period generation, delivery, settlement and scheduler.
 4. Complete admin/company management and delivery/PDF.
 5. Rider/driver API authorization and contracts.
 6. Customer affiliation and role-aware dashboard.
