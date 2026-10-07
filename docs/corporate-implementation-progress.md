@@ -14,9 +14,20 @@ Source specification: workspace-root `CORPORATE_ACCOUNTS_IMPLEMENTATION.md` (cor
 
 Verification: full PHPUnit suite, new tenant/capability/manual-payment regressions, PHP/compiled Blade syntax and isolated route cache. Fresh core migrations passed against isolated MySQL 8.4; trip status collation is utf8mb4_unicode_ci there (not a production claim).
 
+## Phase 1 — Schema and domain
+
+- Additive, retry-safe migration with legacy ownership preflight, correctly sized restrictive FKs and composite invoice/account ownership constraint.
+- Account bill-to/currency/timezone/terms/archive fields; rider affiliation/roles; schedule/request/trip immutable-context fields; fixed finalized charges and Deferred enum support.
+- Retained invoice items, uniquely active trip allocations and immutable audit records. Existing headers remain non-trip-backed.
+- Durable accepted-trip records are required in Phase 2 to block legacy user/driver/request cascades even before an invoice item exists.
+- Decimal casts and fixed-point money; audited permissioned/idempotent membership assignment/removal; explicit removal before transfers.
+- Account/company deletion protections; model relations; private billing snapshots hidden from generic serialization.
+- Corrected CurrencyConversion's constructor to call Eloquent's parent constructor, ensuring model/trait boot, casts and hidden-field initialization actually run.
+
+Validation includes SQLite regressions and a dedicated `phpunit.corporate-mysql.xml` profile for MySQL 8.4 upgrade/retry/ownership/cascade tests. The profile exclusively targets `lala_corporate_schema_test`; its fixture refuses any other non-SQLite database and removes only its own fixture tables. Supply DB_PASSWORD through the environment. This is not a production test configuration.
+
 ## Remaining phases
 
-1. Additive corporate schema, fixed-point amounts, relations/retention.
 2. Authorized payer attribution across booking, schedules, dispatch and retries.
 3. Idempotent finalization, Deferred compatibility, invoices/settlement.
 4. Complete admin/company management and delivery/PDF.

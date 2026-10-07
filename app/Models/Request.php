@@ -24,6 +24,7 @@ class Request extends Model
      * @var string
      */
     use SoftDeletes;
+    use \App\Models\Concerns\HasCorporateBilling;
     protected $table = 'request';
     protected $guarded = [];
 

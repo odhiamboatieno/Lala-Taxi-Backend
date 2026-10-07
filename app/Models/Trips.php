@@ -21,6 +21,7 @@ use Auth;
 class Trips extends Model
 {
     use CurrencyConversion;
+    use \App\Models\Concerns\HasCorporateBilling;
 
     public $convert_fields = ['time_fare', 'distance_fare', 'base_fare', 'total_fare', 'access_fee', 'driver_payout', 'owe_amount', 'remaining_owe_amount', 'applied_owe_amount', 'wallet_amount','promo_amount','payable_driver_payout','cash_collectable','commission','company_admin_commission','total_trip_fare','total_invoice','total_payout_frontend','cash_collect_frontend','driver_front_payout','rider_paid_amount','subtotal_fare','peak_amount','extra_fare_amount','schedule_fare','driver_peak_amount','company_commission','driver_service_fee','driver_or_company_commission','driver_or_company_earning','tips','admin_total_amount', 'waiting_charge','toll_fee','driver_earnings','additional_rider_amount','platform_driver_fee_amount','company_commission_amount','company_driver_fee_amount'];
     /**

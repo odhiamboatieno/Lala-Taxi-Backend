@@ -18,8 +18,9 @@ trait CurrencyConversion
 
 	public $is_convert = true;
 
-	public function __construct()
+	public function __construct(array $attributes = [])
 	{
+		parent::__construct($attributes);
 		if(request()->segment(1) == 'admin') {
 			$currency_code = Currency::defaultCurrency()->first()->code;
 			$this->convert_currency_code =  $currency_code;

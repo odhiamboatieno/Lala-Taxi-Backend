@@ -69,6 +69,11 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     // JWT Auth Functions Start
+    public function corporate_account()
+    {
+        return $this->belongsTo(\Modules\SaaSDispatch\Entities\CompanyCorporateAccount::class, 'corporate_account_id');
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

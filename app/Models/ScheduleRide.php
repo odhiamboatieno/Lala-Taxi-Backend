@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ScheduleRide extends Model
 {
+    use \App\Models\Concerns\HasCorporateBilling;
     /**
      * The database table used by the model.
      *

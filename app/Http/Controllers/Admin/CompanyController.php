@@ -499,6 +499,10 @@ class CompanyController extends Controller
      */
     public function delete(Request $request)
     {     
+        if (\Modules\SaaSDispatch\Entities\CompanyCorporateAccount::query()->where('company_id', $request->id)->exists()) {
+            flashMessage('danger', __('corporate.company_has_accounts'));
+            return redirect(LOGIN_USER_TYPE.'/company');
+        }
         if($request->id == 1) {
             flashMessage('danger', 'Could not delete default company');
             return redirect(LOGIN_USER_TYPE.'/company');
