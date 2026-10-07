@@ -845,7 +845,7 @@ class TripController extends Controller
 			'drop_location' => $drop_location,
 			'status' 		=> $status,
 			'end_trip' 		=> $end_time,
-			'completed_at' => $end_time,
+			'completed_at' => \Carbon\Carbon::instance($end_time)->utc(),
 			'total_km' 		=> $total_km,
 			'map_image' 	=> $file_name ?? '',
 			'toll_fee'		=> $toll_fee,

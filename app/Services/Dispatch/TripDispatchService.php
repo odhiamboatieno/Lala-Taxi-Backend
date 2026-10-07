@@ -1266,7 +1266,7 @@ class TripDispatchService
             }
 
             if ($targetStatus === TripWorkflow::STATUS_COMPLETED) {
-                $attributes['completed_at'] = now();
+                $attributes['completed_at'] = now('UTC');
                 $attributes['end_trip'] = $trip->end_trip ?: now();
                 $attributes['status'] = TripWorkflow::STATUS_LEGACY_PAYMENT;
             }

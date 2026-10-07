@@ -35,6 +35,17 @@ class Kernel extends ConsoleKernel
         $schedule->command('notifications:process-campaigns')->everyMinute();
         $schedule->command('driver-scores:recalculate --all')->daily();
         $schedule->command('documents:sync-status')->hourly();
+        $corporateSchedules = [
+            $schedule->command('corporate:reconcile-trips')->everyFiveMinutes(),
+            $schedule->command('corporate:generate-invoices')->hourly(),
+            $schedule->command('corporate:deliver-invoices')->everyMinute(),
+        ];
+        foreach ($corporateSchedules as $event) {
+            $event->timezone('UTC')->withoutOverlapping();
+            if (in_array(config('cache.default'), ['redis', 'memcached', 'database'], true)) {
+                $event->onOneServer();
+            }
+        }
         $schedule->command('backup:run')->monthly();
         $schedule->command('backup:run --only-db')->daily();
         $schedule->command('backup:clean')->monthly();

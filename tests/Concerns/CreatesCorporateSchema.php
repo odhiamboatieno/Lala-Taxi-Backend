@@ -73,6 +73,8 @@ trait CreatesCorporateSchema
             throw new \RuntimeException('Refusing cleanup outside isolated corporate schema database.');
         }
         Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('company_corporate_settlements');
+        Schema::dropIfExists('company_corporate_invoice_deliveries');
         foreach (['company_corporate_invoice_allocations', 'company_corporate_invoice_items', 'company_corporate_audits', 'company_corporate_trip_records', 'company_corporate_invoices', 'company_corporate_accounts', 'company_saas_settings', 'saas_feature_modules', 'site_settings', 'car_type', 'payment', 'rating', 'manage_fare', 'fees', 'trips', 'users', 'request', 'schedule_ride', 'currency', 'companies'] as $table) {
             Schema::dropIfExists($table);
         }

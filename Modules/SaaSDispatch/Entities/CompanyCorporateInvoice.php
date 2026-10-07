@@ -30,8 +30,8 @@ class CompanyCorporateInvoice extends Model
         'total_amount' => 'decimal:2',
         'trip_backed' => 'boolean',
         'bill_to_snapshot' => 'array',
-        'period_start' => 'datetime', 'period_end' => 'datetime',
-        'sent_at' => 'datetime', 'paid_at' => 'datetime', 'voided_at' => 'datetime',
+        'period_start' => \App\Casts\UtcDateTime::class, 'period_end' => \App\Casts\UtcDateTime::class,
+        'sent_at' => \App\Casts\UtcDateTime::class, 'paid_at' => \App\Casts\UtcDateTime::class, 'voided_at' => \App\Casts\UtcDateTime::class,
     ];
 
     public function company()
@@ -51,6 +51,11 @@ class CompanyCorporateInvoice extends Model
 
     protected static function booted(): void
     {
+        static::updating(function (self $invoice) {
+            if ($invoice->getRawOriginal('trip_backed') && $invoice->isDirty()) {
+                throw new \DomainException('Trip-backed invoices are immutable; use audited finance lifecycle actions.');
+            }
+        });
         static::deleting(fn () => throw new \DomainException('Void unpaid invoices instead of deleting financial history.'));
     }
 }

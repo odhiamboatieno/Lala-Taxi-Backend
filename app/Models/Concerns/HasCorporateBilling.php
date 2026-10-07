@@ -21,8 +21,8 @@ trait HasCorporateBilling
     {
         $this->mergeCasts([
             'billing_snapshot' => 'array',
-            'billing_finalized_at' => 'datetime',
-            'corporate_settled_at' => 'datetime',
+            'billing_finalized_at' => \App\Casts\UtcDateTime::class,
+            'corporate_settled_at' => \App\Casts\UtcDateTime::class,
             'corporate_amount' => 'decimal:2',
             'corporate_financial_snapshot' => 'array',
         ]);

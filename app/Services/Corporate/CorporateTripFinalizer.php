@@ -57,11 +57,11 @@ class CorporateTripFinalizer
             DB::table('trips')->where('id', $trip->id)->update([
                 'status' => 'Completed', 'payment_status' => 'Deferred', 'billing_status' => 'unbilled',
                 'corporate_amount' => $amount, 'corporate_currency_code' => $trip->getRawOriginal('currency_code'),
-                'corporate_financial_snapshot' => json_encode($snapshot, JSON_THROW_ON_ERROR), 'billing_finalized_at' => now(),
+                'corporate_financial_snapshot' => json_encode($snapshot, JSON_THROW_ON_ERROR), 'billing_finalized_at' => now('UTC'),
             ]);
             CompanyCorporateAudit::create([
                 'corporate_account_id' => $account->id, 'action' => 'trip.finalized', 'actor' => 'system',
-                'reference' => 'trip:'.$trip->id, 'data' => ['amount' => $amount, 'currency_code' => $trip->getRawOriginal('currency_code')], 'created_at' => now(),
+                'reference' => 'trip:'.$trip->id, 'data' => ['amount' => $amount, 'currency_code' => $trip->getRawOriginal('currency_code')], 'created_at' => now('UTC'),
             ]);
             DB::afterCommit(fn () => app(\App\Services\Rating\DriverRatingEligibilityService::class)->emitIfEligible($trip->fresh()));
 

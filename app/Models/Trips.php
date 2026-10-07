@@ -49,7 +49,7 @@ class Trips extends Model
         'fare_estimation' => 'array',
         'accepted_at' => 'datetime',
         'started_at' => 'datetime',
-        'completed_at' => 'datetime',
+        'completed_at' => \App\Casts\UtcDateTime::class,
         'cancelled_at' => 'datetime',
     ];
 
