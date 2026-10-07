@@ -177,7 +177,7 @@ class InvoiceHelper
 		$save = $data['save_to_trip_table'];
 
 		$trips = Trips::where('id', $data['trip_id'])->first();
-		$user = User::where('id', $data['user_id'])->first();
+		$user = User::where('id', $trips->user_id)->firstOrFail();
 
 		//Time calculation
 		$arrive_time = new DateTime($trips->arrive_time);

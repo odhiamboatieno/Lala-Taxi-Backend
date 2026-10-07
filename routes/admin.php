@@ -253,7 +253,7 @@ Route::group(['prefix' => (LOGIN_USER_TYPE=='company')?'company':'admin', 'middl
 	
 	// Owe Amount
 	Route::group(['middleware' =>  'admin_can:manage_owe_amount'], function() {
-		Route::match(['GET', 'POST'], 'owe', 'OweController@index')->name('owe');
+		Route::match(['GET', 'POST'], 'owe', 'OweController@index')->name('owe.index');
 		Route::match(['GET', 'POST'], 'company_owe/{id}', 'OweController@company_index')->name('owe');
 		Route::get('details/{type}', 'OweController@owe_details')->name('owe_details');
 		Route::get('update_driver_payment', 'OweController@update_payment')->name('update_payment');
@@ -394,8 +394,8 @@ Route::group(['prefix' => (LOGIN_USER_TYPE=='company')?'company':'admin', 'middl
 	Route::group(['middleware' => 'admin_can:manage_support'],function () {
 		Route::get('support', 'SupportController@index');
 		Route::match(['GET', 'POST'], 'add_support', 'SupportController@add');
-		Route::match(['GET', 'POST'], 'edit_support/{id}', 'SupportController@update')->where('id', '[0-9]+')->name('edit');
-		Route::get('delete_support/{id}', 'SupportController@delete')->where('id', '[0-9]+')->name('delete');
+		Route::match(['GET', 'POST'], 'edit_support/{id}', 'SupportController@update')->where('id', '[0-9]+')->name('support.edit');
+		Route::get('delete_support/{id}', 'SupportController@delete')->where('id', '[0-9]+')->name('support.delete');
 		Route::get('support_issues', 'SupportIssueController@index');
 		Route::get('support_issues/{id}', 'SupportIssueController@show')->where('id', '[0-9]+');
 		Route::post('support_issues/{id}/reply', 'SupportIssueController@reply')->where('id', '[0-9]+');

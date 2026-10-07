@@ -62,6 +62,9 @@ class DashboardSearch
                 $title = trim(implode(' ', array_filter(array_map(fn ($field) => $row->{$field} ?? '', $source['title']))));
                 $detail = array_filter(array_map(fn ($field) => $row->{$field} ?? '', $source['detail']));
                 $path = $source['path'];
+                if ($scope === 'admin' && in_array($source['table'], ['company_corporate_accounts', 'company_corporate_invoices'], true)) {
+                    $path = 'companies/'.$row->company_id.'/corporate-accounts';
+                }
                 if (isset($source['edit']) && $can($source['editPermission'] ?? $source['permission'])) {
                     $path = str_replace('{id}', (string) $row->id, $source['edit']);
                 } elseif ($source['table'] === 'users') {
@@ -130,6 +133,8 @@ class DashboardSearch
             ]);
         } else {
             $sources = array_merge($sources, [
+                $entry('company_corporate_accounts', 'Corporate accounts', 'manage_company_accounts_invoicing', 'saas-dispatch/accounts', ['account_name', 'contact_name', 'contact_email', 'contact_phone'], ['account_name'], ['contact_email', 'status'], 'fa-building') + ['feature' => 'accounts_invoicing', 'anchor' => true],
+                $entry('company_corporate_invoices', 'Invoices', 'manage_company_accounts_invoicing', 'saas-dispatch/accounts', ['invoice_number', 'status'], ['invoice_number'], ['status'], 'bi-receipt-cutoff') + ['aliases' => 'invoice billing', 'feature' => 'accounts_invoicing', 'anchor' => true],
                 $entry('companies', 'Companies', 'view_company', 'company', ['name', 'legal_name', 'email', 'mobile_number', 'registration_reference'], ['name'], ['email', 'status'], 'fa-building') + ['aliases' => 'company', 'edit' => 'edit_company/{id}', 'editPermission' => 'update_company'],
                 $entry('admins', 'Administrators', 'manage_admin', 'admin_user', ['username', 'email'], ['username'], ['email'], 'bi-people'),
                 $entry('roles', 'Roles', 'manage_admin', 'roles', ['name', 'display_name', 'description'], ['display_name', 'name'], ['description'], 'bi-shield-check'),

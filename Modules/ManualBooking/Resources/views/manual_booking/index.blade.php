@@ -554,9 +554,6 @@
 									<label class="form-label" for="payment_method">Payment Method</label>
 									<select class="form-select" id="payment_method" name="payment_method">
 										<option value="Cash" {{ data_get($manual_booking_payload, 'payment_method', 'Cash') === 'Cash' ? 'selected' : '' }}>Cash</option>
-										<option value="Card" {{ data_get($manual_booking_payload, 'payment_method') === 'Card' ? 'selected' : '' }}>Card</option>
-										<option value="Wallet" {{ data_get($manual_booking_payload, 'payment_method') === 'Wallet' ? 'selected' : '' }}>Wallet</option>
-										<option value="Invoice" {{ data_get($manual_booking_payload, 'payment_method') === 'Invoice' ? 'selected' : '' }}>Invoice</option>
 									</select>
 								</div>
 								<div>

@@ -107,6 +107,8 @@ class ManualBookingController extends Controller
 
     public function store(Request $request) {
 
+        $payment = app(\App\Services\Dispatch\ManualBookingPayment::class)->resolve($request->input('payment_method'));
+
         $rider = User::where('mobile_number',$request->mobile_number)->where('user_type','Rider')->first();
 
         if ($rider==null) {
@@ -213,8 +215,8 @@ class ManualBookingController extends Controller
         $schedule->status = 'Pending';
         $schedule->trip_path = @$polyline;
         $schedule->timezone = ($timezone=='')?'Asia/Kolkata':$timezone;
-        $schedule->payment_method ='Cash';
-        $schedule->is_wallet = 'No';
+        $schedule->payment_method = $payment['payment_method'];
+        $schedule->is_wallet = $payment['is_wallet'];
         $schedule->location_id = $request->location_id;
         $schedule->peak_id = $request->peak_id;
         $schedule->booking_type = 'Manual Booking';
@@ -1044,7 +1046,7 @@ class ManualBookingController extends Controller
             'capabilities' => array_values($payload['capabilities'] ?? []),
             'dispatcher_note' => $payload['dispatcher_note'] ?? '',
             'driver_note' => $payload['driver_note'] ?? '',
-            'payment_method' => $payload['payment_method'] ?? 'Cash',
+            'payment_method' => app(\App\Services\Dispatch\ManualBookingPayment::class)->resolve($payload['payment_method'] ?? null)['payment_method'],
             'customer_type' => $payload['customer_type'] ?? '',
             'company_name' => $payload['company_name'] ?? '',
             'company_phone' => $payload['company_phone'] ?? '',

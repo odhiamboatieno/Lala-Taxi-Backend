@@ -10,12 +10,12 @@ class CompanyContextResolver
 {
     public function isAdmin(): bool
     {
-        return Auth::guard('admin')->check() && LOGIN_USER_TYPE !== 'company';
+        return Auth::guard('admin')->check() && !$this->isCompany();
     }
 
     public function isCompany(): bool
     {
-        return Auth::guard('company')->check() || LOGIN_USER_TYPE === 'company';
+        return (request()->segment(1) === 'company' || request()->is('api/company/*')) && Auth::guard('company')->check();
     }
 
     public function actingCompany(?Company $company = null): Company
@@ -23,6 +23,7 @@ class CompanyContextResolver
         if ($this->isCompany()) {
             $authCompany = Auth::guard('company')->user();
             abort_unless($authCompany instanceof Company, 403);
+            abort_if($company && (int) $company->id !== (int) $authCompany->id, 404);
 
             return $authCompany;
         }

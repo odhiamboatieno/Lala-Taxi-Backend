@@ -431,7 +431,7 @@
                 </li>
             @endif
 
-            @if($companySaasEnabled && operation_team_can('manage_company_accounts_invoicing') && saas_feature_module_enabled('accounts_invoicing'))
+            @if(saas_dispatch_enabled() && saas_feature_module_enabled('accounts_invoicing') && ($company_user ? (app(\App\Services\Corporate\CorporateCapabilities::class)->newBookingsEnabled(auth('company')->user()) && operation_team_can('manage_company_accounts_invoicing')) : auth('admin')->user()?->can('manage_company_accounts_invoicing')))
                 <li class="pe-menu-title">Finance and Accounts</li>
                 <li class="pe-slide {{ str_contains(Route::current()->uri(), 'saas-dispatch/accounts') ? 'active' : '' }}">
                     <a href="{{ url($first_segment . '/saas-dispatch/accounts') }}" class="pe-nav-link">

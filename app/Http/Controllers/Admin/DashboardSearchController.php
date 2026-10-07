@@ -24,6 +24,10 @@ class DashboardSearchController extends Controller
         $validated = $request->validate(['q' => ['required', 'string', 'min:2', 'max:100']]);
         $can = fn (string $permission) => $scope === 'company' ? operation_team_can($permission) : $user->can($permission);
         $featureEnabled = function (string $feature) use ($scope): bool {
+            if ($feature === 'accounts_invoicing') {
+                return saas_dispatch_enabled() && saas_feature_module_enabled($feature)
+                    && ($scope === 'admin' || app(\App\Services\Corporate\CorporateCapabilities::class)->newBookingsEnabled(auth('company')->user()));
+            }
             if ($feature === 'manual_booking') {
                 return manual_booking_module_enabled() && ($scope !== 'company' || auth('company')->user()->status === 'Active');
             }

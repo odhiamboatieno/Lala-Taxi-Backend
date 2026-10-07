@@ -217,7 +217,7 @@
                                                 @if($companySaasEnabled && operation_team_can('manage_company_networking') && saas_feature_module_enabled('networking'))
                                                     <li><a class="dropdown-item" href="{{ url($first_segment . '/saas-dispatch/networking') }}">Networking</a></li>
                                                 @endif
-                                                @if($companySaasEnabled && operation_team_can('manage_company_accounts_invoicing') && saas_feature_module_enabled('accounts_invoicing'))
+                                                @if(saas_dispatch_enabled() && saas_feature_module_enabled('accounts_invoicing') && ($company_user ? (app(\App\Services\Corporate\CorporateCapabilities::class)->newBookingsEnabled(auth('company')->user()) && operation_team_can('manage_company_accounts_invoicing')) : auth('admin')->user()?->can('manage_company_accounts_invoicing')))
                                                     <li><a class="dropdown-item" href="{{ url($first_segment . '/saas-dispatch/accounts') }}">Accounts / Invoicing</a></li>
                                                 @endif
                                                 @if($companySaasEnabled && operation_team_can('manage_company_data_suite') && saas_feature_module_enabled('data_suite'))

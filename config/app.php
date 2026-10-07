@@ -183,6 +183,7 @@ return [
         // App\Providers\TelescopeServiceProvider::class,
         App\Providers\StartServiceProvider::class,
         Modules\ManualBooking\Providers\ManualBookingServiceProvider::class,
+        Modules\SaaSDispatch\Providers\SaaSDispatchServiceProvider::class,
         Modules\UserLevels\Providers\UserLevelsServiceProvider::class,
         Modules\OperationTeam\Providers\OperationTeamServiceProvider::class,
         Modules\SurgePricing\Providers\SurgePricingServiceProvider::class,

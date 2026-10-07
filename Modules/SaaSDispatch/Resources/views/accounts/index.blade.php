@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header"><h4 class="mb-0">Corporate Accounts</h4></div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('saasdispatch.self.accounts.accounts.store') }}" class="row g-3 mb-4">
+                    <form method="POST" action="{{ route($accountsRoute.'accounts.store', $accountsRouteParameters) }}" class="row g-3 mb-4">
                         @csrf
                         <div class="col-12"><input class="form-control" name="account_name" placeholder="Account name"></div>
                         <div class="col-md-6"><input class="form-control" name="contact_name" placeholder="Contact name"></div>
@@ -28,7 +28,7 @@
                         <div class="col-12"><button class="btn btn-primary">Create Account</button></div>
                     </form>
                     @foreach($accounts as $account)
-                        <div class="border rounded p-3 mb-3" id="search-company_corporate_accounts-{{ $account->id }}">
+                        <div class="border p-3 mb-3" id="search-company_corporate_accounts-{{ $account->id }}">
                             <div class="fw-semibold">{{ $account->account_name }}</div>
                             <div class="text-muted">{{ $account->contact_email ?: 'No email' }} | {{ ucfirst($account->billing_cycle) }}</div>
                         </div>
@@ -40,7 +40,7 @@
             <div class="card">
                 <div class="card-header"><h4 class="mb-0">Generate Invoice</h4></div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('saasdispatch.self.accounts.invoices.store') }}" class="row g-3 mb-4">
+                    <form method="POST" action="{{ route($accountsRoute.'invoices.store', $accountsRouteParameters) }}" class="row g-3 mb-4">
                         @csrf
                         <div class="col-md-6">
                             <select name="corporate_account_id" class="form-control">

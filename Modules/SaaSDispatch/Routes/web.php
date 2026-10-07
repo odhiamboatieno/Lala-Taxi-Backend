@@ -192,16 +192,6 @@ Route::group([
         ->middleware('admin_can:manage_company_networking')
         ->name('saasdispatch.self.networking.respond');
 
-    Route::get('saas-dispatch/accounts', [CompanyAccountsController::class, 'index'])
-        ->middleware('admin_can:manage_company_accounts_invoicing')
-        ->name('saasdispatch.self.accounts.index');
-    Route::post('saas-dispatch/accounts/accounts', [CompanyAccountsController::class, 'storeAccount'])
-        ->middleware('admin_can:manage_company_accounts_invoicing')
-        ->name('saasdispatch.self.accounts.accounts.store');
-    Route::post('saas-dispatch/accounts/invoices', [CompanyAccountsController::class, 'storeInvoice'])
-        ->middleware('admin_can:manage_company_accounts_invoicing')
-        ->name('saasdispatch.self.accounts.invoices.store');
-
     Route::get('saas-dispatch/data-suite', [CompanyDataSuiteController::class, 'index'])
         ->middleware('admin_can:manage_company_data_suite')
         ->name('saasdispatch.self.data-suite.index');
@@ -311,4 +301,18 @@ Route::group([
     Route::put('saas-dispatch/companies/{company}/dispatch-settings', [CompanyDispatchSettingController::class, 'update'])
         ->middleware('admin_can:manage_company_dispatch_settings')
         ->name('saasdispatch.companies.dispatch-settings.update');
+});
+
+// Both corporate management contexts exist in CLI-generated route caches.
+Route::middleware(['web', 'admin_guest', 'admin_can:manage_company_accounts_invoicing'])->group(function () {
+    Route::get('admin/saas-dispatch/accounts', [CompanyAccountsController::class, 'companies'])
+        ->name('saasdispatch.admin.accounts.index');
+
+    foreach (['company/saas-dispatch/accounts' => 'saasdispatch.self.accounts.', 'admin/companies/{company}/corporate-accounts' => 'saasdispatch.companies.accounts.'] as $prefix => $name) {
+        Route::prefix($prefix)->name($name)->group(function () {
+            Route::get('/', [CompanyAccountsController::class, 'index'])->name('index');
+            Route::post('accounts', [CompanyAccountsController::class, 'storeAccount'])->name('accounts.store');
+            Route::post('invoices', [CompanyAccountsController::class, 'storeInvoice'])->name('invoices.store');
+        });
+    }
 });
