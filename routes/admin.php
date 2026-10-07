@@ -30,6 +30,7 @@ Route::group(['prefix' => (LOGIN_USER_TYPE=='company')?'company':'admin', 'middl
 
 	Route::redirect('/',LOGIN_USER_TYPE.'/dashboard');
 	Route::get('dashboard', 'AdminController@index');
+	Route::get('search', \App\Http\Controllers\Admin\DashboardSearchController::class)->middleware('throttle:60,1');
 	Route::get('lang/{lang}', ['as' => 'switch.locale', 'uses' => 'LanguageController@changeLocale']);
 
 	if (LOGIN_USER_TYPE == 'admin') {

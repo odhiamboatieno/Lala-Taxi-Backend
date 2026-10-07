@@ -192,6 +192,7 @@
     }
 </style>
 @include('admin.partials.appearance')
+<link rel="stylesheet" href="{{ asset('css/dashboard-search.css') }}?v={{ filemtime(public_path('css/dashboard-search.css')) }}">
 
 <body class="admin-app" ng-app="App">
     <div id="admin-page-preloader" aria-hidden="true">
@@ -201,6 +202,7 @@
     @include('partials.header')
     @include('partials.sidebar')
     @include('partials.horizontal')
+    @include('admin.partials.search')
 
     <main class="app-wrapper">
         <div class="container-fluid">

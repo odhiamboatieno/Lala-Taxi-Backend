@@ -24,7 +24,7 @@
                 <div class="card-header"><h4 class="mb-0">Conversation Hub</h4></div>
                 <div class="card-body">
                     @forelse($threads as $thread)
-                        <div class="border rounded p-3 mb-4">
+                        <div class="border rounded p-3 mb-4" id="search-company_message_threads-{{ $thread->id }}">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <div>
                                     <div class="fw-semibold">{{ $thread->subject }}</div>

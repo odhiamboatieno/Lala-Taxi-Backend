@@ -49,6 +49,9 @@
         </a>
     </div>
 
+    <div class="dashboard-sidebar-search">
+        @include('admin.partials.search-trigger', ['placement' => 'sidebar'])
+    </div>
     <nav class="pe-app-sidebar-menu nav nav-pills" data-simplebar id="sidebar-simplebar">
         <ul class="pe-main-menu list-unstyled">
             <li class="{{ Route::current()->uri() == $first_segment . '/dashboard' ? 'active' : '' }} pe-slide pe-has-sub">

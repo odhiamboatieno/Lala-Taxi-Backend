@@ -43,7 +43,7 @@
                 </div>
                 <div class="card-body">
                     @forelse($tickets as $ticket)
-                        <div class="border rounded p-3 mb-4">
+                        <div class="border rounded p-3 mb-4" id="search-saas_support_tickets-{{ $ticket->id }}">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <div>
                                     <div class="fw-semibold">{{ $ticket->subject }}</div>

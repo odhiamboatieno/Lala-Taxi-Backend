@@ -1,0 +1,93 @@
+const { chromium } = require(require.resolve('playwright', { paths: [require('path').resolve(__dirname, '../../prototype')] }));
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const base = 'http://127.0.0.1:8097';
+const output = '/private/tmp/lala-dashboard-search';
+(async () => {
+    fs.mkdirSync(output, { recursive: true });
+    const browser = await chromium.launch({ headless: true, channel: 'chrome' });
+    try {
+        for (const scope of ['admin', 'company']) {
+            for (const [width, theme] of [[1440, 'light'], [1024, 'dark'], [390, 'light']]) {
+                const page = await browser.newPage({ viewport: { width, height: 1000 } });
+                const errors = [];
+                page.on('pageerror', error => errors.push(error.message));
+                await page.route('**/*', route => {
+                    if (!route.request().url().startsWith(base)) return route.fulfill({ status: 200, contentType: 'text/plain', body: '' });
+                    return route.continue();
+                });
+                await page.addInitScript(theme => localStorage.setItem('data-bs-theme', theme), theme);
+                const response = await page.goto(`${base}/${scope}/dashboard`, { waitUntil: 'networkidle' });
+                assert.equal(response.status(), 200);
+                await page.waitForTimeout(400);
+                const dialog = page.locator('#dashboard-search');
+                const input = page.locator('#dashboard-search-input');
+                const results = page.locator('#dashboard-search-results');
+                const header = page.locator('.dashboard-search-trigger--header');
+                await header.click();
+                assert.equal(await dialog.isVisible(), true);
+                assert.equal(await input.evaluate(node => document.activeElement === node), true);
+                await page.keyboard.press('Escape');
+                assert.equal(await dialog.isVisible(), false);
+                assert.equal(await header.evaluate(node => document.activeElement === node), true);
+                await page.keyboard.press('Meta+k');
+                assert.equal(await dialog.isVisible(), true);
+                await page.keyboard.press('Meta+k');
+                assert.equal(await dialog.isVisible(), false);
+                await page.keyboard.press('Control+k');
+                assert.equal(await dialog.isVisible(), true);
+                await page.locator('[data-search-filter="navigation"]').click();
+                await input.fill(scope === 'company' ? 'scheduled' : 'trips');
+                await page.waitForTimeout(300);
+                assert.ok(await results.locator('[role="option"]').count() > 0, 'Collapsed menu children must be searchable');
+                await input.fill('add driver');
+                assert.match(await results.innerText(), /Add driver/i, 'Creation features must be discoverable');
+                await input.fill('appearance');
+                const before = await page.locator('html').getAttribute('data-bs-theme');
+                await page.keyboard.press('Enter');
+                assert.equal(await dialog.isVisible(), false);
+                assert.notEqual(await page.locator('html').getAttribute('data-bs-theme'), before);
+                await header.click();
+                await page.locator('[data-search-filter="record"]').click();
+                await input.fill('Alice');
+                await page.waitForFunction(() => !document.getElementById('dashboard-search-status').textContent.includes('Searching'));
+                assert.match(await results.innerText(), /Alice Kamau/);
+                const count = await results.locator('[role="option"]').count();
+                assert.equal(count, scope === 'company' ? 1 : 2, 'Company results must be isolated');
+                const first = await input.getAttribute('aria-activedescendant');
+                assert.ok(first, 'The first live record result is selected for Enter');
+                await page.keyboard.press('ArrowDown');
+                if (count > 1) assert.notEqual(await input.getAttribute('aria-activedescendant'), first);
+                await input.fill('zzzznotfound');
+                await page.waitForFunction(() => !document.getElementById('dashboard-search-status').textContent.includes('Searching'));
+                assert.match(await results.innerText(), /No matches yet/);
+                await page.route(`**/${scope}/search?**`, route => route.fulfill({ status: 503, body: '{}' }));
+                await page.locator('[data-search-filter="all"]').click();
+                await input.fill('driver');
+                await page.waitForFunction(() => document.getElementById('dashboard-search-status').textContent.includes('unavailable'));
+                assert.ok(await results.locator('[role="option"]').count() > 0, 'Menu search must survive a failed record request');
+                await page.unroute(`**/${scope}/search?**`);
+                await page.locator('[data-search-filter="navigation"]').click();
+                await input.fill('');
+                await page.screenshot({ path: path.join(output, `${scope}-${width}-${theme}-palette.png`) });
+                assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+                const bounds = await dialog.boundingBox();
+                assert.ok(bounds.x >= 0 && bounds.x + bounds.width <= width && bounds.y + bounds.height <= 1000);
+                await page.mouse.click(width - 2, 2);
+                assert.equal(await dialog.isVisible(), false, 'Backdrop closes search');
+                if (width === 390) await page.locator('#toggleSidebar').click();
+                await page.locator('.dashboard-search-trigger--sidebar').click();
+                assert.equal(await dialog.isVisible(), true);
+                await page.keyboard.press('Tab');
+                assert.equal(await page.evaluate(() => document.getElementById('dashboard-search').contains(document.activeElement)), true, 'Focus stays inside the modal');
+                await page.keyboard.press('Escape');
+                await page.screenshot({ path: path.join(output, `${scope}-${width}-${theme}-dashboard.png`) });
+                assert.deepEqual(errors, []);
+                console.log(`Passed ${scope} ${width}px ${theme}: search controls, shortcuts, features, records, keyboard, focus, failure and layout checks.`);
+                await page.close();
+            }
+        }
+        console.log(`Screenshots: ${output}`);
+    } finally { await browser.close(); }
+})().catch(error => { console.error(error); process.exitCode = 1; });

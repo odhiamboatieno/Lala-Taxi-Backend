@@ -28,7 +28,7 @@
                         <div class="col-12"><button class="btn btn-primary">Create Account</button></div>
                     </form>
                     @foreach($accounts as $account)
-                        <div class="border rounded p-3 mb-3">
+                        <div class="border rounded p-3 mb-3" id="search-company_corporate_accounts-{{ $account->id }}">
                             <div class="fw-semibold">{{ $account->account_name }}</div>
                             <div class="text-muted">{{ $account->contact_email ?: 'No email' }} | {{ ucfirst($account->billing_cycle) }}</div>
                         </div>
@@ -62,7 +62,7 @@
                             <thead><tr><th>Invoice</th><th>Account</th><th>Total</th><th>Status</th></tr></thead>
                             <tbody>
                                 @forelse($invoices as $invoice)
-                                    <tr>
+                                    <tr id="search-company_corporate_invoices-{{ $invoice->id }}">
                                         <td>{{ $invoice->invoice_number }}<br><small class="text-muted">{{ optional($invoice->invoice_date)->format('d M Y') }}</small></td>
                                         <td>{{ optional($invoice->account)->account_name }}</td>
                                         <td>{{ number_format((float) $invoice->total_amount, 2) }}</td>

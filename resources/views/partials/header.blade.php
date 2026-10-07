@@ -14,8 +14,8 @@
             $headerLogoUrl = $logo_url ?? (defined('LOGO_URL') ? url(LOGO_URL) : url('images/logos/logo.png'));
             $headerFavicon = $favicon ?? $headerLogoUrl;
             $manualBookingEnabledForCompany = !$company_user || manual_booking_module_enabled();
-            $manualBookingMenuVisible = ($company_user && @$user->status == 'Active' && $manualBookingEnabledForCompany) || (!$company_user && @$user->can('manage_manual_booking'));
-            $laterBookingMenuVisible = ($company_user && $manualBookingEnabledForCompany) || (!$company_user && @$user->can('manage_manual_booking'));
+            $manualBookingMenuVisible = ($company_user && @$user->status == 'Active' && $manualBookingEnabledForCompany && operation_team_can('manage_manual_booking')) || (!$company_user && @$user->can('manage_manual_booking'));
+            $laterBookingMenuVisible = ($company_user && $manualBookingEnabledForCompany && operation_team_can('manage_manual_booking')) || (!$company_user && @$user->can('manage_manual_booking'));
             $companySaasEnabled = $company_user && function_exists('company_saas_enabled') && company_saas_enabled();
             $defaultLanguageItem = $default_language[0] ?? null;
             $languageOptions = $language ?? [];
@@ -27,7 +27,7 @@
 
         <div class="d-flex align-items-center">
             <div class="me-auto">
-                <div class="d-inline-flex align-items-center gap-5">
+                <div class="d-inline-flex align-items-center gap-5 dashboard-header-navigation">
                     <a href="{{ url($first_segment . '/dashboard') }}" class="fs-18 fw-semibold">
                         <img height="30" class="header-sidebar-logo-default d-none" alt="{{ __('messages.blade_static.logo_83fce832') }}" src="{{ $headerLogoUrl }}">
                         <img height="30" class="header-sidebar-logo-light d-none" alt="{{ __('messages.blade_static.logo_83fce832') }}" src="{{ $headerLogoUrl }}">
@@ -266,6 +266,7 @@
                             </a>
                         @endif
                     </div>
+                    @include('admin.partials.search-trigger', ['placement' => 'header'])
                 </div>
             </div>
 
