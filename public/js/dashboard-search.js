@@ -1,3 +1,29 @@
+// Keep collapsed flyouts beside their icons while the fixed sidebar scrolls.
+(() => {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar) return;
+    function positionFlyout(event) {
+        if (document.documentElement.dataset.sidebar !== 'icon') return;
+        const slide = event?.target?.closest?.('.pe-has-sub')
+            || sidebar.querySelector('.pe-main-menu > .pe-has-sub:is(:hover, :focus-within)');
+        if (!slide || !sidebar.contains(slide)) return;
+        const menu = slide.querySelector(':scope > .pe-slide-menu');
+        const link = slide.querySelector(':scope > .pe-nav-link');
+        if (!menu || !link) return;
+        const bounds = link.getBoundingClientRect();
+        const height = Math.min(menu.scrollHeight, innerHeight - 32);
+        const top = Math.max(16, Math.min(bounds.top, innerHeight - height - 16));
+        const sidebarBounds = sidebar.getBoundingClientRect();
+        const left = document.documentElement.dir === 'rtl' ? sidebarBounds.left - menu.offsetWidth : sidebarBounds.right;
+        menu.style.setProperty('--sidebar-flyout-top', `${top}px`);
+        menu.style.setProperty('--sidebar-flyout-left', `${left}px`);
+    }
+    sidebar.addEventListener('pointerover', positionFlyout);
+    sidebar.addEventListener('focusin', positionFlyout);
+    sidebar.addEventListener('scroll', positionFlyout, true);
+    window.addEventListener('resize', () => positionFlyout());
+})();
+
 (() => {
     'use strict';
     const dialog = document.getElementById('dashboard-search');
