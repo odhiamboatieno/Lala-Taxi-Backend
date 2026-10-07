@@ -1727,6 +1727,11 @@ class TripController extends Controller
 	 */
 	public function acceptTrip(Request $request)
 	{
+		return DB::transaction(fn () => $this->persistAcceptedTrip($request), 3);
+	}
+
+	protected function persistAcceptedTrip(Request $request)
+	{
 		$user_details = JWTAuth::parseToken()->authenticate();
 
 		$rules = [
@@ -1753,7 +1758,16 @@ class TripController extends Controller
 			]);
 		}
 		
-		$req = RideRequest::where('id', $request->request_id)->first();
+		$candidate = RideRequest::findOrFail($request->request_id);
+		abort_unless((int) $candidate->driver_id === (int) $user_details->id, 403);
+		app(\App\Services\Corporate\CorporateBillingContext::class)->assertCanAccept($candidate);
+        RideRequest::query()->when($candidate->group_id,
+            fn ($query) => $query->where('group_id', $candidate->group_id),
+            fn ($query) => $query->where('id', $candidate->id))
+            ->orderBy('id')->lockForUpdate()->firstOrFail();
+		$req = RideRequest::where('id', $request->request_id)->lockForUpdate()->firstOrFail();
+		abort_unless((int) $req->driver_id === (int) $user_details->id && $req->status === 'Pending', 403);
+		app(\App\Services\Corporate\CorporateBillingContext::class)->validatePending($req);
 		$request_group = $req->group_id;
 		$request_status = RideRequest::where('group_id', $request_group)->where('status', 'Accepted')->count();
 		if ($request_status != "0") {
@@ -1878,7 +1892,8 @@ class TripController extends Controller
 		$push_data['push_title'] = __('messages.api.request_accepted');
         $push_data['data'] = [
             'accept_request' => [
-            	'trip_id' => $trip->id
+                'trip_id' => $trip->id,
+                'billing' => $trip->billing,
             ]
         ];
 

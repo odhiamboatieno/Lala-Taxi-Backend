@@ -176,7 +176,7 @@
                 </li>
             @endif
 
-            @if(saas_dispatch_enabled() && saas_feature_module_enabled('accounts_invoicing') && ($company_user ? (app(\App\Services\Corporate\CorporateCapabilities::class)->newBookingsEnabled(auth('company')->user()) && operation_team_can('manage_company_accounts_invoicing')) : auth('admin')->user()?->can('manage_company_accounts_invoicing')))
+            @if(saas_dispatch_enabled() && saas_feature_module_enabled('accounts_invoicing') && ($company_user ? (app(\App\Services\Corporate\CorporateCapabilities::class)->managementEnabled(auth('company')->user()) && operation_team_can('manage_company_accounts_invoicing')) : auth('admin')->user()?->can('manage_company_accounts_invoicing')))
                 <li class="{{ str_contains(Route::current()->uri(), 'saas-dispatch/accounts') ? 'active' : '' }} pe-slide">
                     <a href="{{ url($first_segment . '/saas-dispatch/accounts') }}" class="pe-nav-link">
                         <i class="bi bi-receipt-cutoff pe-nav-icon"></i>

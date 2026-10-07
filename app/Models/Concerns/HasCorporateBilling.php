@@ -6,6 +6,17 @@ use Modules\SaaSDispatch\Entities\CompanyCorporateAccount;
 
 trait HasCorporateBilling
 {
+    public static function bootHasCorporateBilling(): void
+    {
+        static::creating(fn ($model) => app(\App\Services\Corporate\CorporateBillingContext::class)->prepareCreation($model));
+        static::updating(fn ($model) => app(\App\Services\Corporate\CorporateBillingContext::class)->guardMutation($model));
+        static::created(function ($model) {
+            if ($model instanceof \App\Models\Trips) {
+                app(\App\Services\Corporate\CorporateBillingContext::class)->recordTrip($model);
+            }
+        });
+    }
+
     public function initializeHasCorporateBilling(): void
     {
         $this->mergeCasts([
@@ -15,6 +26,7 @@ trait HasCorporateBilling
             'corporate_amount' => 'decimal:2',
         ]);
         $this->makeHidden('billing_snapshot');
+        $this->append('billing');
     }
 
     public function corporate_account()
@@ -25,5 +37,10 @@ trait HasCorporateBilling
     public function isCorporate(): bool
     {
         return $this->billing_mode === 'corporate';
+    }
+
+    public function getBillingAttribute(): array
+    {
+        return app(\App\Services\Corporate\CorporateBillingContext::class)->summary($this);
     }
 }

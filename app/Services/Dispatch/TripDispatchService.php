@@ -109,6 +109,10 @@ class TripDispatchService
 
     public function requestTrip(User $rider, array $payload): array
     {
+        $payload = array_merge($payload, app(\App\Services\Corporate\CorporateBillingContext::class)->resolveForBooking($rider, $payload));
+        if ($payload['billing_mode'] === 'corporate') {
+            $payload['payment_mode'] = 'Corporate';
+        }
         $activeTrip = $this->resolveBlockingActiveTrip($rider);
 
         if ($activeTrip) {
@@ -116,6 +120,14 @@ class TripDispatchService
                 'trip' => 'Rider already has an active trip.',
             ]);
         }
+
+        RideRequest::where('user_id', $rider->id)->where('status', 'Pending')
+            ->where(function ($query) use ($payload) {
+                $query->where('billing_mode', '!=', $payload['billing_mode'])
+                    ->orWhere('corporate_account_id', '!=', $payload['corporate_account_id'])
+                    ->when($payload['corporate_account_id'] === null, fn ($q) => $q->orWhereNotNull('corporate_account_id'));
+            })->get()->unique(fn ($request) => $request->group_id ?: $request->id)
+            ->each(fn ($request) => $this->cancelRideRequestGroup($request, $rider, __('corporate.payer_changed')));
 
         $reusableRequest = $this->findReusableRideRequest($rider, $payload);
         $dispatchPayload = $reusableRequest
@@ -232,6 +244,8 @@ class TripDispatchService
             ->where('pickup_longitude', (string) $payload['pickup_longitude'])
             ->where('drop_latitude', (string) $payload['drop_latitude'])
             ->where('drop_longitude', (string) $payload['drop_longitude'])
+            ->where('billing_mode', $payload['billing_mode'] ?? 'personal')
+            ->where('corporate_account_id', $payload['corporate_account_id'] ?? null)
             ->latest('id')
             ->first();
 
@@ -268,7 +282,7 @@ class TripDispatchService
         $serviceCategory = $payload['service_category'] ?? 'ride';
         $resolved = $this->resolveDispatchContextResolver()->forPayload($rider, $payload);
 
-        return array_merge([
+        return array_merge(app(\App\Services\Corporate\CorporateBillingContext::class)->resolveForBooking($rider, $payload), [
             'pickup_latitude' => (string) $payload['pickup_latitude'],
             'pickup_longitude' => (string) $payload['pickup_longitude'],
             'drop_latitude' => (string) $payload['drop_latitude'],
@@ -306,6 +320,7 @@ class TripDispatchService
 
     protected function payloadFromRideRequest(RideRequest $rideRequest, array $overrides = []): array
     {
+        app(\App\Services\Corporate\CorporateBillingContext::class)->validatePending($rideRequest);
         return array_merge([
             'pickup_latitude' => (string) $rideRequest->pickup_latitude,
             'pickup_longitude' => (string) $rideRequest->pickup_longitude,
@@ -336,7 +351,7 @@ class TripDispatchService
             'booking_contact_name' => $rideRequest->booking_contact_name ?? '',
             'booking_contact_phone' => $rideRequest->booking_contact_phone ?? '',
             'stop_points' => $rideRequest->stop_points ?? '',
-        ], $overrides);
+        ], $overrides, app(\App\Services\Corporate\CorporateBillingContext::class)->attributes($rideRequest));
     }
 
     protected function dispatchRideRequest(User $rider, array $payload, ?int $groupId = null): ?RideRequest
@@ -424,6 +439,8 @@ class TripDispatchService
         $mergedExtraFare = app(SurgePricingResolver::class)->mergeWithExtraFare($baseExtraFare, $surge);
 
         $rideRequest = RideRequest::create([
+            'billing_mode' => $payload['billing_mode'] ?? null,
+            'corporate_account_id' => $payload['corporate_account_id'] ?? null,
             'user_id' => $rider->id,
             'company_id' => $assignmentContext['company_id'],
             'operator_type' => $assignmentContext['operator_type'],
@@ -498,6 +515,8 @@ class TripDispatchService
     protected function buildRideRequestPayload(RideRequest $rideRequest, User $rider, array $payload, Carbon $expiresAt, string $uuid): array
     {
         return [
+            'billing' => $rideRequest->billing,
+            'payment_mode' => $rideRequest->payment_mode,
             'trip_request_uuid' => $uuid,
             'notification_type' => 'trip_request',
             'trip_id' => null,
@@ -532,6 +551,8 @@ class TripDispatchService
     protected function buildTripRequestPayload(Trips $trip, TripRequest $tripRequest): array
     {
         return [
+            'billing' => $trip->billing,
+            'payment_mode' => $trip->payment_mode,
             'trip_request_uuid' => 'trip_request_'.$tripRequest->id,
             'notification_type' => 'trip_request',
             'trip_id' => $trip->id,
@@ -752,6 +773,15 @@ class TripDispatchService
     public function acceptRideRequest(int $requestId, User $driver): Trips
     {
         return DB::transaction(function () use ($requestId, $driver) {
+            $candidate = RideRequest::findOrFail($requestId);
+            if ((int) $candidate->driver_id !== (int) $driver->id) {
+                throw ValidationException::withMessages(['request' => 'Unauthorized driver request access.']);
+            }
+            app(\App\Services\Corporate\CorporateBillingContext::class)->assertCanAccept($candidate);
+            RideRequest::query()->when($candidate->group_id,
+                fn ($query) => $query->where('group_id', $candidate->group_id),
+                fn ($query) => $query->where('id', $candidate->id))
+                ->orderBy('id')->lockForUpdate()->firstOrFail();
             $rideRequest = RideRequest::query()
                 ->with('users')
                 ->lockForUpdate()
@@ -888,6 +918,7 @@ class TripDispatchService
             $this->safeBroadcast(new TripDriverAssigned($trip->user_id, $trip->id, [
                 'trip_id' => $trip->id,
                 'driver_id' => $driver->id,
+                'billing' => $trip->billing,
                 'driver_name' => trim($driver->first_name.' '.$driver->last_name),
                 'vehicle' => [
                     'name' => optional($driver->vehicle)->vehicle_name,
@@ -914,11 +945,19 @@ class TripDispatchService
             return;
         }
 
-        $nextRequest = $this->dispatchRideRequest(
-            $rider,
-            $this->payloadFromRideRequest($rideRequest),
-            (int) $rideRequest->group_id
-        );
+        try {
+            $payload = $this->payloadFromRideRequest($rideRequest);
+        } catch (ValidationException $exception) {
+            if (!$rideRequest->isCorporate()) {
+                throw $exception;
+            }
+            if (!RideRequest::where('group_id', $rideRequest->group_id)->where('status', 'Accepted')->exists()) {
+                $this->cancelRideRequestGroup($rideRequest, $rider, __('corporate.booking_unavailable'));
+            }
+            Log::warning('Corporate dispatch retry stopped', ['request_id' => $rideRequest->id]);
+            return;
+        }
+        $nextRequest = $this->dispatchRideRequest($rider, $payload, (int) $rideRequest->group_id);
 
         if (! $nextRequest) {
             Log::info('Dispatch: ride request group exhausted without driver acceptance', [
@@ -1252,6 +1291,7 @@ class TripDispatchService
         $this->safeBroadcast(new TripStatusUpdated($trip->id, $trip->user_id, $trip->driver_id, $trip->company_id, [
             'trip_id' => $trip->id,
             'status' => $trip->status,
+            'billing' => $trip->billing,
             'previous_status' => $previousStatus,
             'changed_by' => $changedBy,
             'timestamp' => now()->toIso8601String(),
@@ -1271,6 +1311,10 @@ class TripDispatchService
 
     protected function safeBroadcast(object $event, array $context = []): void
     {
+        if (DB::transactionLevel() > 0) {
+            DB::afterCommit(fn () => $this->safeBroadcast($event, $context));
+            return;
+        }
         try {
             event($event);
         }

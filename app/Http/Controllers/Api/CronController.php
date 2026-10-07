@@ -44,7 +44,8 @@ class CronController extends Controller
 		\Log::info('Now Cron is Running ');
 		// \Log::info('schedule working');
 		// before 5 min from schedule time
-		$ride = ScheduleRide::where('status','Pending')->get();
+		$ride = ScheduleRide::where('status','Pending')
+            ->where(fn ($query) => $query->whereNull('assignment_status')->orWhere('assignment_status', '!=', 'billing_blocked'))->get();
 
 		if($ride->count() == 0) {
 			return '';			
@@ -64,6 +65,12 @@ class CronController extends Controller
                 : strtotime($request_val->schedule_date.' '.$request_val->schedule_time) - ($scheduledDispatchLeadMinutes * 60);
 			
             if ($dispatchTimestamp <= strtotime(date('Y-m-d H:i')) && $request_val->status == 'Pending') {
+                try {
+                    app(\App\Services\Corporate\CorporateBillingContext::class)->validatePending($request_val);
+                } catch (\Illuminate\Validation\ValidationException $exception) {
+                    $this->blockCorporateSchedule($request_val, $exception);
+                    continue;
+                }
 				$additional_fare = "";
 				$peak_price = 0;
 
@@ -100,11 +107,18 @@ class CronController extends Controller
 					'booking_type'  => $request_val->booking_type, 
 					'driver_id'  => $request_val->driver_id, 
 				];
-				if ($request_val->driver_id==0) {
-					$car_details = $this->request_helper->find_driver($data);
-				} else {
-					$car_details = $this->request_helper->trip_assign($data);
-				}
+                try {
+                    if ($request_val->driver_id==0) {
+                        $car_details = $this->request_helper->find_driver($data);
+                    } else {
+                        $car_details = $this->request_helper->trip_assign($data);
+                    }
+                } catch (\Illuminate\Validation\ValidationException $exception) {
+                    if (!$request_val->isCorporate()) {
+                        throw $exception;
+                    }
+                    $this->blockCorporateSchedule($request_val, $exception);
+                }
             } elseif(strtotime($request_val->schedule_date.' '.$request_val->schedule_time) == strtotime(date('Y-m-d H:i')) + 1800) {
 		        $rider = User::find($request_val->user_id);
             	if ($request_val->booking_type=='Manual Booking' && $request_val->driver_id!=0) {
@@ -151,6 +165,29 @@ class CronController extends Controller
         }
 	}
 
+
+    protected function blockCorporateSchedule(ScheduleRide $schedule, \Illuminate\Validation\ValidationException $exception): void
+    {
+        $updated = \DB::table('schedule_ride')->where('id', $schedule->id)->where('status', 'Pending')
+            ->where(fn ($query) => $query->whereNull('assignment_status')->orWhere('assignment_status', '!=', 'billing_blocked'))
+            ->update(['assignment_status' => 'billing_blocked', 'billing_blocked_at' => now(), 'billing_blocked_reason' => 'corporate_eligibility']);
+        if (!$updated) {
+            return;
+        }
+        \Log::warning('Corporate schedule paused', ['schedule_id' => $schedule->id, 'validation_fields' => array_keys($exception->errors())]);
+        $rider = User::find($schedule->user_id);
+        if ($rider) {
+            try {
+                $message = __('corporate.schedule_blocked');
+                $this->request_helper->checkAndSendMessage($rider, $message, [
+                    'push_title' => __('corporate.billed_to_company'),
+                    'data' => ['corporate_schedule_blocked' => ['schedule_id' => $schedule->id, 'message_data' => $message]],
+                ]);
+            } catch (\Throwable $notificationError) {
+                \Log::warning('Corporate schedule notification failed', ['schedule_id' => $schedule->id, 'exception' => get_class($notificationError)]);
+            }
+        }
+    }
 	/** 
     * Update Referral Status
     * 

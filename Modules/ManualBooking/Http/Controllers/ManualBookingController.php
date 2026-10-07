@@ -107,9 +107,15 @@ class ManualBookingController extends Controller
 
     public function store(Request $request) {
 
-        $payment = app(\App\Services\Dispatch\ManualBookingPayment::class)->resolve($request->input('payment_method'));
-
-        $rider = User::where('mobile_number',$request->mobile_number)->where('user_type','Rider')->first();
+        $rider = User::where('mobile_number', $request->mobile_number)
+            ->where('country_code', $request->country_code)->where('user_type', 'Rider')->first();
+        $payment = app(\App\Services\Dispatch\ManualBookingPayment::class)->resolve($request->input('payment_method'), $rider);
+        if ($rider) {
+            // Validate before creating related records or invoking external map services.
+            app(\App\Services\Corporate\CorporateBillingContext::class)->resolveForBooking($rider, [
+                'payment_method' => $payment['payment_method'], 'car_id' => $request->vehicle_type,
+            ]);
+        }
 
         if ($rider==null) {
             $rider = new User;
@@ -185,7 +191,8 @@ class ManualBookingController extends Controller
         $fare_estimation = numberFormat($base_fare + round($fare_details->per_min * $travel_minutes));
 
         if ($request->manual_booking_id!=null) {
-            $schedule=ScheduleRide::where('status','Pending')->where('id',$request->manual_booking_id)->first();
+            $schedule=ScheduleRide::where('status','Pending')->where('id',$request->manual_booking_id)
+                ->when($company, fn ($query) => $query->where('company_id', $company->id))->first();
             if ($schedule==null) {
                 flashMessage('danger', 'Invalid ID');
                 return redirect(LOGIN_USER_TYPE.'/later_booking');
@@ -1046,7 +1053,7 @@ class ManualBookingController extends Controller
             'capabilities' => array_values($payload['capabilities'] ?? []),
             'dispatcher_note' => $payload['dispatcher_note'] ?? '',
             'driver_note' => $payload['driver_note'] ?? '',
-            'payment_method' => app(\App\Services\Dispatch\ManualBookingPayment::class)->resolve($payload['payment_method'] ?? null)['payment_method'],
+            'payment_method' => app(\App\Services\Dispatch\ManualBookingPayment::class)->intent($payload['payment_method'] ?? null),
             'customer_type' => $payload['customer_type'] ?? '',
             'company_name' => $payload['company_name'] ?? '',
             'company_phone' => $payload['company_phone'] ?? '',
@@ -1177,7 +1184,7 @@ class ManualBookingController extends Controller
             'priority' => $scheduleRide->priority,
             'dispatcher_note' => $scheduleRide->dispatcher_note,
             'driver_note' => $scheduleRide->driver_note,
-            'payment_method' => $meta['payment_method'] ?? 'Cash',
+            'payment_method' => $scheduleRide->isCorporate() ? 'Corporate' : ($meta['payment_method'] ?? $scheduleRide->payment_method ?? 'Cash'),
             'capabilities' => $scheduleRide->booking_capabilities ?: ($meta['capabilities'] ?? []),
             'customer_type' => $meta['customer_type'] ?? $scheduleRide->booking_for_type,
             'company_name' => $meta['company_name'] ?? $scheduleRide->booking_contact_name,

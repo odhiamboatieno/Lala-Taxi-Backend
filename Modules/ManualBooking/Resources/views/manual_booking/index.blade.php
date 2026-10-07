@@ -554,6 +554,9 @@
 									<label class="form-label" for="payment_method">Payment Method</label>
 									<select class="form-select" id="payment_method" name="payment_method">
 										<option value="Cash" {{ data_get($manual_booking_payload, 'payment_method', 'Cash') === 'Cash' ? 'selected' : '' }}>Cash</option>
+                                        @if(config('corporate.bookings_enabled'))
+                                            <option value="Corporate" {{ data_get($manual_booking_payload, 'payment_method') === 'Corporate' ? 'selected' : '' }}>{{ __('corporate.billed_to_company') }}</option>
+                                        @endif
 									</select>
 								</div>
 								<div>

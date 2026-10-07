@@ -26,9 +26,20 @@ Verification: full PHPUnit suite, new tenant/capability/manual-payment regressio
 
 Validation includes SQLite regressions and a dedicated `phpunit.corporate-mysql.xml` profile for MySQL 8.4 upgrade/retry/ownership/cascade tests. The profile exclusively targets `lala_corporate_schema_test`; its fixture refuses any other non-SQLite database and removes only its own fixture tables. Supply DB_PASSWORD through the environment. This is not a production test configuration.
 
+## Phase 2 — Payer attribution and dispatch
+
+- New corporate bookings stay disabled by default via `CORPORATE_BOOKINGS_ENABLED`; management remains accessible independently of this pilot guard.
+- Server-derived affiliation defaults to corporate billing; explicit personal intent remains supported without adding a passenger mode switch. Reject forged account IDs, contradictory intent, personal wallets, foreign currency, pooled vehicles and parcel services.
+- Eloquent creation hooks carry private immutable bill-to snapshots through schedules, legacy/realtime requests, retries and accepted trips. Stored personal bookings cannot inherit a later affiliation. Trip operating company remains distinct from bill-to account ownership.
+- Durable trip records are inserted on acceptance; legacy/direct acceptance transactions and rider/group locks prevent competing offers from assigning a second active trip. Revoked membership blocks pending acceptance without personal fallback; accepted-trip updates do not require the new-booking feature.
+- Manual Corporate intent requires an existing eligible rider before related creation, with country-scoped phone lookup and revalidation for drafts/templates/return/recurring schedules. Unsupported card/wallet/invoice methods remain unavailable.
+- Due ineligible corporate schedules retain Pending status but pause assignment with timestamp/reason; notify once, continue other schedules, and revalidate before resumption. Rider schedule editing is ownership-scoped.
+- Legacy pushes and realtime offers/status expose a safe billing summary rather than finance contacts/address. Realtime transaction notifications are emitted after commit; invalid corporate retries stop instead of falling back.
+
+Verification: dedicated booking regressions on SQLite and MySQL, complete existing PHPUnit suite, additive full MySQL migration, PHP/Blade syntax and isolated route cache. Detailed final counts are recorded in the corresponding commit verification output.
+
 ## Remaining phases
 
-2. Authorized payer attribution across booking, schedules, dispatch and retries.
 3. Idempotent finalization, Deferred compatibility, invoices/settlement.
 4. Complete admin/company management and delivery/PDF.
 5. Rider/driver API authorization and contracts.
@@ -37,4 +48,4 @@ Validation includes SQLite regressions and a dedicated `phpunit.corporate-mysql.
 8. End-to-end integration and regression verification.
 9. Deployment artifacts, scheduler, disabled pilot and rollout validation.
 
-No production migrations, deployment, payments or financial data changes have been performed. Completion of Phase 0 does not enable corporate booking or establish end-to-end support.
+No production migrations, deployment, payments or financial data changes have been performed. Corporate booking remains disabled; completion of Phase 2 does not establish end-to-end finance/client support.

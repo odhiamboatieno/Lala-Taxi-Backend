@@ -27,13 +27,22 @@ trait CreatesCorporateSchema
             $t->string('currency_code', 10)->default('KES'); $t->timestamp('deleted_at')->nullable(); $t->timestamps();
         });
         Schema::create('request', function (Blueprint $t) {
-            $t->increments('id'); $t->decimal('estimated_fare', 5, 2)->default('0.00'); $t->string('payment_mode')->default('Cash'); $t->timestamps();
+            $t->increments('id'); $t->unsignedInteger('user_id')->nullable(); $t->unsignedInteger('driver_id')->nullable();
+            $t->unsignedInteger('group_id')->nullable(); $t->string('schedule_id')->nullable();
+            $t->string('status')->default('Pending'); $t->string('service_category')->default('ride');
+            $t->unsignedInteger('car_id')->nullable(); $t->timestamp('deleted_at')->nullable();
+            $t->decimal('estimated_fare', 5, 2)->default('0.00'); $t->string('payment_mode')->default('Cash'); $t->timestamps();
         });
         Schema::create('schedule_ride', function (Blueprint $t) {
             $t->increments('id'); $t->string('payment_method')->default('Cash');
+            $t->unsignedInteger('user_id')->nullable(); $t->unsignedInteger('car_id')->nullable();
+            $t->string('service_category')->default('ride'); $t->string('is_wallet')->default('No');
+            $t->string('status')->default('Pending'); $t->string('schedule_date')->nullable(); $t->string('schedule_time')->nullable();
+            $t->string('assignment_status')->nullable();
         });
         Schema::create('trips', function (Blueprint $t) {
             $t->increments('id'); $t->unsignedInteger('user_id'); $t->unsignedInteger('driver_id')->nullable();
+            $t->unsignedInteger('request_id')->nullable();
             $t->string('status')->default('Payment'); $t->string('payment_mode')->default('Cash');
             $t->enum('payment_status', ['Pending', 'Completed', 'Trip Cancelled'])->default('Pending');
             $t->string('currency_code', 10)->default('KES'); $t->decimal('total_fare', 12, 2)->default('0.00');
@@ -64,7 +73,7 @@ trait CreatesCorporateSchema
             throw new \RuntimeException('Refusing cleanup outside isolated corporate schema database.');
         }
         Schema::disableForeignKeyConstraints();
-        foreach (['company_corporate_invoice_allocations', 'company_corporate_invoice_items', 'company_corporate_audits', 'company_corporate_trip_records', 'company_corporate_invoices', 'company_corporate_accounts', 'trips', 'users', 'request', 'schedule_ride', 'currency', 'companies'] as $table) {
+        foreach (['company_corporate_invoice_allocations', 'company_corporate_invoice_items', 'company_corporate_audits', 'company_corporate_trip_records', 'company_corporate_invoices', 'company_corporate_accounts', 'company_saas_settings', 'saas_feature_modules', 'site_settings', 'car_type', 'trips', 'users', 'request', 'schedule_ride', 'currency', 'companies'] as $table) {
             Schema::dropIfExists($table);
         }
         Schema::enableForeignKeyConstraints();

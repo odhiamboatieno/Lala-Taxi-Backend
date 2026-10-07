@@ -8,6 +8,11 @@ class CorporateCapabilities
 {
     public function newBookingsEnabled(Company $company): bool
     {
+        return (bool) config('corporate.bookings_enabled', false) && $this->managementEnabled($company);
+    }
+
+    public function managementEnabled(Company $company): bool
+    {
         return $company->status === 'Active'
             && saas_dispatch_enabled()
             && saas_feature_module_enabled('accounts_invoicing')
@@ -16,6 +21,6 @@ class CorporateCapabilities
 
     public function ensureManagementEnabled(Company $company): void
     {
-        abort_unless($this->newBookingsEnabled($company), 404);
+        abort_unless($this->managementEnabled($company), 404);
     }
 }

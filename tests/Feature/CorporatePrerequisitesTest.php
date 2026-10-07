@@ -22,6 +22,7 @@ class CorporatePrerequisitesTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        config(['corporate.bookings_enabled' => true]);
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');

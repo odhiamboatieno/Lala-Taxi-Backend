@@ -654,6 +654,8 @@ class RiderController extends Controller
             'pickup_location' => $request->pickup_location,
             'drop_location' => $request->drop_location,
             'payment_method' => $request->payment_method,
+            'billing_mode' => $request->input('billing_mode'),
+            'corporate_account_id' => $request->input('corporate_account_id'),
             'is_wallet' => $request->is_wallet,
             'timezone' => $request->timezone,
             'schedule_id' => (string) $request->schedule_id,
@@ -914,7 +916,7 @@ class RiderController extends Controller
 
         $status_code = "1";
         if ($request->schedule_id) {
-            $schedule_ride = ScheduleRide::find($request->schedule_id);
+            $schedule_ride = ScheduleRide::where('user_id', $rider_id)->where('status', 'Pending')->findOrFail($request->schedule_id);
             $schedule_ride->schedule_date = date('Y-m-d', strtotime($request->schedule_date));
             $schedule_ride->schedule_time = $request->schedule_time;
             $schedule_ride->status = 'Pending';
@@ -947,6 +949,10 @@ class RiderController extends Controller
             $schedule_ride->trip_path = $trip_path;
             $schedule_ride->timezone = $request->timezone;
             $schedule_ride->payment_method =$request->payment_method;
+            if ($request->filled('billing_mode')) {
+                $schedule_ride->billing_mode = $request->input('billing_mode');
+            }
+            $schedule_ride->corporate_account_id = $request->input('corporate_account_id');
             $schedule_ride->is_wallet = $request->is_wallet;
             $schedule_ride->location_id = $request->location_id;
             $schedule_ride->peak_id = $peak_id;

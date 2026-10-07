@@ -79,6 +79,24 @@ class RequestHelper
         */
 
         $user_details = User::find($array['rider_id']);
+        $billing = app(\App\Services\Corporate\CorporateBillingContext::class);
+        $source = null;
+        if (!empty($array['schedule_id']) && is_numeric($array['schedule_id'])) {
+            $source = ScheduleRide::findOrFail($array['schedule_id']);
+        } elseif (!empty($array['driver_group_id'])) {
+            $source = RideRequest::where('group_id', $array['driver_group_id'])->orderBy('id')->firstOrFail();
+        }
+        if ($source) {
+            abort_unless((int) $source->user_id === (int) $user_details->id, 403);
+            $billing->validatePending($source);
+            $context = $billing->attributes($source);
+        } else {
+            $context = $billing->resolveForBooking($user_details, $array);
+        }
+        $array = array_merge($array, $context);
+        if ($context['billing_mode'] === 'corporate') {
+            $array['payment_method'] = $array['payment_mode'] = 'Corporate';
+        }
 
         $handicap = $child_seat = $request_from = '';
         $options = FilterObject::options('rider', $user_details->id);
@@ -261,7 +279,9 @@ class RequestHelper
                             $array['timezone'] ?? config('app.timezone')
                         );
                         $request->user_id = $array['rider_id'];
-                        $request->group_id = null;
+                        $request->group_id = $array['driver_group_id'] ?? null;
+                        $request->billing_mode = $array['billing_mode'];
+                        $request->corporate_account_id = $array['corporate_account_id'];
                         $request->seats = $array['seats'] ?? 1;
                         $request->pickup_latitude = $array['pickup_latitude'] ?? null;
                         $request->pickup_longitude = $array['pickup_longitude'] ?? null;
@@ -320,6 +340,8 @@ class RequestHelper
                             $push_data['push_title'] = __('messages.api.trip_request');
                             $push_data['data'] = [
                                 'ride_request' => [
+                                    'billing' => $request->billing,
+                                    'payment_mode' => $request->payment_mode,
                                     'title'             => __('messages.api.trip_request'),
                                     'request_id'        => $request->id,
                                     'pickup_location'   => $array['pickup_location'],
@@ -400,10 +422,18 @@ class RequestHelper
      */
     public function trip_assign($array)
     {
+        return DB::transaction(fn () => $this->persistAssignedTrip($array), 3);
+    }
+
+    protected function persistAssignedTrip($array)
+    {
         $additional_fare = "";
         $peak_price = 0;
         //change ScheduleRide status to completed
-        $schedule = ScheduleRide::find($array['schedule_id']);
+        $schedule = ScheduleRide::findOrFail($array['schedule_id']);
+        app(\App\Services\Corporate\CorporateBillingContext::class)->assertCanAccept($schedule);
+        $schedule = ScheduleRide::query()->lockForUpdate()->findOrFail($schedule->id);
+        abort_unless($schedule->status === 'Pending', 409);
         $driver = User::find($schedule->driver_id);
         $mergedExtraFare = $this->mergedExtraFareConfig(
             $schedule->location_id,
@@ -547,6 +577,7 @@ class RequestHelper
         $push_title = "Trip Assigned";
         
         $data = ['manual_booking_trip_assigned' => [
+            'billing' => $trip->billing,
             'status'            => 'Arrive Now',
             'request_id'        => $ride_request->id,
             'pickup_location'   => $array['pickup_location'],
