@@ -1692,8 +1692,8 @@ class RiderController extends Controller
             'status_message' => 'Success',
             'place' => [
                 'address' => $result['formatted_address'] ?? '',
-                'latitude' => (double) $request->latitude,
-                'longitude' => (double) $request->longitude,
+                'latitude' => (float) $request->latitude,
+                'longitude' => (float) $request->longitude,
             ],
         ]);
     }

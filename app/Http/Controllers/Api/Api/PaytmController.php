@@ -693,7 +693,7 @@ class PaytmController extends Controller
         function generateSalt_e($length)
         {
             $random = "";
-            srand((double) microtime() * 1000000);
+            srand((float) microtime() * 1000000);
             $data = "AbcDE123IJKLMN67QRSTUVWXYZ";
             $data .= "aBCdefghijklmn123opq45rs67tuv89wxyz";
             $data .= "0FGH45OP89";

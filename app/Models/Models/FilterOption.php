@@ -10,7 +10,7 @@ class FilterOption extends Model {
 
 	public $translatedAttributes = ['name'];
 
-    public static function options($skip=false,$female_riders,$handicap=true,$child_seat=true,$type='driver') {
+    public static function options($skip,$female_riders,$handicap=true,$child_seat=true,$type='driver') {
     	
     	if($skip) {
 			$options = self::skip(1)->take(2)->get();

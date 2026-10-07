@@ -490,7 +490,7 @@ trait Translatable
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function replicateWithTranslations(array $except = null)
+    public function replicateWithTranslations(?array $except = null)
     {
         $newInstance = parent::replicate($except);
 
