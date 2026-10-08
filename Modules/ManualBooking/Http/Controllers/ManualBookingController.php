@@ -400,14 +400,14 @@ class ManualBookingController extends Controller
 
     public function saveDraft(Request $request)
     {
-        $draft = ManualBookingDraft::updateOrCreate(
-            ['id' => $request->input('draft_id')],
-            array_merge($this->dispatcherContext(), [
+        $request->validate(['draft_id' => 'nullable|integer|min:1', 'name' => 'nullable|string|max:160', 'payload' => 'nullable|array']);
+        $draft = $request->filled('draft_id') ? $this->draftQuery()->findOrFail($request->input('draft_id')) : new ManualBookingDraft;
+        $draft->fill(array_merge($this->dispatcherContext(), [
                 'name' => trim((string) ($request->input('name') ?: 'Untitled Draft')),
                 'payload' => $this->sanitizeWorkspacePayload($request->input('payload', [])),
                 'status' => 'Active',
-            ])
-        );
+            ]));
+        $draft->save();
 
         return response()->json([
             'status' => 'success',
@@ -423,16 +423,20 @@ class ManualBookingController extends Controller
 
     public function saveTemplate(Request $request)
     {
-        $template = ManualBookingTemplate::updateOrCreate(
-            ['id' => $request->input('template_id')],
-            array_merge($this->dispatcherContext(), [
+        $request->validate(['template_id' => 'nullable|integer|min:1', 'name' => 'nullable|string|max:160', 'description' => 'nullable|string|max:2000', 'payload' => 'nullable|array']);
+        $context = $this->dispatcherContext();
+        // Shared templates are visible to their company, but only their owner may overwrite them.
+        $template = $request->filled('template_id') ? ManualBookingTemplate::where('company_id', $context['company_id'])
+            ->where('dispatcher_type', $context['dispatcher_type'])->where('dispatcher_id', $context['dispatcher_id'])
+            ->where('status', 'Active')->findOrFail($request->input('template_id')) : new ManualBookingTemplate;
+        $template->fill(array_merge($context, [
                 'name' => trim((string) ($request->input('name') ?: 'Untitled Template')),
                 'description' => trim((string) $request->input('description')),
                 'sharing_scope' => in_array($request->input('sharing_scope'), ['private', 'company'], true) ? $request->input('sharing_scope') : 'private',
                 'payload' => $this->sanitizeWorkspacePayload($request->input('payload', [])),
                 'status' => 'Active',
-            ])
-        );
+            ]));
+        $template->save();
 
         return response()->json([
             'status' => 'success',
@@ -1015,10 +1019,13 @@ class ManualBookingController extends Controller
 
     protected function dispatcherContext(): array
     {
+        $isCompany = request()->segment(1) === 'company';
+        $actor = Auth::guard($isCompany ? 'company' : 'admin')->user();
+        abort_unless($actor, 403);
         return [
-            'company_id' => LOGIN_USER_TYPE === 'company' ? Auth::guard('company')->id() : null,
-            'dispatcher_type' => LOGIN_USER_TYPE === 'company' ? 'company' : 'admin',
-            'dispatcher_id' => LOGIN_USER_TYPE === 'company' ? Auth::guard('company')->id() : Auth::id(),
+            'company_id' => $isCompany ? $actor->id : null,
+            'dispatcher_type' => $isCompany ? 'company' : 'admin',
+            'dispatcher_id' => $actor->id,
         ];
     }
 

@@ -62,9 +62,20 @@ Verification: general PHPUnit 103 tests / 444 assertions, with two MySQL-only co
 
 SMTP delivery is at-least-once when a worker fails after the transport accepts a message; retries use a stable message identity and never duplicate invoice issuance. Sent means issued for delivery; the outbox separately records pending/failed/delivered evidence. Live SMTP and production host cron activation belong to rollout verification, not these local tests.
 
+## Phase 4 — Admin/company management
+
+- Implemented account create/update/archive service, audited changes and billing-setting protection after accepted trips.
+- Implemented account exposure calculations across unpaid periods, with warning-only credit limits.
+- Added controller actions and routes for account details/edit/archive, membership roles, trip details, invoice generation/issue/settlement/void and authorized PDF downloads.
+- Retained account servicing remains accessible when new corporate bookings are disabled.
+- Completed translated account forms, account/member/trip/invoice detail pages, lifecycle forms and paginated history using the existing admin shell and square-corner tokens. Unreconciled legacy headers cannot enter the trip-backed workflow; issuance and delivery evidence are separate.
+- Updated sidebar/search capabilities and direct detail destinations so retained records remain reachable when new corporate features are disabled. Inactive currencies remain selectable for servicing existing agreements, not new accounts.
+- Closed cross-owner draft/template overwrites. Operation-team permission lookup is request-local, bound to the authenticated tenant and fails closed for missing/foreign/inactive staff or roles; mobile membership does not confer web permissions.
+
+Verification: full PHPUnit 120 tests / 565 assertions (two MySQL-only tests skipped there); the full isolated MySQL profile passed 55 tests / 344 assertions, followed by the updated management subset passing 13 tests / 102 assertions. Real web routes exercise creation/edit/archive, membership/tenant permissions, saved-charge generation, issuance, PDF, settlement and unpaid void/re-invoice. PHP syntax, 359 compiled Blade files, isolated route cache and full-schema migration check passed. Browser QA passed 24 combinations across 1440/1024/390 widths and light/dark themes, with no viewport overflow, untranslated labels, missing field labels or JavaScript errors; square card/control corners were asserted. Desktop/mobile screenshots were visually inspected. The local preview uses isolated fixtures, not production data. No frontend bundle is involved in these Blade-only screens; live SMTP, production deployment and mobile integration are still remaining work.
+
 ## Remaining phases
 
-4. Complete admin/company management, invoice actions and permissioned PDF downloads.
 5. Rider/driver API authorization and contracts.
 6. Customer affiliation and role-aware dashboard.
 7. Driver badges, no-collection completion and history.

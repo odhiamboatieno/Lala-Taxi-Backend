@@ -311,8 +311,21 @@ Route::middleware(['web', 'admin_guest', 'admin_can:manage_company_accounts_invo
     foreach (['company/saas-dispatch/accounts' => 'saasdispatch.self.accounts.', 'admin/companies/{company}/corporate-accounts' => 'saasdispatch.companies.accounts.'] as $prefix => $name) {
         Route::prefix($prefix)->name($name)->group(function () {
             Route::get('/', [CompanyAccountsController::class, 'index'])->name('index');
+            Route::get('accounts/create', [CompanyAccountsController::class, 'createAccount'])->name('accounts.create');
             Route::post('accounts', [CompanyAccountsController::class, 'storeAccount'])->name('accounts.store');
+            Route::get('accounts/{account}', [CompanyAccountsController::class, 'showAccount'])->name('accounts.show');
+            Route::get('accounts/{account}/edit', [CompanyAccountsController::class, 'editAccount'])->name('accounts.edit');
+            Route::put('accounts/{account}', [CompanyAccountsController::class, 'updateAccount'])->name('accounts.update');
+            Route::post('accounts/{account}/archive', [CompanyAccountsController::class, 'archiveAccount'])->name('accounts.archive');
+            Route::post('accounts/{account}/members', [CompanyAccountsController::class, 'assignMember'])->name('members.store');
+            Route::delete('accounts/{account}/members/{rider}', [CompanyAccountsController::class, 'removeMember'])->name('members.remove');
+            Route::get('accounts/{account}/trips/{trip}', [CompanyAccountsController::class, 'showTrip'])->name('trips.show');
             Route::post('invoices', [CompanyAccountsController::class, 'storeInvoice'])->name('invoices.store');
+            Route::get('invoices/{invoice}', [CompanyAccountsController::class, 'showInvoice'])->name('invoices.show');
+            Route::post('invoices/{invoice}/send', [CompanyAccountsController::class, 'sendInvoice'])->name('invoices.send');
+            Route::post('invoices/{invoice}/settle', [CompanyAccountsController::class, 'settleInvoice'])->name('invoices.settle');
+            Route::post('invoices/{invoice}/void', [CompanyAccountsController::class, 'voidInvoice'])->name('invoices.void');
+            Route::get('invoices/{invoice}/download', [CompanyAccountsController::class, 'downloadInvoice'])->name('invoices.download');
         });
     }
 });

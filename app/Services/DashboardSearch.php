@@ -65,12 +65,15 @@ class DashboardSearch
                 if ($scope === 'admin' && in_array($source['table'], ['company_corporate_accounts', 'company_corporate_invoices'], true)) {
                     $path = 'companies/'.$row->company_id.'/corporate-accounts';
                 }
+                if (in_array($source['table'], ['company_corporate_accounts', 'company_corporate_invoices'], true)) {
+                    $path .= ($source['table'] === 'company_corporate_accounts' ? '/accounts/' : '/invoices/').$row->id;
+                }
                 if (isset($source['edit']) && $can($source['editPermission'] ?? $source['permission'])) {
                     $path = str_replace('{id}', (string) $row->id, $source['edit']);
                 } elseif ($source['table'] === 'users') {
                     $path .= '?'.http_build_query(['search' => ($row->email ?? '') ?: ($row->first_name ?? '')]);
                 }
-                if (isset($source['anchor'])) {
+                if (isset($source['anchor']) && !in_array($source['table'], ['company_corporate_accounts', 'company_corporate_invoices'], true)) {
                     $path .= '#search-'.$source['table'].'-'.$row->id;
                 }
                 $results[] = [

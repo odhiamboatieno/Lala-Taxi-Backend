@@ -6,18 +6,18 @@ use Modules\OperationTeam\Entities\OperationTeamMember;
 if (!function_exists('current_operation_team_member')) {
     function current_operation_team_member(): ?OperationTeamMember
     {
-        static $member;
-
-        if ($member !== null) {
-            return $member;
-        }
-
         $memberId = Session::get('operation_team_member_id');
         if (!$memberId) {
-            return $member = null;
+            return null;
         }
-
-        return $member = OperationTeamMember::query()->with('role')->find($memberId);
+        // Keep the lookup request-local; long-lived workers must not reuse another session's member.
+        $key = 'operation_team_member:'.$memberId;
+        if (!request()->attributes->has($key)) {
+            request()->attributes->set($key, OperationTeamMember::query()->with('role')->find($memberId));
+        }
+        $member = request()->attributes->get($key);
+        return $member && (int) $member->company_id === (int) auth('company')->id()
+            && (!$member->role || (int) $member->role->company_id === (int) $member->company_id) ? $member : null;
     }
 }
 
@@ -38,16 +38,15 @@ if (!function_exists('operation_team_available_permissions')) {
 if (!function_exists('operation_team_can')) {
     function operation_team_can(string $permission): bool
     {
-        if (defined('LOGIN_USER_TYPE') && LOGIN_USER_TYPE !== 'company') {
+        if (request()->segment(1) !== 'company' && !request()->is('api/company/*')) {
             return false;
         }
 
         $member = current_operation_team_member();
         if (!$member) {
-            return auth('company')->check();
+            return !Session::has('operation_team_member_id') && auth('company')->check();
         }
-
-        return $member->hasPermission($permission);
+        return $member->status && $member->role && $member->role->status && $member->hasPermission($permission);
     }
 }
 

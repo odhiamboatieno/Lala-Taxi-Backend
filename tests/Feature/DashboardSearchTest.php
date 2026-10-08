@@ -104,7 +104,11 @@ class DashboardSearchTest extends TestCase
             $table->string('invoice_number');
         });
         DB::table('company_corporate_invoices')->insert(['company_id' => 2, 'invoice_number' => 'INV-2042']);
-        $this->assertCount(1, $this->search('INV-2042', permissions: ['manage_company_accounts_invoicing'])['results']);
+        $companyResult = $this->search('INV-2042', permissions: ['manage_company_accounts_invoicing'])['results'];
+        $this->assertCount(1, $companyResult);
+        $this->assertSame(url('company/saas-dispatch/accounts/invoices/1'), $companyResult[0]['url']);
+        $adminResult = $this->search('INV-2042', 'admin', null, ['manage_company_accounts_invoicing'])['results'];
+        $this->assertSame(url('admin/companies/2/corporate-accounts/invoices/1'), $adminResult[0]['url']);
         $this->assertSame([], $this->search('INV-2042', permissions: ['manage_company_accounts_invoicing'], features: false)['results']);
         Schema::table('users', fn (Blueprint $table) => $table->dropColumn('company_id'));
         $this->assertSame([], $this->search('Alice')['results']);

@@ -21,6 +21,19 @@ class CorporateCapabilities
 
     public function ensureManagementEnabled(Company $company): void
     {
-        abort_unless($this->managementEnabled($company), 404);
+        abort_unless($this->servicingEnabled($company), 404);
+    }
+
+    public function servicingEnabled(Company $company): bool
+    {
+        return $this->managementEnabled($company)
+            || \Modules\SaaSDispatch\Entities\CompanyCorporateAccount::where('company_id', $company->id)->exists();
+    }
+
+    public function platformServicingEnabled(): bool
+    {
+        return (saas_dispatch_enabled() && saas_feature_module_enabled('accounts_invoicing'))
+            || (\Illuminate\Support\Facades\Schema::hasTable('company_corporate_accounts')
+                && \Modules\SaaSDispatch\Entities\CompanyCorporateAccount::exists());
     }
 }

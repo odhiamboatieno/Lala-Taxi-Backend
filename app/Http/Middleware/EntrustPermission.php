@@ -49,10 +49,10 @@ class EntrustPermission
         }
 
         //If URL is company And company user is guest than 404 
-        if (LOGIN_USER_TYPE=='company' && ($this->company_auth->guest() || !$this->companyPermissionAllowed($permissions))) {
+        if ($request->segment(1) === 'company' && ($this->company_auth->guest() || !$this->companyPermissionAllowed($permissions))) {
             abort(403);
         }
-        else if (LOGIN_USER_TYPE == 'company') {
+        else if ($request->segment(1) === 'company') {
             return $next($request);
         }
 

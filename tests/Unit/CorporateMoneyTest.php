@@ -29,4 +29,11 @@ class CorporateMoneyTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         CorporateMoney::sum(['9999999999.99', '0.01']);
     }
+
+    public function test_account_exposure_can_exceed_a_single_invoice_decimal_limit(): void
+    {
+        $this->assertSame('10000000000.00', CorporateMoney::aggregate(['9999999999.99', '0.01']));
+        $this->assertSame('19999999999.98', CorporateMoney::aggregate(['9999999999.99', '9999999999.99']));
+        $this->assertSame('0.00', CorporateMoney::aggregate([]));
+    }
 }

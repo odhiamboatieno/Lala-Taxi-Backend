@@ -39,4 +39,19 @@ final class CorporateMoney
 
         return self::decimal($minor);
     }
+
+    /** Portfolio exposure may exceed one DECIMAL(12,2) invoice/header. */
+    public static function aggregate(iterable $amounts): string
+    {
+        $minor = 0;
+        foreach ($amounts as $amount) {
+            $next = self::minor((string) $amount);
+            if ($minor > PHP_INT_MAX - $next) {
+                throw new \OverflowException('Corporate aggregate exceeds integer capacity.');
+            }
+            $minor += $next;
+        }
+
+        return intdiv($minor, 100).'.'.str_pad((string) ($minor % 100), 2, '0', STR_PAD_LEFT);
+    }
 }

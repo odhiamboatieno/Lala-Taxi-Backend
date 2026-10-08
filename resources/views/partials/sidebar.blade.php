@@ -431,12 +431,12 @@
                 </li>
             @endif
 
-            @if(saas_dispatch_enabled() && saas_feature_module_enabled('accounts_invoicing') && ($company_user ? (app(\App\Services\Corporate\CorporateCapabilities::class)->managementEnabled(auth('company')->user()) && operation_team_can('manage_company_accounts_invoicing')) : auth('admin')->user()?->can('manage_company_accounts_invoicing')))
-                <li class="pe-menu-title">Finance and Accounts</li>
-                <li class="pe-slide {{ str_contains(Route::current()->uri(), 'saas-dispatch/accounts') ? 'active' : '' }}">
+            @if($company_user ? (app(\App\Services\Corporate\CorporateCapabilities::class)->servicingEnabled(auth('company')->user()) && operation_team_can('manage_company_accounts_invoicing')) : (app(\App\Services\Corporate\CorporateCapabilities::class)->platformServicingEnabled() && auth('admin')->user()?->can('manage_company_accounts_invoicing')))
+                <li class="pe-menu-title">{{ __('corporate.finance_accounts') }}</li>
+                <li class="pe-slide {{ str_contains(Route::current()->uri(), 'saas-dispatch/accounts') || str_contains(Route::current()->uri(), 'corporate-accounts') ? 'active' : '' }}">
                     <a href="{{ url($first_segment . '/saas-dispatch/accounts') }}" class="pe-nav-link">
                         <i class="bi bi-receipt-cutoff pe-nav-icon"></i>
-                        <span class="pe-nav-content">Accounts / Invoicing</span>
+                        <span class="pe-nav-content">{{ __('corporate.accounts_invoicing') }}</span>
                     </a>
                 </li>
             @endif
