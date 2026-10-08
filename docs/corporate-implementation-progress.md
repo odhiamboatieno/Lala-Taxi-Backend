@@ -96,7 +96,13 @@ Verification: full PHPUnit passed 135 tests / 784 assertions (two MySQL-only cas
 
 ## Remaining phases
 
-6. Customer affiliation and role-aware dashboard.
+### Phase 6a — Customer affiliation/dashboard checkpoint
+
+Customer adds typed corporate contracts, protected session-bound caches, real company Profile identity, role-aware Overview/Users/Trips/Invoices, saved details and authenticated PDF sharing. Employee tabs/data remain own-only, managers/finance follow server capabilities, and revocation/account change clears privileged cached responses. Prototype tokens, Inter/Lucide and English/Spanish translations are reused.
+
+Verification: Customer full Flutter suite 16 tests passed; full analyzer found no issues; Android debug APK built; golden inspected with real fonts; 375/390/430 widths and 1×/2× text checks passed. Native/device/backend-integrated testing is not established by this checkpoint. Customer-specific evidence is tracked in its `docs/corporate-implementation-progress.md` and `docs/corporate-design-qa.md`.
+
+6. Customer booking/confirmation and Deferred receipt/rating/rebook integration (6b).
 7. Driver badges, no-collection completion and history.
 8. End-to-end integration and regression verification.
 9. Deployment artifacts, scheduler, disabled pilot and rollout validation.
