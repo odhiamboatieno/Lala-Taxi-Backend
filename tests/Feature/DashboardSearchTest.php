@@ -114,6 +114,38 @@ class DashboardSearchTest extends TestCase
         $this->assertSame([], $this->search('Alice')['results']);
     }
 
+    public function test_category_words_browse_their_section_without_excluding_matches(): void
+    {
+        $drivers = $this->search('drivers', 'admin', null, ['view_driver'])['results'];
+        $this->assertCount(2, $drivers);
+        $this->assertSame(['Drivers', 'Drivers'], array_column($drivers, 'group'));
+
+        $mixed = $this->search('drivers Jones', 'admin', null, ['view_driver'])['results'];
+        $this->assertCount(1, $mixed);
+        $this->assertSame('Alice Jones', $mixed[0]['title']);
+    }
+
+    public function test_dashboard_search_route_uses_the_per_user_rate_limiter(): void
+    {
+        $route = collect(app('router')->getRoutes())->first(fn ($route) => $route->uri() === 'admin/search');
+        $this->assertNotNull($route);
+        $this->assertContains('throttle:dashboard-search', $route->middleware());
+    }
+
+    public function test_feature_registry_entries_are_well_formed(): void
+    {
+        $features = config('dashboard_search.features');
+        $this->assertIsArray($features);
+        $this->assertNotEmpty($features);
+        foreach ($features as $feature) {
+            $this->assertArrayHasKey('path', $feature);
+            $this->assertArrayHasKey('parent', $feature);
+            $this->assertArrayHasKey('title', $feature);
+            $this->assertNotSame('', trim($feature['path']));
+            $this->assertNotSame('', trim($feature['parent']));
+        }
+    }
+
     public function test_endpoint_requires_authentication_and_validates_query(): void
     {
         try {

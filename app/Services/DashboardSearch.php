@@ -36,22 +36,35 @@ class DashboardSearch
                 $query->where('user_type', $source['type']);
             }
             $tokens = preg_split('/\s+/u', Str::lower(trim($term)), -1, PREG_SPLIT_NO_EMPTY);
-            // "drivers Alice" and "invoice INV-001" work as well as plain names/IDs.
-            $categoryWords = explode(' ', Str::lower($source['group'].' '.($source['aliases'] ?? '')));
+            // Category words ("drivers", "invoices") browse a section instead of narrowing it,
+            // but every token still constrains the query deterministically.
+            $categoryWords = array_unique(array_filter(array_merge(
+                explode(' ', Str::lower($source['group'])),
+                preg_split('/\s+/u', Str::lower($source['aliases'] ?? ''), -1, PREG_SPLIT_NO_EMPTY) ?: []
+            )));
             foreach ($tokens as $token) {
-                if (in_array($token, $categoryWords, true)) {
-                    continue;
-                }
-                $query->where(function (Builder $match) use ($token, $fields) {
+                $isCategoryWord = in_array($token, $categoryWords, true);
+                $query->where(function (Builder $match) use ($token, $fields, $isCategoryWord) {
+                    // A category word ("drivers Alice", "invoices") browses that section
+                    // instead of narrowing it, so it must never filter the source out.
+                    if ($isCategoryWord) {
+                        $match->orWhereRaw('1 = 1');
+                        return;
+                    }
                     // Escape wildcard characters, keeping searches literal and parameterized.
                     $pattern = '%'.str_replace(['!', '%', '_'], ['!!', '!%', '!_'], $token).'%';
+                    $constrained = false;
                     foreach ($fields as $field) {
                         $match->orWhereRaw('LOWER('.DB::connection()->getQueryGrammar()->wrap($field).") LIKE ? ESCAPE '!'", [$pattern]);
+                        $constrained = true;
                     }
                     $id = ltrim($token, '#');
                     if (ctype_digit($id)) {
                         $match->orWhere('id', $id);
-                    } elseif (!$fields) {
+                        $constrained = true;
+                    }
+                    if (!$constrained) {
+                        // No searchable column survived the schema check: fail closed.
                         $match->whereRaw('1 = 0');
                     }
                 });

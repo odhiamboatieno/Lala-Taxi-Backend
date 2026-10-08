@@ -45,6 +45,15 @@ class RouteServiceProvider extends ServiceProvider
             });
         }
 
+        // The dashboard search debounces at 220ms, so an IP-keyed limit is shared by every
+        // user sitting behind the same proxy. Key on the signed-in operator instead.
+        RateLimiter::for('dashboard-search', function (Request $request) {
+            $user = $request->user('admin') ?? $request->user('company');
+            return Limit::perMinute(300)->by(
+                ($user ? $user::class.':'.$user->getAuthIdentifier() : 'guest').'|'.$request->ip()
+            );
+        });
+
         parent::boot();
     }
 

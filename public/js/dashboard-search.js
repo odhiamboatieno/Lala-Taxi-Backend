@@ -38,18 +38,32 @@
     const access = JSON.parse(document.getElementById('dashboard-search-access')?.textContent || '{}');
     const normalize = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[_/\-]+/g, ' ').trim();
     const aliases = [
-        [/rider|customer/i, 'customers riders passengers people'],
-        [/driver/i, 'drivers chauffeurs people'],
-        [/manual_booking/i, 'add create new booking dispatch reservation'],
-        [/later_booking/i, 'scheduled upcoming reservations bookings'],
-        [/vehicle/i, 'fleet cars registration plate'],
-        [/fare|fee|surge/i, 'pricing rates tariffs cost'],
-        [/statement|data-suite/i, 'reports analytics revenue earnings export'],
-        [/account|payment|payout/i, 'billing invoices finance wallet money'],
-        [/operation-team/i, 'staff team employees permissions roles'],
+        [/rider|customer|passenger/i, 'customers riders passengers people'],
+        [/driver|chauffeur/i, 'drivers chauffeurs people'],
+        [/manual_booking|manual-booking/i, 'add create new booking dispatch reservation'],
+        [/later_booking|scheduled/i, 'scheduled upcoming reservations bookings'],
+        [/vehicle_make|vehicle-make/i, 'vehicle make manufacturer brand'],
+        [/vehicle_model|vehicle-model/i, 'vehicle model variant'],
+        [/vehicle_type|vehicle-type|car_type/i, 'vehicle type category class'],
+        [/vehicle|fleet/i, 'fleet cars registration plate'],
+        [/manage_fare|peak_fare|surge/i, 'peak fare surge pricing rates tariffs'],
+        [/fare|fee/i, 'pricing rates tariffs cost fees'],
+        [/statement|data-suite|data_suite|report/i, 'reports analytics revenue earnings export'],
+        [/account|payment|payout|wallet|withdraw|owe/i, 'billing invoices finance wallet money payouts owe'],
+        [/operation-team|operation_team|staff/i, 'staff team employees permissions roles'],
         [/settings|site_setting/i, 'preferences configuration account branding'],
-        [/support|help/i, 'assistance tickets issues'],
-        [/map|service-areas/i, 'locations zones coverage geography'],
+        [/support|help|faq/i, 'assistance tickets issues faq knowledge'],
+        [/map|service-area|service_area|location|zone|heat/i, 'locations zones coverage geography map'],
+        [/parcel|delivery|courier/i, 'parcel package delivery shipment courier'],
+        [/referral/i, 'referrals invites rewards'],
+        [/document/i, 'documents files uploads compliance review'],
+        [/notification|send_message|send-message|campaign|email/i, 'notifications campaigns messages email sms push'],
+        [/cancel/i, 'cancellation cancel reasons cancelled'],
+        [/toll|additional-reason|additional_reason/i, 'toll reasons extra charges additional'],
+        [/rating|feedback/i, 'ratings feedback reviews stars'],
+        [/promo/i, 'promotion discount coupon voucher promo'],
+        [/role|permission/i, 'roles permissions access'],
+        [/score/i, 'scores quality performance'],
     ];
     let navigation = [], records = [], visible = [], active = 0, filter = 'all';
     let pending = false, failed = false, hasMore = false, timer, request, generation = 0;
@@ -64,7 +78,7 @@
     function indexNavigation() {
         const seen = new Set();
         navigation = [];
-        [...document.querySelectorAll('#sidebar .pe-nav-link'), ...document.querySelectorAll('#appHeader a.dropdown-item, #appHeader .header-dropdown a.btn')].forEach(link => {
+        [...document.querySelectorAll('#sidebar .pe-nav-link, #horizontal-aside .pe-nav-link'), ...document.querySelectorAll('#appHeader a.dropdown-item, #appHeader .header-dropdown a.btn')].forEach(link => {
             const href = link.getAttribute('href') || '';
             if (!href || href.startsWith('#')) return;
             const url = safeUrl(href);
@@ -86,8 +100,10 @@
         const features = JSON.parse(document.getElementById('dashboard-search-features')?.textContent || '[]');
         features.forEach(feature => {
             const url = safeUrl(feature.url);
-            // The parent must also be available; disabled modules stay out of search.
-            if (!url || seen.has(url) || !navigation.some(item => item.url === feature.parent)) return;
+            // The parent route must also be available; disabled modules stay out of search.
+            const parentPath = feature.parent ? new URL(feature.parent, location.href).pathname : '';
+            if (!url || seen.has(url) || (parentPath && access[parentPath] === false)) return;
+            seen.add(url);
             navigation.push({ ...feature, url, id: url, description: 'Open creation form', group: 'Features', kind: 'navigation', icon: 'bi-plus-circle' });
         });
         const theme = document.querySelector('#toggleMode');

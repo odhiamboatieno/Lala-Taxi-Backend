@@ -17,22 +17,15 @@
         $searchAccess[parse_url(url($searchRoute->uri()), PHP_URL_PATH)] = $searchAllowed;
     }
     $searchFeatures = [];
-    foreach ([
-        ['add_driver', 'driver', 'Add driver', 'create onboard chauffeur'],
-        ['add_rider', 'rider', 'Add customer', 'create rider passenger'],
-        ['add_vehicle', 'vehicle', 'Add vehicle', 'create register fleet car'],
-        ['add_company', 'company', 'Add company', 'create onboard business'],
-        ['add_admin_user', 'admin_user', 'Add administrator', 'create admin staff'],
-        ['add_role', 'roles', 'Create role', 'permissions access'],
-        ['operation-team/members/create', 'operation-team/members', 'Add staff member', 'invite employee team'],
-        ['operation-team/roles/create', 'operation-team/roles', 'Create staff role', 'permissions access team'],
-        ['saas-dispatch/service-areas/create', 'saas-dispatch/service-areas', 'Create service area', 'zone coverage location'],
-        ['saas-dispatch/vehicle-types/create', 'saas-dispatch/vehicle-types', 'Create vehicle type', 'category fleet car'],
-        ['saas-dispatch/fare-rules/create', 'saas-dispatch/fare-rules', 'Create fare rule', 'pricing rates tariff'],
-    ] as [$searchPath, $searchParent, $searchLabel, $searchKeywords]) {
-        $searchFeatureUrl = url($searchScope.'/'.$searchPath);
+    foreach (config('dashboard_search.features', []) as $searchFeature) {
+        $searchFeatureUrl = url($searchScope.'/'.$searchFeature['path']);
         if ($searchAccess[parse_url($searchFeatureUrl, PHP_URL_PATH)] ?? false) {
-            $searchFeatures[] = ['url' => $searchFeatureUrl, 'parent' => url($searchScope.'/'.$searchParent), 'title' => $searchLabel, 'keywords' => $searchKeywords];
+            $searchFeatures[] = [
+                'url' => $searchFeatureUrl,
+                'parent' => url($searchScope.'/'.$searchFeature['parent']),
+                'title' => $searchFeature['title'],
+                'keywords' => $searchFeature['keywords'] ?? '',
+            ];
         }
     }
 @endphp
