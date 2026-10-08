@@ -46,6 +46,9 @@ foreach ([['Mwangaza Workspaces Kenya', 'Amina Wanjiku', 'amina', 'admin'],
         ]]);
         $expect($invite->getStatusCode() === 302, $name.' actual invitation request');
         $staff = \App\Models\CorporatePortalUser::where('email', $email)->firstOrFail();
+    } elseif (!$staff->password_set_at) {
+        $resend = $client->post($prefix.'/portal-users/'.$staff->id.'/invite', ['cookies' => $admin, 'form_params' => ['_token' => $csrf($page)]]);
+        $expect($resend->getStatusCode() === 302, $name.' pending invitation recovery request');
     }
     $expect($staff->role === $role && (int) $staff->corporate_account_id === (int) $account->id, $name.' scoped portal identity');
     if (!$staff->password_set_at) {

@@ -152,6 +152,20 @@ class CorporatePortalTest extends TestCase
         Notification::assertSentToTimes($staff, CorporateResetPassword::class, 1);
     }
 
+    public function test_real_markdown_invitation_renders_without_optional_subcopy_and_uses_the_corporate_broker(): void
+    {
+        $staff = $this->staff();
+        $mail = (new CorporateResetPassword('render-only-test-token'))->toMail($staff);
+        $html = (string) $mail->render();
+        $this->assertStringContainsString(__('corporate.portal_email_intro'), $html);
+        $this->assertStringContainsString('/corporate/reset-password/render-only-test-token', $html);
+        $this->assertStringContainsString(__('corporate.portal_email_expiry', ['minutes' => 60]), $html);
+        $this->assertSame(__('corporate.portal_reset'), $mail->subject);
+        // Existing non-corporate Markdown messages share this layout and must still render.
+        $ordinary = (new \Illuminate\Notifications\Messages\MailMessage)->line('Compatibility test message');
+        $this->assertNotEmpty((string) $ordinary->render());
+    }
+
     public function test_finance_and_viewer_roles_cannot_manage_members_or_staff(): void
     {
         foreach (['finance', 'viewer'] as $role) {
