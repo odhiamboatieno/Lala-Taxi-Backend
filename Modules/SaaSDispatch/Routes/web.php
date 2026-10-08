@@ -319,6 +319,9 @@ Route::middleware(['web', 'admin_guest', 'admin_can:manage_company_accounts_invo
             Route::post('accounts/{account}/archive', [CompanyAccountsController::class, 'archiveAccount'])->name('accounts.archive');
             Route::post('accounts/{account}/members', [CompanyAccountsController::class, 'assignMember'])->name('members.store');
             Route::delete('accounts/{account}/members/{rider}', [CompanyAccountsController::class, 'removeMember'])->name('members.remove');
+            Route::post('accounts/{account}/portal-users', [CompanyAccountsController::class, 'savePortalUser'])->middleware('throttle:10,1')->name('portal.store');
+            Route::put('accounts/{account}/portal-users/{staff}', [CompanyAccountsController::class, 'savePortalUser'])->name('portal.update');
+            Route::post('accounts/{account}/portal-users/{staff}/invite', [CompanyAccountsController::class, 'invitePortalUser'])->middleware('throttle:10,1')->name('portal.invite');
             Route::get('accounts/{account}/trips/{trip}', [CompanyAccountsController::class, 'showTrip'])->name('trips.show');
             Route::post('invoices', [CompanyAccountsController::class, 'storeInvoice'])->name('invoices.store');
             Route::get('invoices/{invoice}', [CompanyAccountsController::class, 'showInvoice'])->name('invoices.show');

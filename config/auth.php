@@ -36,6 +36,7 @@ return [
     */
 
     'guards' => [
+        'corporate' => ['driver' => 'session', 'provider' => 'corporate_portal_users'],
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -74,6 +75,7 @@ return [
     */
 
     'providers' => [
+        'corporate_portal_users' => ['driver' => 'eloquent', 'model' => App\Models\CorporatePortalUser::class],
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
@@ -111,6 +113,7 @@ return [
     */
 
     'passwords' => [
+        'corporate' => ['provider' => 'corporate_portal_users', 'table' => 'corporate_password_resets', 'expire' => 60, 'throttle' => 60],
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',

@@ -33,6 +33,7 @@ class CorporateManagementTest extends TestCase
     {
         parent::setUp();
         $this->createCorporateFinanceSchema();
+        (require database_path('migrations/2026_10_08_000002_create_corporate_portal_identities.php'))->up();
         (require database_path('migrations/2026_10_07_000005_add_corporate_invoice_settlement_and_delivery.php'))->up();
         Schema::table('users', function (Blueprint $table) { $table->string('email')->default(''); $table->string('mobile_number')->default(''); });
         $this->account->update(['billing_cycle' => 'monthly']);

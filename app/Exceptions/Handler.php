@@ -67,6 +67,11 @@ class Handler extends ExceptionHandler
             return response()->json($data, $status)->header('Cache-Control', 'no-store, private');
         }
         if ($exception instanceof TokenMismatchException){
+            if ($request->is('corporate', 'corporate/*')) {
+                return redirect()->route('corporate.portal.login')
+                    ->withErrors(['email' => __('corporate.portal_access_revoked')])
+                    ->header('Cache-Control', 'private, no-store');
+            }
             return redirect($request->fullUrl());
         }
         elseif($exception instanceOf MethodNotAllowedHttpException) {

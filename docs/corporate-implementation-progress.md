@@ -5,6 +5,8 @@ Source specification: workspace-root `CORPORATE_ACCOUNTS_IMPLEMENTATION.md` (cor
 ## Current execution status — 2026-10-08
 
 - New employer web-portal scope was approved on 2026-10-08 and added to the root specification. It is not delivered by the earlier mobile-manager dashboard. Implementation is continuing through separate authentication, admin invitations, employer-scoped membership/staff management and permitted activity/invoice reads.
+- The narrow permission migration was applied to the live application working directory. All three existing Admin-role identities now have `manage_company_accounts_invoicing`; production corporate bookings remain disabled. The new employer portal is not yet claimed as production-deployed.
+- Latest portal tree: general backend **177 tests / 1,101 assertions** (two MySQL-only skips), dedicated MySQL **100 tests / 844 assertions**, and independent full-schema provisioning **4 / 35** pass. Portal-specific coverage is **16 / 175**. Cached routes, compiled Blade PHP, JavaScript syntax and whitespace checks pass. Actual portal HTTP/SMTP/browser acceptance is next; earlier phase counts below are historical.
 - Production read-only diagnosis found deployed `95ce61e` with **no** `manage_company_accounts_invoicing` permission row; three existing administrators retain the Admin role. Normal migrations do not run module seeders. A narrowly scoped additive migration registers this permission and attaches only the existing named Admin role, preserving all other grants. Repeated upgrade/rollback and real permission-middleware checks pass (1 test/8 assertions); full general suite **161/926** (two skips) and independent full-schema provisioning **4/35** pass. Live application/verification is the next checkpoint; no authorization bypass is used.
 
 - Phases 0–7 are implemented and pushed: schema/domain, booking attribution/dispatch, Deferred accounting, invoicing/settlement, admin/company management, JWT APIs, Customer and Driver integration.
@@ -14,6 +16,14 @@ Source specification: workspace-root `CORPORATE_ACCOUNTS_IMPLEMENTATION.md` (cor
 - A current protected production backup was exported and successfully restored into a fresh network-isolated container, with table/schema/archive checks. Production services and financial records were unchanged. Native Driver/Customer GPS, socket/push and personal-flow evidence remains in progress; the user has now authorized use of the connected Android device. External SMTP/FCM and controlled production promotion remain open gates; no production deployment or corporate enablement is claimed.
 
 The sections below preserve each phase's historical verification checkpoint; use this summary and the final follow-ups for the latest counts and CI result.
+
+## Employer portal — implementation checkpoint
+
+New `/corporate/login` uses a dedicated session guard and employer-bound identities, not operator credentials or Rider OTP. Admin and authorized operator account pages include Portal access invitation/edit/recovery controls. Roles are Corporate administrator (employees/staff/activity/issued invoice reads), Finance (activity/issued invoice reads), and Activity viewer (activity only). Employer-scoped queries reject foreign staff, members, trips and invoices. Draft/non-trip-backed invoices and all financial mutation routes are excluded. Portal roles do not promote mobile permissions; Employee remains the own-activity mobile default, with explicitly assigned Manager/Finance capabilities retained.
+
+Additive repeatable migrations retain identities on rollback. Secure password setup/recovery uses the existing mail/broker facilities, expiring one-time tokens, transaction-serialized consumption, strong passwords, CSRF/rate limiting, session rotation/version revocation and private caching. Email changes invalidate previous recovery and require new setup. The last active administrator is protected. Archived accounts are read-only and pending logins survive mail failure for retry. Public sign-in choices link to the portal; views reuse shared website colors, Inter, Lucide and square controls, with translatable copy and responsive layouts.
+
+The new isolated acceptance checker exercises actual admin invites, Mailpit setup emails, browser activation/login/logout and role/tenant checks without printing secrets or mutating invoices. Its end-to-end staging run and responsive browser verification are the next checkpoint. General backend 177/1,101 (two skips), dedicated MySQL 100/844, full-schema provisioning 4/35, portal-specific 16/175, cached routes, compiled Blade syntax, JavaScript syntax and whitespace validation pass before this checkpoint commit.
 
 ## Phase 8g — Device access and observed private sockets
 

@@ -58,6 +58,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
+        // Register employer routes before the public one-segment CMS catch-all.
+        Route::group([], base_path('routes/corporate.php'));
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));

@@ -73,6 +73,8 @@ trait CreatesCorporateSchema
             throw new \RuntimeException('Refusing cleanup outside isolated corporate schema database.');
         }
         Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('corporate_password_resets');
+        Schema::dropIfExists('corporate_portal_users');
         Schema::dropIfExists('company_corporate_settlements');
         Schema::dropIfExists('company_corporate_invoice_deliveries');
         Schema::dropIfExists('operation_team_members');

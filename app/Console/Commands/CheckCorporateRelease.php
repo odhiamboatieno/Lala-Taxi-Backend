@@ -20,7 +20,8 @@ class CheckCorporateRelease extends Command
             $failed = $failed || !$valid;
         };
         $check(!$this->option('allow-bookings') ? !config('corporate.bookings_enabled') : true, 'New bookings disabled unless pilot explicitly approved');
-        foreach (['saasdispatch.admin.accounts.index', 'saasdispatch.self.accounts.index', 'saasdispatch.companies.accounts.index'] as $name) {
+        foreach (['saasdispatch.admin.accounts.index', 'saasdispatch.self.accounts.index', 'saasdispatch.companies.accounts.index',
+            'corporate.portal.login', 'corporate.portal.dashboard', 'corporate.portal.staff', 'corporate.portal.password.reset'] as $name) {
             $check(Route::has($name), 'Retained management route '.$name);
         }
         $required = [
@@ -32,6 +33,8 @@ class CheckCorporateRelease extends Command
             'company_corporate_invoice_allocations' => ['trip_id', 'invoice_item_id'],
             'company_corporate_settlements' => ['invoice_id', 'amount', 'currency_code'],
             'company_corporate_invoice_deliveries' => ['invoice_id', 'status', 'attempts'],
+            'corporate_portal_users' => ['corporate_account_id', 'email', 'password', 'role', 'status', 'session_version', 'password_set_at'],
+            'corporate_password_resets' => ['email', 'token', 'created_at'],
         ];
         try {
             $schemaReady = true;

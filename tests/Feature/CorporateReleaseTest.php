@@ -17,6 +17,7 @@ class CorporateReleaseTest extends TestCase
         // test database, including recovery from an interrupted prior run.
         $this->dropCorporateTestSchema();
         $this->createCorporateFinanceSchema();
+        (require database_path('migrations/2026_10_08_000002_create_corporate_portal_identities.php'))->up();
         (require database_path('migrations/2026_10_07_000005_add_corporate_invoice_settlement_and_delivery.php'))->up();
         config(['corporate.bookings_enabled' => false]);
     }

@@ -4,6 +4,7 @@ namespace App\Services\Corporate;
 
 use App\Models\Admin;
 use App\Models\Company;
+use App\Models\CorporatePortalUser;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -12,7 +13,7 @@ use Modules\SaaSDispatch\Entities\CompanyCorporateAudit;
 
 class CorporateMembershipService
 {
-    public function assign(CompanyCorporateAccount $account, User $rider, string $role, Admin|Company $actor): User
+    public function assign(CompanyCorporateAccount $account, User $rider, string $role, Admin|Company|CorporatePortalUser $actor): User
     {
         return DB::transaction(function () use ($account, $rider, $role, $actor) {
             $account = CompanyCorporateAccount::query()->lockForUpdate()->findOrFail($account->id);
@@ -37,7 +38,7 @@ class CorporateMembershipService
         }, 3);
     }
 
-    public function remove(CompanyCorporateAccount $account, User $rider, Admin|Company $actor): void
+    public function remove(CompanyCorporateAccount $account, User $rider, Admin|Company|CorporatePortalUser $actor): void
     {
         DB::transaction(function () use ($account, $rider, $actor) {
             $account = CompanyCorporateAccount::query()->lockForUpdate()->findOrFail($account->id);
@@ -52,9 +53,15 @@ class CorporateMembershipService
         }, 3);
     }
 
-    private function authorize(CompanyCorporateAccount $account, User $rider, Admin|Company $actor): void
+    private function authorize(CompanyCorporateAccount $account, User $rider, Admin|Company|CorporatePortalUser $actor): void
     {
-        if ($actor instanceof Admin) {
+        if ($actor instanceof CorporatePortalUser) {
+            $freshActor = $actor->fresh();
+            abort_unless($freshActor, 403);
+            app(CorporatePortalUserService::class)->authorize($account, $freshActor);
+            abort_unless($account->status === 'Active' && !$account->archived_at, 409);
+            abort_unless((int) $rider->company_id === (int) $account->company_id, 403);
+        } elseif ($actor instanceof Admin) {
             abort_unless($actor->hasPermission(['manage_company_accounts_invoicing']), 403);
         } else {
             abort_unless((int) $actor->id === (int) $account->company_id
@@ -62,12 +69,12 @@ class CorporateMembershipService
         }
     }
 
-    private function audit(CompanyCorporateAccount $account, User $rider, Admin|Company $actor, string $action, array $data): void
+    private function audit(CompanyCorporateAccount $account, User $rider, Admin|Company|CorporatePortalUser $actor, string $action, array $data): void
     {
         CompanyCorporateAudit::query()->create([
             'corporate_account_id' => $account->id,
             'action' => $action,
-            'actor' => ($actor instanceof Admin ? 'admin:' : 'company:').$actor->id,
+            'actor' => ($actor instanceof CorporatePortalUser ? 'portal:' : ($actor instanceof Admin ? 'admin:' : 'company:')).$actor->id,
             'reference' => 'user:'.$rider->id,
             'data' => $data,
             'created_at' => now(),

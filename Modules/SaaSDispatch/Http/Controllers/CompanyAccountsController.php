@@ -89,6 +89,7 @@ class CompanyAccountsController extends Controller
 
         return view('saasdispatch::accounts.show', $context + [
             'account' => $account, 'exposure' => app(CorporateExposure::class)->summary($account),
+            'portalUsers' => \App\Models\CorporatePortalUser::where('corporate_account_id', $account->id)->orderBy('id')->paginate(20, ['*'], 'portal_page')->withQueryString(),
             'members' => $account->members()->orderBy('id')->paginate(20, ['*'], 'members_page')->withQueryString(),
             'trips' => $account->trips()->latest('id')->paginate(20, ['*'], 'trips_page')->withQueryString(),
             'invoices' => $account->invoices()->with('account')->latest('id')->paginate(20, ['*'], 'invoices_page')->withQueryString(),
@@ -217,6 +218,36 @@ class CompanyAccountsController extends Controller
         $trip = $account->trips()->findOrFail($request->route('trip'));
 
         return view('saasdispatch::accounts.trip', $context + ['account' => $account, 'trip' => $trip]);
+    }
+
+    public function savePortalUser(Request $request, CompanyContextResolver $resolver, ?Company $company = null)
+    {
+        $context = $this->accountsContext($resolver, $company);
+        $account = $this->account($request, $context);
+        $staffId = $request->route('staff');
+        $existing = $staffId ? \App\Models\CorporatePortalUser::where('corporate_account_id', $account->id)->findOrFail($staffId) : null;
+        $record = app(\App\Services\Corporate\CorporatePortalUserService::class)->save($account, $request->all(), $context['actor'], $existing);
+        if (!$record->password_set_at && $record->status === 'Active') return $this->sendPortalInvitation($context, $account, $record);
+        return $this->accountRedirect($context, $account)->with('status', __('corporate.portal_access_saved'));
+    }
+
+    public function invitePortalUser(Request $request, CompanyContextResolver $resolver, ?Company $company = null)
+    {
+        $context = $this->accountsContext($resolver, $company);
+        $account = $this->account($request, $context);
+        $record = \App\Models\CorporatePortalUser::where('corporate_account_id', $account->id)->findOrFail($request->route('staff'));
+        return $this->sendPortalInvitation($context, $account, $record);
+    }
+
+    private function sendPortalInvitation(array $context, CompanyCorporateAccount $account, \App\Models\CorporatePortalUser $record)
+    {
+        app(\App\Services\Corporate\CorporatePortalUserService::class)->authorize($account, $context['actor']);
+        abort_unless((int) $record->corporate_account_id === (int) $account->id, 404);
+        try { $status = app(\App\Services\Corporate\CorporatePortalUserService::class)->invite($record); }
+        catch (\Throwable $error) { report($error); return $this->accountRedirect($context, $account)->withErrors(['email' => __('corporate.portal_mail_failed')]); }
+        return $status === \Illuminate\Support\Facades\Password::RESET_LINK_SENT
+            ? $this->accountRedirect($context, $account)->with('status', __('corporate.portal_invitation_sent'))
+            : $this->accountRedirect($context, $account)->withErrors(['email' => __($status)]);
     }
 
     private function account(Request $request, array $context): CompanyCorporateAccount

@@ -8,6 +8,11 @@
         <div class="d-flex flex-wrap gap-2"><a class="btn btn-outline-secondary" href="{{ route($accountsRoute.'index', $accountsRouteParameters) }}">{{ __('corporate.back_accounts') }}</a>@unless($account->archived_at)<a class="btn btn-primary" href="{{ route($accountsRoute.'accounts.edit', $accountsRouteParameters + ['account' => $account->id]) }}">{{ __('corporate.edit_account') }}</a>@endunless</div>
     </div>
     @include('saasdispatch::accounts.errors')
+    @if(session('status'))<div class="alert alert-success" role="status">{{ session('status') }}</div>@endif
+    <div class="card"><div class="card-header"><h3 class="h5 mb-0">{{ __('corporate.portal_staff') }}</h3></div><div class="card-body"><p>{{ __('corporate.portal_staff_hint') }}</p><p>{{ __('corporate.portal_role_hint') }}</p><p><a href="{{ route('corporate.portal.login') }}">{{ route('corporate.portal.login') }}</a></p>
+        @unless($account->archived_at)@include('corporate.portal.staff-form', ['staffUser'=>null, 'staffAction'=>route($accountsRoute.'portal.store', $accountsRouteParameters + ['account'=>$account->id])])@endunless
+        @forelse($portalUsers as $staffUser)<hr><h4 class="h6">{{ $staffUser->name }} · {{ $staffUser->email }}</h4><p>{{ __('corporate.portal_roles.'.$staffUser->role) }} · {{ __('corporate.states.'.$staffUser->status) }} · {{ __($staffUser->password_set_at ? 'corporate.portal_ready' : 'corporate.portal_pending') }}</p>@unless($account->archived_at)@include('corporate.portal.staff-form', ['staffAction'=>route($accountsRoute.'portal.update', $accountsRouteParameters + ['account'=>$account->id,'staff'=>$staffUser->id])])@if($staffUser->status === 'Active')<form method="POST" action="{{ route($accountsRoute.'portal.invite', $accountsRouteParameters + ['account'=>$account->id,'staff'=>$staffUser->id]) }}">@csrf<button class="btn btn-outline-secondary" type="submit">{{ __('corporate.portal_resend') }}</button></form>@endif @endunless @empty<p>{{ __('corporate.portal_no_staff') }}</p>@endforelse {{ $portalUsers->links() }}
+    </div></div>
     @if($account->archived_at)<div class="alert alert-info" role="status">{{ __('corporate.account_archived') }}</div>@endif
     @if($exposure['over_credit_limit'])<div class="alert alert-warning" role="status">{{ __('corporate.credit_warning') }}</div>@endif
     <div class="row g-4 mb-4">
