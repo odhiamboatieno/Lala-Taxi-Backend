@@ -102,7 +102,12 @@ Customer adds typed corporate contracts, protected session-bound caches, real co
 
 Verification: Customer full Flutter suite 16 tests passed; full analyzer found no issues; Android debug APK built; golden inspected with real fonts; 375/390/430 widths and 1×/2× text checks passed. Native/device/backend-integrated testing is not established by this checkpoint. Customer-specific evidence is tracked in its `docs/corporate-implementation-progress.md` and `docs/corporate-design-qa.md`.
 
-6. Customer booking/confirmation and Deferred receipt/rating/rebook integration (6b).
+### Phase 6b — Customer booking and Deferred receipt checkpoint
+
+Customer now revalidates explicit payer intent on ordinary/scheduled/legacy bookings, excludes corporate wallet/promo and unsupported parcel requests, replaces confirmation's personal method selector with actual bill-to/availability/credit information, preserves billing through nested/serialized transports and reconnect, and supports Deferred receipt/rating/close/rebook without personal checkout or fake payment. Saved currency overrides current session currency; receipt/PDF/history use the saved payer. Personal request methods remain unchanged.
+
+Verification: Customer full suite 28 tests, clean analyzer, Android debug APK and whitespace/translation checks. Native receipt tests cover 375/390/430 at 1×/2× text and real-controller transport fixtures cover completion/reconnect/rating. These isolated fixtures do not establish live mobile/backend/device integration; that remains Phase 8.
+
 7. Driver badges, no-collection completion and history.
 8. End-to-end integration and regression verification.
 9. Deployment artifacts, scheduler, disabled pilot and rollout validation.
