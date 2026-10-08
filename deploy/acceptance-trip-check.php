@@ -42,7 +42,7 @@ foreach ([['700000130', '700000140', 'personal'], ['700000111', '700000140', 'pe
     $call($driver, 'POST', '/api/trips/'.$id.'/arrived');
     $call($driver, 'POST', '/api/trips/'.$id.'/start');
     }
-    foreach ([[-1.266, 36.809], [-1.264, 36.806], [-1.2615, 36.8028]] as [$lat, $lng]) {
+    foreach (Trips::findOrFail($id)->status === 'started' ? [[-1.266, 36.809], [-1.264, 36.806], [-1.2615, 36.8028]] : [] as [$lat, $lng]) {
         $call($driver, 'POST', '/api/driver/location/update', ['trip_id' => $id, 'lat' => $lat, 'lng' => $lng, 'accuracy' => 5, 'heading' => 180]);
     }
     if (!in_array(Trips::findOrFail($id)->status, ['Payment', 'Rating', 'Completed'], true)) {

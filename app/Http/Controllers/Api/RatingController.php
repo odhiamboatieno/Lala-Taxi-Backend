@@ -78,7 +78,7 @@ class RatingController extends Controller
 		}
 		$user = User::where('id', $user_details->id)->first();
 
-		if($user == '') {
+		if($user === null) {
 			return response()->json([
 				'status_code' 	 => '0',
 				'status_message' => "Invalid credentials",
@@ -516,7 +516,7 @@ class RatingController extends Controller
 			]);
 		}
 
-		if($user == '') {
+		if($user === null) {
 			return response()->json([
 				'status_code'	 => '0',
 				'status_message' => __('messages.invalid_credentials'),
@@ -524,6 +524,10 @@ class RatingController extends Controller
 		}
 
 		$user_type = strtolower($request->user_type);
+
+        if ($user_type === 'rider') {
+            abort_unless((int) $trips->user_id === (int) $user_details->id, 403);
+        }
 		$raterId = $user_type == 'driver' ? $trips->driver_id : $trips->user_id;
 
 		if ($user_type == 'driver') {
@@ -710,7 +714,7 @@ class RatingController extends Controller
         }
 		$user = User::where('id', $user_details->id)->first();
 
-		if($user == '') {
+		if($user === null) {
 			return response()->json([
 				'status_code'	 => '0',
 				'status_message' => __('messages.invalid_credentials'),

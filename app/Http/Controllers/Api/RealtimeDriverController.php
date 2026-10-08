@@ -26,6 +26,10 @@ class RealtimeDriverController extends Controller
         protected TripDispatchService $dispatchService,
         protected DriverOnlineSessionService $onlineSessionService
     ) {
+        $this->middleware(function (Request $request, $next) {
+            abort_unless($request->attributes->get('verified_jwt_user')?->user_type === 'Driver', 403);
+            return $next($request);
+        });
     }
 
     public function online(Request $request)
@@ -108,6 +112,10 @@ class RealtimeDriverController extends Controller
             ]);
         }
 
+        if ($request->filled('trip_id')) {
+            abort_unless(Trips::whereKey($request->trip_id)->where('driver_id', $driver->id)
+                ->whereIn('status', \App\Support\TripWorkflow::activeStatuses())->exists(), 403);
+        }
         $driver = $this->driverLocationService->update($driver, $validator->validated());
 
         return response()->json([

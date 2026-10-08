@@ -40,7 +40,9 @@ x-application: &application
     REVERB_HOST: reverb
     REVERB_PORT: "8080"
     REVERB_SCHEME: http
-    REVERB_ALLOWED_ORIGINS: "http://127.0.0.1:8095,http://localhost:8095"
+    # Native Pusher clients omit Origin. This service is loopback-only;
+    # private subscriptions still require JWT participant authorization.
+    REVERB_ALLOWED_ORIGINS: "*"
     CORPORATE_BOOKINGS_ENABLED: "true"
     CORPORATE_MANAGER_FINANCE_ACCESS: "false"
     OTP_DEMO_MODE: "true"

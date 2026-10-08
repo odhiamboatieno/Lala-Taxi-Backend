@@ -97,6 +97,7 @@ jobs:
       - name: Validate release scripts and cached routes
         run: |
           sh -n deploy/preflight.sh deploy/release.sh docker/entrypoint.sh
+          bash -n deploy/verify-backup.sh
           php -l docker/audit-code.php
           APP_ROUTES_CACHE="$(mktemp -d)/corporate-routes.php" php artisan route:cache
 
@@ -182,6 +183,7 @@ jobs:
           cp deploy/.env.example bundle/.env.example
           cp deploy/README.md bundle/README.md
           cp deploy/CORPORATE_RELEASE.md bundle/
+          cp deploy/verify-backup.sh bundle/
           cp deploy/preflight.sh deploy/release.sh bundle/
           cp docs/corporate-implementation-progress.md bundle/
           printf '{"commit":"%s","image":"ghcr.io/%s@%s","corporate_bookings_enabled":false}\n' \

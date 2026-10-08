@@ -277,6 +277,34 @@ class CorporateApiTest extends TestCase
             && !str_contains(json_encode($event->payload), 'finance@example.test'));
     }
 
+    public function test_driver_operations_and_gps_reject_riders_foreign_trips_and_completed_charges(): void
+    {
+        $this->transportSchema();
+        $riderToken = \JWTAuth::fromUser(User::findOrFail(1));
+        foreach (['online', 'offline', 'location/update'] as $action) {
+            $this->withToken($riderToken)->postJson('/api/driver/'.$action, ['lat' => -1.2676, 'lng' => 36.8108])->assertForbidden();
+        }
+        $driverToken = \JWTAuth::fromUser(User::findOrFail(2));
+        $completed = $this->charge();
+        $this->withToken($driverToken)->postJson('/api/driver/location/update', ['lat' => -1.2676, 'lng' => 36.8108, 'trip_id' => $completed->id])->assertForbidden();
+        DB::table('users')->insert(['id' => 9, 'company_id' => 1, 'user_type' => 'Driver']);
+        $offer = RideRequest::create(['user_id' => 3, 'driver_id' => 9, 'car_id' => 1, 'schedule_id' => '']);
+        $foreign = DB::transaction(fn () => Trips::create(['user_id' => 3, 'driver_id' => 9, 'request_id' => $offer->id, 'status' => 'started']));
+        $this->withToken($driverToken)->postJson('/api/driver/location/update', ['lat' => -1.2676, 'lng' => 36.8108, 'trip_id' => $foreign->id])->assertForbidden();
+        $this->assertSame(0, DB::table('driver_location')->count());
+        $this->assertSame('Deferred', $completed->fresh()->payment_status);
+    }
+
+    public function test_rider_rating_cannot_change_another_riders_trip(): void
+    {
+        $this->transportSchema();
+        $trip = $this->charge();
+        $token = \JWTAuth::fromUser(User::findOrFail(4));
+        $this->withToken($token)->getJson('/api/trip_rating?'.http_build_query(['trip_id' => $trip->id, 'user_type' => 'Rider', 'rating' => 5]))->assertForbidden();
+        $this->assertSame(0, DB::table('rating')->count());
+        $this->assertSame('Deferred', $trip->fresh()->payment_status);
+    }
+
     public function test_driver_polling_preserves_saved_corporate_offer_without_private_billing_fields(): void
     {
         $this->transportSchema();
