@@ -75,6 +75,17 @@ Route::get('help/articles', 'HelpController@articles');
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => 'jwt.verify'], function () {
+    Route::prefix('corporate')->name('corporate.')->group(function () {
+        $controller = \App\Http\Controllers\Api\CorporateController::class;
+        Route::get('profile', [$controller, 'profile'])->name('profile');
+        Route::get('dashboard', [$controller, 'dashboard'])->name('dashboard');
+        Route::get('trips', [$controller, 'trips'])->name('trips');
+        Route::get('trips/{trip}', [$controller, 'trip'])->name('trips.show');
+        Route::get('users', [$controller, 'users'])->name('users');
+        Route::get('invoices', [$controller, 'invoices'])->name('invoices');
+        Route::get('invoices/{invoice}', [$controller, 'invoice'])->name('invoices.show');
+        Route::get('invoices/{invoice}/download', [$controller, 'download'])->name('invoices.download');
+    });
     // Common Data APIs
     Route::match(['get', 'post'], 'common_data', 'HomeController@commonData');
     Route::match(['get', 'post'], 'get_payment_list', 'HomeController@getPaymentList');

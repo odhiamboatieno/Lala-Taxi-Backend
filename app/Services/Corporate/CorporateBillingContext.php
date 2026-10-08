@@ -41,6 +41,7 @@ class CorporateBillingContext
         if (!$account || $rider->user_type !== 'Rider' || $rider->status !== 'Active'
             || $account->status !== 'Active' || $account->archived_at
             || !$account->currency_code || !$account->legal_name || !$account->billing_address
+            || !\App\Models\Currency::where('code', $account->currency_code)->where('status', 'Active')->exists()
             || !app(CorporateCapabilities::class)->newBookingsEnabled($account->company)
             || ($payload['corporate_account_id'] ?? $account->id) != $account->id
             || (int) $rider->corporate_account_id !== (int) $account->id

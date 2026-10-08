@@ -80,6 +80,8 @@ class TripController extends Controller
 				$trip = ScheduleRide::with('users','driver.driver_location')->where('id', $trip_id->id)->first();
 		}
 
+		abort_unless($trip, 404);
+		app(\App\Support\TripAccess::class)->participant($trip, $user);
 		$driver = $trip->driver ?? '';
 		$driver_location = $driver->driver_location ?? '';
 		$arrival_time = -1;
@@ -121,7 +123,7 @@ class TripController extends Controller
 
 		if($user->user_type == 'Rider') {
 			$driver_rating = getRiderRating($trip->driver_id);
-			$final_promo_details= $this->invoice_helper->getUserPromoDetails($user->id);
+			$final_promo_details = $trip->isCorporate() ? [] : $this->invoice_helper->getUserPromoDetails($user->id);
 			$is_favorite_driver = false;
 			if (site_settings('favorite_driver_enabled') == '1' && $trip->driver_id) {
 				$is_favorite_driver = FavoriteDriver::query()
@@ -196,6 +198,9 @@ class TripController extends Controller
 		        $data[$tkey]['otp'] 	= $trip->otp;
 		        $data[$tkey]['status'] = $trip->status ?? '';
 		        $data[$tkey]['trip_id']= $trip->id;
+		        $data[$tkey]['billing'] = $trip->billing;
+		        $data[$tkey]['payment_mode'] = $trip->payment_mode ?? $trip->payment_method;
+		        $data[$tkey]['payment_status'] = $trip->payment_status ?? 'Pending';
 		        $data[$tkey]['pickup'] = $trip->pickup_location;
 		        $data[$tkey]['drop']   = $trip->drop_location;
 		        $data[$tkey]['pickup_lat'] = $trip->pickup_latitude;
@@ -242,6 +247,9 @@ class TripController extends Controller
 		        }
 		        
 		        $data[$tkey]['currency_symbol']= $symbol;
+		        if ($trip->isCorporate()) {
+				$data[$tkey]['currency_symbol'] = $trip->getRawOriginal('currency_code').' ';
+		        }
 
 		        $subtotal_fare = checkIsCashTrip($trip->payment_mode) ? $trip->total_fare : $trip->subtotal_fare;
 		        //$data[$tkey]['sub_total_fare'] = $subtotal_fare;
@@ -260,13 +268,17 @@ class TripController extends Controller
 					$total_fare = data_get($trip->fare_estimation, 'estimated_fare', 0);
 				}
 				$data[$tkey]['total_fare'] = number_format((float) $total_fare, 2, '.', '');
+				if ($trip->isCorporate() && $trip->billing_finalized_at) {
+					$data[$tkey]['total_fare'] = $trip->corporate_amount;
+				}
+				$data[$tkey]['currency_code'] = $trip->getRawOriginal('currency_code');
 
 				$driverEarningsValue = (float) ($trip->company_driver_earnings ?? 0);
 				if ($driverEarningsValue <= 0) {
 					$driverEarningsValue = (float) ($trip->driver_payout ?? 0);
 				}
 				$driver_earnings = $symbol.number_format($driverEarningsValue,2);
-				if(!in_array($trip->status, ['Rating', 'Payment', 'Completed'], true)){
+				if(!in_array(strtolower((string) $trip->status), ['rating', 'payment', 'completed'], true)){
 		        		$driver_earnings=$symbol.'0.00';
 		        		$driverEarningsValue = 0;
 		        }
@@ -276,6 +288,12 @@ class TripController extends Controller
 		        	$driverPayoutValue = $driverEarningsValue;
 		        }
 		        $data[$tkey]['driver_payout'] = number_format($driverPayoutValue, 2, '.', '');
+		        if ($trip->isCorporate() && $trip->billing_finalized_at) {
+				$payout = \App\Services\Corporate\CorporateMoney::sum([data_get($trip->corporate_financial_snapshot, 'driver_payout', '0.00')]);
+				$data[$tkey]['driver_earnings'] = $trip->getRawOriginal('currency_code').' '.$payout;
+				$data[$tkey]['driver_payout'] = $payout;
+				$data[$tkey]['earnings_pending'] = $trip->payment_status !== 'Completed';
+		        }
 
 		        if(!isset($trip->booking_type)) {
 		        	$data[$tkey]['booking_type'] = @$trip->ride_request->schedule_ride->booking_type ?? '';
@@ -299,6 +317,9 @@ class TripController extends Controller
 		}
 
 		$trip_data['riders'] = array_values($data);
+		$trip_data['billing'] = $trip->billing;
+		$trip_data['payment_mode'] = $trip->payment_mode ?? $trip->payment_method;
+		$trip_data['payment_status'] = $trip->payment_status ?? 'Pending';
 
 		if($riders_only)
 			return $trip_data['riders'];
@@ -330,6 +351,9 @@ class TripController extends Controller
 
 		return [
 			'trip_id' => (string) $scheduleRide->id,
+			'billing' => $scheduleRide->billing,
+			'payment_mode' => $scheduleRide->payment_method,
+			'payment_status' => 'Pending',
 			'schedule_ride_id' => (string) $scheduleRide->id,
 			'status' => $scheduleRide->status,
 			'assignment_status' => $scheduleRide->assignment_status ?: 'assigned',
@@ -573,7 +597,8 @@ class TripController extends Controller
             ]);
         }
 
-		$trip = Trips::where('id', $request->trip_id)->first();
+		$access = app(\App\Support\TripAccess::class);
+		$trip = $access->find((int) $request->trip_id, $user_details, true);
 
 
 		if($trip->status=='Cancelled') {
@@ -591,7 +616,11 @@ class TripController extends Controller
 
 		$arrive_time = new DateTime(date("Y-m-d H:i:s"));
 		
-		Trips::where('id', $request->trip_id)->update(['arrive_time' => $arrive_time, 'status' => 'Begin trip']);
+		$trip = $access->mutate($trip, $user_details, ['scheduled', 'accepted', 'begin trip', 'driver_assigned', 'driver_arriving', 'arrived'], function ($locked) use ($arrive_time) {
+			if (!$locked->arrive_time) {
+				$locked->update(['arrive_time' => $arrive_time, 'status' => 'Begin trip']);
+			}
+		});
 
 		if($trip->pool_id>0) {
 
@@ -658,8 +687,8 @@ class TripController extends Controller
 
 		$rules = [
 			'trip_id' => 'required|exists:trips,id',
-			'begin_latitude' => 'required',
-			'begin_longitude' => 'required',
+			'begin_latitude' => 'required|numeric|between:-90,90',
+			'begin_longitude' => 'required|numeric|between:-180,180',
 		];
 
 		$validator = Validator::make($request->all(), $rules);
@@ -670,12 +699,10 @@ class TripController extends Controller
                 'status_message' => $validator->messages()->first()
             ]);
         }
+		$access = app(\App\Support\TripAccess::class);
+		$trip = $access->find((int) $request->trip_id, $user_details, true);
+		abort_if($trip->billing_finalized_at, 409, __('corporate.trip_not_active'));
 		$pickup_location = $this->request_helper->GetLocation($request->begin_latitude, $request->begin_longitude);
-
-		$user_location = DriverLocation::where('user_id', $user_details->id)->first();
-
-		$trip = Trips::where('id', $request->trip_id)->first();
-
 
 		if($trip->status=='Cancelled') {
 			return response()->json([
@@ -691,9 +718,11 @@ class TripController extends Controller
 
 		$begin_time = new DateTime(date("Y-m-d H:i:s"));
 
-		Trips::where('id', $request->trip_id)->update(['status' => 'End trip', 'begin_trip' => $begin_time, 'pickup_latitude' => $request->begin_latitude, 'pickup_longitude' => $request->begin_longitude, 'pickup_location' => $pickup_location, 'otp' => 0]);
-
-		$trip = Trips::where('id', $request->trip_id)->first();
+		$trip = $access->mutate($trip, $user_details, ['begin trip', 'arrived', 'end trip', 'started'], function ($locked) use ($begin_time, $request, $pickup_location) {
+			if (!$locked->begin_trip) {
+				$locked->update(['status' => 'End trip', 'begin_trip' => $begin_time, 'pickup_latitude' => $request->begin_latitude, 'pickup_longitude' => $request->begin_longitude, 'pickup_location' => $pickup_location, 'otp' => 0]);
+			}
+		});
 
 		if($trip->pool_id>0) {
 
@@ -1006,7 +1035,6 @@ class TripController extends Controller
             ]);
         }
         
-        Trips::$withoutAppends = true;
 		$trips = Trips::getTripLists($user_details,$this->paginate_limit,['Completed','Cancelled']);
 
 		if($trips->total()==0 || !count($trips->items()) ) {
@@ -1047,10 +1075,8 @@ class TripController extends Controller
             ]);
         }
 
-		Trips::$withoutAppends = true;
 		$trips = Trips::getTripLists($user_details,$this->paginate_limit / 2,['Completed','Cancelled'],false);
 
-		ScheduleRide::$withoutAppends = true;
 		$schedule = ScheduleRide::getTripLists($user_details,$this->paginate_limit - count($trips),'Pending');
 
 		$total = $trips->total() + $schedule->total();
@@ -1097,7 +1123,6 @@ class TripController extends Controller
             ]);
         }
 
-		ScheduleRide::$withoutAppends = true;
 		$trips = ScheduleRide::getTripLists($user_details,$this->paginate_limit,'Pending');
 
 		if($trips->isEmpty()) {
@@ -1278,7 +1303,6 @@ class TripController extends Controller
             ]);
         }
 
-		Trips::$withoutAppends = true;
 		$trips = Trips::getTripLists($user_details,$this->paginate_limit,['Completed','Cancelled']);
 		
 		if($trips->total()==0 || !count($trips->items()) ) {
@@ -1323,6 +1347,7 @@ class TripController extends Controller
 
 		$user_id = $user->id;
 		$trip_id = $request->trip_id;
+		app(\App\Support\TripAccess::class)->find((int) $trip_id, $user, true);
 		$image_uploader = resolve(\App\Contracts\ImageHandlerInterface::class);
 		$target_dir = '/images/map/'.$trip_id;
 
@@ -1399,14 +1424,14 @@ class TripController extends Controller
 
 		$user = User::where('id', $user_details->id)->where('user_type', $request->user_type)->first();
 
-		if($user == '') {
+		if(!$user) {
 			return response()->json([
 				'status_code' 	 => '0',
 				'status_message' => "Invalid credentials",
 			]);
 		}
 
-		$cancelled_id = Trips::where('id', $request->trip_id)->first();
+		$cancelled_id = app(\App\Support\TripAccess::class)->find((int) $request->trip_id, $user_details);
 
 		if($cancelled_id->status=='Cancelled') {
 			return response()->json([
@@ -1426,7 +1451,6 @@ class TripController extends Controller
 
 			];
 
-			Cancel::updateOrCreate(['trip_id' => $request->trip_id], $data);
 			$push_user = $cancelled_id->driver;
 			$push_title = __('messages.api.trip_cancelled_by_rider');
 		}
@@ -1439,12 +1463,15 @@ class TripController extends Controller
 				'cancelled_by' => 'Driver',
 			];
 
-			Cancel::updateOrCreate(['trip_id' => $request->trip_id], $data);
 			$push_user = $cancelled_id->users;
 			$push_title = __('messages.api.trip_cancelled_by_driver');
 		}
 
-		Trips::where('id', $request->trip_id)->update(['status' => 'Cancelled', 'payment_status' => 'Trip Cancelled']);
+		app(\App\Support\TripAccess::class)->mutate($cancelled_id, $user_details,
+			['scheduled', 'accepted', 'begin trip', 'end trip', 'driver_assigned', 'driver_arriving', 'arrived', 'started'], function ($locked) use ($data) {
+				Cancel::updateOrCreate(['trip_id' => $locked->id], $data);
+				$locked->update(['status' => 'Cancelled', 'payment_status' => 'Trip Cancelled']);
+			});
 
 		if($cancelled_id->pool_id > 0) {
 			$pool_trip = PoolTrip::find($cancelled_id->pool_id);
@@ -1557,7 +1584,6 @@ class TripController extends Controller
 	 */
 	public function get_trip_details(Request $request)
 	{
-\Log::error('trip responce start');
 		$user_details = JWTAuth::parseToken()->authenticate();
 
 		$rules = [
@@ -1597,7 +1623,6 @@ class TripController extends Controller
             'status_code' => '1',
             'status_message' => __('messages.api.listed_successfully'), 
         ],$trip_detail['data']);
-\Log::error('trip responce'. json_encode($return_data));
 		return response()->json($return_data);
 	}
 

@@ -74,9 +74,21 @@ SMTP delivery is at-least-once when a worker fails after the transport accepts a
 
 Verification: full PHPUnit 120 tests / 565 assertions (two MySQL-only tests skipped there); the full isolated MySQL profile passed 55 tests / 344 assertions, followed by the updated management subset passing 13 tests / 102 assertions. Real web routes exercise creation/edit/archive, membership/tenant permissions, saved-charge generation, issuance, PDF, settlement and unpaid void/re-invoice. PHP syntax, 359 compiled Blade files, isolated route cache and full-schema migration check passed. Browser QA passed 24 combinations across 1440/1024/390 widths and light/dark themes, with no viewport overflow, untranslated labels, missing field labels or JavaScript errors; square card/control corners were asserted. Desktop/mobile screenshots were visually inspected. The local preview uses isolated fixtures, not production data. No frontend bundle is involved in these Blade-only screens; live SMTP, production deployment and mobile integration are still remaining work.
 
+## Phase 5a — JWT API and legacy compatibility
+
+- Added verified-JWT corporate profile, role-scoped dashboard/trips, manager membership views and permissioned invoice/detail/PDF endpoints with explicit response fields and private cache headers. Employee summaries are own-trip only; manager invoice access requires `CORPORATE_MANAGER_FINANCE_ACCESS` (false by default); finance cannot list membership details.
+- Dashboard metrics use finalized charges in explicit account-timezone periods, distinguish Draft from issued unpaid invoices and reject mixed saved currencies. Credit is warning-only and restricted to manager/finance; null membership is a normal profile result. Archived agreements retain servicing; inactive currencies block new corporate bookings.
+- Real JWT tests cover employee/manager/finance scope, foreign trips/invoices, PDF authorization, archive servicing, immediate role revocation and validation. They exposed and fixed a legacy authentication comparison that unnecessarily serialized the entire user model.
+- Legacy trip details/receipts/history and schedule payloads preserve safe payer summaries. Finalized corporate amounts, payout earnings and currency come from saved accounting data, not the viewer's current currency. No bill-to contact or internal financial snapshot is serialized; corporate receipts do not require personal PayPal credentials.
+- Added participant/assigned-driver checks before legacy detail, arrival, start, cancellation and map-upload actions. Account-first transaction locks reject finalized-charge reopening and preserve arrival/start timestamps on retries. Removed full trip-response logging and history's request-leaking global append toggle. Personal cash history retains amount/currency formatting and valid map URLs.
+
+Verification: general PHPUnit passed 131 tests / 729 assertions (two MySQL-only cases skipped there); the dedicated isolated MySQL profile passed all 67 tests / 515 assertions, including 11 real-JWT API/legacy-contract tests. PHP syntax, 364 compiled Blade files, isolated route cache, `git diff --check` and full-schema migration check passed. No frontend/mobile build or device verification is claimed for this backend-only checkpoint.
+
+The execution tracker reports this long-running goal as usage-limited. This verified checkpoint does not establish completion of the overall implementation. Remaining transport/acceptance/resume contract review is Phase 5b, followed by the untouched mobile phases and final integration/rollout verification below.
+
 ## Remaining phases
 
-5. Rider/driver API authorization and contracts.
+5b. Finish all-transport booking/offer/current/resume/schedule contract review and integration verification.
 6. Customer affiliation and role-aware dashboard.
 7. Driver badges, no-collection completion and history.
 8. End-to-end integration and regression verification.

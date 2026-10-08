@@ -57,6 +57,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($request->is('api/corporate/*')) {
+            $status = $exception instanceof \Illuminate\Validation\ValidationException ? 422
+                : ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException ? 404
+                : ($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface ? $exception->getStatusCode() : 500));
+            $key = match ($status) { 401 => 'authentication_required', 403 => 'access_denied', 404 => 'record_not_found', 422 => 'invalid_input', default => 'request_failed' };
+            $data = ['status_code' => '0', 'status_message' => __('corporate.'.$key)];
+            if ($status === 422 && $exception instanceof \Illuminate\Validation\ValidationException) { $data['errors'] = $exception->errors(); }
+            return response()->json($data, $status)->header('Cache-Control', 'no-store, private');
+        }
         if ($exception instanceof TokenMismatchException){
             return redirect($request->fullUrl());
         }

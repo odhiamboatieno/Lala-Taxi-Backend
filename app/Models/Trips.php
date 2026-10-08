@@ -768,6 +768,10 @@ class Trips extends Model
      */
     public static function getTripLists($user,$paginate_limit,$status,$in=true) {
         $trip_lists = self::select(
+            'trips.billing_mode', 'trips.billing_snapshot', 'trips.billing_status', 'trips.currency_code',
+            'trips.payment_mode', 'trips.payment_status', 'trips.corporate_amount', 'trips.corporate_currency_code',
+            'trips.billing_finalized_at', 'trips.corporate_financial_snapshot',
+            'trips.pickup_latitude', 'trips.pickup_longitude', 'trips.drop_latitude', 'trips.drop_longitude', 'trips.trip_path',
             \DB::raw("CASE WHEN trips.pool_id > 0 THEN 'true' ELSE 'false' END as is_pool"),
             'trips.seats',
             'trips.status',
@@ -843,7 +847,31 @@ class Trips extends Model
         else
             $trip_lists->whereNotIn('trips.status',$status);
 
-        return $trip_lists->orderBy('trips.id','DESC')->paginate($paginate_limit);
+        $page = $trip_lists->orderBy('trips.id','DESC')->paginate($paginate_limit);
+        $page->setCollection($page->getCollection()->map(function ($trip) use ($user) {
+            // History must not trigger the full model's unrelated append queries or leak finance snapshots.
+            $trip->setAppends([]);
+            $trip->is_convert = false;
+            $data = $trip->getAttributes();
+            $data['billing'] = $trip->billing;
+            $data['total_fare'] = number_format((float) $data['total_fare'], 2, '.', '');
+            $data['currency_code'] = $user->currency->code;
+            $data['map_image'] = $data['map_image'] ? url('images/map/'.$data['trip_id'].'/'.$data['map_image'])
+                : resolve('google_service')->GetStaticMap($data['pickup_latitude'], $data['pickup_longitude'], $data['drop_latitude'], $data['drop_longitude'], $data['trip_path']);
+            if ($trip->isCorporate()) {
+                $data['currency_code'] = $trip->corporate_currency_code ?: $trip->getRawOriginal('currency_code');
+                $data['currency_symbol'] = $data['currency_code'].' ';
+                if ($trip->billing_finalized_at) {
+                    $data['total_fare'] = $trip->corporate_amount;
+                    $data['driver_earnings'] = $data['currency_symbol'].\App\Services\Corporate\CorporateMoney::sum([data_get($trip->corporate_financial_snapshot, 'driver_payout', '0.00')]);
+                    $data['earnings_pending'] = $trip->payment_status !== 'Completed';
+                }
+            }
+            unset($data['billing_snapshot'], $data['corporate_financial_snapshot'], $data['corporate_amount'], $data['corporate_currency_code'], $data['billing_finalized_at'], $data['billing_mode'], $data['billing_status']);
+            unset($data['pickup_latitude'], $data['pickup_longitude'], $data['drop_latitude'], $data['drop_longitude'], $data['trip_path']);
+            return $data;
+        }));
+        return $page;
     }
 
     /**

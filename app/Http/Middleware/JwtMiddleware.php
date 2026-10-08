@@ -22,6 +22,9 @@ class JwtMiddleware extends BaseMiddleware
 		$validate_token = $this->validateToken($request);
 
 		if($validate_token) {
+			if ($request->is('api/corporate/*') && $validate_token->getStatusCode() === 401) {
+				return response()->json(['status_code' => '0', 'status_message' => __('corporate.authentication_required')], 401);
+			}
 			return $validate_token;
 		}
 
@@ -31,13 +34,13 @@ class JwtMiddleware extends BaseMiddleware
 	protected function validateToken($request)
 	{
 		try {
-			$user_details = JWTAuth::parseToken()->authenticate();
-			if($user_details == '') {
+			$user_details = JWTAuth::setRequest($request)->parseToken()->authenticate();
+			if($user_details === '') {
 				return response()->json(['status' => 'Token is Invalid'],401);
 			}
 
 			if(!$user_details) {
-				return response()->json(['status' => 'user_not_found']);
+				return response()->json(['status' => 'user_not_found'], $request->is('api/corporate/*') ? 401 : 200);
 			}
 
 			if($user_details->status == 'Suspended') {
@@ -50,6 +53,7 @@ class JwtMiddleware extends BaseMiddleware
 				return response()->json(['status' => 'Your Comapany Inactivated'],401);
 			}
 			Auth::setUser($user_details);
+			$request->attributes->set('verified_jwt_user', $user_details);
 
 			if ($user_details && @$user_details->language !== null) {
 				session(['language' => $user_details->language]);

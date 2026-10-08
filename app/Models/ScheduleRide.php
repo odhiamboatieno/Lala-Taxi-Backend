@@ -180,6 +180,8 @@ class ScheduleRide extends Model
 
     public static function getTripLists($user, $paginate_limit, $status) {
         $trip_lists = self::select(
+            'schedule_ride.billing_mode', 'schedule_ride.billing_snapshot', 'schedule_ride.currency_code',
+            'schedule_ride.payment_method',
             'schedule_ride.status',
             'schedule_ride.id as trip_id',
             'schedule_ride.pickup_location as pickup',
@@ -213,7 +215,20 @@ class ScheduleRide extends Model
         else
             $trip_lists->where('schedule_ride.user_id', $user->id);
         
-        return $trip_lists->where('schedule_ride.status',$status)
-        ->orderBy('schedule_ride.id','DESC')->paginate($paginate_limit);
+        $page = $trip_lists->where('schedule_ride.status',$status)
+            ->orderBy('schedule_ride.id','DESC')->paginate($paginate_limit);
+        $page->setCollection($page->getCollection()->map(function ($schedule) {
+            $schedule->setAppends([]);
+            $data = $schedule->getAttributes();
+            $data['billing'] = $schedule->billing;
+            $data['payment_mode'] = $schedule->payment_method;
+            $data['payment_status'] = 'Pending';
+            if ($schedule->isCorporate()) {
+                $data['currency_symbol'] = $schedule->currency_code.' ';
+            }
+            unset($data['billing_snapshot'], $data['billing_mode'], $data['payment_method']);
+            return $data;
+        }));
+        return $page;
     }
 }

@@ -957,7 +957,7 @@ class InvoiceHelper
 			//'applied_owe_amount'=> $trips->applied_owe_amount ?? '0.00',
 			//'remaining_owe_amount' => $trips->remaining_owe_amount ?? '0.00',
 			'trips_status' 		=> $trips->status,
-			'driver_paypal_id'  => $trips->driver->payout_id,
+			'driver_paypal_id'  => $trips->isCorporate() ? '' : $trips->driver->payout_id,
 	        'total_fare'		=> $trips->total_fare,
 		];
 
@@ -996,8 +996,8 @@ class InvoiceHelper
 			'driver_name' 		=> trim(($trips->driver->first_name ?? '').' '.($trips->driver->last_name ?? '')),
 			'rider_image' 		=> @$trips->rider_profile_picture,
 			'rider_name' 		=> @$trips->users->first_name,
-			'paypal_app_id'		=> PAYPAL_ID,
-			'paypal_mode'		=> PAYPAL_MODE,
+			'paypal_app_id'		=> $trips->isCorporate() ? '' : PAYPAL_ID,
+			'paypal_mode'		=> $trips->isCorporate() ? '' : PAYPAL_MODE,
 		]);
 	}
 
