@@ -367,4 +367,52 @@ class CorporateApiTest extends TestCase
         $this->assertArrayNotHasKey('billing_snapshot', $response->json('data.0'));
         $this->assertFalse(Trips::$withoutAppends);
     }
+
+    public function test_mobile_contract_and_finance_settlement_keep_earned_and_withdrawable_distinct(): void
+    {
+        $this->transportSchema();
+        $trip = $this->charge();
+        $contract = [];
+        foreach (['member', 'manager', 'finance'] as $role) {
+            $this->role($role);
+            $contract['profile_'.$role] = $this->callAs(1, 'profile')->assertOk()->json();
+        }
+        $contract['dashboard'] = $this->callAs(1, 'dashboard?period_start=2026-09-01')->assertOk()->json();
+        $contract['trips'] = $this->callAs(1, 'trips')->assertOk()->json();
+        $contract['driver_detail'] = $this->legacyAs(2, 'get_trip_details', ['trip_id' => $trip->id])->assertOk()->json();
+        $contract['driver_checkout'] = $this->legacyAs(2, 'get_driver_checkout_summary', ['trip_id' => $trip->id, 'user_type' => 'Driver'])->assertOk()
+            ->assertJsonPath('driver_net_earnings', '1170.00')->assertJsonPath('withdrawable_payout', '0.00')
+            ->assertJsonPath('payment_status', 'Deferred')->json();
+        $contract['receipt'] = $this->legacyAs(1, 'get_invoice', ['trip_id' => $trip->id])->assertOk()->json();
+        $contract['history'] = $this->legacyAs(2, 'get_completed_trips', ['page' => 1])->assertOk()->json();
+        \Illuminate\Support\Str::createUlidsUsing(fn () => new \Symfony\Component\Uid\Ulid('01M4CY7G5YS9X7CDDM4VQ13QWV'));
+        try {
+            $invoice = app(CorporateInvoiceGenerator::class)->generate($this->account, '2026-09-01');
+        } finally {
+            \Illuminate\Support\Str::createUlidsNormally();
+        }
+        $lifecycle = app(CorporateInvoiceLifecycle::class);
+        $lifecycle->send($invoice, $this->actor());
+        $contract['invoices'] = $this->callAs(1, 'invoices')->assertOk()->json();
+        $contract['invoice_detail'] = $this->callAs(1, 'invoices/'.$invoice->id)->assertOk()->json();
+        $contract['pdf_valid'] = str_starts_with($this->callAs(1, 'invoices/'.$invoice->id.'/download')->assertOk()->getContent(), '%PDF-');
+        foreach ([1, 2] as $attempt) {
+            $lifecycle->settle($invoice, $this->actor(), '1470.00', 'KES', '2026-10-07', 'test-contract-settlement');
+        }
+        $this->assertSame(1, DB::table('company_corporate_settlements')->count());
+        $this->assertSame('paid', $trip->fresh()->billing_status);
+        $contract['driver_settled'] = $this->legacyAs(2, 'get_driver_checkout_summary', ['trip_id' => $trip->id, 'user_type' => 'Driver'])->assertOk()
+            ->assertJsonPath('driver_net_earnings', '1170.00')->assertJsonPath('withdrawable_payout', '1170.00')
+            ->assertJsonPath('payment_status', 'Completed')->json();
+        $this->assertTrue($contract['pdf_valid']);
+        foreach (['driver_detail', 'driver_checkout', 'history', 'driver_settled'] as $key) {
+            $this->assertStringNotContainsString('finance@example.test', json_encode($contract[$key]));
+            $this->assertStringNotContainsString('corporate_financial_snapshot', json_encode($contract[$key]));
+        }
+        // Optional generated artifact for Dart consumers; no JWT/secrets included.
+        if (getenv('CORPORATE_EXPORT_MOBILE_CONTRACT') === '1') {
+            \Illuminate\Support\Facades\File::ensureDirectoryExists(base_path('tests/fixtures'));
+            \Illuminate\Support\Facades\File::put(base_path('tests/fixtures/corporate-mobile-contract.json'), json_encode($contract, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)."\n");
+        }
+    }
 }

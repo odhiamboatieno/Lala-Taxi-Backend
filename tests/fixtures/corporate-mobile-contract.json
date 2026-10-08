@@ -1,0 +1,774 @@
+{
+    "profile_member": {
+        "status_code": "1",
+        "status_message": "Success",
+        "corporate": {
+            "account_id": 1,
+            "account_name": "Employer",
+            "role": "member",
+            "status": "Active",
+            "currency_code": "KES",
+            "billing_timezone": "Africa/Nairobi",
+            "billing_cycle": "monthly",
+            "capabilities": {
+                "view_dashboard": true,
+                "view_account_trips": false,
+                "view_users": false,
+                "view_invoices": false,
+                "view_credit": false
+            },
+            "booking_available": true
+        },
+        "default_billing": {
+            "mode": "corporate",
+            "account_name": "Employer",
+            "label_key": "corporate.billed_to_company",
+            "collection_required": false
+        }
+    },
+    "profile_manager": {
+        "status_code": "1",
+        "status_message": "Success",
+        "corporate": {
+            "account_id": 1,
+            "account_name": "Employer",
+            "role": "manager",
+            "status": "Active",
+            "currency_code": "KES",
+            "billing_timezone": "Africa/Nairobi",
+            "billing_cycle": "monthly",
+            "capabilities": {
+                "view_dashboard": true,
+                "view_account_trips": true,
+                "view_users": true,
+                "view_invoices": false,
+                "view_credit": true
+            },
+            "booking_available": true,
+            "credit": {
+                "currency_code": "KES",
+                "outstanding_amount": "1470.00",
+                "credit_limit": "0.00",
+                "credit_limit_configured": false,
+                "over_credit_limit": false,
+                "credit_policy": "warn_only",
+                "remaining_credit": null
+            }
+        },
+        "default_billing": {
+            "mode": "corporate",
+            "account_name": "Employer",
+            "label_key": "corporate.billed_to_company",
+            "collection_required": false
+        }
+    },
+    "profile_finance": {
+        "status_code": "1",
+        "status_message": "Success",
+        "corporate": {
+            "account_id": 1,
+            "account_name": "Employer",
+            "role": "finance",
+            "status": "Active",
+            "currency_code": "KES",
+            "billing_timezone": "Africa/Nairobi",
+            "billing_cycle": "monthly",
+            "capabilities": {
+                "view_dashboard": true,
+                "view_account_trips": true,
+                "view_users": false,
+                "view_invoices": true,
+                "view_credit": true
+            },
+            "booking_available": true,
+            "credit": {
+                "currency_code": "KES",
+                "outstanding_amount": "1470.00",
+                "credit_limit": "0.00",
+                "credit_limit_configured": false,
+                "over_credit_limit": false,
+                "credit_policy": "warn_only",
+                "remaining_credit": null
+            }
+        },
+        "default_billing": {
+            "mode": "corporate",
+            "account_name": "Employer",
+            "label_key": "corporate.billed_to_company",
+            "collection_required": false
+        }
+    },
+    "dashboard": {
+        "status_code": "1",
+        "status_message": "Success",
+        "dashboard": {
+            "scope": "account",
+            "currency_code": "KES",
+            "period_start": "2026-08-31T21:00:00+00:00",
+            "period_end": "2026-09-30T21:00:00+00:00",
+            "billing_timezone": "Africa/Nairobi",
+            "finalized_trip_count": 1,
+            "finalized_amount": "1470.00",
+            "active_member_count": 2,
+            "credit": {
+                "currency_code": "KES",
+                "outstanding_amount": "1470.00",
+                "credit_limit": "0.00",
+                "credit_limit_configured": false,
+                "over_credit_limit": false,
+                "credit_policy": "warn_only",
+                "remaining_credit": null
+            },
+            "draft_invoice_count": 0,
+            "issued_unpaid_invoice_count": 0,
+            "issued_unpaid_amount": "0.00"
+        }
+    },
+    "trips": {
+        "status_code": "1",
+        "status_message": "Success",
+        "data": [
+            {
+                "id": 1,
+                "pickup_location": "Westlands",
+                "drop_location": "JKIA",
+                "completed_at": "2026-09-29T10:15:00+00:00",
+                "status": "Completed",
+                "amount": "1470.00",
+                "currency_code": "KES",
+                "payment_mode": "Corporate",
+                "payment_status": "Deferred",
+                "billing": {
+                    "mode": "corporate",
+                    "account_name": "Employer",
+                    "label_key": "corporate.billed_to_company",
+                    "collection_required": false,
+                    "status": "unbilled",
+                    "currency_code": "KES"
+                }
+            }
+        ],
+        "pagination": {
+            "current_page": 1,
+            "last_page": 1,
+            "per_page": 20,
+            "total": 1
+        }
+    },
+    "driver_detail": {
+        "status_code": "1",
+        "status_message": "Listed Successfully",
+        "is_pool": false,
+        "seats": 1,
+        "riders": [
+            {
+                "id": 1,
+                "name": "Rider Test",
+                "image": "http://127.0.0.1/images/user.jpeg",
+                "mobile_number": "+",
+                "otp": 0,
+                "status": "Completed",
+                "trip_id": 1,
+                "billing": {
+                    "mode": "corporate",
+                    "account_name": "Employer",
+                    "label_key": "corporate.billed_to_company",
+                    "collection_required": false,
+                    "status": "unbilled",
+                    "currency_code": "KES"
+                },
+                "payment_mode": "Corporate",
+                "payment_status": "Deferred",
+                "pickup": "Westlands",
+                "drop": "JKIA",
+                "pickup_lat": -1.2676,
+                "pickup_lng": 36.8108,
+                "drop_lat": -1.3192,
+                "drop_lng": 36.9278,
+                "request_id": 1,
+                "trip_path": null,
+                "map_image": "http://127.0.0.1/images/map/1/fixture.png",
+                "booking_type": "",
+                "schedule_display_date": null,
+                "car_type": "Standard",
+                "car_active_image": "http://127.0.0.1/images/car_image/standard.png",
+                "total_time": 10,
+                "total_km": "20.00",
+                "currency_symbol": "KES ",
+                "total_fare": "1470.00",
+                "currency_code": "KES",
+                "driver_earnings": "KES 1170.00",
+                "driver_payout": "1170.00",
+                "earnings_pending": true,
+                "created_at": "2026-10-07 12:00:00",
+                "rating": "0.0",
+                "invoice": [
+                    {
+                        "key": "Base fare",
+                        "value": "KES 100",
+                        "bar": 0,
+                        "colour": "",
+                        "comment": ""
+                    },
+                    {
+                        "key": "Time fare",
+                        "value": "KES 100",
+                        "bar": 0,
+                        "colour": "",
+                        "comment": ""
+                    },
+                    {
+                        "key": "Distance Fare",
+                        "value": "KES 1000",
+                        "bar": 0,
+                        "colour": "",
+                        "comment": ""
+                    },
+                    {
+                        "key": "Sub Total",
+                        "value": "KES 1200",
+                        "bar": 1,
+                        "colour": "black",
+                        "comment": ""
+                    },
+                    {
+                        "key": "Driver service fee",
+                        "value": "-KES 180",
+                        "bar": 0,
+                        "colour": "",
+                        "comment": ""
+                    },
+                    {
+                        "key": "Tips",
+                        "value": "KES 100",
+                        "bar": 1,
+                        "colour": "",
+                        "comment": ""
+                    },
+                    {
+                        "key": "Driver Earnings",
+                        "value": "KES 1170",
+                        "bar": "1",
+                        "colour": "",
+                        "comment": ""
+                    }
+                ],
+                "otp_enabled": false
+            }
+        ],
+        "billing": {
+            "mode": "corporate",
+            "account_name": "Employer",
+            "label_key": "corporate.billed_to_company",
+            "collection_required": false,
+            "status": "unbilled",
+            "currency_code": "KES"
+        },
+        "payment_mode": "Corporate",
+        "payment_status": "Deferred"
+    },
+    "driver_checkout": {
+        "status_code": "1",
+        "status_message": "Success",
+        "trip_id": 1,
+        "trip_status": "Completed",
+        "service_category": "ride",
+        "payment_mode": "Corporate",
+        "payment_status": "Deferred",
+        "billing": {
+            "mode": "corporate",
+            "account_name": "Employer",
+            "label_key": "corporate.billed_to_company",
+            "collection_required": false,
+            "status": "unbilled",
+            "currency_code": "KES"
+        },
+        "pending_company_payment": true,
+        "pending_payout": "1170.00",
+        "currency_code": "KES",
+        "currency_symbol": "KES",
+        "fare_mode": "taximeter",
+        "fare_estimate": "0.00",
+        "estimated_fare": "0.00",
+        "fare_estimation": null,
+        "live_total_fare": null,
+        "total_fare": "1470.00",
+        "total_received": "0.00",
+        "driver_gross_earnings": "1350.00",
+        "driver_net_earnings": "1170.00",
+        "driver_payout": "0.00",
+        "withdrawable_payout": "0.00",
+        "driver_or_company_commission": "180.00",
+        "total_time": 10,
+        "total_km": "20.0",
+        "driver_rating": 0,
+        "driver_rating_submitted": false,
+        "invoice": [
+            {
+                "key": "Base fare",
+                "value": "KES 100",
+                "bar": 0,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Time fare",
+                "value": "KES 100",
+                "bar": 0,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Distance Fare",
+                "value": "KES 1000",
+                "bar": 0,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Sub Total",
+                "value": "KES 1200",
+                "bar": 1,
+                "colour": "black",
+                "comment": ""
+            },
+            {
+                "key": "Driver service fee",
+                "value": "-KES 180",
+                "bar": 0,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Tips",
+                "value": "KES 100",
+                "bar": 1,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Driver Earnings",
+                "value": "KES 1170",
+                "bar": "1",
+                "colour": "",
+                "comment": ""
+            }
+        ],
+        "summary": {
+            "total_received": "0.00",
+            "total_received_display": "KES0",
+            "fare_earned": "1350.00",
+            "fare_earned_display": "KES1350",
+            "service_charge": "180.00",
+            "service_charge_display": "-KES180",
+            "service_charge_rate": 13,
+            "gross_driver_earnings": "1350.00",
+            "gross_driver_earnings_display": "KES1350",
+            "applied_owe_amount": "0.00",
+            "applied_owe_amount_display": "-KES0",
+            "net_earnings": "1170.00",
+            "net_earnings_display": "KES1170",
+            "withdrawable_payout": "0.00",
+            "withdrawable_payout_display": "KES0",
+            "is_cash_trip": false,
+            "distance_km": "20.0",
+            "distance_display": "20 km",
+            "duration_minutes": 10,
+            "duration_display": "10 min",
+            "passenger_system_fee": "120.00",
+            "driver_service_fee": "180.00",
+            "company_commission": "0.00",
+            "company_driver_fee": "0.00",
+            "company_driver_fee_label": "",
+            "breakdown": [
+                {
+                    "key": "total_received",
+                    "label": "Billed to company",
+                    "value": "1470.00",
+                    "display_value": "KES1470",
+                    "emphasis": "positive"
+                },
+                {
+                    "key": "gross_driver_earnings",
+                    "label": "Driver gross earnings",
+                    "value": "1350.00",
+                    "display_value": "KES1350",
+                    "emphasis": "default"
+                },
+                {
+                    "key": "driver_service_fee",
+                    "label": "Driver service fee",
+                    "value": "180.00",
+                    "display_value": "-KES180",
+                    "emphasis": "negative"
+                },
+                {
+                    "key": "net_earnings",
+                    "label": "Net earnings",
+                    "value": "1170.00",
+                    "display_value": "KES1170",
+                    "emphasis": "positive"
+                },
+                {
+                    "key": "withdrawable_payout",
+                    "label": "Driver payout",
+                    "value": "0.00",
+                    "display_value": "KES0",
+                    "emphasis": "default"
+                }
+            ]
+        }
+    },
+    "receipt": {
+        "status_code": "1",
+        "status_message": "Success",
+        "total_time": 10,
+        "total_km": 20,
+        "pickup_location": "Westlands",
+        "drop_location": "JKIA",
+        "pickup_latitude": -1.2676,
+        "pickup_longitude": 36.8108,
+        "drop_latitude": -1.3192,
+        "drop_longitude": 36.9278,
+        "trip_path": null,
+        "route_polyline": null,
+        "polyline": null,
+        "stop_points": null,
+        "payment_mode": "Corporate",
+        "payment_status": "Deferred",
+        "applied_owe_amount": "0.00",
+        "remaining_owe_amount": "0.00",
+        "invoice": [
+            {
+                "key": "Base fare",
+                "value": "KES 100",
+                "bar": 0,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Time fare",
+                "value": "KES 100",
+                "bar": 0,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Distance Fare",
+                "value": "KES 1000",
+                "bar": 0,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Sub Total",
+                "value": "KES 1200",
+                "bar": 1,
+                "colour": "black",
+                "comment": ""
+            },
+            {
+                "key": "Access fee",
+                "value": "KES 120.00",
+                "bar": 0,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Tips",
+                "value": "KES 100",
+                "bar": 1,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Total trip fare",
+                "value": "KES 1470.00",
+                "bar": 1,
+                "colour": "yellow",
+                "comment": ""
+            }
+        ],
+        "payment_details": {
+            "billing": {
+                "mode": "corporate",
+                "account_name": "Employer",
+                "label_key": "corporate.billed_to_company",
+                "collection_required": false,
+                "status": "unbilled",
+                "currency_code": "KES"
+            },
+            "currency_code": "KES",
+            "total_time": 10,
+            "driver_payout": "1170.00",
+            "payment_status": "Deferred",
+            "payment_mode": "Corporate",
+            "owe_amount": "0.00",
+            "trips_status": "Completed",
+            "driver_paypal_id": "",
+            "total_fare": "1470.00"
+        },
+        "billing": {
+            "mode": "corporate",
+            "account_name": "Employer",
+            "label_key": "corporate.billed_to_company",
+            "collection_required": false,
+            "status": "unbilled",
+            "currency_code": "KES"
+        },
+        "total_fare": "1470.00",
+        "trip_status": "Completed",
+        "trip_id": 1,
+        "driver_image": "http://127.0.0.1/images/user.jpeg",
+        "driver_thumb_image": "http://127.0.0.1/images/user.jpeg",
+        "driver_name": "Rider Test",
+        "rider_image": "http://127.0.0.1/images/user.jpeg",
+        "rider_name": "Rider",
+        "paypal_app_id": "",
+        "paypal_mode": ""
+    },
+    "history": {
+        "status_code": "1",
+        "status_message": "Listed Successfully",
+        "current_page": 1,
+        "total_pages": 1,
+        "data": [
+            {
+                "currency_code": "KES",
+                "payment_mode": "Corporate",
+                "payment_status": "Deferred",
+                "is_pool": "false",
+                "seats": 1,
+                "status": "Completed",
+                "trip_id": 1,
+                "pickup": "Westlands",
+                "drop": "JKIA",
+                "map_image": "http://127.0.0.1/images/map/1/fixture.png",
+                "booking_type": "",
+                "car_type": "Standard",
+                "currency_symbol": "KES ",
+                "total_fare": "1470.00",
+                "driver_earnings": "KES 1170.00",
+                "driver_image": "http://127.0.0.1/images/user.jpeg",
+                "schedule_display_date": "",
+                "billing": {
+                    "mode": "corporate",
+                    "account_name": "Employer",
+                    "label_key": "corporate.billed_to_company",
+                    "collection_required": false,
+                    "status": "unbilled",
+                    "currency_code": "KES"
+                },
+                "earnings_pending": true
+            }
+        ]
+    },
+    "invoices": {
+        "status_code": "1",
+        "status_message": "Success",
+        "data": [
+            {
+                "id": 1,
+                "invoice_number": "CORP-20261007-R1-01M4CY7G5YS9X7CDDM4VQ13QWV",
+                "invoice_date": "2026-10-07",
+                "due_date": "2026-11-06",
+                "status": "Sent",
+                "amount": "1470.00",
+                "currency_code": "KES",
+                "period_start": "2026-08-31T21:00:00+00:00",
+                "period_end": "2026-09-30T21:00:00+00:00",
+                "billing_timezone": "Africa/Nairobi",
+                "revision": 1,
+                "pdf_url": "http://127.0.0.1/api/corporate/invoices/1/download"
+            }
+        ],
+        "pagination": {
+            "current_page": 1,
+            "last_page": 1,
+            "per_page": 20,
+            "total": 1
+        }
+    },
+    "invoice_detail": {
+        "status_code": "1",
+        "status_message": "Success",
+        "invoice": {
+            "id": 1,
+            "invoice_number": "CORP-20261007-R1-01M4CY7G5YS9X7CDDM4VQ13QWV",
+            "invoice_date": "2026-10-07",
+            "due_date": "2026-11-06",
+            "status": "Sent",
+            "amount": "1470.00",
+            "currency_code": "KES",
+            "period_start": "2026-08-31T21:00:00+00:00",
+            "period_end": "2026-09-30T21:00:00+00:00",
+            "billing_timezone": "Africa/Nairobi",
+            "revision": 1,
+            "pdf_url": "http://127.0.0.1/api/corporate/invoices/1/download",
+            "items": [
+                {
+                    "trip_id": 1,
+                    "description": "Trip #1",
+                    "pickup_location": "Westlands",
+                    "drop_location": "JKIA",
+                    "completed_at": "2026-09-29T10:15:00+00:00",
+                    "amount": "1470.00",
+                    "currency_code": "KES"
+                }
+            ]
+        }
+    },
+    "pdf_valid": true,
+    "driver_settled": {
+        "status_code": "1",
+        "status_message": "Success",
+        "trip_id": 1,
+        "trip_status": "Completed",
+        "service_category": "ride",
+        "payment_mode": "Corporate",
+        "payment_status": "Completed",
+        "billing": {
+            "mode": "corporate",
+            "account_name": "Employer",
+            "label_key": "corporate.billed_to_company",
+            "collection_required": false,
+            "status": "paid",
+            "currency_code": "KES"
+        },
+        "pending_company_payment": false,
+        "pending_payout": "0.00",
+        "currency_code": "KES",
+        "currency_symbol": "KES",
+        "fare_mode": "taximeter",
+        "fare_estimate": "0.00",
+        "estimated_fare": "0.00",
+        "fare_estimation": null,
+        "live_total_fare": null,
+        "total_fare": "1470.00",
+        "total_received": "0.00",
+        "driver_gross_earnings": "1350.00",
+        "driver_net_earnings": "1170.00",
+        "driver_payout": "1170.00",
+        "withdrawable_payout": "1170.00",
+        "driver_or_company_commission": "180.00",
+        "total_time": 10,
+        "total_km": "20.0",
+        "driver_rating": 0,
+        "driver_rating_submitted": false,
+        "invoice": [
+            {
+                "key": "Base fare",
+                "value": "KES 100",
+                "bar": 0,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Time fare",
+                "value": "KES 100",
+                "bar": 0,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Distance Fare",
+                "value": "KES 1000",
+                "bar": 0,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Sub Total",
+                "value": "KES 1200",
+                "bar": 1,
+                "colour": "black",
+                "comment": ""
+            },
+            {
+                "key": "Driver service fee",
+                "value": "-KES 180",
+                "bar": 0,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Tips",
+                "value": "KES 100",
+                "bar": 1,
+                "colour": "",
+                "comment": ""
+            },
+            {
+                "key": "Driver Earnings",
+                "value": "KES 1170",
+                "bar": "1",
+                "colour": "",
+                "comment": ""
+            }
+        ],
+        "summary": {
+            "total_received": "0.00",
+            "total_received_display": "KES0",
+            "fare_earned": "1350.00",
+            "fare_earned_display": "KES1350",
+            "service_charge": "180.00",
+            "service_charge_display": "-KES180",
+            "service_charge_rate": 13,
+            "gross_driver_earnings": "1350.00",
+            "gross_driver_earnings_display": "KES1350",
+            "applied_owe_amount": "0.00",
+            "applied_owe_amount_display": "-KES0",
+            "net_earnings": "1170.00",
+            "net_earnings_display": "KES1170",
+            "withdrawable_payout": "1170.00",
+            "withdrawable_payout_display": "KES1170",
+            "is_cash_trip": false,
+            "distance_km": "20.0",
+            "distance_display": "20 km",
+            "duration_minutes": 10,
+            "duration_display": "10 min",
+            "passenger_system_fee": "120.00",
+            "driver_service_fee": "180.00",
+            "company_commission": "0.00",
+            "company_driver_fee": "0.00",
+            "company_driver_fee_label": "",
+            "breakdown": [
+                {
+                    "key": "total_received",
+                    "label": "Billed to company",
+                    "value": "1470.00",
+                    "display_value": "KES1470",
+                    "emphasis": "positive"
+                },
+                {
+                    "key": "gross_driver_earnings",
+                    "label": "Driver gross earnings",
+                    "value": "1350.00",
+                    "display_value": "KES1350",
+                    "emphasis": "default"
+                },
+                {
+                    "key": "driver_service_fee",
+                    "label": "Driver service fee",
+                    "value": "180.00",
+                    "display_value": "-KES180",
+                    "emphasis": "negative"
+                },
+                {
+                    "key": "net_earnings",
+                    "label": "Net earnings",
+                    "value": "1170.00",
+                    "display_value": "KES1170",
+                    "emphasis": "positive"
+                },
+                {
+                    "key": "withdrawable_payout",
+                    "label": "Driver payout",
+                    "value": "1170.00",
+                    "display_value": "KES1170",
+                    "emphasis": "positive"
+                }
+            ]
+        }
+    }
+}

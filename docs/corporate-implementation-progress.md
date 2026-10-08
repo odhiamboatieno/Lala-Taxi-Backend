@@ -116,7 +116,13 @@ Verification: Customer full suite 28 tests, clean analyzer, Android debug APK an
 
 ## Remaining phases
 
-8. End-to-end integration and regression verification.
+### Phase 8a — Backend/mobile contract verification (2026-10-08)
+
+Real JWT and legacy endpoint output is exported for both Flutter apps after finalized Deferred completion, issued invoice, authorized PDF and idempotent settlement. It verifies earned versus withdrawable payouts, immutable currency/company attribution, role permissions and driver private-field exclusion. Test-only deterministic invoice IDs make the artifact reproducible; production numbering is unchanged.
+
+Customer passes 33 tests, Driver 15, both analyzers are clean and Android debug APKs build. Account-change/late-response and duplicate schedule protections accompany actual API/repository/provider contract consumption. Backend general suite passes 136 tests / 822 assertions (two MySQL-only cases skipped); isolated MySQL passes all 72 tests / 608 assertions. Live server/device/GPS/push/SMTP acceptance is not inferred from fixtures.
+
+8. Live staging/device end-to-end verification remains separate from completed contract/regression checks.
 9. Deployment artifacts, scheduler, disabled pilot and rollout validation.
 
 No production migrations, deployment, payments or financial data changes have been performed. Corporate booking remains disabled; these backend milestones do not yet establish complete web/mobile end-to-end support.
