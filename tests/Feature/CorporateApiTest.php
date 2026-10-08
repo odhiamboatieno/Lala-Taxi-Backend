@@ -39,7 +39,7 @@ class CorporateApiTest extends TestCase
         if (DB::getDriverName() !== 'sqlite' && DB::connection()->getDatabaseName() !== 'lala_corporate_schema_test') {
             throw new \RuntimeException('Refusing transport fixture cleanup outside the isolated test database.');
         }
-        foreach (['trip_requests', 'vehicle', 'profile_picture', 'driver_documents', 'driver_location', 'cancel_reasons', 'cancel'] as $table) { Schema::dropIfExists($table); }
+        foreach (['parcel_requests', 'trip_requests', 'vehicle', 'profile_picture', 'driver_documents', 'driver_location', 'cancel_reasons', 'cancel'] as $table) { Schema::dropIfExists($table); }
         $this->dropCorporateTestSchema();
         parent::tearDown();
     }
@@ -275,6 +275,33 @@ class CorporateApiTest extends TestCase
         Event::assertDispatched(\App\Events\TripDriverAssigned::class, fn ($event) => $event->payload['billing']['collection_required'] === false
             && $event->payload['payment_mode'] === 'Corporate' && $event->payload['payment_status'] === 'Pending'
             && !str_contains(json_encode($event->payload), 'finance@example.test'));
+    }
+
+    public function test_driver_polling_preserves_saved_corporate_offer_without_private_billing_fields(): void
+    {
+        $this->transportSchema();
+        (require database_path('migrations/2026_08_16_000082_create_parcel_requests_table.php'))->up();
+        $offer = RideRequest::create(['user_id' => 1, 'driver_id' => 2, 'car_id' => 1, 'schedule_id' => '', 'status' => 'Pending']);
+        $token = \JWTAuth::fromUser(User::findOrFail(2));
+        $response = $this->withToken($token)->getJson('/api/driver/current-request')->assertOk()
+            ->assertJsonPath('trip_request.id', $offer->id)
+            ->assertJsonPath('trip_request.billing.mode', 'corporate')
+            ->assertJsonPath('trip_request.billing.account_name', 'Employer')
+            ->assertJsonPath('trip_request.billing.collection_required', false)
+            ->assertJsonPath('trip_request.payment_mode', 'Corporate');
+        foreach (['billing_snapshot', 'finance@example.test', 'billing_address', 'corporate_financial_snapshot'] as $private) {
+            $this->assertStringNotContainsString($private, $response->getContent());
+        }
+    }
+
+    public function test_driver_gps_rate_limit_is_independent_of_general_api_calls(): void
+    {
+        $route = app('router')->getRoutes()->match(\Illuminate\Http\Request::create('/api/driver/location/update', 'POST'));
+        $middleware = app('router')->gatherRouteMiddleware($route);
+        $limiter = \Illuminate\Routing\Middleware\ThrottleRequests::class;
+        $this->assertContains($limiter.':120,1', $middleware);
+        $this->assertContains($limiter.':60,1,driver-location:', $middleware);
+        $this->assertNotContains($limiter.':60,1', $middleware);
     }
 
     public function test_realtime_completion_http_and_events_report_deferred_and_retry_is_idempotent(): void

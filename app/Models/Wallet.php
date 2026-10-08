@@ -27,7 +27,7 @@ class Wallet extends Model
      */
     public function getAmountAttribute()
     {
-        return number_format(($this->attributes['amount']),2,'.','0'); 
+        return number_format(($this->attributes['amount'] ?? 0),2,'.','0');
     }
     
     /**
@@ -36,6 +36,6 @@ class Wallet extends Model
      */
     public function getOriginalAmountAttribute()
     {
-        return $this->attributes['amount'];
+        return $this->attributes['amount'] ?? 0;
     }
 }

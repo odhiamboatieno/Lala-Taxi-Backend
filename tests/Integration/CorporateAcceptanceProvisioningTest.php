@@ -50,6 +50,8 @@ class CorporateAcceptanceProvisioningTest extends TestCase
         }
         $this->assertSame(1, DB::table('users')->whereNull('corporate_account_id')->where('user_type', 'Rider')->count());
         $this->assertSame(2, DB::table('vehicle')->where('status', 'Active')->count());
+        $this->assertSame(24, DB::table('driver_score_settings')->count());
+        $this->assertSame(0, DB::table('driver_scores')->count());
     }
 
     public function test_configuration_drift_fails_and_rolls_back_all_provisioning(): void
@@ -65,5 +67,34 @@ class CorporateAcceptanceProvisioningTest extends TestCase
         $this->assertSame(0, DB::table('admins')->count());
         $this->assertSame(0, DB::table('country')->count());
         $this->assertSame('0', DB::table('site_settings')->where('name', 'saas_dispatch_module_enabled')->value('value'));
+    }
+
+    public function test_personal_fare_handles_a_driver_without_a_debt_ledger(): void
+    {
+        app(CorporateAcceptanceProvisioner::class)->provision(self::PASSWORD);
+        $rider = \App\Models\User::where('mobile_number', '700000130')->firstOrFail();
+        $driver = \App\Models\User::where('mobile_number', '700000140')->firstOrFail();
+        $car = DB::table('car_type')->where('car_name', 'Lala Standard QA')->value('id');
+        $offer = \App\Models\Request::create(['user_id' => $rider->id, 'driver_id' => $driver->id, 'car_id' => $car, 'payment_mode' => 'Cash', 'schedule_id' => '']);
+        $trip = \App\Models\Trips::create(['user_id' => $rider->id, 'driver_id' => $driver->id, 'request_id' => $offer->id,
+            'status' => 'Payment', 'company_id' => 1, 'car_id' => $car, 'currency_code' => 'KES', 'owe_amount' => 0]);
+        $helper = app(\App\Http\Helper\InvoiceHelper::class);
+        $this->assertSame(['remaining' => 0, 'applied' => 0, 'driver_payout' => 500], $helper->oweAmount(500, $driver->id, $trip->id, 1, 'KES'));
+        $this->assertSame(0, \App\Models\DriverOweAmount::count());
+        \App\Models\DriverOweAmount::create(['user_id' => $driver->id, 'amount' => '100', 'currency_code' => 'KES']);
+        $debt = $helper->oweAmount(500, $driver->id, $trip->id, 0, 'KES');
+        $this->assertEquals(100, $debt['remaining']);
+        $this->assertEquals(500, $debt['driver_payout']);
+    }
+
+    public function test_new_wallet_is_zero_before_its_first_cash_fee_debit(): void
+    {
+        app(CorporateAcceptanceProvisioner::class)->provision(self::PASSWORD);
+        $wallet = new \App\Models\Wallet;
+        $this->assertSame('0.00', $wallet->amount);
+        $this->assertSame('0.00', $wallet->original_amount);
+        $wallet->amount = '25.50';
+        $this->assertSame('25.50', $wallet->amount);
+        $this->assertSame('25.50', $wallet->original_amount);
     }
 }

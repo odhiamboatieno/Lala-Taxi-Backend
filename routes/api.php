@@ -237,7 +237,9 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::get('driver/home', 'RealtimeDriverController@home');
     Route::get('driver/session/status', 'RealtimeDriverController@sessionStatus');
     Route::get('driver/session/history', 'RealtimeDriverController@sessionHistory');
-    Route::post('driver/location/update', 'RealtimeDriverController@updateLocation')->middleware('throttle:60,1');
+    // Keep GPS and the general API limiter in distinct buckets. Numeric
+    // limiters otherwise share a key and GPS can be rejected after normal API calls.
+    Route::post('driver/location/update', 'RealtimeDriverController@updateLocation')->middleware('throttle:60,1,driver-location:');
     Route::get('driver/current-request', 'RealtimeDriverController@currentRequest');
     Route::get('driver/score', 'DriverScoreController@show');
     Route::get('driver/score/history', 'DriverScoreController@history');

@@ -20,7 +20,20 @@ $expect = function (bool $condition, string $label) use (&$checks): void {
 };
 $json = function (string $method, string $path, array $options = []) use ($client): array {
     $options['headers']['Accept'] = 'application/json';
-    $response = $client->request($method, $path, $options);
+    for ($attempt = 0; ; $attempt++) {
+        $response = $client->request($method, $path, $options);
+        if ($response->getStatusCode() !== 429 || $attempt >= 2) {
+            break;
+        }
+        // Real rate limits remain enabled. Only retry requests rejected before
+        // their controller runs, using the server's bounded retry interval.
+        $delay = (int) $response->getHeaderLine('Retry-After');
+        if ($delay < 1 || $delay > 60) {
+            break;
+        }
+        echo 'Waiting '.$delay.' seconds for the real API rate limit.'.PHP_EOL;
+        sleep($delay);
+    }
     return [(int) $response->getStatusCode(), json_decode((string) $response->getBody(), true, 512, JSON_THROW_ON_ERROR), $response];
 };
 $tokens = [];

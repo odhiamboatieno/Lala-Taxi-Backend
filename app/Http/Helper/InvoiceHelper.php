@@ -1016,7 +1016,7 @@ class InvoiceHelper
 		$current_trip = Trips::where('id', $trip_id)->first();
 	  	// deduction
 	  	$driver_owe_amount = DriverOweAmount::where('user_id',$driver_id)->first();
-	  	$owe_amount = $remaining_owe_amount = $driver_owe_amount->amount+$current_trip->owe_amount;
+        $owe_amount = $remaining_owe_amount = ($driver_owe_amount?->amount ?? 0)+$current_trip->owe_amount;
 	  	$applied_owe_amount = 0;
 
 	   	if($owe_amount != 0) {

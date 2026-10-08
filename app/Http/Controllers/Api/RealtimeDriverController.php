@@ -311,6 +311,8 @@ class RealtimeDriverController extends Controller
 
         return [
             'id' => $rideRequest->id,
+            'billing' => $rideRequest->billing,
+            'payment_mode' => $rideRequest->payment_mode,
             'request_id' => $rideRequest->id,
             'trip_request_uuid' => 'ride_request_'.$rideRequest->id,
             'notification_type' => 'trip_request',

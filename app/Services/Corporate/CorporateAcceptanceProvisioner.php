@@ -98,6 +98,11 @@ class CorporateAcceptanceProvisioner
             foreach (['access_fee' => '0', 'driver_access_fee' => '15', 'driver_peak_fare' => '0'] as $name => $value) {
                 $this->insertOnce('fees', ['name' => $name], ['value' => $value]);
             }
+            // Reuse the application's normal scoring configuration, not fake
+            // scores/events. Never overwrite an existing operator's settings.
+            if (DB::table('driver_score_settings')->count() === 0) {
+                (new \DriverScoreSettingsTableSeeder)->run();
+            }
             $make = $this->insertOnce('vehicle_make', ['make_vehicle_name' => 'Toyota QA'], ['status' => 'Active']);
             $model = $this->insertOnce('vehicle_model', ['vehicle_make_id' => $make, 'model_name' => 'Axio QA'], ['status' => 'Active']);
             foreach ([['David', 'Kiptoo'], ['Brian', 'Onyango']] as $index => [$first, $last]) {
