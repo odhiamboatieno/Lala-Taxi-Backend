@@ -21,7 +21,11 @@ storage/framework/sessions/*
 storage/framework/views/*
 storage/framework/testing/*
 storage/installed
-storage/app/public/*
+# Runtime uploads, generated receipts/backups and credentials are provisioned
+# on the host, never copied into a registry image from a developer workspace.
+storage/app/*
+!storage/app/.gitignore
+credentials/*
 bootstrap/cache/*.php
 public/trip_file/*
 public/error_log

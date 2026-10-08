@@ -22,6 +22,16 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    services:
+      corporate-mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: isolated-ci-only
+          MYSQL_DATABASE: lala_corporate_schema_test
+        ports: ["33317:3306"]
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -pisolated-ci-only"
+          --health-interval=10s --health-timeout=5s --health-retries=20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -65,6 +75,24 @@ jobs:
       - name: Run tests
         run: vendor/bin/phpunit --no-coverage
 
+      - name: Verify corporate MySQL migrations, concurrency and retention
+        env:
+          DB_PASSWORD: isolated-ci-only
+        run: vendor/bin/phpunit -c phpunit.corporate-mysql.xml --no-coverage
+
+      - name: Verify reproducible mobile contract
+        env:
+          CORPORATE_EXPORT_MOBILE_CONTRACT: "1"
+        run: |
+          vendor/bin/phpunit --no-coverage --filter test_mobile_contract_and_finance_settlement
+          git diff --exit-code -- tests/fixtures/corporate-mobile-contract.json
+
+      - name: Validate release scripts and cached routes
+        run: |
+          sh -n deploy/preflight.sh deploy/release.sh docker/entrypoint.sh
+          php -l docker/audit-code.php
+          APP_ROUTES_CACHE="$(mktemp -d)/corporate-routes.php" php artisan route:cache
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
@@ -85,6 +113,7 @@ jobs:
       packages: write
     outputs:
       image: ${{ steps.meta.outputs.tags }}
+      digest: ${{ steps.build.outputs.digest }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -112,6 +141,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push image
+        id: build
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -120,6 +150,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: RELEASE_SHA=${{ github.sha }}
 
       - name: Image summary
         run: echo "Pushed image -> ${{ steps.meta.outputs.tags }}"
@@ -143,6 +174,13 @@ jobs:
           cp deploy/nginx.conf bundle/
           cp deploy/.env.example bundle/.env.example
           cp deploy/README.md bundle/README.md
+          cp deploy/CORPORATE_RELEASE.md bundle/
+          cp deploy/preflight.sh deploy/release.sh bundle/
+          cp docs/corporate-implementation-progress.md bundle/
+          printf '{"commit":"%s","image":"ghcr.io/%s@%s","corporate_bookings_enabled":false}\n' \
+            "$GITHUB_SHA" "$(printf '%s' "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')" \
+            '${{ needs.build.outputs.digest }}' > bundle/release-manifest.json
+          sha256sum tests/fixtures/corporate-mobile-contract.json > bundle/mobile-contract.sha256
           tar -czf lalataxi-deploy.tar.gz -C bundle .
 
       - name: Upload deploy bundle artifact
@@ -155,4 +193,4 @@ jobs:
       - name: Release notes summary
         run: |
           echo "Deploy bundle ready. Download 'lalataxi-deploy-bundle' from this run's artifacts."
-          echo "Extract on the VPS, fill in .env, then: docker compose up -d"
+          echo "Use the pinned digest in release-manifest.json and the backup/restore-gated release.sh runbook. No SSH deployment was performed."

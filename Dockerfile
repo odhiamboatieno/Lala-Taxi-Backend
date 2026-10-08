@@ -64,6 +64,7 @@ RUN apk add --no-cache --virtual .build-deps \
 COPY --from=vendor /usr/bin/composer /usr/local/bin/composer
 
 WORKDIR /src
+ARG RELEASE_SHA=local
 
 # Copy application source. The runtime ships it at /src; the entrypoint syncs it
 # into the shared app_code volume at /var/www/html (mounted by nginx too), so
@@ -76,7 +77,10 @@ COPY --from=vendor /app/vendor ./vendor
 # Rebuild the optimized autoloader so App\ + Modules\ namespaces resolve.
 RUN composer dump-autoload --no-dev --optimize --no-scripts --no-interaction \
     && chmod -R 755 storage bootstrap/cache \
-    && date -u +%s > .src-build
+    && printf '%s\n' "$RELEASE_SHA" > .src-build \
+    && find app bootstrap config database Modules routes resources public -type f \
+        ! -path 'bootstrap/cache/*' ! -path 'public/images/*' ! -path 'public/trip_file/*' \
+        | sort > .src-files
 
 # Runtime entrypoint (storage bootstrap, migrations, permissions).
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint

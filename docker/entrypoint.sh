@@ -12,11 +12,20 @@ if [ "${SYNC_CODE:-true}" = "true" ] && [ -d /src ] && [ -d /src/vendor ]; then
     if [ ! -f /var/www/html/.src-build ] || \
        [ "$(cat /var/www/html/.src-build 2>/dev/null || true)" != "$(cat /src/.src-build 2>/dev/null || true)" ]; then
         echo "[entrypoint] Syncing application code into shared volume..."
+        php /src/docker/audit-code.php
         cp -a /src/. /var/www/html/
     fi
 fi
 
 cd /var/www/html
+
+# Workers must never start against code from a different image. Only the app
+# copies /src; deployment stops existing readers before replacing that code.
+if [ "${SYNC_CODE:-true}" = "false" ] && \
+   [ "$(cat .src-build 2>/dev/null || true)" != "$(cat /src/.src-build 2>/dev/null || true)" ]; then
+    echo "[entrypoint] Shared code does not match this image; refusing worker startup." >&2
+    exit 1
+fi
 
 # Ensure Laravel runtime directories exist and are writable.
 mkdir -p \
@@ -49,8 +58,17 @@ fi
 
 # Run migrations once per deploy (guarded by env, safe for a single app node).
 if [ "${RUN_MIGRATIONS:-true}" = "true" ]; then
+    # Stale config/routes from the prior image cannot influence migrations.
+    php artisan config:clear --no-interaction
+    php artisan route:clear --no-interaction
     echo "[entrypoint] Running database migrations..."
     php artisan migrate --force --no-interaction
+fi
+
+if [ "${REBUILD_CACHES:-false}" = "true" ]; then
+    php artisan config:cache --no-interaction
+    php artisan route:cache --no-interaction
+    php artisan view:cache --no-interaction
 fi
 
 echo "[entrypoint] Ready. Executing: $*"

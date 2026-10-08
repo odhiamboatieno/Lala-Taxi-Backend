@@ -1,5 +1,7 @@
 # LalaTaxi Backend — VPS deployment
 
+Use [CORPORATE_RELEASE.md](CORPORATE_RELEASE.md) for the required backup/restore, immutable-image, code audit, controlled startup and acceptance gates. These scripts do not enable bookings or perform financial operations. Do not deploy by blindly running `compose up` against an existing database.
+
 The GitHub Actions pipeline builds the app image and pushes it to
 **GHCR** (`ghcr.io/odhiamboatieno/lala-taxi-backend`). This folder contains
 everything you need to run it on your own VPS with Docker Compose.
@@ -8,10 +10,12 @@ everything you need to run it on your own VPS with Docker Compose.
 
 | File              | Purpose                                             |
 |-------------------|-----------------------------------------------------|
-| `docker-compose.yml` | Orchestrates app, nginx, mysql, redis, queue, reverb |
+| `docker-compose.yml` | App, nginx, mysql, redis, queue, reverb and scheduler |
 | `.env.example`    | Copy to `.env` and fill in real secrets             |
 | `nginx.conf`      | Web server config (mounts into the nginx container) |
 | `entrypoint.sh`   | Runtime bootstrap (storage, migrations) — baked into the image |
+| `preflight.sh` / `release.sh` | Read-only validation / backup-gated controlled release |
+| `release-manifest.json` | CI-packaged tested commit and immutable image digest |
 
 ## Deploy on the VPS
 
@@ -19,61 +23,49 @@ everything you need to run it on your own VPS with Docker Compose.
 # 1. Install Docker + compose plugin if not already installed
 curl -fsSL https://get.docker.com | sh
 
-# 2. Create a directory and copy the three files
+# 2. For a FIRST installation, create a directory and copy the complete CI bundle.
+# For an upgrade, use the existing Compose directory/project and volumes.
 mkdir -p /opt/lalataxi && cd /opt/lalataxi
-#   upload docker-compose.yml, nginx.conf and .env.example
+#   upload the complete lalataxi-deploy-bundle artifact
 
 # 3. Create your real .env
 cp .env.example .env
 #   -> set APP_URL, DB_PASSWORD, MYSQL_ROOT_PASSWORD,
-#      REVERB keys, JWT_SECRET, and generate APP_KEY/JWT_SECRET
-#      (see "Generate secrets" below)
+#      REVERB keys, JWT_SECRET, APP_KEY and SMTP through credential management
+#      (retain all existing keys and DB credentials on an upgrade)
 
-# 4. Start the stack
-docker compose up -d
+# 4. Set LALATAXI_IMAGE to the tested digest and validate without starting services
+sh preflight.sh --config-only
 
 # 5. Watch the logs / check health
 docker compose ps
 docker compose logs -f app
 
-# 6. Import your existing database dump (optional, fresh DB)
-docker compose exec -T mysql sh -c 'exec mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" lalataxi' < lalataxi.sql
+# 6. Follow CORPORATE_RELEASE.md; verify backup/restore before sh release.sh.
+# Never import a dump over an existing production database.
 ```
 
-## Generate secrets
+## Secrets
 
-Run these inside a running app container:
-
-```bash
-docker compose exec app php artisan key:generate --force
-docker compose exec app php artisan jwt:secret --force
-docker compose exec app php artisan tinker --execute="echo Str::random(32).PHP_EOL;"   # reverb key
-docker compose exec app php artisan tinker --execute="echo Str::random(32).PHP_EOL;"   # reverb secret
-```
-
-Then put the generated values into `.env` and `docker compose up -d` again.
+For a first isolated installation, provision application, JWT, database and realtime keys through credential management before booting. Never regenerate APP_KEY or JWT_SECRET during a routine upgrade. Do not print secrets into deployment logs or commit operator `.env` files.
 
 ## Updating after a new CI build
 
 ```bash
-cd /opt/lalataxi
-docker compose pull
-docker compose up -d
+sh preflight.sh --config-only
+# Supply verified BACKUP_REFERENCE and RESTORE_EVIDENCE before this command:
+sh release.sh
 ```
 
 ## Realtime / Reverb notes
 
 - Reverb listens on **0.0.0.0:8080** and is published on the VPS at `8080:8080`.
-- Set `REVERB_HOST` to your server IP/domain, `REVERB_PORT=8080`,
-  `REVERB_SCHEME=ws` for a plain WS connection, and match these in the mobile
-  apps' `AppConstants` (reverbHost, reverbWsPort, reverbWssPort).
-- For production TLS, terminate HTTPS in front (e.g. Caddy/Nginx/certbot),
-  proxy `/app` and `/apps` to `reverb:8080`, then set `REVERB_PORT=443`,
-  `REVERB_SCHEME=https`.
+- Backend server-side broadcasting uses the internal `REVERB_HOST=reverb`,
+  `REVERB_PORT=8080`, `REVERB_SCHEME=http`. Do not replace these with mobile client settings.
+- For production TLS, terminate HTTPS in front and proxy `/app` and `/apps`
+  to `reverb:8080`. Configure mobile clients with the public host and WSS/443;
+  restrict the published internal port according to existing ingress policy.
 
 ## Rolling back
 
-```bash
-docker compose pull ghcr.io/odhiamboatieno/lala-taxi-backend:<previous-tag>
-```
-Then set the image tag in `docker-compose.yml` to that tag and `docker compose up -d`.
+Use the recovery section of CORPORATE_RELEASE.md: pin the previous tested digest, stop readers, retain financial schema/history and verify compatibility. No destructive database rollback is implied.
