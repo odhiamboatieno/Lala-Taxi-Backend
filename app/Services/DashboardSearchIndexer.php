@@ -226,6 +226,47 @@ class DashboardSearchIndexer
         );
     }
 
+    /**
+     * Compare live source row counts with indexed rows per entity type so the
+     * audit command and CI can flag drift long before a user notices a gap.
+     *
+     * @return array{ok: bool, types: array<string, array{source: int, indexed: int, diff: int, table: string}>}
+     */
+    public function driftReport(): array
+    {
+        if (!$this->indexTableReady()) {
+            return ['ok' => false, 'types' => []];
+        }
+
+        $types = [];
+        $ok = true;
+        foreach ($this->sources() as $type => $source) {
+            if (!Schema::hasTable($source['table'])) {
+                continue;
+            }
+            $columns = $this->columns($source['table']);
+            $idColumn = $source['id_column'] ?? 'id';
+            if (!in_array($idColumn, $columns, true)) {
+                continue;
+            }
+            $query = DB::table($source['table'])
+                ->when(in_array('deleted_at', $columns, true), fn ($q) => $q->whereNull('deleted_at'))
+                ->when(!empty($source['where']), fn ($q) => $q->where($source['where']));
+            $sourceCount = (int) $query->count();
+            $indexedCount = (int) DB::table('dashboard_search_index')->where('entity_type', $type)->count();
+            $diff = $indexedCount - $sourceCount;
+            $ok = $ok && $diff === 0;
+            $types[$type] = [
+                'table' => $source['table'],
+                'source' => $sourceCount,
+                'indexed' => $indexedCount,
+                'diff' => $diff,
+            ];
+        }
+
+        return ['ok' => $ok, 'types' => $types];
+    }
+
     private function resolveCompany(array $source, $row): ?int
     {
         if (array_key_exists('company_column', $source) && $source['company_column'] === null) {

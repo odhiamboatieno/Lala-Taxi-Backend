@@ -169,4 +169,63 @@ class DashboardSearchIndexTest extends TestCase
         $this->assertSame(['indexed' => 0, 'sources' => 0, 'skipped' => []], $this->indexer()->syncAll());
         $this->assertNull($this->indexer()->syncType('driver'));
     }
+
+    public function test_drift_report_flags_out_of_sync_types(): void
+    {
+        $indexer = $this->indexer();
+        $indexer->syncType('driver');
+        $report = $indexer->driftReport();
+        $this->assertSame(0, $report['types']['driver']['diff']);
+        $this->assertSame(2, $report['types']['driver']['indexed']);
+        $this->assertSame(2, $report['types']['driver']['source']);
+
+        DB::table('users')->insert(['company_id' => 2, 'first_name' => 'Alice', 'last_name' => 'New', 'user_type' => 'Driver']);
+        $stale = $indexer->driftReport();
+        $this->assertSame(-1, $stale['types']['driver']['diff']);
+
+        $indexer->syncType('driver');
+        $this->assertSame(0, $indexer->driftReport()['types']['driver']['diff']);
+    }
+
+    public function test_audit_command_reports_and_fixes_drift(): void
+    {
+        $this->indexer()->syncAll(false);
+
+        $this->artisan('search:index:audit')
+            ->expectsOutputToContain('Index is in sync.')
+            ->assertExitCode(0);
+
+        DB::table('users')->insert(['company_id' => 2, 'first_name' => 'Alice', 'last_name' => 'New', 'user_type' => 'Driver']);
+        $this->artisan('search:index:audit')
+            ->expectsOutputToContain('DRIFT driver')
+            ->assertExitCode(1);
+
+        $this->artisan('search:index:audit', ['--fix' => true])
+            ->expectsOutputToContain('Drift resolved.')
+            ->assertExitCode(0);
+    }
+
+    public function test_config_sources_are_well_formed(): void
+    {
+        $sources = config('dashboard_search.sources');
+        $this->assertNotEmpty($sources);
+        $types = [];
+        foreach ($sources as $source) {
+            $this->assertIsString($source['type'] ?? null);
+            $this->assertNotSame('', $source['type'] ?? '');
+            $this->assertIsString($source['table'] ?? null);
+            $this->assertNotSame('', $source['table'] ?? '');
+            $this->assertContains($source['scope'] ?? null, ['both', 'admin', 'company']);
+            $this->assertIsString($source['group'] ?? null);
+            $this->assertNotSame('', $source['group'] ?? '');
+            foreach (['permission', 'detail_permission', 'feature', 'aliases', 'path', 'path_admin', 'list_path'] as $nullable) {
+                $this->assertTrue(!array_key_exists($nullable, $source) || $source[$nullable] === null || is_string($source[$nullable]), "{$source['type']}.{$nullable}");
+            }
+            foreach (['title', 'detail', 'fields'] as $list) {
+                $this->assertIsArray($source[$list] ?? [], "{$source['type']}.{$list}");
+            }
+            $types[] = $source['type'];
+        }
+        $this->assertCount(count($types), array_unique($types));
+    }
 }

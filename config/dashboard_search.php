@@ -358,6 +358,13 @@ return [
             'group' => 'SaaS support tickets', 'icon' => 'bi-life-preserver', 'aliases' => 'support ticket saas',
             'path' => null, 'list_path' => 'saas-dispatch/support-system-status', 'company_column' => 'company_id', 'updated' => 'updated_at',
         ],
+        [
+            'type' => 'support_ticket', 'table' => 'saas_support_tickets', 'scope' => 'company', 'permission' => 'manage_company_support_tickets',
+            'feature' => 'support_system_status', 'title' => ['subject'], 'detail' => ['category', 'priority', 'status'],
+            'fields' => ['subject', 'description', 'category', 'priority', 'status'], 'aliases' => 'support ticket help issue',
+            'group' => 'Support tickets', 'icon' => 'bi-life-preserver',
+            'path' => null, 'list_path' => 'saas-dispatch/support-system-status', 'company_column' => 'company_id', 'updated' => 'updated_at',
+        ],
 
         // ------------------------------------------------------------------
         // Company (SaaS) workspace
