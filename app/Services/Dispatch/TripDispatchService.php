@@ -919,6 +919,8 @@ class TripDispatchService
                 'trip_id' => $trip->id,
                 'driver_id' => $driver->id,
                 'billing' => $trip->billing,
+                'payment_mode' => $trip->payment_mode,
+                'payment_status' => $trip->payment_status,
                 'driver_name' => trim($driver->first_name.' '.$driver->last_name),
                 'vehicle' => [
                     'name' => optional($driver->vehicle)->vehicle_name,
@@ -1094,6 +1096,13 @@ class TripDispatchService
     public function acceptTripRequest(TripRequest $tripRequest, User $driver): Trips
     {
         return DB::transaction(function () use ($tripRequest, $driver) {
+            $candidate = TripRequest::findOrFail($tripRequest->id);
+            if ((int) $candidate->driver_id !== (int) $driver->id) {
+                throw ValidationException::withMessages(['request' => 'Unauthorized driver request access.']);
+            }
+            // Lock/revalidate the payer and rider before locking the offer/trip, just
+            // as request-backed acceptance does. Ignore only this searching trip.
+            app(\App\Services\Corporate\CorporateBillingContext::class)->assertCanAccept(Trips::findOrFail($candidate->trip_id));
             $tripRequest = TripRequest::query()
                 ->with(['trip.users', 'driver.profile_picture', 'driver.vehicle'])
                 ->lockForUpdate()
@@ -1161,6 +1170,9 @@ class TripDispatchService
             $this->safeBroadcast(new TripDriverAssigned($trip->user_id, $trip->id, [
                 'trip_id' => $trip->id,
                 'driver_id' => $driver->id,
+                'billing' => $trip->billing,
+                'payment_mode' => $trip->payment_mode,
+                'payment_status' => $trip->payment_status,
                 'driver_name' => trim($driver->first_name.' '.$driver->last_name),
                 'vehicle' => [
                     'name' => optional($driver->vehicle)->vehicle_name,
@@ -1234,6 +1246,9 @@ class TripDispatchService
             $this->broadcastTripStatus($trip, $previousStatus, strtolower($actor->user_type));
             $this->safeBroadcast(new TripCancelled($trip->id, $trip->user_id, $trip->driver_id, $trip->company_id, [
                 'trip_id' => $trip->id,
+                'billing' => $trip->billing,
+                'payment_mode' => $trip->payment_mode,
+                'payment_status' => $trip->payment_status,
                 'reason' => $reason,
                 'cancelled_by' => strtolower($actor->user_type),
                 'timestamp' => now()->toIso8601String(),
@@ -1288,6 +1303,13 @@ class TripDispatchService
             if ($targetStatus === TripWorkflow::STATUS_COMPLETED) {
                 $this->safeBroadcast(new TripCompleted($trip->id, $trip->user_id, $trip->driver_id, $trip->company_id, [
                     'trip_id' => $trip->id,
+                    'status' => $trip->status,
+                    'billing' => $trip->billing,
+                    'payment_mode' => $trip->payment_mode,
+                    'payment_status' => $trip->payment_status,
+                    'total_fare' => $trip->total_fare,
+                    'driver_payout' => $trip->driver_payout,
+                    'currency_code' => $trip->currency_code,
                     'timestamp' => now()->toIso8601String(),
                 ]));
             }
@@ -1302,6 +1324,11 @@ class TripDispatchService
             'trip_id' => $trip->id,
             'status' => $trip->status,
             'billing' => $trip->billing,
+            'payment_mode' => $trip->payment_mode,
+            'payment_status' => $trip->payment_status,
+            'total_fare' => $trip->total_fare,
+            'driver_payout' => $trip->driver_payout,
+            'currency_code' => $trip->currency_code,
             'previous_status' => $previousStatus,
             'changed_by' => $changedBy,
             'timestamp' => now()->toIso8601String(),

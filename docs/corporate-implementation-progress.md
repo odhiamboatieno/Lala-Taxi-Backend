@@ -84,11 +84,18 @@ Verification: full PHPUnit 120 tests / 565 assertions (two MySQL-only tests skip
 
 Verification: general PHPUnit passed 131 tests / 729 assertions (two MySQL-only cases skipped there); the dedicated isolated MySQL profile passed all 67 tests / 515 assertions, including 11 real-JWT API/legacy-contract tests. PHP syntax, 364 compiled Blade files, isolated route cache, `git diff --check` and full-schema migration check passed. No frontend/mobile build or device verification is claimed for this backend-only checkpoint.
 
-The execution tracker reports this long-running goal as usage-limited. This verified checkpoint does not establish completion of the overall implementation. Remaining transport/acceptance/resume contract review is Phase 5b, followed by the untouched mobile phases and final integration/rollout verification below.
+Execution resumed on 2026-10-08. This verified checkpoint does not establish completion of the overall implementation.
+
+## Phase 5b — Transport and reconnect contracts
+
+- Alternate persisted-trip offer acceptance now revalidates the payer and locks account/rider before the offer/trip. It excludes only its own searching trip from active-trip checks; another active trip or revoked membership blocks acceptance without changing the offer.
+- Both assignment paths, cancellation, status and completion events carry safe billing/payment context. Completion events include saved fare, payout and currency; Deferred is never normalized to paid. Searching reconnect responses preserve request identity, nullable trip ID and Pending payment status.
+- Real-JWT reconnect/detail/completion tests verify saved employer identity after revocation/rename, private field exclusion, foreign access rejection, completed trips no longer counted as active, driver release and idempotent completion/events/payout records. Existing booking tests continue covering schedule/retry/context propagation and personal intent compatibility.
+
+Verification: full PHPUnit passed 135 tests / 784 assertions (two MySQL-only cases skipped); the dedicated MySQL profile passed all 71 tests / 570 assertions. Full PHP syntax, isolated route cache, diff whitespace check and full-schema MySQL migration check passed. Mobile end-to-end transport exercises, including real scheduled/direct/manual entry points and push/reconnect behaviour, remain part of Phase 8; these are not established by model/contract tests alone.
 
 ## Remaining phases
 
-5b. Finish all-transport booking/offer/current/resume/schedule contract review and integration verification.
 6. Customer affiliation and role-aware dashboard.
 7. Driver badges, no-collection completion and history.
 8. End-to-end integration and regression verification.

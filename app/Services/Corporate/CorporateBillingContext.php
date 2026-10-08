@@ -177,6 +177,7 @@ class CorporateBillingContext
         $this->validatePending($source);
         User::query()->lockForUpdate()->findOrFail($source->user_id);
         if (Trips::query()->where('user_id', $source->user_id)
+            ->when($source instanceof Trips, fn ($query) => $query->where('id', '!=', $source->id))
             ->whereIn('status', array_merge(\App\Support\TripWorkflow::activeStatuses(), ['Scheduled', 'Begin trip', 'End trip']))->exists()) {
             throw ValidationException::withMessages(['trip' => __('corporate.active_trip')]);
         }

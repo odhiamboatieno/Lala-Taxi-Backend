@@ -39,7 +39,7 @@ class CorporateApiTest extends TestCase
         if (DB::getDriverName() !== 'sqlite' && DB::connection()->getDatabaseName() !== 'lala_corporate_schema_test') {
             throw new \RuntimeException('Refusing transport fixture cleanup outside the isolated test database.');
         }
-        foreach (['profile_picture', 'driver_documents', 'driver_location', 'cancel_reasons', 'cancel'] as $table) { Schema::dropIfExists($table); }
+        foreach (['trip_requests', 'vehicle', 'profile_picture', 'driver_documents', 'driver_location', 'cancel_reasons', 'cancel'] as $table) { Schema::dropIfExists($table); }
         $this->dropCorporateTestSchema();
         parent::tearDown();
     }
@@ -172,6 +172,7 @@ class CorporateApiTest extends TestCase
     private function transportSchema(): void
     {
         Schema::table('trips', function (Blueprint $t) {
+            $t->unsignedInteger('company_id')->nullable(); $t->string('operator_type')->nullable(); $t->unsignedInteger('operator_id')->nullable();
             $t->integer('seats')->default(1); $t->string('map_image')->default('fixture.png');
             $t->text('trip_path')->nullable(); $t->integer('otp')->default(0);
             $t->decimal('remaining_owe_amount', 12, 2)->default(0); $t->json('stop_points')->nullable();
@@ -179,7 +180,14 @@ class CorporateApiTest extends TestCase
         Schema::table('rating', function (Blueprint $t) { $t->unsignedInteger('user_id')->nullable(); $t->unsignedInteger('driver_id')->nullable(); $t->integer('rider_rating')->default(0); });
         Schema::table('car_type', function (Blueprint $t) { $t->string('car_name')->default('Standard'); $t->string('active_image')->default('standard.png'); });
         Schema::table('schedule_ride', function (Blueprint $t) { $t->string('booking_type')->nullable(); });
-        Schema::table('request', function (Blueprint $t) { $t->string('timezone')->default('Africa/Nairobi'); });
+        Schema::table('request', function (Blueprint $t) {
+            $t->string('timezone')->default('Africa/Nairobi');
+            foreach (['pickup_latitude', 'pickup_longitude', 'drop_latitude', 'drop_longitude'] as $column) { $t->decimal($column, 10, 6)->default(0); }
+            $t->string('pickup_location')->default('Westlands'); $t->string('drop_location')->default('JKIA');
+        });
+        Schema::table('users', function (Blueprint $t) { $t->boolean('is_online')->default(false); $t->timestamp('last_seen_at')->nullable(); });
+        Schema::create('vehicle', function (Blueprint $t) { $t->increments('id'); $t->unsignedInteger('user_id'); $t->string('default_type')->default('1'); $t->string('vehicle_name')->nullable(); $t->string('vehicle_number')->nullable(); });
+        (require database_path('migrations/2026_08_16_000126_create_trip_requests_table.php'))->up();
         Schema::create('profile_picture', function (Blueprint $t) { $t->unsignedInteger('user_id'); $t->string('src')->nullable(); $t->string('photo_source')->default('Local'); });
         Schema::create('driver_documents', function (Blueprint $t) { $t->increments('id'); $t->unsignedInteger('user_id'); $t->string('vehicle_number')->nullable(); $t->string('vehicle_name')->nullable(); });
         Schema::create('driver_location', function (Blueprint $t) { $t->increments('id'); $t->unsignedInteger('user_id'); $t->decimal('latitude', 10, 6)->default(0); $t->decimal('longitude', 10, 6)->default(0); });
@@ -197,6 +205,102 @@ class CorporateApiTest extends TestCase
     {
         $token = \JWTAuth::fromUser(User::findOrFail($user));
         return $this->withToken($token)->getJson('/api/'.$path.'?'.http_build_query(array_merge(['token' => $token], $query)));
+    }
+
+    public function test_realtime_receipts_survive_revocation_without_becoming_active_or_exposing_bill_to_details(): void
+    {
+        $this->transportSchema();
+        $trip = $this->charge();
+        DB::table('request')->update(['status' => 'Accepted']);
+        DB::table('users')->where('id', 1)->update(['corporate_account_id' => null, 'corporate_role' => null]);
+        $this->account->update(['account_name' => 'Renamed employer']);
+        config(['corporate.bookings_enabled' => false]);
+        foreach ([1, 2] as $participant) {
+            $response = $this->legacyAs($participant, 'trips/'.$trip->id)->assertOk()
+                ->assertJsonPath('trip.billing.account_name', 'Employer')
+                ->assertJsonPath('trip.billing.collection_required', false)
+                ->assertJsonPath('trip.payment_status', 'Deferred')
+                ->assertJsonPath('trip.total_fare', '1470.00')
+                ->assertJsonPath('trip.currency_code', 'KES');
+            $this->assertStringNotContainsString('finance@example.test', $response->getContent());
+            $this->assertStringNotContainsString('billing_snapshot', $response->getContent());
+            $this->legacyAs($participant, 'trips/current')->assertOk()->assertJsonPath('status_code', '0');
+        }
+        $this->legacyAs(4, 'trips/'.$trip->id)->assertForbidden();
+        $this->assertSame('Deferred', $trip->fresh()->payment_status);
+    }
+
+    public function test_realtime_search_resume_has_request_identity_and_pending_safe_billing(): void
+    {
+        $this->transportSchema();
+        $request = RideRequest::create(['user_id' => 1, 'driver_id' => 2, 'car_id' => 1, 'schedule_id' => '', 'group_id' => 10]);
+        $response = $this->legacyAs(1, 'trips/current')->assertOk()->assertJsonPath('status_code', '1')
+            ->assertJsonPath('trip.id', null)->assertJsonPath('trip.request_id', $request->id)
+            ->assertJsonPath('trip.payment_mode', 'Corporate')->assertJsonPath('trip.payment_status', 'Pending')
+            ->assertJsonPath('trip.billing.account_name', 'Employer')->assertJsonPath('trip.billing.collection_required', false);
+        $this->assertStringNotContainsString('finance@example.test', $response->getContent());
+        $this->legacyAs(4, 'trips/current')->assertOk()->assertJsonPath('status_code', '0');
+    }
+
+    public function test_alternate_offer_acceptance_revalidates_membership_and_broadcasts_safe_billing(): void
+    {
+        $this->transportSchema();
+        $offer = RideRequest::create(['user_id' => 1, 'driver_id' => 2, 'car_id' => 1, 'schedule_id' => '']);
+        $trip = DB::transaction(fn () => Trips::create(['user_id' => 1, 'request_id' => $offer->id, 'status' => 'searching_driver', 'company_id' => 1]));
+        $request = \App\Models\TripRequest::create(['trip_id' => $trip->id, 'driver_id' => 2, 'rider_id' => 1, 'expires_at' => now()->addMinute()]);
+        $dispatch = app(\App\Services\Dispatch\TripDispatchService::class);
+        DB::table('users')->where('id', 1)->update(['corporate_role' => null]);
+        try {
+            $dispatch->acceptTripRequest($request, User::findOrFail(2));
+            $this->fail('Revoked membership must block pending acceptance.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $this->assertArrayHasKey('billing_mode', $e->errors());
+        }
+        $this->assertSame('pending', $request->fresh()->status);
+        $this->assertNull($trip->fresh()->driver_id);
+        DB::table('users')->where('id', 1)->update(['corporate_role' => 'member']);
+        $other = DB::transaction(fn () => Trips::create(['user_id' => 1, 'driver_id' => 2, 'request_id' => $offer->id, 'status' => 'started']));
+        try {
+            $dispatch->acceptTripRequest($request, User::findOrFail(2));
+            $this->fail('A different active trip must block acceptance.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $this->assertArrayHasKey('trip', $e->errors());
+        }
+        $other->update(['status' => 'cancelled']);
+        Event::fake([\App\Events\TripDriverAssigned::class, \App\Events\TripStatusUpdated::class]);
+        $accepted = $dispatch->acceptTripRequest($request, User::findOrFail(2));
+        $this->assertSame('driver_arriving', $accepted->status);
+        $this->assertSame('Corporate', $accepted->payment_mode);
+        $this->legacyAs(2, 'trips/current')->assertOk()->assertJsonPath('trip.billing.account_name', 'Employer');
+        Event::assertDispatched(\App\Events\TripDriverAssigned::class, fn ($event) => $event->payload['billing']['collection_required'] === false
+            && $event->payload['payment_mode'] === 'Corporate' && $event->payload['payment_status'] === 'Pending'
+            && !str_contains(json_encode($event->payload), 'finance@example.test'));
+    }
+
+    public function test_realtime_completion_http_and_events_report_deferred_and_retry_is_idempotent(): void
+    {
+        $this->transportSchema();
+        $offer = RideRequest::create(['user_id' => 1, 'driver_id' => 2, 'car_id' => 1, 'schedule_id' => '']);
+        $trip = DB::transaction(fn () => Trips::create(['user_id' => 1, 'driver_id' => 2, 'request_id' => $offer->id, 'status' => 'started',
+            'arrive_time' => now()->subMinutes(11), 'begin_trip' => now()->subMinutes(10)]));
+        DB::table('users')->where('id', 2)->update(['current_trip_id' => $trip->id, 'is_available' => false]);
+        config(['corporate.bookings_enabled' => false]);
+        Event::fake([\App\Events\TripCompleted::class, \App\Events\TripStatusUpdated::class, \App\Events\DriverRatingTriggerEvent::class]);
+        $token = \JWTAuth::fromUser(User::findOrFail(2));
+        foreach ([1, 2] as $attempt) {
+            $this->withToken($token)->postJson('/api/trips/'.$trip->id.'/complete')->assertOk()
+                ->assertJsonPath('trip.payment_status', 'Deferred')->assertJsonPath('trip.billing.collection_required', false);
+        }
+        $this->assertSame(1, DB::table('payment')->count());
+        $this->assertTrue(User::findOrFail(2)->is_available);
+        $this->assertNull(User::findOrFail(2)->current_trip_id);
+        foreach ([\App\Events\TripCompleted::class, \App\Events\TripStatusUpdated::class] as $eventClass) {
+            Event::assertDispatched($eventClass, 1);
+            Event::assertDispatched($eventClass, fn ($event) => $event->payload['billing']['collection_required'] === false
+                && $event->payload['payment_status'] === 'Deferred' && $event->payload['currency_code'] === 'KES'
+                && (string) $event->payload['total_fare'] === $trip->fresh()->corporate_amount
+                && !str_contains(json_encode($event->payload), 'finance@example.test'));
+        }
     }
 
     public function test_legacy_driver_details_and_history_preserve_private_saved_billing_and_currency(): void

@@ -456,6 +456,7 @@ class RealtimeTripController extends Controller
             'estimated_duration' => $rideRequest->estimated_duration ?? null,
             'payment_mode' => $rideRequest->payment_mode,
             'billing' => $rideRequest->billing,
+            'payment_status' => 'Pending',
             'delivery_label' => $parcelInfo['category_title'] ?? '',
             'package_title' => $parcelInfo['category_title'] ?? '',
             'package_type' => $parcelInfo['category_key'] ?? '',
