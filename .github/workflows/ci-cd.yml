@@ -87,6 +87,13 @@ jobs:
           vendor/bin/phpunit --no-coverage --filter test_mobile_contract_and_finance_settlement
           git diff --exit-code -- tests/fixtures/corporate-mobile-contract.json
 
+      - name: Verify isolated acceptance provisioning on the full schema
+        env:
+          DB_PASSWORD: isolated-ci-only
+        run: |
+          php -r '$pdo = new PDO("mysql:host=127.0.0.1;port=33317", "root", getenv("DB_PASSWORD")); $pdo->exec("CREATE DATABASE IF NOT EXISTS lala_corporate_acceptance_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");'
+          vendor/bin/phpunit -c phpunit.corporate-acceptance.xml --no-coverage
+
       - name: Validate release scripts and cached routes
         run: |
           sh -n deploy/preflight.sh deploy/release.sh docker/entrypoint.sh
