@@ -139,4 +139,10 @@ Live gates remain: current full backup and verified isolated restore; approved s
 
 9. Deployment artifacts and local release checks are implemented; environment-dependent rollout gates remain open.
 
+### Final review follow-ups — Driver sessions and CI fixture origin
+
+Driver follow-up `8c08d888c87126dbcf2dcb689f7a405d2c60d563` is pushed: auth-generation guards now cover optimistic availability and accept/arrive/start/complete, discard late GPS fixes and block duplicate trip actions. Session change/offline stops foreground tracking and discards pending location uploads; old failed batches cannot be requeued into a new tracking session. Driver passes **24 tests**, clean analyzer and ARM64 debug APK build. Customer's **33 tests** and analyzer pass again; its existing universal/ARM64 debug builds remain verified.
+
+The first Phase 9 CI run passed general/MySQL tests and lint but correctly blocked image/package publication on a fixture difference: the runner's `APP_URL=http://localhost` changed absolute links from the checked-in `127.0.0.1` contract. Both PHPUnit profiles now force the same isolated test origin before application bootstrap, including the legacy console `SITE_URL` constant. Actual response data/production configuration and the three fixture copies are unchanged. Regeneration under a conflicting localhost environment now matches byte-for-byte. The fix is being committed and CI rerun; live release gates above remain open.
+
 No production migrations, deployment, payments or financial data changes have been performed. Corporate booking remains disabled; these backend milestones do not yet establish complete web/mobile end-to-end support.
