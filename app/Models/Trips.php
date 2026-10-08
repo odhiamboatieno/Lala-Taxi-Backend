@@ -771,6 +771,8 @@ class Trips extends Model
             'trips.billing_mode', 'trips.billing_snapshot', 'trips.billing_status', 'trips.currency_code',
             'trips.payment_mode', 'trips.payment_status', 'trips.corporate_amount', 'trips.corporate_currency_code',
             'trips.billing_finalized_at', 'trips.corporate_financial_snapshot',
+            'trips.created_at', 'trips.total_km',
+            \DB::raw("TRIM(CONCAT(COALESCE(rider.first_name, ''), ' ', COALESCE(rider.last_name, ''))) as name"),
             'trips.pickup_latitude', 'trips.pickup_longitude', 'trips.drop_latitude', 'trips.drop_longitude', 'trips.trip_path',
             \DB::raw("CASE WHEN trips.pool_id > 0 THEN 'true' ELSE 'false' END as is_pool"),
             'trips.seats',
@@ -833,6 +835,7 @@ class Trips extends Model
         ->join('car_type','car_type.id','=','trips.car_id')
         ->join('currency', 'currency.code', '=', 'trips.currency_code')
         ->join('users', 'users.id', '=', 'trips.driver_id')
+        ->leftJoin('users as rider', 'rider.id', '=', 'trips.user_id')
         ->leftJoin('profile_picture', 'profile_picture.user_id', '=', 'users.id')
         ->leftJoin('request', 'request.id', '=', 'trips.request_id')
         ->leftJoin('schedule_ride', 'schedule_ride.id', '=', 'request.schedule_id');

@@ -372,11 +372,27 @@ class CorporateApiTest extends TestCase
         $this->assertStringNotContainsString('corporate_financial_snapshot', $response->getContent());
         $this->legacyAs(2, 'get_completed_trips', ['page' => 1])->assertOk()->assertJsonPath('data.0.total_fare', '1470.00')
             ->assertJsonPath('data.0.currency_code', 'KES')->assertJsonPath('data.0.billing.collection_required', false)
-            ->assertJsonPath('data.0.driver_earnings', 'KES 1170.00');
+            ->assertJsonPath('data.0.driver_earnings', 'KES 1170.00')
+            ->assertJsonStructure(['data' => [['created_at', 'total_km', 'name']]]);
         $this->legacyAs(1, 'get_past_trips', ['page' => 1])->assertOk()->assertJsonPath('data.0.billing.mode', 'corporate');
         $this->legacyAs(2, 'get_invoice', ['trip_id' => $trip->id])->assertOk()->assertJsonPath('billing.collection_required', false)
             ->assertJsonPath('payment_details.payment_status', 'Deferred');
         $this->assertFalse(Trips::$withoutAppends);
+    }
+
+    public function test_history_metadata_is_limited_to_the_authenticated_trip_participant(): void
+    {
+        $this->transportSchema();
+        DB::table('users')->where('id', 1)->update(['first_name' => 'Njeri', 'last_name' => 'Mwangi']);
+        $trip = $this->charge();
+        $history = $this->legacyAs(2, 'get_completed_trips', ['page' => 1])->assertOk()
+            ->assertJsonPath('data.0.name', 'Njeri Mwangi');
+        $this->assertSame(20.0, (float) $history->json('data.0.total_km'));
+        $this->assertSame($trip->getRawOriginal('created_at'), $history->json('data.0.created_at'));
+        $this->assertArrayNotHasKey('email', $history->json('data.0'));
+        $this->assertArrayNotHasKey('mobile_number', $history->json('data.0'));
+        $this->legacyAs(4, 'get_past_trips', ['page' => 1])->assertOk()->assertJsonPath('status_code', '0')
+            ->assertJsonMissing(['name' => 'Njeri Mwangi']);
     }
 
     public function test_legacy_mutations_reject_foreign_participants_and_finalized_charge_reopening(): void
