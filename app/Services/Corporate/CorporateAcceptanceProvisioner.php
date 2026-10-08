@@ -37,7 +37,9 @@ class CorporateAcceptanceProvisioner
                 'password' => Hash::make($password), 'country_code' => '254', 'country_id' => $country, 'mobile_number' => '700000100', 'status' => 'Active'], ['password']);
             $roleId = $this->insertOnce('roles', ['name' => 'corporate_acceptance'], ['display_name' => 'Corporate acceptance administrator']);
             foreach (['manage_company_accounts_invoicing', 'view_dashboard', 'manage_company'] as $permission) {
-                $permissionId = $this->insertOnce('permissions', ['name' => $permission], ['display_name' => $permission]);
+                // Upgrade migrations may already register a translated display
+                // label. Permission identity is its name, not that label.
+                $permissionId = $this->insertOnce('permissions', ['name' => $permission], ['display_name' => $permission], ['display_name']);
                 DB::table('permission_role')->insertOrIgnore(['permission_id' => $permissionId, 'role_id' => $roleId]);
             }
             DB::table('role_user')->insertOrIgnore(['user_id' => $adminId, 'role_id' => $roleId]);
