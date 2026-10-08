@@ -182,6 +182,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         // App\Providers\TelescopeServiceProvider::class,
         App\Providers\StartServiceProvider::class,
+        App\Providers\DashboardSearchServiceProvider::class,
         Modules\ManualBooking\Providers\ManualBookingServiceProvider::class,
         Modules\SaaSDispatch\Providers\SaaSDispatchServiceProvider::class,
         Modules\UserLevels\Providers\UserLevelsServiceProvider::class,
