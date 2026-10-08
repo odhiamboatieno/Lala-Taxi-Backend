@@ -2,6 +2,16 @@
 
 Source specification: workspace-root `CORPORATE_ACCOUNTS_IMPLEMENTATION.md` (corrected 2026-10-07).
 
+## Current execution status — 2026-10-08
+
+- Phases 0–7 are implemented and pushed: schema/domain, booking attribution/dispatch, Deferred accounting, invoicing/settlement, admin/company management, JWT APIs, Customer and Driver integration.
+- Phase 8 automated backend/mobile contracts and session regressions pass. Latest local totals: backend 145 tests / 854 assertions (two MySQL-only skips); dedicated MySQL 78 tests / 630 assertions with no skips; Customer 33 Flutter tests; Driver 24 Flutter tests. Both Flutter analyzers and Android debug builds pass. These suites overlap; their counts are not a combined unique-test total.
+- Phase 9 release safeguards are implemented. CI run [37756585735](https://github.com/odhiamboatieno/Lala-Taxi-Backend/actions/runs/37756585735), commit `b42f27838342fc6acf6b4f473ee2fc382a99f7c6`, completed successfully: tests, Docker build/image publication and deployment-bundle packaging. Publication is not production deployment.
+- Live acceptance and controlled rollout remain incomplete. The user approved creating isolated, fictional Kenyan acceptance identities. Planned employers are Mwangaza Workspaces Kenya and Tawi Coast Supplies, with member/manager/finance, personal rider, driver and web administrator roles. Provisioning has not yet been executed; invoice transport will be checked with a local SMTP inbox rather than sending to real companies.
+- Remaining evidence includes live authenticated workflows, actual SMTP delivery, scheduler/queue/Reverb execution, device GPS/push and personal-flow regressions, plus a current backup and verified restore before production promotion. The test device is disconnected. Production corporate bookings remain disabled; no production financial mutations or deployment are claimed.
+
+The sections below preserve each phase's historical verification checkpoint; use this summary and the final follow-ups for the latest counts and CI result.
+
 ## Phase 0 — Prerequisites
 
 - Static SaaSDispatch registration; explicit cached corporate admin/company routes and tenant context.
@@ -143,6 +153,6 @@ Live gates remain: current full backup and verified isolated restore; approved s
 
 Driver follow-up `8c08d888c87126dbcf2dcb689f7a405d2c60d563` is pushed: auth-generation guards now cover optimistic availability and accept/arrive/start/complete, discard late GPS fixes and block duplicate trip actions. Session change/offline stops foreground tracking and discards pending location uploads; old failed batches cannot be requeued into a new tracking session. Driver passes **24 tests**, clean analyzer and ARM64 debug APK build. Customer's **33 tests** and analyzer pass again; its existing universal/ARM64 debug builds remain verified.
 
-The first Phase 9 CI run passed general/MySQL tests and lint but correctly blocked image/package publication on a fixture difference: the runner's `APP_URL=http://localhost` changed absolute links from the checked-in `127.0.0.1` contract. Both PHPUnit profiles now force the same isolated test origin before application bootstrap, including the legacy console `SITE_URL` constant. Actual response data/production configuration and the three fixture copies are unchanged. Regeneration under a conflicting localhost environment now matches byte-for-byte. The fix is being committed and CI rerun; live release gates above remain open.
+The first Phase 9 CI run passed general/MySQL tests and lint but correctly blocked image/package publication on a fixture difference: the runner's `APP_URL=http://localhost` changed absolute links from the checked-in `127.0.0.1` contract. Both PHPUnit profiles now force the same isolated test origin before application bootstrap, including the legacy console `SITE_URL` constant. Actual response data/production configuration and the three fixture copies are unchanged. Regeneration under a conflicting localhost environment now matches byte-for-byte. Fix `b42f278` is pushed, and CI run 37756585735 passed all three jobs (tests, image build/publication and deployment-bundle packaging). Live release gates above remain open.
 
 No production migrations, deployment, payments or financial data changes have been performed. Corporate booking remains disabled; these backend milestones do not yet establish complete web/mobile end-to-end support.
