@@ -45,7 +45,6 @@ class UserController extends Controller
 		$this->request_helper = resolve(\App\Http\Helper\RequestHelper::class);
 		$this->otp_helper = resolve(\App\Http\Helper\OtpHelper::class);
 		$this->helper = resolve(\App\Http\Start\Helpers::class);
-		$this->fb = resolve(\App\Http\Helper\FacebookHelper::class);
 	}
 
 	/**
@@ -55,6 +54,10 @@ class UserController extends Controller
 	 */
 	public function facebook_login()
 	{
+        if (!config('facebook.client_id') || !config('facebook.client_secret')) {
+            flashMessage('danger', __('messages.social_login_unavailable'));
+            return redirect('signin_rider');
+        }
 		/*if(canDisplayCredentials()) {
 			flashMessage('danger', trans('messages.facebook_https_error'));
 			return redirect('signin_rider');
@@ -888,9 +891,14 @@ class UserController extends Controller
 			return redirect('signin_rider'); // Redirect to login page
 		}
 
-		$this->fb->generateSessionFromRedirect(); // Generate Access Token Session After Redirect from Facebook
+        if (!config('facebook.client_id') || !config('facebook.client_secret')) {
+            flashMessage('danger', __('messages.social_login_unavailable'));
+            return redirect('signin_rider');
+        }
+        $facebook = resolve(\App\Http\Helper\FacebookHelper::class);
+		$facebook->generateSessionFromRedirect(); // Generate Access Token Session After Redirect from Facebook
 
-		$response = $this->fb->getData(); // Get Facebook Response
+		$response = $facebook->getData(); // Get Facebook Response
 
 		$userNode = $response->getGraphUser(); // Get Authenticated User Data
 

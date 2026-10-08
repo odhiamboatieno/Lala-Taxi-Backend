@@ -1,0 +1,153 @@
+# Explicitly local-only. Do not combine with the production Compose project.
+name: lala-corporate-acceptance
+
+x-application: &application
+  image: lala-corporate-acceptance:local
+  working_dir: /var/www/html
+  environment: &environment
+    APP_ENV: staging
+    APP_DEBUG: "false"
+    APP_KEY: ${LALATAXI_ACCEPTANCE_APP_KEY:?Provide an isolated application key}
+    APP_URL: http://127.0.0.1:8095
+    FORCE_HTTPS_SCHEME: "false"
+    JWT_SECRET: ${LALATAXI_ACCEPTANCE_JWT_SECRET:?Provide an isolated JWT signing secret}
+    LALATAXI_ACCEPTANCE_PASSWORD: ${LALATAXI_ACCEPTANCE_PASSWORD:?Provide the acceptance login secret}
+    DB_CONNECTION: mysql
+    DB_HOST: mysql
+    DB_PORT: "3306"
+    DB_DATABASE: lala_corporate_acceptance_test
+    DB_USERNAME: acceptance
+    DB_PASSWORD: ${LALATAXI_ACCEPTANCE_DB_PASSWORD:?Provide the isolated database secret}
+    CACHE_DRIVER: redis
+    QUEUE_CONNECTION: redis
+    SESSION_DRIVER: redis
+    REDIS_HOST: redis
+    REDIS_PORT: "6379"
+    REDIS_CLIENT: predis
+    REDIS_PASSWORD: "null"
+    MAIL_MAILER: smtp
+    MAIL_HOST: mailpit
+    MAIL_PORT: "1025"
+    MAIL_ENCRYPTION: "null"
+    MAIL_USERNAME: "null"
+    MAIL_PASSWORD: "null"
+    MAIL_FROM_ADDRESS: invoices@acceptance.lalataxi.test
+    MAIL_FROM_NAME: Lala Taxi Acceptance
+    BROADCAST_CONNECTION: reverb
+    REVERB_APP_ID: corporate-acceptance
+    REVERB_APP_KEY: corporate-acceptance-public-key
+    REVERB_APP_SECRET: ${LALATAXI_ACCEPTANCE_REVERB_SECRET:?Provide an isolated Reverb secret}
+    REVERB_HOST: reverb
+    REVERB_PORT: "8080"
+    REVERB_SCHEME: http
+    REVERB_ALLOWED_ORIGINS: "http://127.0.0.1:8095,http://localhost:8095"
+    CORPORATE_BOOKINGS_ENABLED: "true"
+    CORPORATE_MANAGER_FINANCE_ACCESS: "false"
+    OTP_DEMO_MODE: "true"
+    OTP_DEMO_CODE: "123456"
+    LOG_CHANNEL: stderr
+    SYNC_CODE: "false"
+    RUN_MIGRATIONS: "false"
+    REBUILD_CACHES: "false"
+  volumes:
+    - acceptance_code:/var/www/html
+    - acceptance_storage:/var/www/html/storage
+  depends_on:
+    app:
+      condition: service_healthy
+
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: lala_corporate_acceptance_test
+      MYSQL_USER: acceptance
+      MYSQL_PASSWORD: ${LALATAXI_ACCEPTANCE_DB_PASSWORD:?Provide the isolated database secret}
+      MYSQL_ROOT_PASSWORD: ${LALATAXI_ACCEPTANCE_ROOT_PASSWORD:?Provide a separate isolated root secret}
+    volumes:
+      - acceptance_database:/var/lib/mysql
+    healthcheck:
+      test: [CMD-SHELL, 'MYSQL_PWD="$$MYSQL_ROOT_PASSWORD" mysqladmin ping -h 127.0.0.1 -uroot --silent']
+      interval: 5s
+      timeout: 5s
+      retries: 40
+
+  redis:
+    image: redis:7.4-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - acceptance_redis:/data
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  mailpit:
+    image: axllent/mailpit:v1.20.5
+    ports:
+      - "127.0.0.1:8026:8025"
+    environment:
+      MP_DATABASE: /data/mailpit.db
+    volumes:
+      - acceptance_mail:/data
+
+  app:
+    <<: *application
+    build:
+      context: ..
+      dockerfile: docker/acceptance.Dockerfile
+      args:
+        ACCEPTANCE_BASE_IMAGE: ${LALATAXI_ACCEPTANCE_BASE_IMAGE:?Provide a previously tested production runtime image}
+        RELEASE_SHA: ${LALATAXI_ACCEPTANCE_RELEASE_SHA:?Provide the code revision being tested}
+    environment:
+      <<: *environment
+      SYNC_CODE: "true"
+      RUN_MIGRATIONS: "true"
+      REBUILD_CACHES: "true"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
+    healthcheck:
+      test: [CMD, php, -r, 'exit(@fsockopen("127.0.0.1",9000) ? 0 : 1);']
+      interval: 5s
+      timeout: 3s
+      retries: 40
+      start_period: 120s
+
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "127.0.0.1:8095:80"
+    volumes:
+      - acceptance_code:/var/www/html:ro
+      - acceptance_storage:/var/www/html/storage:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      app:
+        condition: service_healthy
+
+  queue:
+    <<: *application
+    command: php artisan queue:work --sleep=1 --tries=3 --timeout=90
+
+  reverb:
+    <<: *application
+    command: php artisan reverb:start --host=0.0.0.0 --port=8080
+    ports:
+      - "127.0.0.1:8096:8080"
+
+  scheduler:
+    <<: *application
+    command: php artisan schedule:work
+
+volumes:
+  acceptance_database:
+  acceptance_redis:
+  acceptance_code:
+  acceptance_storage:
+  acceptance_mail:

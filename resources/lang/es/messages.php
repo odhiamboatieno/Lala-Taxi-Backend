@@ -2289,6 +2289,7 @@ return [
 	'update_success' => 'actualizado correctamente',
 	'complete_your_trips' => 'Por favor, complete su visita',
 	'facebook_https_error' => 'Facebook Registrarse / Entrar funcionará sólo en los sitios de producción.',
+    'social_login_unavailable' => 'El inicio de sesión social no está disponible. Utiliza el inicio de sesión de tu cuenta.',
 	'invalid_credentials' => 'Credenciales no válidas',
 	'message_send_failed' => 'El envío de mensajes por favor, inténtalo de nuevo ..',
 	'otp_sent_success' => 'Otp enviado con éxito',

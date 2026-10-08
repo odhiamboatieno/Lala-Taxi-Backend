@@ -77,6 +77,12 @@ class CheckCorporateRelease extends Command
                 $check(!config('app.debug'), 'Production debug disabled');
                 $check(config('cache.default') === 'redis', 'Shared Redis scheduler locks');
                 $check(config('queue.default') === 'redis', 'Durable Redis queue');
+                try {
+                    $pong = app('redis')->connection()->ping();
+                    $check($pong === true || strtoupper((string) $pong) === 'PONG', 'Configured Redis client connects to Redis');
+                } catch (\Throwable) {
+                    $check(false, 'Configured Redis client connects to Redis');
+                }
                 $check(!in_array(config('mail.default'), ['log', 'array'], true), 'Real mail transport configured (delivery still requires observation)');
                 if (config('mail.default') === 'smtp') {
                     $check(trim((string) config('mail.mailers.smtp.host')) !== '' && (int) config('mail.mailers.smtp.port') > 0, 'SMTP host and port configured');

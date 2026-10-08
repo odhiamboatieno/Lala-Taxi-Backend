@@ -34,7 +34,8 @@ class RealtimeTripController extends Controller
 
             Log::info('RealtimeTrip: requestTrip received', [
                 'rider_id' => $rider?->id,
-                'payload' => $request->all(),
+                'car_id' => $request->input('car_id'),
+                'billing_mode' => $request->input('billing_mode'),
             ]);
 
             $validator = Validator::make($request->all(), [

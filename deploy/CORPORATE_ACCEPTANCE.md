@@ -48,3 +48,30 @@ vendor/bin/phpunit -c phpunit.corporate-acceptance.xml --no-coverage
 Supply `DB_PASSWORD` through the environment. The profile connects to local MySQL port 33317 and refuses another database. It applies migrations and rolls back each test's inserted data; it does not drop existing tables or delete financial evidence. CI creates this isolated database independently of the reduced-schema concurrency test database.
 
 Account provisioning alone does not pass acceptance. Record observed OTP/JWT authentication, permitted and forbidden role/tenant requests, actual booking/completion, Deferred receipts, invoice/PDF delivery, settlement/retry, personal-flow compatibility and queue/scheduler/Reverb/device GPS/push evidence in the implementation progress log. Follow `CORPORATE_RELEASE.md` for production backup/restore and promotion gates.
+
+## Local acceptance stack
+
+`acceptance-compose.yml` is a separate Compose project with independent database, Redis, code, storage and SMTP-inbox volumes. Only HTTP (8095), Reverb (8096) and the Mailpit inbox (8026) are exposed, all bound to loopback. Database/Redis/SMTP submission ports are not public. It uses real nginx/FPM, Redis queue, Reverb and one scheduler. Demo OTP and corporate booking are enabled only in this stack; this is not the production deployment configuration.
+
+Provide `LALATAXI_ACCEPTANCE_APP_KEY`, `LALATAXI_ACCEPTANCE_JWT_SECRET`, `LALATAXI_ACCEPTANCE_PASSWORD`, `LALATAXI_ACCEPTANCE_DB_PASSWORD`, a separate `LALATAXI_ACCEPTANCE_ROOT_PASSWORD`, and `LALATAXI_ACCEPTANCE_REVERB_SECRET` via the operator's environment/secret store. Never print a resolved Compose configuration containing them. Keep these values stable when recreating the stack.
+
+Set `LALATAXI_ACCEPTANCE_RELEASE_SHA` to the revision under test and `LALATAXI_ACCEPTANCE_BASE_IMAGE` to a previously tested production runtime image. The acceptance Dockerfile verifies that `composer.lock` is identical to that image before reusing its PHP extensions/vendor packages. If runtime dependencies changed, first build a new base with the standard production Dockerfile. Acceptance images are local artifacts, not production releases.
+
+```sh
+docker compose -f deploy/acceptance-compose.yml config --quiet
+docker compose -f deploy/acceptance-compose.yml up --build -d --wait app nginx
+docker compose -f deploy/acceptance-compose.yml exec app php artisan corporate:provision-acceptance
+docker compose -f deploy/acceptance-compose.yml up -d --wait queue reverb scheduler
+```
+
+The HTTP verification tool is deliberately outside production images. Copy it into the isolated code volume and run it there:
+
+```sh
+docker compose -f deploy/acceptance-compose.yml exec app mkdir -p /var/www/html/deploy
+docker compose -f deploy/acceptance-compose.yml cp deploy/acceptance-http-check.php app:/var/www/html/deploy/acceptance-http-check.php
+docker compose -f deploy/acceptance-compose.yml exec app php deploy/acceptance-http-check.php
+```
+
+It verifies the exact database/environment and local demo OTP/non-relaying Mailpit configuration, then exercises real HTTP OTP/JWT and CSRF/password/session logins for all nine mobile identities and all three web identities. It checks role scopes/private responses and denied admin tenant entry without printing credentials/JWTs or performing finance settlement. Repetition issues fresh OTPs but does not seed financial records.
+
+Device builds can use the existing `LALATAXI_API_BASE_URL` and `LALATAXI_REVERB_*` Dart defines with adb reverse for ports 8095/8096. Do not change production defaults or uninstall personal applications to free device storage. A staged build, service health check or passing HTTP script is not proof of native GPS/push or external production SMTP delivery.

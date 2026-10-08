@@ -20,6 +20,8 @@ class CorporateSchemaTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        // Recover only this guarded test database after an interrupted run.
+        $this->dropCorporateTestSchema();
         $this->createCorporateSchema(false);
     }
 

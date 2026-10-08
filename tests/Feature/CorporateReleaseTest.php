@@ -56,6 +56,13 @@ class CorporateReleaseTest extends TestCase
         $this->artisan('corporate:release-check')->assertFailed();
     }
 
+    public function test_runtime_check_does_not_accept_configured_but_unusable_redis_client(): void
+    {
+        config(['cache.default' => 'redis', 'queue.default' => 'redis', 'database.redis.client' => 'unavailable-driver']);
+        $this->artisan('corporate:release-check')
+            ->expectsOutput('FAIL Configured Redis client connects to Redis')->assertFailed();
+    }
+
     public function test_finalized_charges_reject_missing_or_unknown_billing_status_and_invalid_money(): void
     {
         $trip = DB::table('trips')->insertGetId(['user_id' => 1, 'billing_mode' => 'corporate', 'corporate_account_id' => $this->account->id,

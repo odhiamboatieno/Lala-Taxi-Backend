@@ -23,8 +23,10 @@ class CorporateAcceptanceProvisioner
         return DB::transaction(function () use ($password) {
             $country = $this->insertOnce('country', ['short_name' => 'KE'], ['long_name' => 'Kenya', 'phone_code' => '254', 'iso3' => 'KEN']);
             $this->insertOnce('currency', ['code' => 'KES'], ['name' => 'Kenyan Shilling', 'symbol' => 'KSh', 'rate' => '1.00', 'status' => 'Active', 'default_currency' => '1']);
+            $this->insertOnce('language', ['value' => 'en'], ['name' => 'English', 'status' => 'Active', 'default_language' => '1']);
             foreach (['site_name' => 'Lala Taxi Acceptance', 'default_currency' => 'KES', 'time_zone' => 'Africa/Nairobi',
-                'saas_dispatch_module_enabled' => '1', 'driver_km' => '10', 'otp_verification' => '1'] as $name => $value) {
+                'saas_dispatch_module_enabled' => '1', 'driver_km' => '10', 'otp_verification' => '1',
+                'fare_mode' => 'Taximeter', 'driver_request_seconds' => '120'] as $name => $value) {
                 $this->insertOnce('site_settings', ['name' => $name], ['value' => $value]);
             }
             app()->forgetInstance('site_settings');
@@ -88,7 +90,14 @@ class CorporateAcceptanceProvisioner
             $this->person('Kamau', 'Mutua', '700000130', 'Rider', (int) $operators[0]->id, $country, $password);
             $result[] = ['Personal rider', 'Kamau Mutua', '+254 700000130', 'No corporate affiliation'];
 
-            $car = $this->insertOnce('car_type', ['car_name' => 'Lala Standard QA'], ['vehicle_image' => 'standard.png', 'active_image' => 'standard.png', 'status' => 'Active', 'is_pool' => 'No']);
+            $car = $this->insertOnce('car_type', ['car_name' => 'Lala Standard QA'], ['vehicle_image' => 'WiTaxiGo.png', 'active_image' => 'WiTaxiGo.png', 'status' => 'Active', 'is_pool' => 'No']);
+            $location = $this->insertOnce('locations', ['name' => 'Nairobi Acceptance QA'], ['coordinates' => 'POLYGON((-1.4 36.7, -1.1 36.7, -1.1 37.0, -1.4 37.0, -1.4 36.7))', 'status' => 'Active']);
+            $this->insertOnce('manage_fare', ['location_id' => $location, 'vehicle_id' => $car], ['base_fare' => '150.00', 'capacity' => 4,
+                'min_fare' => '250.00', 'per_min' => '5.00', 'per_km' => '40.00', 'schedule_fare' => '0.00', 'schedule_cancel_fare' => '0.00',
+                'waiting_time' => 5, 'waiting_charge' => '5.00', 'currency_code' => 'KES', 'apply_peak' => 'No', 'apply_night' => 'No']);
+            foreach (['access_fee' => '0', 'driver_access_fee' => '15', 'driver_peak_fare' => '0'] as $name => $value) {
+                $this->insertOnce('fees', ['name' => $name], ['value' => $value]);
+            }
             $make = $this->insertOnce('vehicle_make', ['make_vehicle_name' => 'Toyota QA'], ['status' => 'Active']);
             $model = $this->insertOnce('vehicle_model', ['vehicle_make_id' => $make, 'model_name' => 'Axio QA'], ['status' => 'Active']);
             foreach ([['David', 'Kiptoo'], ['Brian', 'Onyango']] as $index => [$first, $last]) {

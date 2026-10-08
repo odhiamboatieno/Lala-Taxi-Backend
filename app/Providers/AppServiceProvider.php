@@ -43,10 +43,8 @@ public function register()
             require_once $file;
         }
 
-        logger('requested URL : '.request()->fullUrl());
-		if(request()->isMethod('POST')) {
-			logger('Post Method Params : '.json_encode(request()->post()));
-		}
+        // Authentication, JWT and finance requests must not log query strings
+        // or POST bodies containing credentials and private billing data.
 
         $this->app->singleton('google_service', function($app) {
             $google_service = new \App\Services\GoogleAPIService;
@@ -94,9 +92,8 @@ public function register()
 			// Configuration for data table pdf export
             config(['datatables-buttons.pdf_generator' => 'snappy']);
 
-            if(!in_array(request()->segment(1),['admin','company','install']) && !\App::runningInConsole()) {
-            	Config::set(['cache.default' => 'file']);
-            }
+            // Honor the configured cache for web, API and console processes.
+            // Forcing API requests onto file cache breaks shared locks/presence.
 
 			if (Schema::hasTable('site_settings')) {
 				$site_settings = DB::table('site_settings')->get();
@@ -132,7 +129,7 @@ public function register()
 				}
 
 				if (!defined('PAYPAL_CURRENCY_CODE')) {
-					define('PAYPAL_CURRENCY_CODE', $site_settings[1]->value);
+					define('PAYPAL_CURRENCY_CODE', optional($site_settings->where('name', 'payment_currency')->first())->value ?: config('app.currency', 'USD'));
 				}
 				if (!defined('SITE_URL')) {
 					define('SITE_URL',$siteUrl);
@@ -200,11 +197,15 @@ public function register()
 					],
 				]);
 
-				$fb = new FacebookHelper;
-				View::share('fb_url', $fb->getUrlLogin());
-				if (!defined('FB_URL')) {
-					define('FB_URL', $fb->getUrlLogin());
-				}
+                // Facebook is optional. Missing credentials must not prevent
+                // OTP login, shared configuration or unrelated pages booting.
+                if (config('facebook.client_id') && config('facebook.client_secret')) {
+                    $fbUrl = (new FacebookHelper)->getUrlLogin();
+                    View::share('fb_url', $fbUrl);
+                    if (!defined('FB_URL')) {
+                        define('FB_URL', $fbUrl);
+                    }
+                }
 			}
 
 			if(Schema::hasTable('admin')) {
@@ -229,20 +230,22 @@ public function register()
 			// Configure Email settings from email_settings table
 	            if(Schema::hasTable('email_settings'))
 	        {
-	            $result = DB::table('email_settings')->get();
-
-	            Config::set([
-                    'mail.default' => email_settings('driver'),
-                    'mail.mailers.smtp.host' 		=> email_settings('host'),
-                    'mail.mailers.smtp.port'       	=> email_settings('port'),
-                    'mail.mailers.smtp.encryption' 	=> email_settings('encryption'),
-                    'mail.mailers.smtp.username'   	=> email_settings('username'),
-                    'mail.mailers.smtp.password'   	=> email_settings('password'),
-                    'mail.from' => [
-                    	'address' => email_settings('from_address'),
-                    	'name'    => email_settings('from_name')
-                    ],
-                ]);
+                $result = DB::table('email_settings')->pluck('value', 'name');
+                // Empty/missing database settings leave operator environment
+                // configuration intact. Explicitly saved values still win.
+                if ($result->get('driver')) {
+                    Config::set('mail.default', $result->get('driver'));
+                    foreach (['host', 'port', 'encryption', 'username', 'password'] as $key) {
+                        if ($result->has($key)) {
+                            Config::set('mail.mailers.smtp.'.$key, $result->get($key) !== '' ? $result->get($key) : null);
+                        }
+                    }
+                    foreach (['address', 'name'] as $key) {
+                        if ($result->has('from_'.$key)) {
+                            Config::set('mail.from.'.$key, $result->get('from_'.$key));
+                        }
+                    }
+                }
 
 	            if(email_settings('driver') == 'mailgun') {
 		            Config::set([

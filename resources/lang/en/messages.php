@@ -2291,6 +2291,7 @@ return [
 	'update_success' => 'Updated Successfully',
 	'complete_your_trips' => 'Please Complete your trips',
 	'facebook_https_error' => 'Facebook Sign up/Log in will work only on Production sites.',
+    'social_login_unavailable' => 'Social sign-in is unavailable. Please use your account sign-in instead.',
 	'invalid_credentials' => 'Invalid credentials',
 	'message_send_failed' => 'Message sending Failed,please try again..',
 	'otp_sent_success' => 'Otp sent Successfully',
