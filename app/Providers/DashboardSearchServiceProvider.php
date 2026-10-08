@@ -99,13 +99,25 @@ class DashboardSearchServiceProvider extends ServiceProvider
         }
 
         foreach (self::MODEL_MAP as $type => $model) {
-            if (class_exists($model)) {
-                $model::observe(new DashboardSearchObserver($type));
+            if (!class_exists($model)) {
+                continue;
             }
+            // Register via the model-level event helpers instead of
+            // `Model::observe()`, which instantiates the model. Some models
+            // carry the CurrencyConversion trait whose constructor queries the
+            // Currency table, crashing during boot when no default currency
+            // row exists yet (fresh installs, isolated tests).
+            $observer = new DashboardSearchObserver($type);
+            $model::saved(fn ($model) => $observer->saved($model));
+            $model::deleted(fn ($model) => $observer->deleted($model));
+            $model::restored(fn ($model) => $observer->restored($model));
         }
 
         if (class_exists(User::class)) {
-            User::observe(UserSearchObserver::class);
+            $userObserver = new UserSearchObserver();
+            User::saved(fn ($user) => $userObserver->saved($user));
+            User::deleted(fn ($user) => $userObserver->deleted($user));
+            User::restored(fn ($user) => $userObserver->restored($user));
         }
     }
 }
