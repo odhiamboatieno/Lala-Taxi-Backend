@@ -42,6 +42,14 @@ class DashboardSearchIndex
             ->count();
 
         $groups = $this->groupTotals($scope, $companyId, $allowedPermissions, $allowedFeatures, $constraints);
+        $onlyGroup = $options['only_group'] ?? null;
+        if (is_string($onlyGroup) && $onlyGroup !== '') {
+            if (!isset($groups[$onlyGroup])) {
+                return $this->emptyAvailable();
+            }
+            $groups = [$onlyGroup => $groups[$onlyGroup]];
+        }
+
         $perGroup = max(1, (int) config('dashboard_search.results_per_group', 5));
         $groupOrder = $this->groupOrder($scope);
         uksort($groups, function ($a, $b) use ($groupOrder) {
@@ -51,6 +59,7 @@ class DashboardSearchIndex
             return $ra <=> $rb ?: ($groups[$b]['total'] <=> $groups[$a]['total']);
         });
 
+        $listUrls = $this->groupListUrls($scope);
         $results = [];
         $hasMore = false;
         foreach (array_keys($groups) as $group) {
@@ -66,6 +75,7 @@ class DashboardSearchIndex
             }
             $groups[$group]['hasMore'] = $groupHasMore;
             $groups[$group]['nextCursor'] = $groupHasMore ? $offset + $perGroup : null;
+            $groups[$group]['list'] = $listUrls[$group] ?? null;
         }
 
         return [
@@ -226,6 +236,21 @@ class DashboardSearchIndex
             'kind' => 'record',
             'entity_type' => $row->entity_type,
         ];
+    }
+
+    private function groupListUrls(string $scope): array
+    {
+        $map = [];
+        foreach ((array) config('dashboard_search.sources', []) as $source) {
+            if (!$this->sourceInScope($source, $scope) || empty($source['group']) || empty($source['list_path'])) {
+                continue;
+            }
+            if (!isset($map[$source['group']])) {
+                $map[$source['group']] = url('/'.$scope.'/'.ltrim($source['list_path'], '/'));
+            }
+        }
+
+        return $map;
     }
 
     private function sourceInScope(array $source, string $scope): bool

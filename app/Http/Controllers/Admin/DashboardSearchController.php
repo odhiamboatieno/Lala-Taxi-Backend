@@ -25,6 +25,7 @@ class DashboardSearchController extends Controller
         $validated = $request->validate([
             'q' => ['required', 'string', 'min:2', 'max:100'],
             'cursor' => ['sometimes', 'string', 'max:4096'],
+            'group' => ['sometimes', 'string', 'max:200'],
         ]);
         $can = fn (string $permission) => $scope === 'company' ? operation_team_can($permission) : $user->can($permission);
         $featureEnabled = function (string $feature) use ($scope): bool {
@@ -41,6 +42,7 @@ class DashboardSearchController extends Controller
 
         $result = $searchIndex->search(trim($validated['q']), $scope, $companyId, $can, $featureEnabled, [
             'cursors' => $this->decodeCursors($request->input('cursor')),
+            'only_group' => $request->input('group'),
         ]);
 
         if (!$result['available']) {

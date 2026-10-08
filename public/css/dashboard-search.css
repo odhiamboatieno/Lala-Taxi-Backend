@@ -79,6 +79,12 @@ body:has(.dashboard-search[open]) { overflow: hidden; }
 .dashboard-search-result-arrow { color: var(--admin-muted); font-size: 13px; }
 .dashboard-search-empty { padding: 32px 14px; text-align: center; color: var(--admin-muted); font-size: 13px; }
 .dashboard-search-empty strong { display: block; color: var(--admin-ink); margin-bottom: 7px; }
+.dashboard-search-more { display: flex; align-items: center; justify-content: flex-start; gap: 12px; padding: 8px 12px 12px; }
+.dashboard-search-more-button { border: 1px solid var(--admin-border); background: var(--admin-surface-soft); color: var(--admin-ink); font: inherit; font-size: 11px; padding: 6px 12px; cursor: pointer; }
+.dashboard-search-more-button:hover, .dashboard-search-more-button:focus-visible { border-color: var(--admin-accent); color: var(--admin-link); }
+.dashboard-search-more-button:disabled { opacity: .6; cursor: default; }
+.dashboard-search-more-seeall { font-size: 11px; color: var(--admin-link); text-decoration: none; }
+.dashboard-search-more-seeall:hover, .dashboard-search-more-seeall:focus-visible { text-decoration: underline; }
 .dashboard-search-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 22px; border-top: 1px solid var(--admin-border); background: var(--admin-surface-soft); font-size: 10px; color: var(--admin-muted); }
 .dashboard-search-footer kbd { margin-inline-end: 4px; }
 .dashboard-search :focus-visible, .dashboard-search-trigger:focus-visible { outline: 2px solid var(--admin-focus); outline-offset: 2px; }

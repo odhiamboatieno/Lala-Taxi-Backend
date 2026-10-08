@@ -108,6 +108,29 @@ class DashboardSearchIndexQueryTest extends TestCase
         $this->assertNull(collect($next['groups'])->firstWhere('group', 'Drivers')['nextCursor']);
     }
 
+    public function test_single_group_paging_returns_only_that_group(): void
+    {
+        for ($i = 0; $i < 7; $i++) {
+            DB::table('users')->insert(['company_id' => 2, 'first_name' => 'Alice', 'last_name' => "Extra {$i}", 'user_type' => 'Driver']);
+        }
+        app(DashboardSearchIndexer::class)->syncAll(false);
+
+        $first = $this->search('Alice', permissions: ['view_driver']);
+        $this->assertCount(5, $first['results']);
+
+        $next = $this->search('Alice', permissions: ['view_driver'], options: ['cursors' => ['Drivers' => 5], 'only_group' => 'Drivers']);
+        $this->assertCount(3, $next['results']);
+        $this->assertSame([], array_diff(array_column($next['results'], 'group'), ['Drivers']));
+        $this->assertFalse($next['hasMore']);
+    }
+
+    public function test_groups_expose_see_all_list_urls(): void
+    {
+        $rows = $this->search('Alice')['groups'];
+        $drivers = collect($rows)->firstWhere('group', 'Drivers');
+        $this->assertSame(url('company/driver'), $drivers['list']);
+    }
+
     public function test_missing_or_empty_index_reports_unavailable_for_fallback(): void
     {
         Schema::drop('dashboard_search_index');

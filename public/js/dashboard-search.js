@@ -65,8 +65,8 @@
         [/role|permission/i, 'roles permissions access'],
         [/score/i, 'scores quality performance'],
     ];
-    let navigation = [], records = [], visible = [], active = 0, filter = 'all';
-    let pending = false, failed = false, hasMore = false, timer, request, generation = 0;
+    let navigation = [], recordGroups = new Map(), groupOrder = [], visible = [], active = 0, filter = 'all';
+    let pending = false, failed = false, timer, request, generation = 0;
 
     function safeUrl(value) {
         try {
@@ -112,6 +112,63 @@
         if (sidebar) navigation.push({ id: 'sidebar', title: 'Toggle sidebar', description: 'Expand or collapse navigation', group: 'Quick actions', kind: 'navigation', icon: 'bi-arrow-bar-left', keywords: 'sidebar expand collapse navigation menu', action: () => sidebar.click() });
     }
 
+    function groupMeta(name) {
+        if (!recordGroups.has(name)) recordGroups.set(name, { items: [], nextCursor: 0, hasMore: false, total: 0, list: null, loading: false });
+        return recordGroups.get(name);
+    }
+
+    function applyRecordData(data) {
+        const safeRows = (data.results || []).filter(item => item && item.url && safeUrl(item.url));
+        const meta = Array.isArray(data.groups) ? data.groups : [];
+        if (!meta.length) {
+            recordGroups = new Map();
+            groupOrder = [];
+            safeRows.forEach(item => {
+                const name = item.group || 'Records';
+                if (!recordGroups.has(name)) { recordGroups.set(name, { items: [], nextCursor: 0, hasMore: false, total: 0, list: null, loading: false }); groupOrder.push(name); }
+                recordGroups.get(name).items.push(item);
+            });
+            return;
+        }
+        const byGroup = new Map(safeRows.map(item => [item.group || 'Records', []]));
+        safeRows.forEach(item => byGroup.get(item.group || 'Records').push(item));
+        recordGroups = new Map();
+        groupOrder = [];
+        meta.forEach(entry => {
+            const name = entry.group || 'Records';
+            groupOrder.push(name);
+            const items = byGroup.get(name) || safeRows.filter(item => (item.group || 'Records') === name);
+            recordGroups.set(name, {
+                items, nextCursor: entry.nextCursor, hasMore: Boolean(entry.hasMore),
+                total: Number.isFinite(entry.total) ? entry.total : items.length,
+                list: entry.list || null, loading: false,
+            });
+        });
+    }
+
+    function appendRecordData(data) {
+        const metaMap = new Map((data.groups || []).map(entry => [entry.group || 'Records', entry]));
+        (data.results || []).filter(item => item && item.url && safeUrl(item.url)).forEach(item => {
+            groupMeta(item.group || 'Records').items.push(item);
+        });
+        metaMap.forEach((entry, name) => {
+            const meta = groupMeta(name);
+            meta.nextCursor = entry.nextCursor;
+            meta.hasMore = Boolean(entry.hasMore);
+            if (Number.isFinite(entry.total)) meta.total = entry.total;
+            if (entry.list) meta.list = entry.list;
+        });
+    }
+
+    function fetchRecords(query, { cursor, group }) {
+        const url = new URL(dialog.dataset.endpoint, location.href);
+        url.searchParams.set('q', query);
+        if (cursor) url.searchParams.set('cursor', cursor);
+        if (group) url.searchParams.set('group', group);
+        return fetch(url, { credentials: 'same-origin', headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' }, cache: 'no-store' })
+            .then(response => { if (!response.ok) throw new Error('Search unavailable'); return response.json(); });
+    }
+
     function matchingNavigation(query) {
         const words = normalize(query).split(/\s+/).filter(Boolean);
         return navigation.filter(item => words.every(word => normalize(item.title + ' ' + item.keywords).includes(word)))
@@ -152,22 +209,45 @@
         }
     }
 
+    async function loadMore(group) {
+        const meta = recordGroups.get(group);
+        if (!meta || meta.loading || !meta.hasMore) return;
+        meta.loading = true;
+        render();
+        const cursors = JSON.stringify({ [group]: meta.nextCursor });
+        const revision = generation;
+        try {
+            const data = await fetchRecords(input.value.trim(), { cursor: cursors, group });
+            if (revision === generation && dialog.open) appendRecordData(data);
+        } catch {
+            if (revision === generation && dialog.open) failed = true;
+        }
+        if (revision === generation && dialog.open) { meta.loading = false; render(); }
+    }
+
+    function seeAllUrl(meta) {
+        if (!meta.list) return '';
+        const url = new URL(meta.list, location.href);
+        const query = input.value.trim();
+        if (query) url.searchParams.set('search', query);
+        return safeUrl(url.href) || '';
+    }
+
     function render() {
         const query = input.value.trim();
         let menus = matchingNavigation(query);
         if (!query) menus = menus.slice(0, 8);
-        visible = [...(filter !== 'record' ? menus : []), ...(filter !== 'navigation' ? records : [])];
+        visible = [];
         list.replaceChildren();
-        let group;
-        visible.forEach((item, index) => {
-            if (item.group !== group) {
-                group = item.group;
-                const heading = document.createElement('div');
-                heading.className = 'dashboard-search-group';
-                heading.setAttribute('role', 'presentation');
-                heading.textContent = query ? group : 'Explore your workspace';
-                list.append(heading);
-            }
+        let previousGroup;
+        const headingFor = label => {
+            const heading = document.createElement('div');
+            heading.className = 'dashboard-search-group';
+            heading.setAttribute('role', 'presentation');
+            heading.textContent = query ? label : 'Explore your workspace';
+            list.append(heading);
+        };
+        const rowFor = (item, index) => {
             const row = document.createElement('div');
             row.className = 'dashboard-search-result';
             row.id = `dashboard-search-option-${index}`;
@@ -196,13 +276,56 @@
             row.addEventListener('click', () => openResult(item));
             row.addEventListener('pointermove', () => setActive(index));
             list.append(row);
-        });
+        };
+
+        if (filter !== 'record') {
+            menus.forEach((item, index) => {
+                if (item.group !== previousGroup) { headingFor(item.group); previousGroup = item.group; }
+                visible.push(item);
+                rowFor(item, visible.length - 1);
+            });
+        }
+        if (filter !== 'navigation') {
+            groupOrder.forEach(name => {
+                const meta = recordGroups.get(name);
+                if (!meta || !meta.items.length) return;
+                if (name !== previousGroup) { headingFor(name); previousGroup = name; }
+                meta.items.forEach(item => {
+                    visible.push(item);
+                    rowFor(item, visible.length - 1);
+                });
+                if (meta.hasMore || meta.list) {
+                    const control = document.createElement('div');
+                    control.className = 'dashboard-search-more';
+                    if (meta.hasMore) {
+                        const more = document.createElement('button');
+                        more.type = 'button';
+                        more.className = 'dashboard-search-more-button';
+                        more.textContent = meta.loading ? 'Loading…' : `Show more ${name.toLowerCase()}`;
+                        more.disabled = Boolean(meta.loading);
+                        more.addEventListener('click', () => loadMore(name));
+                        control.append(more);
+                    }
+                    const seeAll = seeAllUrl(meta);
+                    if (seeAll) {
+                        const link = document.createElement('a');
+                        link.href = seeAll;
+                        link.className = 'dashboard-search-more-seeall';
+                        link.textContent = `See all in page ↗`;
+                        control.append(link);
+                    }
+                    list.append(control);
+                }
+            });
+        }
         const recordsInScope = filter !== 'navigation';
+        const shown = visible.length;
+        const remaining = [...recordGroups.values()].reduce((sum, meta) => sum + Math.max(0, meta.total - meta.items.length), 0);
         status.textContent = pending && recordsInScope ? 'Searching account records…'
             : failed && recordsInScope ? 'Account search is unavailable. You can still search menus and features.'
             : !query ? 'Jump to a page, or type a name, phone number, registration or record ID.'
             : query.length < 2 && recordsInScope ? 'Type at least 2 characters to include account records.'
-            : `${visible.length} result${visible.length === 1 ? '' : 's'}${hasMore && recordsInScope ? ' · Top matches shown. Keep typing to narrow your search.' : ' · Only your accessible workspace.'}`;
+            : `${shown} result${shown === 1 ? '' : 's'}${remaining > 0 ? ` · ${remaining} more across your records — load more or open the full list.` : ' · Only your accessible workspace.'}`;
         if (!visible.length) {
             const empty = document.createElement('div');
             empty.className = 'dashboard-search-empty';
@@ -220,7 +343,7 @@
         clearTimeout(timer);
         request?.abort();
         const revision = ++generation;
-        records = []; failed = false; hasMore = false; active = 0;
+        failed = false; active = 0;
         const query = input.value.trim();
         pending = query.length >= 2 && filter !== 'navigation';
         render();
@@ -228,14 +351,9 @@
         timer = setTimeout(async () => {
             request = new AbortController();
             try {
-                const url = new URL(dialog.dataset.endpoint, location.href);
-                url.searchParams.set('q', query);
-                const response = await fetch(url, { signal: request.signal, credentials: 'same-origin', headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' }, cache: 'no-store' });
-                if (!response.ok) throw new Error('Search unavailable');
-                const data = await response.json();
+                const data = await fetchRecords(query, {});
                 if (revision !== generation || !dialog.open) return;
-                records = (data.results || []).filter(item => safeUrl(item.url));
-                hasMore = Boolean(data.hasMore);
+                applyRecordData(data);
             } catch (error) {
                 if (revision !== generation || error.name === 'AbortError') return;
                 failed = true;
