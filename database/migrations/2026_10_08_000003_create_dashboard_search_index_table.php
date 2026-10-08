@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('feature', 64)->nullable();
             $table->string('detail_permission', 128)->nullable();
             $table->string('path', 255)->nullable();
+            $table->string('path_admin', 255)->nullable();
             $table->string('list_path', 255)->nullable();
             $table->string('fallback_search', 255)->nullable();
             $table->text('search_blob')->nullable();

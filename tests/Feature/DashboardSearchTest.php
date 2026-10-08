@@ -149,7 +149,7 @@ class DashboardSearchTest extends TestCase
     public function test_endpoint_requires_authentication_and_validates_query(): void
     {
         try {
-            app(DashboardSearchController::class)(Request::create('/admin/search', 'GET', ['q' => 'Alice']), app(DashboardSearch::class));
+            app(DashboardSearchController::class)(Request::create('/admin/search', 'GET', ['q' => 'Alice']), app(\App\Services\DashboardSearchIndex::class), app(DashboardSearch::class));
             $this->fail('Guest search must fail.');
         } catch (\Symfony\Component\HttpKernel\Exception\HttpException $exception) {
             $this->assertSame(401, $exception->getStatusCode());
@@ -158,10 +158,10 @@ class DashboardSearchTest extends TestCase
             public function can($ability, $arguments = []) { return $ability === 'view_driver'; }
         };
         $this->actingAs($admin, 'admin');
-        $response = app(DashboardSearchController::class)(Request::create('/admin/search', 'GET', ['q' => 'Alice']), app(DashboardSearch::class));
+        $response = app(DashboardSearchController::class)(Request::create('/admin/search', 'GET', ['q' => 'Alice']), app(\App\Services\DashboardSearchIndex::class), app(DashboardSearch::class));
         $this->assertCount(2, $response->getData(true)['results']);
         $this->assertStringContainsString('no-store', $response->headers->get('Cache-Control'));
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-        app(DashboardSearchController::class)(Request::create('/admin/search', 'GET', ['q' => '  ']), app(DashboardSearch::class));
+        app(DashboardSearchController::class)(Request::create('/admin/search', 'GET', ['q' => '  ']), app(\App\Services\DashboardSearchIndex::class), app(DashboardSearch::class));
     }
 }

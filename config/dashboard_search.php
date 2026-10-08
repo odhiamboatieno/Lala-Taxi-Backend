@@ -79,6 +79,11 @@ return [
     */
     'stale_after' => 900,
 
+    /*
+    | Maximum records shown per group in the dialog before "load more".
+    */
+    'results_per_group' => 5,
+
     'sources' => [
         // ------------------------------------------------------------------
         // People & fleet — available to both portals
@@ -405,7 +410,7 @@ return [
             'path' => null, 'list_path' => 'saas-dispatch/messages', 'company_column' => 'company_id', 'updated' => 'updated_at',
         ],
         [
-            'type' => 'corporate_account', 'table' => 'company_corporate_accounts', 'scope' => 'company', 'permission' => 'manage_company_accounts_invoicing',
+            'type' => 'corporate_account', 'table' => 'company_corporate_accounts', 'scope' => 'both', 'permission' => 'manage_company_accounts_invoicing',
             'feature' => 'accounts_invoicing', 'title' => ['account_name'], 'detail' => ['contact_email', 'status'],
             'fields' => ['account_name', 'contact_name', 'contact_email', 'contact_phone'],
             'group' => 'Corporate accounts', 'icon' => 'fa-building', 'aliases' => 'corporate employer account billing',
@@ -413,7 +418,7 @@ return [
             'list_path' => 'saas-dispatch/accounts', 'company_column' => 'company_id', 'updated' => 'updated_at',
         ],
         [
-            'type' => 'corporate_invoice', 'table' => 'company_corporate_invoices', 'scope' => 'company', 'permission' => 'manage_company_accounts_invoicing',
+            'type' => 'corporate_invoice', 'table' => 'company_corporate_invoices', 'scope' => 'both', 'permission' => 'manage_company_accounts_invoicing',
             'feature' => 'accounts_invoicing', 'title' => ['invoice_number'], 'detail' => ['status'],
             'fields' => ['invoice_number', 'status'],
             'group' => 'Invoices', 'icon' => 'bi-receipt', 'aliases' => 'invoice billing corporate',

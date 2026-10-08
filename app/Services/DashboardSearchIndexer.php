@@ -210,6 +210,7 @@ class DashboardSearchIndexer
             'feature' => $source['feature'] ?? null,
             'detail_permission' => $source['detail_permission'] ?? $source['permission'] ?? null,
             'path' => $this->path($source, $row, $id, $companyId),
+            'path_admin' => $this->adminPath($source, $row, $id, $companyId),
             'list_path' => $source['list_path'] ?? null,
             'fallback_search' => $this->fallbackSearch($source, $row),
             'search_blob' => $this->searchBlob($source, $row, $title, $detail, $selected),
@@ -267,13 +268,25 @@ class DashboardSearchIndexer
     private function path(array $source, $row, $id, ?int $companyId): ?string
     {
         $path = $source['path'] ?? null;
-        if ($source['scope'] === 'admin' && !empty($source['path_admin'])) {
-            $path = $source['path_admin'];
-        }
         if ($path === null || $path === '') {
             return null;
         }
 
+        return $this->replacePathTokens($path, $id, $companyId);
+    }
+
+    private function adminPath(array $source, $row, $id, ?int $companyId): ?string
+    {
+        $path = $source['path_admin'] ?? null;
+        if ($path === null || $path === '') {
+            return null;
+        }
+
+        return $this->replacePathTokens($path, $id, $companyId);
+    }
+
+    private function replacePathTokens(string $path, $id, ?int $companyId): string
+    {
         return str_replace(
             ['{id}', '{company_id}'],
             [(string) $id, (string) ($companyId ?? '')],
