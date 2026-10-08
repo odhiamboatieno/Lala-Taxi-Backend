@@ -83,3 +83,9 @@ The finance check uses the saved actual corporate charges and the existing accou
 The tools honor actual API rate limits and bounded `Retry-After` responses; they do not disable middleware. The provisioning command reuses normal DriverScore settings only when that configuration table is empty; it never seeds scores, compliance approvals or scoring events.
 
 Device builds can use the existing `LALATAXI_API_BASE_URL` and `LALATAXI_REVERB_*` Dart defines with adb reverse for ports 8095/8096. Do not change production defaults or uninstall personal applications to free device storage. A staged build, service health check or passing HTTP script is not proof of native GPS/push or external production SMTP delivery.
+
+### Observed private sockets
+
+From the repository root, `node deploy/acceptance-socket-check.mjs` (Node 22+) verifies the running isolated Docker environment before authenticating the fictional Driver/Rider identities. It connects without Origin as native clients do, rejects the Rider's driver-channel subscription, subscribes with the Driver's JWT, and observes the actual queued availability event after a real offline API call. It closes and reconnects and repeats subscription/delivery; tokens never leave process memory or appear in output. The driver is left offline. Run only when no device trip is active. These are real WebSocket checks, not proof that the native plugin, push or GPS works. The loopback-only acceptance server permits absent Origin; private-channel JWT/participant permissions remain enforced. Production origin configuration is unchanged.
+
+See [corporate access and login](../docs/corporate-access.md) for the distinction between fleet operator web accounts and employer member/manager/finance mobile identities.
