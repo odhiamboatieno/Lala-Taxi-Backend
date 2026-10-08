@@ -94,7 +94,13 @@ Execution resumed on 2026-10-08. This verified checkpoint does not establish com
 
 Verification: full PHPUnit passed 135 tests / 784 assertions (two MySQL-only cases skipped); the dedicated MySQL profile passed all 71 tests / 570 assertions. Full PHP syntax, isolated route cache, diff whitespace check and full-schema MySQL migration check passed. Mobile end-to-end transport exercises, including real scheduled/direct/manual entry points and push/reconnect behaviour, remain part of Phase 8; these are not established by model/contract tests alone.
 
-## Remaining phases
+## Phase 7 — Driver app
+
+Implemented saved employer chips on offers, pickup/arrived/waiting/on-trip, history and scheduled/detail pages, plus a prototype-language corporate completion screen. The real provider preserves Deferred separately from paid, bypasses/rejects corporate cash collection, releases the local trip on Done, and displays frozen currency/decimal earnings separately from withdrawable funds. Loading/retry and late-response guards protect receipts; historical currencies are not summed together or written over driver preferences. Shared semantic colors/radii, Lucide and centrally bundled Inter are reused.
+
+Verification: 12 Flutter tests passed, including provider/transport regressions and 375/390/430-width 1×/2× native receipt checks; analyzer and Android debug build are checked before commit. Native golden inspection is recorded in Driver/docs/corporate-implementation-progress.md. Live device/push/GPS and staging finance release checks are not claimed.
+
+## Customer checkpoints
 
 ### Phase 6a — Customer affiliation/dashboard checkpoint
 
@@ -108,7 +114,8 @@ Customer now revalidates explicit payer intent on ordinary/scheduled/legacy book
 
 Verification: Customer full suite 28 tests, clean analyzer, Android debug APK and whitespace/translation checks. Native receipt tests cover 375/390/430 at 1×/2× text and real-controller transport fixtures cover completion/reconnect/rating. These isolated fixtures do not establish live mobile/backend/device integration; that remains Phase 8.
 
-7. Driver badges, no-collection completion and history.
+## Remaining phases
+
 8. End-to-end integration and regression verification.
 9. Deployment artifacts, scheduler, disabled pilot and rollout validation.
 
