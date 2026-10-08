@@ -1,6 +1,5 @@
  <div class="admin-page-heading d-flex align-items-center mt-2 mb-2">
-    <h6 class="mb-0 flex-grow-1">@yield('pagetitle')</h6>
-    <div class="flex-shrink-0">
+    <div class="flex-shrink-0 ms-auto">
         <nav aria-label="{{ __('messages.blade_static.breadcrumb_6e5ce570') }}">
             <ol class="breadcrumb justify-content-end mb-0">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">@yield('title-sub')</a></li>
