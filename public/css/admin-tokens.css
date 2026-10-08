@@ -11,7 +11,7 @@
   --admin-ink: var(--site-ink);
   --admin-muted: #62636b;
   --admin-border: var(--site-line);
-  --admin-field-border: #c8c6be;
+  --admin-field-border: var(--site-field-line);
   --admin-link: #765400;
   --admin-focus: var(--site-focus);
   --admin-shadow: 0 2px 8px rgb(17 17 17 / 3%);

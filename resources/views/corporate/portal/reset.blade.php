@@ -1,2 +1,15 @@
-@extends('corporate.portal.layout')
-@section('content')<section class="portal-card portal-auth"><h1>{{ __('corporate.portal_reset') }}</h1><p>{{ __('corporate.portal_password_hint') }}</p><form class="portal-form" method="POST" action="{{ route('corporate.portal.password.update') }}">@csrf<input type="hidden" name="token" value="{{ $token }}"><label for="email">{{ __('corporate.portal_email') }}<input id="email" type="email" class="form-control" name="email" value="{{ old('email', $email) }}" required autocomplete="username"></label><label for="password">{{ __('corporate.portal_password') }}<input id="password" type="password" class="form-control" name="password" required minlength="12" maxlength="255" autocomplete="new-password"></label><label for="password_confirmation">{{ __('corporate.portal_password_confirm') }}<input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required minlength="12" maxlength="255" autocomplete="new-password"></label><button type="submit" class="portal-button portal-button--gold">{{ __('corporate.portal_reset') }}</button></form></section>@endsection
+@extends('corporate.portal.auth-layout')
+@section('title', __('corporate.portal_reset'))
+@section('auth-content')
+<h1>{{ __('corporate.portal_reset') }}</h1>
+<p>{{ __('corporate.portal_password_hint') }}</p>
+<form class="portal-form" method="POST" action="{{ route('corporate.portal.password.update') }}">
+    @csrf
+    <input type="hidden" name="token" value="{{ $token }}">
+    <label for="email">{{ __('corporate.portal_email') }}<input id="email" type="email" class="form-control" name="email" value="{{ old('email', $email) }}" required maxlength="255" autocomplete="username"></label>
+    @include('corporate.portal.password-field', ['passwordName'=>'password', 'newPassword'=>true])
+    @include('corporate.portal.password-field', ['passwordName'=>'password_confirmation', 'newPassword'=>true])
+    <button type="submit" class="portal-button portal-button--gold">{{ __('corporate.portal_reset') }}<i data-lucide="arrow-right" aria-hidden="true"></i></button>
+    <a class="portal-link" href="{{ route('corporate.portal.login') }}"><i data-lucide="arrow-left" aria-hidden="true"></i>{{ __('corporate.portal_sign_in') }}</a>
+</form>
+@endsection

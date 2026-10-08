@@ -2,7 +2,7 @@
     $suffix = $staffUser?->id ?? 'new';
     $useOld = old('_portal_form') === (string) $suffix;
 @endphp
-<form method="POST" action="{{ $staffAction }}" class="portal-form row g-3 mb-3">
+<form method="POST" action="{{ $staffAction }}" class="portal-form portal-form--grid row g-3 mb-3">
     @csrf
     @if($staffUser) @method('PUT') @endif
     <input type="hidden" name="_portal_form" value="{{ $suffix }}">

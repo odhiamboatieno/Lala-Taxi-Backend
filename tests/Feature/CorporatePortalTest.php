@@ -101,6 +101,50 @@ class CorporatePortalTest extends TestCase
         $this->assertGuest('corporate');
     }
 
+    public function test_portal_design_reuses_brand_assets_and_accessible_auth_controls(): void
+    {
+        foreach (['/corporate/login', '/corporate/forgot-password', '/corporate/reset-password/render-only-token?email=amina@example.test'] as $path) {
+            $this->get($path)->assertOk()
+                ->assertSee('css/marketing-tokens.css', false)
+                ->assertSee('images/marketing/lala-taxi-logo.webp', false)
+                ->assertSee('images/marketing/corporate-hero.webp', false)
+                ->assertSee('portal-auth-shell', false)
+                ->assertSee('name="_token"', false)
+                ->assertDontSee('corporate.portal_', false);
+        }
+        $this->get('/corporate/login')->assertSee('aria-controls="password"', false)
+            ->assertSee('autocomplete="current-password"', false);
+        $this->get('/corporate/reset-password/render-only-token?email=amina@example.test')
+            ->assertSee('aria-controls="password_confirmation"', false)->assertSee('minlength="12"', false);
+        $css = file_get_contents(public_path('css/corporate-portal.css'));
+        $this->assertDoesNotMatchRegularExpression('/#[0-9a-fA-F]{3,8}\b|rgba?\(/', $css);
+        $this->assertStringContainsString('--portal-radius: 0;', $css);
+        $this->assertStringContainsString('var(--site-gold)', $css);
+    }
+
+    public function test_branded_navigation_only_exposes_permitted_pages_and_staff_error_editor_reopens(): void
+    {
+        foreach (['admin', 'finance', 'viewer'] as $role) {
+            $staff = $this->staff($role);
+            $this->signIn($staff);
+            $response = $this->get('/corporate')->assertOk()->assertSee('portal-sidebar', false)
+                ->assertSee('aria-current="page"', false)->assertSee('data-lucide="layout-dashboard"', false);
+            foreach (['members', 'staff'] as $page) {
+                if ($role === 'admin') $response->assertSee('href="http://127.0.0.1/corporate/'.$page.'"', false);
+                else $response->assertDontSee('href="http://127.0.0.1/corporate/'.$page.'"', false);
+            }
+            if ($role === 'viewer') $response->assertDontSee('href="http://127.0.0.1/corporate/invoices"', false);
+            else $response->assertSee('href="http://127.0.0.1/corporate/invoices"', false);
+        }
+        $admin = $this->staff();
+        $this->signIn($admin);
+        $response = $this->withSession(['_old_input'=>['_portal_form'=>(string) $admin->id]])
+            ->get('/corporate/staff')->assertOk()->assertSee('portal-form--grid', false);
+        $this->assertMatchesRegularExpression('/<details class="portal-card portal-staff"\s+open/', $response->getContent());
+        $this->account->update(['archived_at'=>now(), 'status'=>'Inactive']);
+        $this->get('/corporate/staff')->assertOk()->assertDontSee('name="_portal_form"', false);
+    }
+
     public function test_platform_admin_invites_corporate_staff_without_changing_mobile_privileges(): void
     {
         $this->actingAs($this->admin(), 'admin');
