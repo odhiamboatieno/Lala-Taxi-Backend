@@ -40,6 +40,7 @@ use App\Models\VehicleModel;
 use App\Models\Wallet;
 use App\Observers\DashboardSearchObserver;
 use App\Observers\UserSearchObserver;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -102,22 +103,23 @@ class DashboardSearchServiceProvider extends ServiceProvider
             if (!class_exists($model)) {
                 continue;
             }
-            // Register via the model-level event helpers instead of
-            // `Model::observe()`, which instantiates the model. Some models
-            // carry the CurrencyConversion trait whose constructor queries the
-            // Currency table, crashing during boot when no default currency
-            // row exists yet (fresh installs, isolated tests).
+            // Listen on Eloquent's model-scoped event strings instead of using
+            // observer registration. Model::observe() instantiates the target
+            // model (some carry the CurrencyConversion trait whose constructor
+            // queries the Currency table and crashes when no default currency
+            // row exists), and the event helper() methods collide with legacy
+            // models that define their own saved()/restored() methods.
             $observer = new DashboardSearchObserver($type);
-            $model::saved(fn ($model) => $observer->saved($model));
-            $model::deleted(fn ($model) => $observer->deleted($model));
-            $model::restored(fn ($model) => $observer->restored($model));
+            Event::listen("eloquent.saved: {$model}", fn ($instance) => $observer->saved($instance));
+            Event::listen("eloquent.deleted: {$model}", fn ($instance) => $observer->deleted($instance));
+            Event::listen("eloquent.restored: {$model}", fn ($instance) => $observer->restored($instance));
         }
 
         if (class_exists(User::class)) {
             $userObserver = new UserSearchObserver();
-            User::saved(fn ($user) => $userObserver->saved($user));
-            User::deleted(fn ($user) => $userObserver->deleted($user));
-            User::restored(fn ($user) => $userObserver->restored($user));
+            Event::listen('eloquent.saved: '.User::class, fn ($user) => $userObserver->saved($user));
+            Event::listen('eloquent.deleted: '.User::class, fn ($user) => $userObserver->deleted($user));
+            Event::listen('eloquent.restored: '.User::class, fn ($user) => $userObserver->restored($user));
         }
     }
 }
