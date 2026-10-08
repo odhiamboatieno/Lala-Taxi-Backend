@@ -13,7 +13,7 @@ assert.ok(env.LALATAXI_ACCEPTANCE_PASSWORD?.length >= 16);
 const { chromium } = await import(process.env.LALATAXI_ACCEPTANCE_PLAYWRIGHT_MODULE || 'playwright');
 const output = process.env.LALATAXI_ACCEPTANCE_SCREENSHOTS || '/tmp/lala-corporate-portal-browser';
 await mkdir(output, { recursive: true });
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true, channel: 'chromium' });
 let checks = 0;
 try {
   for (const width of [390, 1280]) {

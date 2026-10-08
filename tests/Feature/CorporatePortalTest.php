@@ -348,4 +348,18 @@ class CorporatePortalTest extends TestCase
         $this->post($base.$this->account->id.'/portal-users/'.$foreign->id.'/invite')->assertNotFound();
         $this->postJson($base.$foreign->corporate_account_id.'/portal-users', $this->staffInput())->assertNotFound();
     }
+
+    public function test_auth_rate_limits_do_not_collide_between_people_or_login_and_setup(): void
+    {
+        for ($attempt = 0; $attempt < 5; $attempt++) {
+            $this->postJson('/corporate/login', ['email' => 'unknown@example.test', 'password' => 'wrong'])->assertUnprocessable();
+        }
+        $this->postJson('/corporate/login', ['email' => 'unknown@example.test', 'password' => 'wrong'])->assertStatus(429);
+        $other = $this->staff();
+        $this->post('/corporate/login', ['email' => $other->email, 'password' => 'CorporateTest123!'])->assertRedirect('/corporate');
+        $token = Password::broker('corporate')->createToken($other);
+        $this->post('/corporate/reset-password', ['email' => $other->email, 'token' => $token,
+            'password' => 'ChangedPassword123!', 'password_confirmation' => 'ChangedPassword123!'])->assertRedirect('/corporate/login');
+        $this->postJson('/corporate/login', ['email' => ['malformed'], 'password' => 'wrong'])->assertUnprocessable();
+    }
 }

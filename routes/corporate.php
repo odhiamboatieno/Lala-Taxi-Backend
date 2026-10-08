@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('corporate')->name('corporate.portal.')->middleware('web')->group(function () {
     Route::get('login', [PortalAuthController::class, 'loginForm'])->name('login');
-    Route::post('login', [PortalAuthController::class, 'login'])->middleware('throttle:5,1')->name('login.submit');
+    Route::post('login', [PortalAuthController::class, 'login'])->middleware('throttle:corporate-portal-login')->name('login.submit');
     Route::get('forgot-password', [PortalAuthController::class, 'forgotForm'])->name('password.request');
-    Route::post('forgot-password', [PortalAuthController::class, 'forgot'])->middleware('throttle:5,1')->name('password.email');
+    Route::post('forgot-password', [PortalAuthController::class, 'forgot'])->middleware('throttle:corporate-portal-recovery')->name('password.email');
     Route::get('reset-password/{token}', [PortalAuthController::class, 'resetForm'])->name('password.reset');
-    Route::post('reset-password', [PortalAuthController::class, 'reset'])->middleware('throttle:5,1')->name('password.update');
+    Route::post('reset-password', [PortalAuthController::class, 'reset'])->middleware('throttle:corporate-portal-reset')->name('password.update');
     Route::post('logout', [PortalAuthController::class, 'logout'])->name('logout');
     Route::middleware('corporate.session')->group(function () {
         Route::get('/', [PortalController::class, 'dashboard'])->name('dashboard');

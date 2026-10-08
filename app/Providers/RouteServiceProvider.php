@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -30,7 +34,16 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        foreach (['login', 'recovery', 'reset'] as $action) {
+            RateLimiter::for('corporate-portal-'.$action, function (Request $request) {
+                $email = $request->input('email');
+                $identity = is_string($email) ? Str::lower(trim($email)) : '';
+                return [
+                    Limit::perMinute(30)->by('ip:'.$request->ip()),
+                    Limit::perMinute(5)->by('identity:'.$request->ip().'|'.hash('sha256', $identity)),
+                ];
+            });
+        }
 
         parent::boot();
     }
