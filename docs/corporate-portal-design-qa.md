@@ -17,6 +17,7 @@ All new user-visible copy uses translation keys. No invented trends, mock accoun
 - Portal PHP regression coverage: **21 tests / 266 assertions**, including branded authentication assets, accessible controls, zero-radius/shared-colour rules, role-specific navigation and validation-editor restoration.
 - **423 actual isolated browser assertions** at 320, 390, 768, 1280 and 1440px. These cover login/logout, dashboard, employees, portal access/editor expansion, journeys/details, invoices/details/PDF download, finance/viewer navigation, selected-navigation visibility, recovery/setup forms, password reveal, cancelled removal, no page overflow, labelled fields, loaded photographs and native Lucide rendering.
 - Dedicated MySQL regression suite: **105 tests / 935 assertions** pass.
+- Complete backend suite from a clean detached checkout of UI revision `ab54d5a`: **195 tests / 1,423 assertions**, with two intentional MySQL-only skips. This excludes the concurrent uncommitted search-query edits that briefly failed a separate shared-checkout run; no unrelated search files were modified for this UI task.
 - Compiled Blade PHP lint, JavaScript syntax and Git whitespace validation pass.
 - Before/after screenshots were captured and inspected; final screenshots are in `/tmp/lala-portal-brand-final`. Browser screenshots alone are not a claim of full accessibility compliance.
 

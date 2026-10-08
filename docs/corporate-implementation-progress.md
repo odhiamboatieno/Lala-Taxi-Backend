@@ -2,13 +2,14 @@
 
 Source specification: workspace-root `CORPORATE_ACCOUNTS_IMPLEMENTATION.md` (corrected 2026-10-07).
 
-## Current execution status — 2026-10-08: portal design refinement
+## Current execution status — 2026-10-09: portal design refinement
 
 - The earlier portal implementation at `baec5ed` was promoted to production with corporate bookings disabled. The live portal login and recovery routes returned HTTP 200, the admin accounts route returned HTTP 200 through the actual authorization middleware, and shared Redis preflight passed. The user deferred SMTP configuration after Gmail rejected authentication; no external email delivery is claimed. The separately approved verification employer has no test trips or financial activity.
 - The follow-up UI refinement updates the employer workspace, dashboard, employees, browser staff access, trip list/detail, invoice list/detail, login, recovery and password setup. It reuses the website logo, Kenya business photography, Inter, local Lucide assets and shared gold/black/white tokens. Square cards and controls remain square. No gradients, fabricated analytics, changed roles, financial mutations or new database requirements are introduced.
 - Desktop navigation is a company sidebar; mobile navigation scrolls within its own bar. Small-screen journeys become readable records with explicit table semantics. Staff editors are expandable and the relevant editor reopens after validation errors. Password reveal and accepted-submission feedback are progressive enhancements; the existing CSRF, authentication, tenant isolation and server validation remain authoritative.
 - Actual isolated Chromium validation passes **423 checks** across 320, 390, 768, 1280 and 1440 pixels, including native Lucide rendering, loaded images, square controls, field labels, selected-navigation visibility, three-role visibility, staff expansion, password reveal, cancelled employee removal, trip/invoice detail, PDF downloads and logout. Screenshots were captured and inspected in `/tmp/lala-portal-brand-final`. Portal-specific PHP coverage passes **21 tests / 266 assertions** and the dedicated MySQL suite passes **105 / 935**; final complete regression results are recorded in the UI QA document.
 - This UI follow-up is verified in the isolated acceptance stack, **not deployed to production**. The existing production image, booking-disabled policy and user data are untouched. Unrelated dashboard-search work in the shared worktree is excluded from the UI commit.
+- UI revision `ab54d5a` is committed. Its clean detached checkout passes the complete backend suite: **195 tests / 1,423 assertions**, with two intentional MySQL-only skips. During concurrent search development the shared checkout briefly reported six search-query errors; verification of the UI revision used its own clean checkout and did not alter that unrelated work. The dedicated MySQL **105 / 935**, compiled Blade lint, JS syntax and browser **423** checks pass.
 
 ## Earlier implementation checkpoints — 2026-10-08 (historical)
 
