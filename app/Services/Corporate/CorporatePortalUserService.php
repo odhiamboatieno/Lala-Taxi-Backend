@@ -31,7 +31,9 @@ class CorporatePortalUserService
         $this->authorize($account, $actor);
         abort_unless($account->status === 'Active' && !$account->archived_at, 409);
         if ($user) abort_unless((int) $user->corporate_account_id === (int) $account->id, 404);
-        $input['email'] = Str::lower(trim($input['email'] ?? ''));
+        if (isset($input['email']) && is_string($input['email'])) {
+            $input['email'] = Str::lower(trim($input['email']));
+        }
         $data = validator($input, [
             'name' => 'required|string|max:255', 'email' => ['required', 'email:rfc', 'max:255', Rule::unique('corporate_portal_users')->ignore($user?->id)],
             'role' => 'required|in:admin,finance,viewer', 'status' => 'required|in:Active,Inactive',

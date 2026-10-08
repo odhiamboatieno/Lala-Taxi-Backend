@@ -362,4 +362,23 @@ class CorporatePortalTest extends TestCase
             'password' => 'ChangedPassword123!', 'password_confirmation' => 'ChangedPassword123!'])->assertRedirect('/corporate/login');
         $this->postJson('/corporate/login', ['email' => ['malformed'], 'password' => 'wrong'])->assertUnprocessable();
     }
+
+    public function test_malformed_invitation_email_is_validated_without_creating_staff_or_sending_mail(): void
+    {
+        $actor = $this->staff();
+        $this->signIn($actor);
+        foreach ([['malformed'], 123, null] as $email) {
+            $this->postJson('/corporate/staff', $this->staffInput(['email' => $email]))
+                ->assertUnprocessable()->assertJsonValidationErrors('email');
+        }
+        $this->actingAs($this->admin(), 'admin');
+        $url = '/admin/companies/1/corporate-accounts/accounts/'.$this->account->id.'/portal-users';
+        foreach ([['malformed'], 123, null] as $email) {
+            $this->postJson($url, $this->staffInput(['email' => $email]))
+                ->assertUnprocessable()->assertJsonValidationErrors('email');
+        }
+        $this->assertSame(1, CorporatePortalUser::count());
+        $this->assertSame(0, $this->account->audits()->count());
+        Notification::assertNothingSent();
+    }
 }

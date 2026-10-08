@@ -77,4 +77,19 @@ class BootstrapConfigurationTest extends TestCase
         $this->assertInstanceOf(\App\Http\Controllers\UserController::class, $controller);
         $this->assertSame(url('signin_rider'), $controller->facebook_login()->getTargetUrl());
     }
+
+    public function test_currency_trait_constructs_payout_controllers_without_breaking_eloquent_initialization(): void
+    {
+        (require database_path('migrations/2026_08_16_000032_create_currency_table.php'))->up();
+        DB::table('currency')->insert(['name' => 'Kenyan Shilling', 'code' => 'KES', 'symbol' => 'KES',
+            'rate' => 1, 'status' => 'Active', 'default_currency' => '1']);
+        app()->instance('request', \Illuminate\Http\Request::create('/api/earning_list'));
+        $controller = app(\App\Http\Controllers\Api\PayoutDetailController::class);
+        $this->assertInstanceOf(\App\Http\Controllers\Api\PayoutDetailController::class, $controller);
+        $this->assertSame('KES', $controller->getConvertCurrencyCode());
+        $trip = new \App\Models\Trips(['user_id' => 12, 'currency_code' => 'KES']);
+        $this->assertSame(12, $trip->getAttributes()['user_id']);
+        $this->assertSame('KES', $trip->getAttributes()['currency_code']);
+        $this->assertSame('KES', $trip->getConvertCurrencyCode());
+    }
 }

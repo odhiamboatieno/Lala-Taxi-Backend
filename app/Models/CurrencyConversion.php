@@ -20,7 +20,10 @@ trait CurrencyConversion
 
 	public function __construct(array $attributes = [])
 	{
-		parent::__construct($attributes);
+		// Models need Eloquent initialization; controllers have no parent constructor.
+		if ($this instanceof Model) {
+			parent::__construct($attributes);
+		}
 		if(request()->segment(1) == 'admin') {
 			$currency_code = Currency::defaultCurrency()->first()->code;
 			$this->convert_currency_code =  $currency_code;
