@@ -77,11 +77,10 @@ class CompanyAccountsController extends Controller
     {
         $context = $this->accountsContext($resolver, $company);
         $account = $this->account($request, $context);
-        $eligible = User::where('user_type', 'Rider')->where('status', 'Active')
+        $eligible = ($context['isAdmin'] ? User::query()
+            : app(CorporateMembershipService::class)->ridersForOperator((int) $context['company']->id))
+            ->where('user_type', 'Rider')->where('status', 'Active')
             ->where(fn ($q) => $q->whereNull('corporate_account_id')->orWhere('corporate_account_id', $account->id));
-        if (!$context['isAdmin']) {
-            $eligible->where('company_id', $context['company']->id);
-        }
         $term = trim((string) $request->input('rider_search', ''));
         if ($term !== '') {
             $eligible->where(fn ($q) => $q->where('first_name', 'like', '%'.$term.'%')->orWhere('last_name', 'like', '%'.$term.'%')->orWhere('email', 'like', '%'.$term.'%')->orWhere('mobile_number', 'like', '%'.$term.'%'));

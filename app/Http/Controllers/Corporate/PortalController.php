@@ -49,11 +49,24 @@ class PortalController extends Controller
         abort_unless($context['actor']->canManageUsers(), 403);
         $data = $request->validate(['country_code' => 'required|regex:/^[0-9]{1,4}$/',
             'mobile_number' => 'required|regex:/^[0-9]{5,20}$/', 'role' => 'required|in:member,manager,finance']);
-        $rider = User::where('user_type', 'Rider')->where('status', 'Active')->where('company_id', $context['account']->company_id)
-            ->where('country_code', $data['country_code'])->where('mobile_number', $data['mobile_number'])
-            ->where(fn ($query) => $query->whereNull('corporate_account_id')->orWhere('corporate_account_id', $context['account']->id))->first();
-        if (!$rider) throw ValidationException::withMessages(['mobile_number' => __('corporate.portal_eligible_rider')]);
-        app(CorporateMembershipService::class)->assign($context['account'], $rider, $data['role'], $context['actor']);
+        $membership = app(CorporateMembershipService::class);
+        $numbers = [(string) $data['mobile_number']];
+        // Mirror Customer OTP's nine-digit local/trunk-zero compatibility, but
+        // never pick an arbitrary account if legacy spellings identify two riders.
+        if (preg_match('/^0?[1-9][0-9]{8}$/', $numbers[0])) {
+            $local = ltrim($numbers[0], '0');
+            $numbers = [$local, '0'.$local];
+        }
+        $riders = $membership->ridersForOperator((int) $context['account']->company_id)
+            ->where('user_type', 'Rider')->where('status', 'Active')
+            ->where('country_code', $data['country_code'])->whereIn('mobile_number', $numbers)
+            ->limit(2)->get();
+        if ($riders->count() > 1) throw ValidationException::withMessages(['mobile_number' => __('corporate.portal_ambiguous_rider')]);
+        $rider = $riders->first();
+        if (!$rider || ($rider->corporate_account_id && (int) $rider->corporate_account_id !== (int) $context['account']->id)) {
+            throw ValidationException::withMessages(['mobile_number' => __('corporate.portal_eligible_rider')]);
+        }
+        $membership->assign($context['account'], $rider, $data['role'], $context['actor']);
         return redirect()->route('corporate.portal.members')->with('status', __('corporate.membership_saved'));
     }
 

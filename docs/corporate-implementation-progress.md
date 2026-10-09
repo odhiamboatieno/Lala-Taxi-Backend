@@ -2,7 +2,16 @@
 
 Source specification: workspace-root `CORPORATE_ACCOUNTS_IMPLEMENTATION.md` (corrected 2026-10-07).
 
-## Current execution status — 2026-10-09: portal design refinement
+## Current execution status — 2026-10-09: existing Customer membership lookup repair
+
+- Read-only production diagnostics confirmed that the reported phone has an active, unaffiliated Rider account. Normal Customer registration leaves `users.company_id` null, and dispatch resolves that representation to the configured platform operator. The portal's exact company-ID lookup and the membership service's second authorization check rejected these otherwise valid platform Customers. No live membership or operator field was manually changed.
+- Membership lookup, transactional authorization and the operator employee selector now share the same operator scope. Only the configured platform owner includes null-company Riders; other operators still cannot claim platform Customers or foreign-operator users. Existing employer isolation, active Rider checks, soft-delete exclusion, role permissions and assignment/removal audits remain enforced. No migration or bulk rewriting of Customer dispatch ownership is needed.
+- Phone lookup accepts the same nine-digit local/trunk-zero spellings used by Customer OTP. Ambiguous duplicate active identities fail safely even if one already belongs to another employer; Driver accounts with the same phone remain excluded. Phone numbers are not rewritten.
+- Complete backend verification passes **216 tests / 2,379 assertions**, with the two intentional MySQL-only skips. The dedicated MySQL run passes **113 / 999**, followed by the final additional duplicate-affiliation regression **1 / 5**. PHP syntax and whitespace checks pass.
+- The guarded `deploy/acceptance-portal-membership-check.php` exercises actual Customer API registration, browser session/CSRF assignment, leading-zero matching, repeat submission, directory display and removal in the isolated acceptance stack: **14 HTTP checks passed**, followed by **13 repeat-run checks**. The fictional Customer remains unaffiliated after testing, with unchanged phone/operator data and retained audits; no trips, invoices or production writes occurred.
+- Production was observed running revision `0ae4e02` before this patch, newer than the preceding UI checkpoint. This lookup repair is not yet claimed as production-deployed; deployment must retain bookings disabled and use the verified immutable release process.
+
+## Previous checkpoint — 2026-10-09: portal design refinement
 
 - The earlier portal implementation at `baec5ed` was promoted to production with corporate bookings disabled. The live portal login and recovery routes returned HTTP 200, the admin accounts route returned HTTP 200 through the actual authorization middleware, and shared Redis preflight passed. The user deferred SMTP configuration after Gmail rejected authentication; no external email delivery is claimed. The separately approved verification employer has no test trips or financial activity.
 - The follow-up UI refinement updates the employer workspace, dashboard, employees, browser staff access, trip list/detail, invoice list/detail, login, recovery and password setup. It reuses the website logo, Kenya business photography, Inter, local Lucide assets and shared gold/black/white tokens. Square cards and controls remain square. No gradients, fabricated analytics, changed roles, financial mutations or new database requirements are introduced.

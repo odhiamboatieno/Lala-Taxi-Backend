@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Company;
 use App\Models\CorporatePortalUser;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Modules\SaaSDispatch\Entities\CompanyCorporateAccount;
@@ -13,6 +14,18 @@ use Modules\SaaSDispatch\Entities\CompanyCorporateAudit;
 
 class CorporateMembershipService
 {
+    public function ridersForOperator(int $companyId): Builder
+    {
+        // Customer registration leaves company_id null for platform riders. This
+        // is not an unassigned tenant: dispatch resolves it to the platform.
+        return User::query()->where(function (Builder $query) use ($companyId) {
+            $query->where('company_id', $companyId);
+            if ($companyId === saas_platform_company_id()) {
+                $query->orWhereNull('company_id');
+            }
+        });
+    }
+
     public function assign(CompanyCorporateAccount $account, User $rider, string $role, Admin|Company|CorporatePortalUser $actor): User
     {
         return DB::transaction(function () use ($account, $rider, $role, $actor) {
@@ -60,12 +73,13 @@ class CorporateMembershipService
             abort_unless($freshActor, 403);
             app(CorporatePortalUserService::class)->authorize($account, $freshActor);
             abort_unless($account->status === 'Active' && !$account->archived_at, 409);
-            abort_unless((int) $rider->company_id === (int) $account->company_id, 403);
+            abort_unless($this->ridersForOperator((int) $account->company_id)->whereKey($rider->id)->exists(), 403);
         } elseif ($actor instanceof Admin) {
             abort_unless($actor->hasPermission(['manage_company_accounts_invoicing']), 403);
         } else {
             abort_unless((int) $actor->id === (int) $account->company_id
-                && (int) $rider->company_id === (int) $actor->id && operation_team_can('manage_company_accounts_invoicing'), 403);
+                && $this->ridersForOperator((int) $actor->id)->whereKey($rider->id)->exists()
+                && operation_team_can('manage_company_accounts_invoicing'), 403);
         }
     }
 

@@ -120,6 +120,34 @@ class CorporateManagementTest extends TestCase
         $this->assertSame('finance', DB::table('users')->where('id', 1)->value('corporate_role'));
     }
 
+    public function test_platform_company_directory_and_assignment_include_normal_customer_registrations(): void
+    {
+        $this->actingAs(Company::findOrFail(1), 'company');
+        DB::table('users')->where('id', 1)->update(['company_id' => null, 'corporate_account_id' => null, 'corporate_role' => null]);
+        DB::table('users')->insert(['id' => 3, 'company_id' => 2, 'user_type' => 'Rider']);
+        $url = '/company/saas-dispatch/accounts/accounts/'.$this->account->id;
+        $request = Request::create($url);
+        $route = app('router')->getRoutes()->match($request);
+        $request->setRouteResolver(fn () => $route);
+        $this->app->instance('request', $request);
+        $data = app(CompanyAccountsController::class)->showAccount($request, app(CompanyContextResolver::class))->getData();
+        $this->assertSame([1], $data['eligibleRiders']->pluck('id')->all());
+        $this->post($url.'/members', ['user_id' => 1, 'role' => 'member'])->assertRedirect();
+        $this->assertSame($this->account->id, (int) DB::table('users')->where('id', 1)->value('corporate_account_id'));
+        $this->assertNull(DB::table('users')->where('id', 1)->value('company_id'));
+    }
+
+    public function test_non_platform_operator_cannot_assign_a_null_platform_rider_by_id(): void
+    {
+        $this->actingAs(Company::findOrFail(2), 'company');
+        DB::table('company_saas_settings')->insert(['company_id' => 2, 'is_saas_enabled' => true]);
+        $this->account->update(['company_id' => 2]);
+        DB::table('users')->where('id', 1)->update(['company_id' => null, 'corporate_account_id' => null, 'corporate_role' => null]);
+        $this->postJson('/company/saas-dispatch/accounts/accounts/'.$this->account->id.'/members', ['user_id' => 1, 'role' => 'member'])
+            ->assertForbidden();
+        $this->assertNull(DB::table('users')->where('id', 1)->value('corporate_account_id'));
+    }
+
     public function test_account_validation_rejects_incomplete_billing_and_invalid_money(): void
     {
         $this->actingAs($this->actor(), 'admin');

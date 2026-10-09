@@ -256,6 +256,100 @@ class CorporatePortalTest extends TestCase
         $this->assertSame(1, CompanyCorporateAccount::count());
     }
 
+    public function test_normal_customer_registration_can_join_platform_employer_without_changing_dispatch_owner(): void
+    {
+        $this->signIn($this->staff());
+        DB::table('users')->where('id', 1)->update(['company_id' => null, 'corporate_account_id' => null, 'corporate_role' => null]);
+        $input = ['country_code' => '254', 'mobile_number' => '700000110', 'role' => 'member'];
+        $this->post('/corporate/members', $input)->assertRedirect('/corporate/members');
+        $this->post('/corporate/members', $input)->assertRedirect('/corporate/members');
+        $this->assertSame($this->account->id, (int) DB::table('users')->where('id', 1)->value('corporate_account_id'));
+        $this->assertNull(DB::table('users')->where('id', 1)->value('company_id'));
+        $this->assertSame(1, $this->account->audits()->where('action', 'membership.assigned')->count());
+        $this->delete('/corporate/members/1')->assertRedirect('/corporate/members');
+        $this->assertNull(DB::table('users')->where('id', 1)->value('corporate_account_id'));
+        $this->assertNull(DB::table('users')->where('id', 1)->value('company_id'));
+    }
+
+    public function test_phone_lookup_accepts_customer_otp_trunk_zero_spellings_in_both_directions(): void
+    {
+        $this->signIn($this->staff());
+        foreach ([['700000110', '0700000110'], ['0700000110', '700000110']] as [$stored, $entered]) {
+            DB::table('users')->where('id', 1)->update(['company_id' => null, 'mobile_number' => $stored,
+                'corporate_account_id' => null, 'corporate_role' => null]);
+            $this->post('/corporate/members', ['country_code' => '254', 'mobile_number' => $entered, 'role' => 'member'])
+                ->assertRedirect('/corporate/members');
+            $this->assertSame($this->account->id, (int) DB::table('users')->where('id', 1)->value('corporate_account_id'));
+            $this->assertSame($stored, DB::table('users')->where('id', 1)->value('mobile_number'));
+        }
+    }
+
+    public function test_portal_lookup_never_links_foreign_inactive_deleted_driver_or_wrong_country_accounts(): void
+    {
+        $this->signIn($this->staff());
+        $otherEmployer = CompanyCorporateAccount::create(['company_id' => 1, 'account_name' => 'Other Employer',
+            'legal_name' => 'Other Employer Ltd', 'billing_address' => 'Kenya', 'currency_code' => 'KES', 'status' => 'Active']);
+        foreach ([['company_id' => 2], ['status' => 'Inactive'], ['deleted_at' => now()],
+            ['user_type' => 'Driver'], ['country_code' => '27'], ['corporate_account_id' => $otherEmployer->id]] as $invalid) {
+            DB::table('users')->where('id', 1)->update(array_replace(['company_id' => null, 'status' => 'Active',
+                'deleted_at' => null, 'user_type' => 'Rider', 'country_code' => '254',
+                'corporate_account_id' => null, 'corporate_role' => null], $invalid));
+            $this->postJson('/corporate/members', ['country_code' => '254', 'mobile_number' => '700000110', 'role' => 'member'])
+                ->assertUnprocessable()->assertJsonValidationErrors('mobile_number');
+            $this->assertSame(0, $this->account->audits()->count());
+        }
+    }
+
+    public function test_null_platform_riders_do_not_become_available_to_other_operators(): void
+    {
+        $foreign = $this->foreignAccount();
+        $this->signIn($this->staff('admin', $foreign));
+        DB::table('users')->where('id', 1)->update(['company_id' => null, 'corporate_account_id' => null, 'corporate_role' => null]);
+        $this->postJson('/corporate/members', ['country_code' => '254', 'mobile_number' => '700000110', 'role' => 'member'])
+            ->assertUnprocessable()->assertJsonValidationErrors('mobile_number');
+        $this->assertNull(DB::table('users')->where('id', 1)->value('corporate_account_id'));
+        $this->assertSame(0, $foreign->audits()->count());
+    }
+
+    public function test_platform_rider_lookup_uses_configured_platform_id_not_a_hardcoded_company(): void
+    {
+        config(['saas_dispatch.platform_company_id' => 2]);
+        $foreign = $this->foreignAccount();
+        $this->signIn($this->staff('admin', $foreign));
+        DB::table('users')->where('id', 1)->update(['company_id' => null, 'corporate_account_id' => null, 'corporate_role' => null]);
+        $this->post('/corporate/members', ['country_code' => '254', 'mobile_number' => '700000110', 'role' => 'member'])
+            ->assertRedirect('/corporate/members');
+        $this->assertSame($foreign->id, (int) DB::table('users')->where('id', 1)->value('corporate_account_id'));
+        $this->assertNull(DB::table('users')->where('id', 1)->value('company_id'));
+    }
+
+    public function test_duplicate_local_phone_spellings_fail_safely_without_linking_either_rider(): void
+    {
+        $this->signIn($this->staff());
+        DB::table('users')->where('id', 1)->update(['company_id' => null, 'corporate_account_id' => null, 'corporate_role' => null]);
+        DB::table('users')->insert(['id' => 3, 'company_id' => null, 'mobile_number' => '0700000110']);
+        $this->postJson('/corporate/members', ['country_code' => '254', 'mobile_number' => '700000110', 'role' => 'member'])
+            ->assertUnprocessable()->assertJsonValidationErrors('mobile_number')
+            ->assertJsonPath('errors.mobile_number.0', __('corporate.portal_ambiguous_rider'));
+        $this->assertSame(0, DB::table('users')->whereNotNull('corporate_account_id')->count());
+        $this->assertSame(0, $this->account->audits()->count());
+    }
+
+    public function test_other_employer_affiliation_does_not_hide_a_duplicate_phone_identity(): void
+    {
+        $this->signIn($this->staff());
+        $other = CompanyCorporateAccount::create(['company_id' => 1, 'account_name' => 'Other Employer',
+            'legal_name' => 'Other Employer Ltd', 'billing_address' => 'Kenya', 'currency_code' => 'KES', 'status' => 'Active']);
+        DB::table('users')->where('id', 1)->update(['company_id' => null, 'corporate_account_id' => null, 'corporate_role' => null]);
+        DB::table('users')->insert(['id' => 3, 'company_id' => null, 'mobile_number' => '0700000110',
+            'corporate_account_id' => $other->id, 'corporate_role' => 'member']);
+        $this->postJson('/corporate/members', ['country_code' => '254', 'mobile_number' => '700000110', 'role' => 'member'])
+            ->assertUnprocessable()->assertJsonPath('errors.mobile_number.0', __('corporate.portal_ambiguous_rider'));
+        $this->assertNull(DB::table('users')->where('id', 1)->value('corporate_account_id'));
+        $this->assertSame($other->id, (int) DB::table('users')->where('id', 3)->value('corporate_account_id'));
+        $this->assertSame(0, $this->account->audits()->count());
+    }
+
     public function test_privilege_changes_revoke_existing_sessions_and_protect_the_last_administrator(): void
     {
         $staff = $this->staff();

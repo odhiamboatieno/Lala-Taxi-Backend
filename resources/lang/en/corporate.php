@@ -62,6 +62,7 @@ return [
     'portal_country_code' => 'Country calling code',
     'portal_mobile_number' => 'Local mobile number',
     'portal_eligible_rider' => 'No eligible active rider found. Ask the employee to register in the Customer app first, and check the country calling code and local number. They must belong to this operator and not another employer.',
+    'portal_ambiguous_rider' => 'More than one Customer account matches this phone number. Contact Lala support to resolve the duplicate before adding the employee.',
     'portal_member_hint' => 'Add an existing Customer by their exact phone number or update their mobile role. Employee is the own-activity default. Manager and Finance explicitly grant wider mobile access; web privileges remain separate.',
     'portal_add_member' => 'Save employee access',
     'portal_remove_confirm' => 'Remove this employee from the corporate account? Saved trips and invoices will be retained.',
