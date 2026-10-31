@@ -1,6 +1,10 @@
 #!/bin/sh
 set -eu
 cd "$(dirname "$0")"
+if [ "$#" -gt 1 ] || { [ "$#" -eq 1 ] && [ "$1" != '--config-only' ] && [ "$1" != '--allow-bookings' ]; }; then
+    echo 'Usage: sh preflight.sh [--config-only|--allow-bookings]' >&2
+    exit 2
+fi
 docker compose config --quiet
 application_images=$(docker compose config --images | awk '/lala-taxi-backend/ {print}')
 if [ -z "$application_images" ]; then
@@ -27,6 +31,6 @@ if [ "${1:-}" = '--config-only' ]; then
     echo 'Compose configuration and immutable application image validated.'
     exit 0
 fi
-docker compose exec -T app php artisan corporate:release-check --no-interaction < /dev/null
+docker compose exec -T app php artisan corporate:release-check --no-interaction "$@" < /dev/null
 docker compose ps
 echo 'Read-only preflight complete; this does not establish observed SMTP, scheduler or device acceptance.'

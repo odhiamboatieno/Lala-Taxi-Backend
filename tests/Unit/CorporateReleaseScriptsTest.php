@@ -42,9 +42,9 @@ PHP);
         (new Filesystem())->deleteDirectory($this->temporary);
     }
 
-    private function release(array $overrides = [], bool $pipeScript = false): Process
+    private function release(array $overrides = [], bool $pipeScript = false, array $arguments = []): Process
     {
-        $process = new Process($pipeScript ? ['sh'] : ['sh', './release.sh'], $this->temporary, array_replace([
+        $process = new Process($pipeScript ? ['sh'] : ['sh', './release.sh', ...$arguments], $this->temporary, array_replace([
             'PATH' => $this->temporary.'/bin:'.getenv('PATH'),
             'BACKUP_REFERENCE' => 'isolated-test-backup',
             'RESTORE_EVIDENCE' => 'isolated-test-restore',
@@ -107,6 +107,21 @@ PHP);
             $this->assertNotSame(0, $process->getExitCode());
             $this->assertSame([], $this->calls());
         }
+    }
+
+    public function test_approved_enabled_booking_release_passes_explicit_override_to_both_runtime_checks(): void
+    {
+        $process = $this->release(arguments: ['--allow-bookings']);
+        $this->assertSame(0, $process->getExitCode(), $process->getErrorOutput());
+        $checks = array_values(array_filter($this->commands(), fn ($command) => str_contains($command, 'corporate:release-check')));
+        $this->assertSame(array_fill(0, 2, 'compose exec -T app php artisan corporate:release-check --no-interaction --allow-bookings'), $checks);
+    }
+
+    public function test_unknown_release_flags_fail_before_docker_or_downtime(): void
+    {
+        $process = $this->release(arguments: ['--enable-everything']);
+        $this->assertSame(2, $process->getExitCode());
+        $this->assertSame([], $this->calls());
     }
 
     public function test_image_pull_failure_does_not_stop_running_services(): void
