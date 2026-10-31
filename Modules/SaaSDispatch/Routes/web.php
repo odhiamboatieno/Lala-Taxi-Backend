@@ -307,6 +307,11 @@ Route::group([
 Route::middleware(['web', 'admin_guest', 'admin_can:manage_company_accounts_invoicing'])->group(function () {
     Route::get('admin/saas-dispatch/accounts', [CompanyAccountsController::class, 'companies'])
         ->name('saasdispatch.admin.accounts.index');
+    Route::prefix('admin/corporate-accounts')->name('saasdispatch.admin.corporate-accounts.')->group(function () {
+        Route::get('/', [CompanyAccountsController::class, 'directory'])->name('index');
+        Route::get('create', [CompanyAccountsController::class, 'createFromDirectory'])->name('accounts.create');
+        Route::post('/', [CompanyAccountsController::class, 'storeFromDirectory'])->name('accounts.store');
+    });
 
     foreach (['company/saas-dispatch/accounts' => 'saasdispatch.self.accounts.', 'admin/companies/{company}/corporate-accounts' => 'saasdispatch.companies.accounts.'] as $prefix => $name) {
         Route::prefix($prefix)->name($name)->group(function () {

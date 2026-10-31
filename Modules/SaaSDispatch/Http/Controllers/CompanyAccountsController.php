@@ -28,7 +28,84 @@ class CompanyAccountsController extends Controller
     {
         abort_unless($resolver->isAdmin(), 403);
 
-        return view('saasdispatch::accounts.companies', ['companies' => Company::orderBy('name')->paginate(20)]);
+        return redirect()->route('saasdispatch.admin.corporate-accounts.index');
+    }
+
+    public function directory(Request $request, CompanyContextResolver $resolver)
+    {
+        abort_unless($resolver->isAdmin(), 403);
+        abort_unless(app(CorporateCapabilities::class)->platformServicingEnabled(), 404);
+        $filters = $request->validate([
+            'search' => 'nullable|string|max:191',
+            'status' => ['nullable', Rule::in(['Active', 'Inactive', 'Archived'])],
+            'company_id' => 'nullable|integer|exists:companies,id',
+        ]);
+        $accounts = CompanyCorporateAccount::with('company:id,name')
+            ->withCount([
+                'members as active_members_count' => fn ($q) => $q->where('status', 'Active')->where('user_type', 'Rider'),
+                'portalUsers as ready_admins_count' => fn ($q) => $q->where('status', 'Active')->where('role', 'admin')->whereNotNull('password_set_at'),
+            ]);
+        $term = trim($filters['search'] ?? '');
+        if ($term !== '') {
+            $accounts->where(fn ($q) => $q->where('account_name', 'like', '%'.$term.'%')
+                ->orWhere('legal_name', 'like', '%'.$term.'%')->orWhere('contact_email', 'like', '%'.$term.'%')
+                ->orWhereHas('company', fn ($owner) => $owner->where('name', 'like', '%'.$term.'%')));
+        }
+        if (!empty($filters['company_id'])) {
+            $accounts->where('company_id', $filters['company_id']);
+        }
+        if (($filters['status'] ?? '') === 'Archived') {
+            $accounts->whereNotNull('archived_at');
+        } elseif (!empty($filters['status'])) {
+            $accounts->whereNull('archived_at')->where('status', $filters['status']);
+        }
+
+        return view('saasdispatch::accounts.directory', [
+            'accounts' => $accounts->orderBy('account_name')->orderBy('id')->paginate(20)->withQueryString(),
+            'operators' => Company::whereIn('id', CompanyCorporateAccount::select('company_id'))->orderBy('name')->get(['id', 'name']),
+            'canCreateAccounts' => $this->eligibleOperators()->isNotEmpty(),
+        ]);
+    }
+
+    public function createFromDirectory(CompanyContextResolver $resolver)
+    {
+        abort_unless($resolver->isAdmin(), 403);
+        abort_unless(app(CorporateCapabilities::class)->platformServicingEnabled(), 404);
+
+        return view('saasdispatch::accounts.form', $this->newAccountForm() + [
+            'accountsRoute' => 'saasdispatch.admin.corporate-accounts.',
+            'accountsRouteParameters' => [],
+            'operatorChoices' => $this->eligibleOperators(),
+        ]);
+    }
+
+    public function storeFromDirectory(Request $request, CompanyContextResolver $resolver)
+    {
+        abort_unless($resolver->isAdmin(), 403);
+        $data = $request->validate(['company_id' => 'required|integer|exists:companies,id']);
+        // The shared domain service checks the selected operator's current capability and records the audit.
+        return $this->storeAccount($request, $resolver, Company::findOrFail($data['company_id']));
+    }
+
+    private function eligibleOperators()
+    {
+        if (!saas_dispatch_enabled() || !saas_feature_module_enabled('accounts_invoicing')) {
+            return collect();
+        }
+
+        return Company::where('status', 'Active')->where(fn ($q) => $q
+            ->where('id', saas_platform_company_id())
+            ->orWhereHas('saas_setting', fn ($settings) => $settings->where('is_saas_enabled', true)))
+            ->orderBy('name')->get(['id', 'name']);
+    }
+
+    private function newAccountForm(): array
+    {
+        return ['account' => new CompanyCorporateAccount([
+            'billing_cycle' => 'monthly', 'billing_timezone' => config('app.timezone', 'UTC'),
+            'currency_code' => Currency::where('status', 'Active')->where('default_currency', '1')->value('code'),
+            'payment_terms_days' => 30, 'credit_limit' => '0.00', 'status' => 'Active',
+        ]), 'currencies' => Currency::where('status', 'Active')->orderBy('code')->get()];
     }
 
     protected function accountsContext(CompanyContextResolver $resolver, ?Company $company): array
@@ -38,6 +115,9 @@ class CompanyAccountsController extends Controller
         $context['accountsRoute'] = $context['isAdmin'] ? 'saasdispatch.companies.accounts.' : 'saasdispatch.self.accounts.';
         $context['accountsRouteParameters'] = $context['isAdmin'] ? ['company' => $context['company']->id] : [];
         $context['canCreateAccounts'] = app(CorporateCapabilities::class)->managementEnabled($context['company']);
+        $context['accountsIndexUrl'] = $context['isAdmin']
+            ? route('saasdispatch.admin.corporate-accounts.index')
+            : route($context['accountsRoute'].'index');
 
         return $context;
     }
@@ -57,11 +137,7 @@ class CompanyAccountsController extends Controller
         $context = $this->accountsContext($resolver, $company);
         abort_unless($context['canCreateAccounts'], 404);
 
-        return view('saasdispatch::accounts.form', $context + ['account' => new CompanyCorporateAccount([
-            'billing_cycle' => 'monthly', 'billing_timezone' => config('app.timezone', 'UTC'),
-            'currency_code' => Currency::where('status', 'Active')->where('default_currency', '1')->value('code'),
-            'payment_terms_days' => 30, 'credit_limit' => '0.00', 'status' => 'Active',
-        ]), 'currencies' => Currency::where('status', 'Active')->orderBy('code')->get()]);
+        return view('saasdispatch::accounts.form', $context + $this->newAccountForm());
     }
 
     public function storeAccount(Request $request, CompanyContextResolver $resolver, ?Company $company = null)

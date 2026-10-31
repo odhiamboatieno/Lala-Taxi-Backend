@@ -67,6 +67,8 @@ class CorporatePrerequisitesTest extends TestCase
         $this->assertSame('company/saas-dispatch/accounts', Route::getRoutes()->getByName('saasdispatch.self.accounts.index')->uri());
         $this->assertSame('admin/companies/{company}/corporate-accounts', Route::getRoutes()->getByName('saasdispatch.companies.accounts.index')->uri());
         $this->assertSame('admin/saas-dispatch/accounts', Route::getRoutes()->getByName('saasdispatch.admin.accounts.index')->uri());
+        $this->assertSame('admin/corporate-accounts', Route::getRoutes()->getByName('saasdispatch.admin.corporate-accounts.index')->uri());
+        $this->assertSame('admin/corporate-accounts/create', Route::getRoutes()->getByName('saasdispatch.admin.corporate-accounts.accounts.create')->uri());
     }
 
     public function test_capabilities_include_platform_but_require_enabled_tenant_and_feature(): void

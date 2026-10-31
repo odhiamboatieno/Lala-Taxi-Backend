@@ -78,6 +78,140 @@ class CorporateManagementTest extends TestCase
         return '/admin/companies/'.$company.'/corporate-accounts';
     }
 
+    private function directoryData(array $filters = []): array
+    {
+        $request = Request::create('/admin/corporate-accounts', 'GET', $filters);
+        $request->setRouteResolver(fn () => app('router')->getRoutes()->match($request));
+        $this->app->instance('request', $request);
+
+        return app(CompanyAccountsController::class)->directory($request, app(CompanyContextResolver::class))->getData();
+    }
+
+    public function test_global_directory_lists_employers_across_operators_and_counts_only_active_employees_and_activated_admins(): void
+    {
+        $this->actingAs($this->actor(), 'admin');
+        $other = $this->account->replicate()->fill(['company_id' => 2, 'account_name' => 'Zawadi Logistics']);
+        $other->save();
+        DB::table('users')->insert([
+            ['company_id' => 1, 'user_type' => 'Rider', 'status' => 'Inactive', 'corporate_account_id' => $this->account->id, 'deleted_at' => null],
+            ['company_id' => 1, 'user_type' => 'Rider', 'status' => 'Active', 'corporate_account_id' => $this->account->id, 'deleted_at' => now()],
+            ['company_id' => 1, 'user_type' => 'Driver', 'status' => 'Active', 'corporate_account_id' => $this->account->id, 'deleted_at' => null],
+        ]);
+        foreach ([['admin', 'Active', now()], ['admin', 'Active', null], ['admin', 'Inactive', now()], ['finance', 'Active', now()], ['viewer', 'Active', now()]] as $index => [$role, $status, $ready]) {
+            DB::table('corporate_portal_users')->insert(['corporate_account_id' => $this->account->id, 'name' => 'Portal user',
+                'email' => 'user'.$index.'@example.test', 'password' => 'unused-test-hash', 'role' => $role, 'status' => $status, 'password_set_at' => $ready]);
+        }
+        $data = $this->directoryData();
+        $this->assertSame([$this->account->id, $other->id], $data['accounts']->pluck('id')->all());
+        $this->assertSame(1, $data['accounts']->first()->active_members_count);
+        $this->assertSame(1, $data['accounts']->first()->ready_admins_count);
+        $this->assertSame(0, $data['accounts']->last()->ready_admins_count);
+        $this->assertSame(['Platform', 'Operator'], $data['accounts']->pluck('company.name')->all());
+        $html = $this->renderBody('directory', $data + ['errors' => new ViewErrorBag]);
+        $accountUrl = $this->prefix(2).'/accounts/'.$other->id;
+        foreach ([$accountUrl, $accountUrl.'/edit', $accountUrl.'#corporate-members', $accountUrl.'#corporate-portal-access', $accountUrl.'#corporate-archive', '/corporate/login', '/admin/corporate-accounts/create'] as $link) {
+            $this->assertStringContainsString($link, $html);
+        }
+        $this->assertStringNotContainsString('corporate.', strip_tags($html));
+        $this->assertSame(0, $this->account->audits()->count());
+        $this->get('/admin/saas-dispatch/accounts')->assertRedirect('/admin/corporate-accounts');
+    }
+
+    public function test_directory_search_status_and_operator_filters_keep_archived_history_discoverable(): void
+    {
+        $this->actingAs($this->actor(), 'admin');
+        $other = $this->account->replicate()->fill(['company_id' => 2, 'account_name' => 'Zawadi Logistics', 'status' => 'Inactive', 'contact_email' => 'accounts@zawadi.example.test']);
+        $other->save();
+        foreach (['Zawadi', 'accounts@zawadi.example.test', 'Operator'] as $term) {
+            $this->assertSame([$other->id], $this->directoryData(['search' => $term])['accounts']->pluck('id')->all());
+        }
+        $this->assertSame([$other->id], $this->directoryData(['status' => 'Inactive'])['accounts']->pluck('id')->all());
+        $this->assertSame([$this->account->id], $this->directoryData(['company_id' => 1])['accounts']->pluck('id')->all());
+        $this->assertSame(0, $this->directoryData(['search' => 'missing'])['accounts']->total());
+        app(CorporateAccountService::class)->archive($other, $this->actor());
+        $this->assertSame(0, $this->directoryData(['status' => 'Inactive'])['accounts']->total());
+        $data = $this->directoryData(['status' => 'Archived']);
+        $this->assertSame([$other->id], $data['accounts']->pluck('id')->all());
+        $html = $this->renderBody('directory', $data + ['errors' => new ViewErrorBag]);
+        $this->assertStringNotContainsString('/accounts/'.$other->id.'/edit', $html);
+        $this->assertStringNotContainsString('#corporate-archive', $html);
+        $this->assertStringContainsString('#corporate-members', $html);
+    }
+
+    public function test_directory_paginates_and_preserves_search_filters(): void
+    {
+        $this->actingAs($this->actor(), 'admin');
+        for ($i = 0; $i < 21; $i++) {
+            $this->account->replicate()->fill(['account_name' => sprintf('Kenya employer %02d', $i)])->save();
+        }
+        $data = $this->directoryData(['search' => 'Kenya employer', 'status' => 'Active']);
+        $this->assertSame(21, $data['accounts']->total());
+        $this->assertCount(20, $data['accounts']);
+        $this->assertStringContainsString('search=Kenya%20employer', $data['accounts']->nextPageUrl());
+        $this->assertStringContainsString('status=Active', $data['accounts']->nextPageUrl());
+        $this->assertSame('Kenya employer 20', $this->directoryData(['search' => 'Kenya employer', 'page' => 2])['accounts']->first()->account_name);
+    }
+
+    public function test_directory_requires_admin_permission_and_validates_filters_and_owner_on_creation(): void
+    {
+        $this->actingAs($this->actor(false), 'admin');
+        $this->getJson('/admin/corporate-accounts')->assertForbidden();
+        $this->getJson('/admin/corporate-accounts/create')->assertForbidden();
+        $this->postJson('/admin/corporate-accounts', $this->input(['company_id' => 1]))->assertForbidden();
+        $this->actingAs($this->actor(), 'admin');
+        $this->getJson('/admin/corporate-accounts?status=invalid')->assertUnprocessable()->assertJsonValidationErrors('status');
+        $this->getJson('/admin/corporate-accounts?search[]=invalid')->assertUnprocessable()->assertJsonValidationErrors('search');
+        $this->postJson('/admin/corporate-accounts', $this->input())->assertUnprocessable()->assertJsonValidationErrors('company_id');
+        $this->postJson('/admin/corporate-accounts', $this->input(['company_id' => 99999]))->assertUnprocessable();
+        $this->postJson('/admin/corporate-accounts', $this->input(['company_id' => 2]))->assertNotFound();
+        $this->assertSame(1, CompanyCorporateAccount::count());
+    }
+
+    public function test_operator_credentials_cannot_open_or_create_in_the_global_admin_directory(): void
+    {
+        $this->actingAs(Company::findOrFail(1), 'company');
+        $this->get('/admin/corporate-accounts')->assertRedirect('/admin/login');
+        $this->post('/admin/corporate-accounts', $this->input(['company_id' => 2]))->assertRedirect('/admin/login');
+        $this->assertSame(1, CompanyCorporateAccount::count());
+    }
+
+    public function test_directory_creates_for_selected_eligible_operator_and_reuses_audited_member_management(): void
+    {
+        $this->actingAs($this->actor(), 'admin');
+        DB::table('company_saas_settings')->insert(['company_id' => 2, 'is_saas_enabled' => true]);
+        $request = Request::create('/admin/corporate-accounts/create');
+        $this->app->instance('request', $request);
+        $data = app(CompanyAccountsController::class)->createFromDirectory(app(CompanyContextResolver::class))->getData();
+        $this->assertSame([2, 1], $data['operatorChoices']->pluck('id')->all());
+        $html = $this->renderBody('form', $data + ['errors' => new ViewErrorBag]);
+        $this->assertStringContainsString('name="company_id"', $html);
+        $this->assertStringContainsString('action="'.url('/admin/corporate-accounts').'"', $html);
+        $this->post('/admin/corporate-accounts', $this->input(['company_id' => 2, 'account_name' => 'Mwangaza Kenya']))->assertRedirect();
+        $created = CompanyCorporateAccount::latest('id')->first();
+        $this->assertSame(2, $created->company_id);
+        $this->assertSame(['account.created'], $created->audits()->pluck('action')->all());
+        $this->assertSame(0, $created->portalUsers()->count());
+        $this->delete($this->prefix().'/accounts/'.$this->account->id.'/members/1')->assertRedirect();
+        $this->post($this->prefix(2).'/accounts/'.$created->id.'/members', ['user_id' => 1, 'role' => 'member'])->assertRedirect();
+        $this->assertSame($created->id, (int) DB::table('users')->where('id', 1)->value('corporate_account_id'));
+        $this->assertSame(1, (int) DB::table('users')->where('id', 1)->value('company_id'));
+    }
+
+    public function test_retained_directory_is_available_but_creation_disabled_when_feature_is_off(): void
+    {
+        $this->actingAs($this->actor(), 'admin');
+        DB::table('saas_feature_modules')->update(['is_enabled' => false]);
+        $data = $this->directoryData();
+        $this->assertSame(1, $data['accounts']->total());
+        $this->assertFalse($data['canCreateAccounts']);
+        $form = app(CompanyAccountsController::class)->createFromDirectory(app(CompanyContextResolver::class))->getData();
+        $html = $this->renderBody('form', $form + ['errors' => new ViewErrorBag]);
+        $this->assertStringContainsString(__('corporate.no_eligible_operators'), $html);
+        $this->assertStringNotContainsString('<form', $html);
+        $this->postJson('/admin/corporate-accounts', $this->input(['company_id' => 1]))->assertNotFound();
+        $this->assertSame(1, CompanyCorporateAccount::count());
+    }
+
     public function test_real_routes_create_update_archive_and_audit_without_deleting_history(): void
     {
         $this->actingAs($this->actor(), 'admin');
@@ -247,7 +381,18 @@ class CorporateManagementTest extends TestCase
         $this->assertStringContainsString('1470.00', $html);
         $this->assertStringContainsString($invoice->invoice_number, $html);
         $this->assertStringContainsString($this->prefix().'/accounts/'.$this->account->id.'/trips/'.$trip->id, $html);
+        foreach (['corporate-members', 'corporate-portal-access', 'corporate-trips', 'corporate-invoices', 'corporate-archive'] as $anchor) {
+            $this->assertStringContainsString('id="'.$anchor.'"', $html);
+        }
+        $this->assertStringContainsString('href="'.url('/admin/corporate-accounts').'"', $html);
+        $this->assertStringContainsString('onsubmit="return window.confirm(this.dataset.confirm)"', $html);
         $this->assertStringNotContainsString('corporate.', strip_tags($html));
+        app(CorporateAccountService::class)->archive($this->account, $this->actor());
+        $data['account'] = $this->account->fresh();
+        $html = Blade::render($body, $data);
+        $this->assertStringNotContainsString('/members/1', $html);
+        $this->assertStringNotContainsString('/archive"', $html);
+        $this->assertStringContainsString($invoice->invoice_number, $html);
     }
 
     public function test_management_forms_and_invoice_lifecycle_states_render_translated_saved_data(): void

@@ -2,13 +2,19 @@
 @section('title-sub', __($account->exists ? 'corporate.edit_account' : 'corporate.create_account'))
 @section('pagetitle', __($account->exists ? 'corporate.edit_account' : 'corporate.create_account'))
 @section('main')
-<div id="layout-wrapper">
-    <div class="d-flex justify-content-between flex-wrap gap-3 mb-4"><h2 class="mb-0">{{ __($account->exists ? 'corporate.edit_account' : 'corporate.create_account') }}</h2><a class="btn btn-outline-secondary" href="{{ route($accountsRoute.'index', $accountsRouteParameters) }}">{{ __('corporate.back_accounts') }}</a></div>
+<div id="layout-wrapper" class="corporate-admin">
+    <div class="d-flex justify-content-between flex-wrap gap-3 mb-4"><h2 class="mb-0">{{ __($account->exists ? 'corporate.edit_account' : 'corporate.create_account') }}</h2><a class="btn btn-outline-secondary" href="{{ $accountsIndexUrl ?? route($accountsRoute.'index', $accountsRouteParameters) }}">{{ __('corporate.back_accounts') }}</a></div>
     <div class="card"><div class="card-body">
         @include('saasdispatch::accounts.errors')
+        @if(isset($operatorChoices) && $operatorChoices->isEmpty())
+        <p class="text-muted mb-0">{{ __('corporate.no_eligible_operators') }}</p>
+        @else
         <form method="POST" action="{{ route($accountsRoute.($account->exists ? 'accounts.update' : 'accounts.store'), $accountsRouteParameters + ($account->exists ? ['account' => $account->id] : [])) }}" class="row g-3">
             @csrf
             @if($account->exists)@method('PUT')@endif
+            @isset($operatorChoices)
+            <div class="col-12"><label class="form-label" for="company_id">{{ __('corporate.operator') }}</label><select id="company_id" name="company_id" class="form-control" required><option value="">{{ __('corporate.select_operator') }}</option>@foreach($operatorChoices as $operator)<option value="{{ $operator->id }}" @selected((string) old('company_id') === (string) $operator->id)>{{ $operator->name }}</option>@endforeach</select><small class="text-muted">{{ __('corporate.operator_hint') }}</small></div>
+            @endisset
             @foreach(['account_name', 'legal_name', 'contact_name', 'contact_email', 'contact_phone'] as $field)
             <div class="col-md-6"><label class="form-label" for="{{ $field }}">{{ __('corporate.'.$field) }}</label><input id="{{ $field }}" class="form-control" name="{{ $field }}" type="{{ $field === 'contact_email' ? 'email' : 'text' }}" value="{{ old($field, $account->$field) }}" maxlength="{{ $field === 'contact_phone' ? 50 : 191 }}" @if(in_array($field, ['account_name', 'legal_name', 'contact_email']))required @endif></div>
             @endforeach
@@ -23,6 +29,7 @@
             <div class="col-12"><label class="form-label" for="notes">{{ __('corporate.notes') }}</label><textarea id="notes" name="notes" class="form-control" rows="3" maxlength="1000">{{ old('notes', $account->notes) }}</textarea></div>
             <div class="col-12"><button class="btn btn-primary" type="submit">{{ __('corporate.save_account') }}</button></div>
         </form>
+        @endif
     </div></div>
 </div>
 @endsection

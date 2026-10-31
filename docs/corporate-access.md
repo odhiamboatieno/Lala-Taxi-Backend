@@ -2,7 +2,9 @@
 
 ## Platform admin
 
-Sign in at `/admin/login`. In the sidebar open **Finance and accounts → Accounts / invoicing** (`/admin/saas-dispatch/accounts`), choose the owning fleet/operator company, then open an employer corporate account.
+Sign in at `/admin/login`. In the sidebar open **Business travel → Corporate accounts** (`/admin/corporate-accounts`). The directory lists employers across all operators, with search, operator/status filters, active employee counts and activated portal-administrator counts. The old `/admin/saas-dispatch/accounts` link redirects here. This directory is implemented in the next release; production promotion is pending explicit approval.
+
+Create an account by selecting an eligible owning operator and entering the legal billing/contact details. Each employer row opens details, editing, **Members** and **Portal access** directly. **Archive account** opens the retained-history removal action with confirmation; it does not permanently delete users, trips, invoices or settlements. Inactive and archived accounts remain searchable. Creation is unavailable when no active operator has corporate management enabled; retained servicing remains available.
 
 The account detail page contains **Members**, mobile role selection, eligible rider search/attachment, **Portal access**, saved trip charges and invoices. Invite a work email under Portal access; the person receives an expiring password setup link. No mobile account or shared password is required for the web portal. Mobile roles are Employee (`member`), Manager (`manager`) and Finance (`finance`). Only eligible active Rider accounts can be attached; changing employers requires removing the existing affiliation first. Archived accounts retain historical trips/invoices and do not accept new membership or bookings.
 
@@ -21,6 +23,8 @@ The corporate browser guard and credentials are separate from `/signin_company`,
 - Corporate administrator: monitor own employer trips; attach/remove existing eligible employees, explicitly assign mobile roles, and manage employer portal invitations/access; read issued invoices/PDFs.
 - Finance: monitor own employer trips and read issued invoices/PDFs; cannot manage employees or portal access.
 - Activity viewer: monitor own employer trips; cannot read invoices or manage users.
+
+The dashboard shows the employer name/status, active employee count, finalized journey count, outstanding company charges and recent journeys. Quick links expose employee management to corporate administrators and issued invoices to administrators/finance. All data belongs to the signed-in employer. The admin directory marks accounts without an activated portal administrator as **Set up access**; that link opens the invitation controls, not an impersonated employer session.
 
 No corporate browser role can generate, issue, settle or void invoices. Platform/operator finance retains these actions. Inactive identities/accounts are blocked; archived agreements retain read-only historical access. Role/email/status/password changes revoke existing sessions. The last active portal administrator cannot be disabled or demoted. Mail failures retain the pending identity and allow retry; use a functioning configured mail transport before inviting real users.
 

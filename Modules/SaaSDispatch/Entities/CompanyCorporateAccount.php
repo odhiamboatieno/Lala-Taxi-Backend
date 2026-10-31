@@ -42,6 +42,11 @@ class CompanyCorporateAccount extends Model
         return $this->hasMany(\App\Models\User::class, 'corporate_account_id');
     }
 
+    public function portalUsers()
+    {
+        return $this->hasMany(\App\Models\CorporatePortalUser::class, 'corporate_account_id');
+    }
+
     public function trips()
     {
         return $this->hasMany(\App\Models\Trips::class, 'corporate_account_id');

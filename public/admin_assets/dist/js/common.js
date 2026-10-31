@@ -55,8 +55,26 @@ $(document).ready(function() {
 		});
 	});
 
-	$('button[type="submit"]').on('click', function() {
-		setTimeout(() => $('button[type="submit"]').prop('disabled', true) , 0);
+	// Native validation and confirmation must accept the submission before showing a busy state.
+	document.addEventListener('submit', function(event) {
+		var form = event.target;
+		if (form.tagName !== 'FORM' || form.method.toLowerCase() !== 'post') return;
+		window.setTimeout(function() {
+			if (event.defaultPrevented) return;
+			form.querySelectorAll('button[type="submit"], input[type="submit"]').forEach(function(control) {
+				if (control.disabled) return;
+				control.dataset.adminSubmitBusy = 'true';
+				control.setAttribute('aria-busy', 'true');
+				control.disabled = true;
+			});
+		}, 0);
+	});
+	window.addEventListener('pageshow', function() {
+		document.querySelectorAll('[data-admin-submit-busy]').forEach(function(control) {
+			delete control.dataset.adminSubmitBusy;
+			control.removeAttribute('aria-busy');
+			control.disabled = false;
+		});
 	});
 });
 

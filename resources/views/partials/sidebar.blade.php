@@ -432,11 +432,11 @@
             @endif
 
             @if($company_user ? (app(\App\Services\Corporate\CorporateCapabilities::class)->servicingEnabled(auth('company')->user()) && operation_team_can('manage_company_accounts_invoicing')) : (app(\App\Services\Corporate\CorporateCapabilities::class)->platformServicingEnabled() && auth('admin')->user()?->can('manage_company_accounts_invoicing')))
-                <li class="pe-menu-title">{{ __('corporate.finance_accounts') }}</li>
+                <li class="pe-menu-title">{{ __('corporate.business_travel') }}</li>
                 <li class="pe-slide {{ str_contains(Route::current()->uri(), 'saas-dispatch/accounts') || str_contains(Route::current()->uri(), 'corporate-accounts') ? 'active' : '' }}">
-                    <a href="{{ url($first_segment . '/saas-dispatch/accounts') }}" class="pe-nav-link">
-                        <i class="bi bi-receipt-cutoff pe-nav-icon"></i>
-                        <span class="pe-nav-content">{{ __('corporate.accounts_invoicing') }}</span>
+                    <a href="{{ $company_user ? route('saasdispatch.self.accounts.index') : route('saasdispatch.admin.corporate-accounts.index') }}" class="pe-nav-link">
+                        <i data-lucide="building-2" class="pe-nav-icon" aria-hidden="true"></i>
+                        <span class="pe-nav-content">{{ __('corporate.accounts') }}</span>
                     </a>
                 </li>
             @endif

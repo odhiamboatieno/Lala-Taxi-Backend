@@ -77,6 +77,13 @@
 .admin-app :is(.table,.dataTable) thead th { color: var(--admin-muted) !important; background: var(--admin-surface-soft) !important; font-size: 12px; font-weight: 650; line-height: 1.5; letter-spacing: .025em; }
 .admin-app :is(.table-hover,.dataTable) tbody tr:hover > * { background-color: var(--admin-accent-soft) !important; }
 .admin-app .table-responsive { scrollbar-width: thin; }
+/* Employer administration shares the global palette and square controls. Keep long identities within mobile cards. */
+.admin-app .corporate-admin { min-width: 0; }
+.admin-app .corporate-admin :is(.form-control,.form-select) { min-width: 0; }
+.admin-app .corporate-admin .table-responsive { position: relative; }
+.admin-app .corporate-admin :is(h2,h3,h4,p,dd,a) { overflow-wrap: anywhere; }
+.admin-app .corporate-admin [id^="corporate-"] { scroll-margin-top: 6rem; }
+.admin-app .corporate-admin-directory .table { min-width: 960px; }
 .admin-app .dataTables_wrapper :is(.dataTables_length,.dataTables_filter) { margin-bottom: 16px; }
 .admin-app .dataTables_wrapper :is(input,select) { min-height: 38px; margin-inline: 8px; }
 .admin-app .dataTables_wrapper :is(.dataTables_info,.dataTables_paginate) { padding-top: 18px; font-size: 13px; }
