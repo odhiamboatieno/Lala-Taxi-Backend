@@ -2,7 +2,13 @@
 
 Source specification: workspace-root `CORPORATE_ACCOUNTS_IMPLEMENTATION.md` (corrected 2026-10-07).
 
-## Current execution status — 2026-10-09: existing Customer membership lookup repair
+## Final review follow-up — 2026-10-31: application-only release safety
+
+- The application release script now pulls only app/queue/Reverb/scheduler images and starts services with `--no-deps`, so a routine code upgrade cannot implicitly pull/recreate MySQL or Redis. Infrastructure must already be running and needs a separate reviewed upgrade procedure.
+- Preflight rejects mixed immutable application images before downtime. Non-interactive checks do not consume operator/script stdin, including releases streamed through SSH. Writer-first/readers-after-validation ordering and stop-on-failure behavior are preserved.
+- Regression tests reproduced five failures before the fix. All **8 script tests / 29 assertions** now pass, exercising the actual shell scripts with a test-only recording Docker executable: correct service scope/order, piped invocation, missing backup evidence, pull/writer/runtime-check failures, mixed images and missing/mutable images. The preceding complete backend run passed **224 / 2,408** (two MySQL-only skips). No production services or financial records were changed by these script tests. Native-device and external-mail acceptance remain open.
+
+## Previous deployment — 2026-10-09: existing Customer membership lookup repair
 
 - Read-only production diagnostics confirmed that the reported phone has an active, unaffiliated Rider account. Normal Customer registration leaves `users.company_id` null, and dispatch resolves that representation to the configured platform operator. The portal's exact company-ID lookup and the membership service's second authorization check rejected these otherwise valid platform Customers. No live membership or operator field was manually changed.
 - Membership lookup, transactional authorization and the operator employee selector now share the same operator scope. Only the configured platform owner includes null-company Riders; other operators still cannot claim platform Customers or foreign-operator users. Existing employer isolation, active Rider checks, soft-delete exclusion, role permissions and assignment/removal audits remain enforced. No migration or bulk rewriting of Customer dispatch ownership is needed.

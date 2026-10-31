@@ -7,6 +7,7 @@ if [ -z "$application_images" ]; then
     echo 'Missing application image.' >&2
     exit 1
 fi
+first_application_image=''
 for application_image in $application_images; do
     case "$application_image" in
         ghcr.io/*/lala-taxi-backend@sha256:*)
@@ -16,11 +17,16 @@ for application_image in $application_images; do
             ;;
         *) echo 'Application image must be pinned to the tested GHCR sha256 digest.' >&2; exit 1;;
     esac
+    if [ -n "$first_application_image" ] && [ "$application_image" != "$first_application_image" ]; then
+        echo 'All application services must use the same immutable image.' >&2
+        exit 1
+    fi
+    first_application_image=$application_image
 done
 if [ "${1:-}" = '--config-only' ]; then
     echo 'Compose configuration and immutable application image validated.'
     exit 0
 fi
-docker compose exec -T app php artisan corporate:release-check --no-interaction
+docker compose exec -T app php artisan corporate:release-check --no-interaction < /dev/null
 docker compose ps
 echo 'Read-only preflight complete; this does not establish observed SMTP, scheduler or device acceptance.'
