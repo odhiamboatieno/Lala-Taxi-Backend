@@ -26,19 +26,22 @@ Route::group(['prefix' => 'admin', 'middleware' =>'admin_auth'], function () {
 
 Route::match(['get', 'post'],'admin/authenticate', 'AdminController@authenticate');
 
-Route::group(['prefix' => (LOGIN_USER_TYPE=='company')?'company':'admin', 'middleware' => ['admin_guest','company_approval']], function () {
+// CLI route:cache has no request segment. Use the same resolved context for
+// the prefix, redirect destination and admin-only route registration.
+$operationsRouteContext = LOGIN_USER_TYPE === 'company' ? 'company' : 'admin';
+Route::group(['prefix' => $operationsRouteContext, 'middleware' => ['admin_guest','company_approval']], function () use ($operationsRouteContext) {
 
-	Route::redirect('/',LOGIN_USER_TYPE.'/dashboard');
+	Route::redirect('/', '/'.$operationsRouteContext.'/dashboard');
 	Route::get('dashboard', 'AdminController@index');
 	Route::get('search', \App\Http\Controllers\Admin\DashboardSearchController::class)->middleware('throttle:dashboard-search');
 	Route::get('lang/{lang}', ['as' => 'switch.locale', 'uses' => 'LanguageController@changeLocale']);
 
-	if (LOGIN_USER_TYPE == 'admin') {
+	if ($operationsRouteContext === 'admin') {
 		Route::get('logout', 'AdminController@logout');
 	}
 
 	// Modules management (admin only)
-	if (LOGIN_USER_TYPE == 'admin') {
+	if ($operationsRouteContext === 'admin') {
 		Route::get('modules', 'ModuleController@index')->name('admin.modules.index');
 		Route::get('modules/upload', 'ModuleController@create')->name('admin.modules.create');
 		Route::post('modules', 'ModuleController@store')->name('admin.modules.store');

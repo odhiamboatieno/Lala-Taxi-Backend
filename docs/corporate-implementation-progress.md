@@ -2,6 +2,12 @@
 
 Source specification: workspace-root `CORPORATE_ACCOUNTS_IMPLEMENTATION.md` (corrected 2026-10-07).
 
+## Current follow-up — 2026-10-31: cached dashboard/module routes
+
+- Production route-cache inspection reproduced a root `/dashboard` 404, a missing company dashboard and missing `/admin/modules` routes. CLI bootstrap has no request segment; legacy route registration used that empty value both for the admin landing destination and its admin-only conditionals.
+- Operations route registration now uses one explicit resolved context for its prefix, landing redirect and admin-only routes. A guard-aware `/dashboard` compatibility endpoint directs admin/company/employer/rider/driver sessions to their existing guarded destinations; guests go to Sign in. Company dashboard entry routes are registered independently of HTTP bootstrap. This does not bypass authentication or company approval.
+- Fresh-process tests build and reload the real route cache and verify dashboard destinations, module routes and authentication middleware. HTTP regressions cover all session guards and actual admin password login with a stored intended admin-root URL. Production deployment is pending verification of the new immutable image; no booking enablement is claimed yet.
+
 ## Final review follow-up — 2026-10-31: application-only release safety
 
 - The application release script now pulls only app/queue/Reverb/scheduler images and starts services with `--no-deps`, so a routine code upgrade cannot implicitly pull/recreate MySQL or Redis. Infrastructure must already be running and needs a separate reviewed upgrade procedure.

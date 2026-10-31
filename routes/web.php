@@ -19,6 +19,16 @@ Route::match(['GET', 'POST'],'apple_callback', 'UserController@apple_callback');
 Route::get('app/driver', 'HomeController@redirect_to_driver_app');
 Route::get('app/rider', 'HomeController@redirect_to_rider_app');
 
+// Older login sessions/bookmarks used this unprefixed dashboard address.
+// Keep it outside the CMS catch-all and resolve the actual authenticated guard.
+Route::get('dashboard', \App\Http\Controllers\DashboardRedirectController::class)->name('dashboard');
+
+// These entry points must exist in CLI-built route caches as well as HTTP boot.
+Route::middleware(['admin_guest', 'company_approval'])->group(function () {
+    Route::redirect('company', '/company/dashboard');
+    Route::get('company/dashboard', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('company.dashboard');
+});
+
 Route::get('db_backup', 'HomeController@dbBackup');
 
 Route::get('query_update/{type}', 'HomeController@urlQueryUpdateDb');
