@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Request as RideRequest;
 use App\Models\ScheduleRide;
+use App\Models\Company;
 use App\Models\SiteSettings;
 use App\Models\Trips;
 use App\Models\User;
@@ -78,6 +79,17 @@ class CorporateBookingTest extends TestCase
         $this->rejects(fn () => $this->schedule());
         $this->assertTrue(app(CorporateCapabilities::class)->managementEnabled($this->account->company));
         $this->assertSame(0, DB::table('schedule_ride')->count());
+    }
+
+    public function test_manual_dispatcher_can_only_use_its_own_corporate_employer_account(): void
+    {
+        $service = app(ManualBookingPayment::class);
+        $rider = User::findOrFail(1);
+
+        $this->assertSame('Corporate', $service->resolve('Cash', $rider, Company::findOrFail(1))['payment_method']);
+        $this->rejects(fn () => $service->resolve('Cash', $rider, Company::findOrFail(2)), 'payment_method');
+        // Platform admins have no tenant context and may dispatch across operators.
+        $this->assertSame('Corporate', $service->resolve('Cash', $rider)['payment_method']);
     }
 
     public function test_schedule_offer_retry_and_accept_preserve_the_server_snapshot(): void

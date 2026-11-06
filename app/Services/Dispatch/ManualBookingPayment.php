@@ -2,6 +2,7 @@
 
 namespace App\Services\Dispatch;
 
+use App\Models\Company;
 use App\Models\User;
 use App\Services\Corporate\CorporateBillingContext;
 use Illuminate\Validation\ValidationException;
@@ -9,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 class ManualBookingPayment
 {
     /** Manual dispatch has no card credential or wallet-consent collection yet. */
-    public function resolve(?string $method, ?User $rider = null): array
+    public function resolve(?string $method, ?User $rider = null, ?Company $operatorContext = null): array
     {
         $method = $this->intent($method);
         if ($method === 'Corporate' && !$rider) {
@@ -18,6 +19,11 @@ class ManualBookingPayment
         if ($rider) {
             $context = app(CorporateBillingContext::class)->resolveForBooking($rider, ['payment_method' => $method]);
             if ($context['billing_mode'] === 'corporate') {
+                // Company dispatchers may bill only an employer account owned by
+                // their own operator. Admin dispatch has no tenant restriction.
+                if ($operatorContext && (int) ($context['billing_snapshot']['company_id'] ?? 0) !== (int) $operatorContext->id) {
+                    throw ValidationException::withMessages(['payment_method' => __('corporate.booking_unavailable')]);
+                }
                 $method = 'Corporate';
             }
         }

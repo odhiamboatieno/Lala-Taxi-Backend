@@ -107,9 +107,13 @@ class ManualBookingController extends Controller
 
     public function store(Request $request) {
 
+        // Resolve the dispatcher tenant before looking up or creating a rider.
+        // Corporate payer ownership must be checked before map calls or writes.
+        $company = LOGIN_USER_TYPE == 'company' ? Auth::guard('company')->user() : null;
+
         $rider = User::where('mobile_number', $request->mobile_number)
             ->where('country_code', $request->country_code)->where('user_type', 'Rider')->first();
-        $payment = app(\App\Services\Dispatch\ManualBookingPayment::class)->resolve($request->input('payment_method'), $rider);
+        $payment = app(\App\Services\Dispatch\ManualBookingPayment::class)->resolve($request->input('payment_method'), $rider, $company);
         if ($rider) {
             // Validate before creating related records or invoking external map services.
             app(\App\Services\Corporate\CorporateBillingContext::class)->resolveForBooking($rider, [
@@ -135,7 +139,6 @@ class ManualBookingController extends Controller
             $profile->save();
         }
 
-        $company = LOGIN_USER_TYPE == 'company' ? Auth::guard('company')->user() : null;
         $dispatchSettings = $this->dispatchConfig->resolve($company);
         $experienceTab = $this->normalizeBookingExperienceTab($request->input('booking_experience_tab', 'asap'));
         $bookingMode = $experienceTab === 'asap'

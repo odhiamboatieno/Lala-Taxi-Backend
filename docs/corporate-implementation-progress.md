@@ -2,6 +2,10 @@
 
 Source specification: workspace-root `CORPORATE_ACCOUNTS_IMPLEMENTATION.md` (corrected 2026-10-07).
 
+## Final review follow-up — manual dispatch tenant ownership
+
+- Manual booking now resolves the signed-in company dispatcher before rider lookup and passes that operator context into payment resolution. When a rider is a corporate member, the payer account's owning company must match the dispatcher's company; mismatches fail validation before rider creation, map lookups or booking writes. Platform Admin dispatch remains cross-operator. Focused coverage passes: **12 tests / 64 assertions** in `CorporateBookingTest`; PHP syntax and `git diff --check` pass. Broader repository verification and release promotion remain separate gates.
+
 ## Verified next release — 2026-10-31: direct corporate administration
 
 - Added **Business travel → Corporate accounts**, a direct employer directory at `/admin/corporate-accounts`, in both navigation layouts. It lists employers across operators with search, owner/status filters, pagination, active employee counts and activated portal-administrator counts. The earlier `/admin/saas-dispatch/accounts` URL redirects to it. Existing tenant URLs continue to work.
