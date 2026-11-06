@@ -6,11 +6,19 @@ Source specification: workspace-root `CORPORATE_ACCOUNTS_IMPLEMENTATION.md` (cor
 
 - Manual booking now resolves the signed-in company dispatcher before rider lookup and passes that operator context into payment resolution. When a rider is a corporate member, the payer account's owning company must match the dispatcher's company; mismatches fail validation before rider creation, map lookups or booking writes. Platform Admin dispatch remains cross-operator. Focused coverage passes: **12 tests / 64 assertions** in `CorporateBookingTest`.
 
-## Latest verification — 2026-11-06
+## Verification before production promotion — 2026-11-06
 
 - Full backend suite: **243 tests / 2,552 assertions**, 2 intentional MySQL-only skips. CI run [42216280779](https://github.com/odhiamboatieno/Lala-Taxi-Backend/actions/runs/42216280779) passed the general suite, dedicated MySQL migration/concurrency/retention checks, mobile-contract reproduction, isolated full-schema acceptance provisioning, cached-route/release validation, image publication and deployment-bundle packaging.
 - Customer: **37 tests**, analyzer clean, Android debug APK built. Driver: **26 tests**, analyzer clean, Android debug APK built. `adb devices -l` currently reports no connected device, so native OTP/GPS acceptance remains unverified.
-- Production is still on `ghcr.io/odhiamboatieno/lala-taxi-backend@sha256:b31f67e333e4ebb50175d7055d21f5cf3d3da0d7ff35e0b244cfc51d599dfefd`; the corporate booking flag reads `true`. A guest GET of `/admin/corporate-accounts` returns **404** on that older image. The tested release for commit `b112cd6c734b2e99d6baa8e6c065e1a5349cb284` is `ghcr.io/odhiamboatieno/lala-taxi-backend@sha256:0ee5d1a06663a74753684124f9703e125d5e86bce1e0d2ede5ec18850bbacae7`; promotion is awaiting confirmation because the controlled release briefly stops application readers. No production data or settings were changed during this verification.
+- At this pre-release check, production was on `ghcr.io/odhiamboatieno/lala-taxi-backend@sha256:b31f67e333e4ebb50175d7055d21f5cf3d3da0d7ff35e0b244cfc51d599dfefd`; the corporate booking flag read `true`, and a guest GET of `/admin/corporate-accounts` returned **404**. No production data or settings were changed during that verification.
+
+## Production promotion — 2026-11-06
+
+- Following the user's explicit release authorization, production was upgraded to commit `ffd620c044774d4456408b12c6aced7088e1d5a6`, image `ghcr.io/odhiamboatieno/lala-taxi-backend@sha256:74291858b0f3f6bb8a1b24d01b511eb60258703abbd5610f0d78a4334b481bca`. App, queue, Reverb and scheduler use the same digest; nginx, MySQL and Redis are healthy. The app's `.src-build` matches the deployed commit.
+- Before the short app-reader outage, a fresh protected backup at `/www/wwwroot/taxi/backup/corporate-preflight.lQMVOT` passed isolated database restore, schema/integrity and archive checks. The only file removed during image sync, `Modules/SaaSDispatch/Resources/views/accounts/companies.blade.php`, was copied with matching SHA-256 into the protected backup's `obsolete-code/` tree first. The deployed image has no pending database migrations.
+- Corporate runtime preflight passes against production MySQL, Redis, queue, mail configuration, retained financial records and routes. `CORPORATE_BOOKINGS_ENABLED=true` was preserved; no customer accounts, invitations, invoices, trips or settlements were created or changed.
+- Live HTTP checks now return **302 to `/admin/login`** for `/admin/corporate-accounts` (the route is active and requires an Admin session), and **200** for `/corporate/login`, `/`, `/signup_rider`, `/help`, `/signup_driver` and `/company/register`. After Admin login, click **Business travel → Corporate accounts**; use **Add corporate account** to create an employer. Corporate managers use `/corporate/login` after an Admin sends their invitation from the account's **Portal access** page.
+- Production email delivery to an external mailbox and native OTP/GPS/push acceptance remain unverified: no external invitation was sent, and no Android device is currently connected. Staging browser, Mailpit and mobile automated checks are not represented as production acceptance.
 
 ## Verified next release — 2026-10-31: direct corporate administration
 
