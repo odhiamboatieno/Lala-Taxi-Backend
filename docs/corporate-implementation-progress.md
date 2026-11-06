@@ -4,7 +4,13 @@ Source specification: workspace-root `CORPORATE_ACCOUNTS_IMPLEMENTATION.md` (cor
 
 ## Final review follow-up — manual dispatch tenant ownership
 
-- Manual booking now resolves the signed-in company dispatcher before rider lookup and passes that operator context into payment resolution. When a rider is a corporate member, the payer account's owning company must match the dispatcher's company; mismatches fail validation before rider creation, map lookups or booking writes. Platform Admin dispatch remains cross-operator. Focused coverage passes: **12 tests / 64 assertions** in `CorporateBookingTest`; PHP syntax and `git diff --check` pass. Broader repository verification and release promotion remain separate gates.
+- Manual booking now resolves the signed-in company dispatcher before rider lookup and passes that operator context into payment resolution. When a rider is a corporate member, the payer account's owning company must match the dispatcher's company; mismatches fail validation before rider creation, map lookups or booking writes. Platform Admin dispatch remains cross-operator. Focused coverage passes: **12 tests / 64 assertions** in `CorporateBookingTest`.
+
+## Latest verification — 2026-11-06
+
+- Full backend suite: **243 tests / 2,552 assertions**, 2 intentional MySQL-only skips. CI run [42216280779](https://github.com/odhiamboatieno/Lala-Taxi-Backend/actions/runs/42216280779) passed the general suite, dedicated MySQL migration/concurrency/retention checks, mobile-contract reproduction, isolated full-schema acceptance provisioning, cached-route/release validation, image publication and deployment-bundle packaging.
+- Customer: **37 tests**, analyzer clean, Android debug APK built. Driver: **26 tests**, analyzer clean, Android debug APK built. `adb devices -l` currently reports no connected device, so native OTP/GPS acceptance remains unverified.
+- Production is still on `ghcr.io/odhiamboatieno/lala-taxi-backend@sha256:b31f67e333e4ebb50175d7055d21f5cf3d3da0d7ff35e0b244cfc51d599dfefd`; the corporate booking flag reads `true`. A guest GET of `/admin/corporate-accounts` returns **404** on that older image. The tested release for commit `b112cd6c734b2e99d6baa8e6c065e1a5349cb284` is `ghcr.io/odhiamboatieno/lala-taxi-backend@sha256:0ee5d1a06663a74753684124f9703e125d5e86bce1e0d2ede5ec18850bbacae7`; promotion is awaiting confirmation because the controlled release briefly stops application readers. No production data or settings were changed during this verification.
 
 ## Verified next release — 2026-10-31: direct corporate administration
 
